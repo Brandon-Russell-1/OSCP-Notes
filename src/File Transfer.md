@@ -1,4 +1,7 @@
+## Links
 
+- [Windows File Transfer](https://juggernaut-sec.com/windows-file-transfers-for-hackers/)
+- 
 ## **Introduction**
 
 When performing enumeration steps during a penetration test, there is often the need to transfer files to or from the victim machine, for example to run custom scripts or analyze files further in a controlled environment.

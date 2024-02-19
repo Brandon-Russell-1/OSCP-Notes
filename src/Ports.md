@@ -1,5 +1,17 @@
-## <ins>80/443 - HTTP</ins>
+## Links
 
+- [Total OSCP Guide](https://sushant747.gitbooks.io/total-oscp-guide/content/sql-injections.html)
+- [HackTricks 80](https://book.hacktricks.xyz/network-services-pentesting/pentesting-web)
+- [SMB Enum Guide](https://steflan-security.com/smb-enumeration-guide/)
+- [AutoBlueSMB](https://github.com/3ndG4me/AutoBlue-MS17-010.git)
+- [FTP Enum](https://steflan-security.com/ftp-enumeration-guide/)
+- [HackTricks 53](https://book.hacktricks.xyz/network-services-pentesting/pentesting-dns)
+- [HackTricks 22](https://book.hacktricks.xyz/network-services-pentesting/pentesting-ssh)
+- [NetCat Email][https://www.linuxjournal.com/content/sending-email-netcat]
+- [Netcat SMTP](https://infosecwriteups.com/what-do-netcat-smtp-and-self-xss-have-in-common-stored-xss-a05648b72002)
+- [MSSQL HackTricks](https://book.hacktricks.xyz/network-services-pentesting/pentesting-mssql-microsoft-sql-server)
+- 
+## <ins>80/443 - HTTP</ins>
 
 ### First Thing
 

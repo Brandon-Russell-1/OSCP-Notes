@@ -1,0 +1,338 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Enumeration - Brandon&#x27;s OSCP Notes</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><div><strong aria-hidden="true">1.</strong> The Things</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="Quick Notes.html"><strong aria-hidden="true">1.1.</strong> Quick Notes</a></li><li class="chapter-item expanded "><a href="Scanning.html"><strong aria-hidden="true">1.2.</strong> Scanning</a></li><li class="chapter-item expanded "><a href="File Transfer.html"><strong aria-hidden="true">1.3.</strong> File Transfer</a></li><li class="chapter-item expanded "><a href="Ports.html"><strong aria-hidden="true">1.4.</strong> Ports</a></li><li class="chapter-item expanded "><a href="Shells.html"><strong aria-hidden="true">1.5.</strong> Shells</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">2.</strong> Gaining Access</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="CrackMapExecCheatSheet.html"><strong aria-hidden="true">2.1.</strong> CrackMapExec Cheat Sheet</a></li><li class="chapter-item expanded "><a href="Web Shells.html"><strong aria-hidden="true">2.2.</strong> Web Shells</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">2.3.</strong> Password Cracking</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="My Hashcat Cheatsheet.html"><strong aria-hidden="true">2.3.1.</strong> Hashcat Cheat Sheet</a></li><li class="chapter-item expanded "><a href="My Hydra Cheatsheet.html"><strong aria-hidden="true">2.3.2.</strong> Hydra Cheat Sheet</a></li><li class="chapter-item expanded "><a href="Bruteforce.html"><strong aria-hidden="true">2.3.3.</strong> Bruteforce</a></li></ol></li><li class="chapter-item expanded "><a href="Buffer Overflow.html"><strong aria-hidden="true">2.4.</strong> Buffer Overflow</a></li><li class="chapter-item expanded "><a href="File Uploads.html"><strong aria-hidden="true">2.5.</strong> File Uploads</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="htmlfileupload.html"><strong aria-hidden="true">2.5.1.</strong> HTML</a></li><li class="chapter-item expanded "><a href="MyMacros.html"><strong aria-hidden="true">2.5.2.</strong> Macro</a></li><li class="chapter-item expanded "><a href="OLEFileUpload.html"><strong aria-hidden="true">2.5.3.</strong> OLE</a></li></ol></li><li class="chapter-item expanded "><a href="LFIRFI.html"><strong aria-hidden="true">2.6.</strong> LFI/RFI</a></li><li class="chapter-item expanded "><a href="ShellShock.html"><strong aria-hidden="true">2.7.</strong> Shell Shock</a></li><li class="chapter-item expanded "><a href="Github.html"><strong aria-hidden="true">2.8.</strong> Github</a></li><li class="chapter-item expanded "><a href="MySQL.html"><strong aria-hidden="true">2.9.</strong> SQL</a></li><li class="chapter-item expanded "><a href="WindowLibraries.html"><strong aria-hidden="true">2.10.</strong> Windows Libraries and APIs</a></li><li class="chapter-item expanded "><a href="XXEXSSDeSerial.html"><strong aria-hidden="true">2.11.</strong> XXE_XSS_Deserialization</a></li><li class="chapter-item expanded "><a href="DirectoryTraveral.html"><strong aria-hidden="true">2.12.</strong> Directory Traversal</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">3.</strong> Linux PrivEsc</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="LinuxEnum.html"><strong aria-hidden="true">3.1.</strong> Enumeration</a></li><li class="chapter-item expanded "><a href="LinuxPrivExploit.html"><strong aria-hidden="true">3.2.</strong> Exploit</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.</strong> Windows PrivEsc</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="WinPrivEnum.html" class="active"><strong aria-hidden="true">4.1.</strong> Enumeration</a></li><li class="chapter-item expanded "><a href="WinPrivExploit.html"><strong aria-hidden="true">4.2.</strong> Exploit</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.</strong> Active Directory</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="WeGotUsersbutnoPass.html"><strong aria-hidden="true">5.1.</strong> We got Users but no Pass?</a></li><li class="chapter-item expanded "><a href="ADEnum.html"><strong aria-hidden="true">5.2.</strong> Enumeration</a></li><li class="chapter-item expanded "><a href="ADAuth.html"><strong aria-hidden="true">5.3.</strong> Authentication</a></li><li class="chapter-item expanded "><a href="ADPivoting.html"><strong aria-hidden="true">5.4.</strong> Pivoting</a></li><li class="chapter-item expanded "><a href="ADLateralMovement.html"><strong aria-hidden="true">5.5.</strong> Lateral Movement</a></li><li class="chapter-item expanded "><a href="ADHashDump.html"><strong aria-hidden="true">5.6.</strong> Hash Dumping</a></li><li class="chapter-item expanded "><a href="ADPersistence.html"><strong aria-hidden="true">5.7.</strong> Persistence</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Brandon&#x27;s OSCP Notes</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h2 id="automate"><a class="header" href="#automate">Automate</a></h2>
+<ul>
+<li><a href="https://github.com/carlospolop/PEASS-ng/tree/master/winPEAS">WinPEAS</a></li>
+</ul>
+<h2 id="manual"><a class="header" href="#manual">Manual</a></h2>
+<pre><code>
+whoami # username/hostname
+whoami /groups # check user is in which group
+
+net user
+net user &lt;username&gt;
+Get-LocalUser # Powershell
+
+net localgroup
+net localgroup &lt;groupname&gt;
+Get-localgroup # Powershell
+
+systeminfo
+netstat -ano
+
+# Installed Apps # Powershell
+Get-ItemProperty "HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\*" | select displayname
+Get-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\*" | select displayname
+
+Get-Process # Powershell - running process
+Get-Process | Select ProcessName,Path # With Path
+
+# Powershell
+Get-ChildItem -Path C:\ -Include *.kdbx -File -Recurse -ErrorAction SilentlyContinue
+
+# Powershell
+Get-ChildItem -Path C:\Users\dave\ -Include *.txt,*.pdf,*.xls,*.xlsx,*.doc,*.docx -File -Recurse -ErrorAction SilentlyContinue
+Get-ChildItem -Path C:\xampp -Include *.txt,*.ini -File -Recurse -ErrorAction SilentlyContinue
+
+# Default xampp passwords
+type C:\xampp\passwords.txt
+type C:\xampp\mysql\bin\my.ini
+
+# Change username
+Get-ChildItem -Path C:\Users\dave\ -Include *.txt,*.pdf,*.xls,*.xlsx,*.doc,*.docx -File -Recurse -ErrorAction SilentlyContinue
+
+Get-History # Powershell History
+(Get-PSReadlineOption).HistorySavePath # Powershell History
+
+</code></pre>
+<h3 id="more-automate"><a class="header" href="#more-automate">More Automate</a></h3>
+<h2 id="powerup"><a class="header" href="#powerup">PowerUp</a></h2>
+<ol>
+<li>
+<p><strong>Download and Import the Script:</strong></p>
+<ul>
+<li>
+<p>First, you need to download the <code>PowerUp.ps1</code> script from the PowerSploit repository. You can do this by cloning the PowerSploit repository from GitHub or by downloading the script directly.</p>
+</li>
+<li>
+<p>Once you have the script, you can import it into your PowerShell session using the <code>Import-Module</code> cmdlet.</p>
+<p><code>Import-Module ./Path/To/PowerUp.ps1</code></p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Run Functions to Find Vulnerabilities:</strong></p>
+<ul>
+<li>
+<p><code>PowerUp.ps1</code> offers a variety of functions to check for common misconfigurations that can lead to privilege escalation. For example:</p>
+<ul>
+<li>
+<p><strong>Invoke-AllChecks:</strong> This function runs all current escalation checks and returns a consolidated object with the results.</p>
+<p><code>Invoke-AllChecks</code></p>
+</li>
+<li>
+<p><strong>Get-ServiceUnquoted:</strong> This function checks for services with unquoted paths that also have a space in their path. This can potentially lead to privilege escalation.</p>
+<p><code>Get-ServiceUnquoted</code></p>
+</li>
+<li>
+<p><strong>Write-UserAddMSI:</strong> This function generates an MSI file in the specified path that prompts for installation. When installed, it adds a local or domain user with the specified username and password.</p>
+<p><code>Write-UserAddMSI -UserName "NewAdminUser" -Password "P@ssword!"</code></p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Write-ServiceBinary</strong>: This function writes out a binary that adds a local admin user or executes a custom command when a service with an unquoted path (and a writable space in the path) is started.</p>
+<p><code>Write-ServiceBinary -Name 'VulnerableServiceName' -Path 'C:\Path\To\Output\Binary.exe'</code></p>
+</li>
+<li>
+<p><strong>Invoke-ServiceAbuse</strong>: This function abuses writable service binaries to write out a payload that adds a local admin user.</p>
+<p><code>Invoke-ServiceAbuse -Name 'VulnerableServiceName' -UserName 'NewAdminUser'</code></p>
+</li>
+<li>
+<p><strong>Get-ModifiablePath</strong>: This function finds paths that are modifiable by the current user and are in the system's PATH environment variable. This can be exploited if a service or application executes a binary from a directory that the user can write to.</p>
+<p><code>Get-ModifiablePath</code></p>
+</li>
+</ol>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="LinuxPrivExploit.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="WinPrivExploit.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="LinuxPrivExploit.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="WinPrivExploit.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

