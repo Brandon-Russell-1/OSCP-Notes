@@ -1,4 +1,5 @@
-## Manual Method
+## Macros
+### Manual Method
 
 ```
 Open Word Document → View → Macros → Macro Name: MyMacro → Macros in: Document(1) → Create
@@ -38,7 +39,7 @@ for i in range(0, len(str), n):
 3) Copy the split and paste it in Macro (below Dim str and above CreateObject)
 ```
 
-## Metasploit
+### Metasploit
 
 1. Follow the First 4 Steps with the below's reference: [https://github.com/rapid7/metasploit-framework/blob/master/documentation/modules/exploit/multi/fileformat/office_word_macro.md](https://github.com/rapid7/metasploit-framework/blob/master/documentation/modules/exploit/multi/fileformat/office_word_macro.md)
 2. got the doc.m file? convert it to a doc
@@ -54,7 +55,7 @@ Open a listener and pop up a reverse shell.
 ```
 
 
-## Macro Example
+### Macro Example
 
 ```
 If possible do a powershell reverse shell base 64 encoded:

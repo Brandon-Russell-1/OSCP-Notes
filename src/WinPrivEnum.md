@@ -1,8 +1,10 @@
-## Automate
+## Windows Enumeration
+### Automate
 
 - [WinPEAS](https://github.com/carlospolop/PEASS-ng/tree/master/winPEAS)
+- [Windows Exploit Suggester](https://github.com/AonCyberLabs/Windows-Exploit-Suggester)
 
-## Manual
+### Manual
 
 ```
 
@@ -49,7 +51,7 @@ Get-History # Powershell History
 
 ### More Automate
 
-## PowerUp
+### PowerUp
 
 1. **Download and Import the Script:**
     

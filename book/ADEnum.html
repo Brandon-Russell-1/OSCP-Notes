@@ -173,9 +173,16 @@
 
                 <div id="content" class="content">
                     <main>
-                        <ul>
+                        <h2 id="active-directory-enumeration"><a class="header" href="#active-directory-enumeration">Active Directory Enumeration</a></h2>
+<h3 id="links"><a class="header" href="#links">Links</a></h3>
+<ul>
 <li><a href="https://github.com/S1ckB0y1337/Active-Directory-Exploitation-Cheat-Sheet?tab=readme-ov-file">S1ckB0y1337 Notes</a></li>
 <li><a href="https://swisskyrepo.github.io/PayloadsAllTheThings/Methodology%20and%20Resources/Active%20Directory%20Attack/">Payload All the Things AD Attack</a></li>
+<li><a href="https://github.com/PowerShellMafia/PowerSploit/blob/master/Recon/PowerView.ps1">PowerView</a></li>
+<li><a href="https://github.com/BloodHoundAD/SharpHound">SharpHound</a></li>
+<li><a href="https://github.com/hausec/Bloodhound-Custom-Queries">BloodHound Custom Queries</a></li>
+<li><a href="https://wadcoms.github.io/#">WADComs</a></li>
+<li><a href="https://lolbas-project.github.io/">LOLBAS</a></li>
 </ul>
 <h3 id="manual-enumeration"><a class="header" href="#manual-enumeration">Manual Enumeration</a></h3>
 <pre><code>Without PowerView:
@@ -346,44 +353,44 @@ net user robert Password123! /domain
 
 
 </code></pre>
-<h2 id="custom-bloodhound-queries"><a class="header" href="#custom-bloodhound-queries">Custom BloodHound Queries</a></h2>
-<h3 id="query-to-list-all-users"><a class="header" href="#query-to-list-all-users">Query to List All Users</a></h3>
+<h3 id="custom-bloodhound-queries"><a class="header" href="#custom-bloodhound-queries">Custom BloodHound Queries</a></h3>
+<h4 id="query-to-list-all-users"><a class="header" href="#query-to-list-all-users">Query to List All Users</a></h4>
 <p>This query returns all user objects in the Active Directory, which can be useful for identifying potential targets for further exploitation or reconnaissance.</p>
 <p>cypherCopy code</p>
 <p><code>MATCH (u:User) RETURN u.name</code></p>
-<h3 id="query-to-list-all-computers"><a class="header" href="#query-to-list-all-computers">Query to List All Computers</a></h3>
+<h4 id="query-to-list-all-computers"><a class="header" href="#query-to-list-all-computers">Query to List All Computers</a></h4>
 <p>This query returns all computer objects in the Active Directory. Identifying all computers can help in understanding the network's structure and identifying valuable targets for lateral movement or further exploitation.</p>
 <p>cypherCopy code</p>
 <p><code>MATCH (c:Computer) RETURN c.name</code></p>
-<h3 id="1-find-all-domain-admins"><a class="header" href="#1-find-all-domain-admins">1. Find All Domain Admins</a></h3>
+<h4 id="1-find-all-domain-admins"><a class="header" href="#1-find-all-domain-admins">1. Find All Domain Admins</a></h4>
 <p>Identify all users who are members of the Domain Admins group, which will give you insights into high-value targets within the network.</p>
 <p>cypherCopy code</p>
 <p><code>MATCH (g:Group)-[:MemberOf*1..]-&gt;(h:Group {name: 'Domain Admins@DOMAIN.COM'}) MATCH (u:User)-[:MemberOf]-&gt;(g) RETURN u.name</code></p>
-<h3 id="2-uncover-shortest-paths-to-domain-admins"><a class="header" href="#2-uncover-shortest-paths-to-domain-admins">2. Uncover Shortest Paths to Domain Admins</a></h3>
+<h4 id="2-uncover-shortest-paths-to-domain-admins"><a class="header" href="#2-uncover-shortest-paths-to-domain-admins">2. Uncover Shortest Paths to Domain Admins</a></h4>
 <p>Discover the shortest paths that could be exploited to elevate privileges to Domain Admin level. This can help in planning an attack route.</p>
 <p>cypherCopy code</p>
 <p><code>MATCH (u:User),(g:Group {name: 'Domain Admins@DOMAIN.COM'}), p = shortestPath((u)-[:MemberOf*1..]-&gt;(g)) RETURN p</code></p>
-<h3 id="3-identify-users-with-unconstrained-delegation-rights"><a class="header" href="#3-identify-users-with-unconstrained-delegation-rights">3. Identify Users with Unconstrained Delegation Rights</a></h3>
+<h4 id="3-identify-users-with-unconstrained-delegation-rights"><a class="header" href="#3-identify-users-with-unconstrained-delegation-rights">3. Identify Users with Unconstrained Delegation Rights</a></h4>
 <p>Users with unconstrained delegation rights can impersonate any user to any service. This query helps identify such users, presenting a significant security risk.</p>
 <p>cypherCopy code</p>
 <p><code>MATCH (u:User {allowedtodelegate: true}) RETURN u.name</code></p>
-<h3 id="4-find-computers-where-domain-admins-have-sessions"><a class="header" href="#4-find-computers-where-domain-admins-have-sessions">4. Find Computers Where Domain Admins Have Sessions</a></h3>
+<h4 id="4-find-computers-where-domain-admins-have-sessions"><a class="header" href="#4-find-computers-where-domain-admins-have-sessions">4. Find Computers Where Domain Admins Have Sessions</a></h4>
 <p>Identifying machines where Domain Admins have active sessions can be useful for moving laterally within the network.</p>
 <p>cypherCopy code</p>
 <p><code>MATCH (c:Computer)&lt;-[:HasSession]-(u:User) WHERE u.name CONTAINS 'Domain Admins@DOMAIN.COM' RETURN c.name, u.name</code></p>
-<h3 id="5-detect-all-kerberoastable-accounts"><a class="header" href="#5-detect-all-kerberoastable-accounts">5. Detect All Kerberoastable Accounts</a></h3>
+<h4 id="5-detect-all-kerberoastable-accounts"><a class="header" href="#5-detect-all-kerberoastable-accounts">5. Detect All Kerberoastable Accounts</a></h4>
 <p>Kerberoasting targets service accounts by requesting service tickets that can be cracked offline. This query finds service accounts that can be Kerberoasted.</p>
 <p>cypherCopy code</p>
 <p><code>MATCH (u:User {hasspn: true})  RETURN u.name</code></p>
-<h3 id="6-enumerate-acl-exploitation-paths"><a class="header" href="#6-enumerate-acl-exploitation-paths">6. Enumerate ACL Exploitation Paths</a></h3>
+<h4 id="6-enumerate-acl-exploitation-paths"><a class="header" href="#6-enumerate-acl-exploitation-paths">6. Enumerate ACL Exploitation Paths</a></h4>
 <p>Access Control List (ACL) exploitation can be a powerful method for escalating privileges. This query helps identify potential ACL exploit paths.</p>
 <p>cypherCopy code</p>
 <p><code>MATCH p = (n)-[r:WriteDacl|WriteOwner|GenericAll|GenericWrite|Owns]-&gt;(m) RETURN p</code></p>
-<h3 id="7-find-all-trust-relationships"><a class="header" href="#7-find-all-trust-relationships">7. Find All Trust Relationships</a></h3>
+<h4 id="7-find-all-trust-relationships"><a class="header" href="#7-find-all-trust-relationships">7. Find All Trust Relationships</a></h4>
 <p>Understanding trust relationships between domains can reveal paths for lateral movement and privilege escalation.</p>
 <p>cypherCopy code</p>
 <p><code>MATCH (d:Domain)-[:TrustedBy]-&gt;(t:Domain) RETURN d.name, t.name</code></p>
-<h3 id="8-identify-orphaned-objects"><a class="header" href="#8-identify-orphaned-objects">8. Identify Orphaned Objects</a></h3>
+<h4 id="8-identify-orphaned-objects"><a class="header" href="#8-identify-orphaned-objects">8. Identify Orphaned Objects</a></h4>
 <p>Orphaned objects (users, computers) can sometimes retain privileges and be overlooked. This query helps spot such objects.</p>
 <p>cypherCopy code</p>
 <p><code>MATCH (n) WHERE NOT (n)-[:MemberOf]-&gt;() RETURN n.name, labels(n)</code></p>

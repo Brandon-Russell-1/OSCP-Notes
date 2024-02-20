@@ -1,4 +1,6 @@
-## <ins>PHP Wrapper</ins>
+## PHP Wrapper
+
+### Links
 
 - [Slort PG Walkthrough](https://defaultcredentials.com/ctf/proving-grounds/slort-proving-grounds-walkthrough/)
 

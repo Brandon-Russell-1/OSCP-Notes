@@ -1,14 +1,14 @@
-# Hashcat-Cheatsheet
-Hashcat Cheatsheet for OSCP
-https://hashcat.net/wiki/doku.php?id=hashcat
+## Hashcat-Cheatsheet
 
-## Identify Hashes
+- [Hashcat wiki](https://hashcat.net/wiki/doku.php?id=hashcat)
+- [Hashcat examples](https://hashcat.net/wiki/doku.php?id=example_hashes)
+- [Sample Hashes](http://openwall.info/wiki/john/sample-hashes)
+
+### Identify Hashes
 
 `hash-identifier`
 
-Example Hashes: https://hashcat.net/wiki/doku.php?id=example_hashes
-
-## MAX POWER!
+### MAX POWER!
 I have found that I can squeeze some more power out of my hash cracking by adding these parameters:
 ```
 --force -O -w 4 --opencl-device-types 1,2
@@ -16,7 +16,7 @@ I have found that I can squeeze some more power out of my hash cracking by addin
 These will force Hashcat to use the CUDA GPU interface which is buggy but provides more performance (–force) , will Optimize for 32 characters or less passwords (-O) and will set the workload to "Insane" (-w 4) which is supposed to make your computer effectively unusable during the cracking process.
 Finally "--opencl-device-types 1,2 " will force HashCat to use BOTH the GPU and the CPU to handle the cracking.
 
-## Using hashcat and a dictionary
+### Using hashcat and a dictionary
 Create a .hash file with all the hashes you want to crack puthasheshere.hash: $1$O3JMY.Tw$AdLnLjQ/5jXF9.MTp3gHv/
 
 Hashcat example cracking Linux md5crypt passwords $1$ using rockyou:  
@@ -26,21 +26,18 @@ Hashcat example cracking Linux md5crypt passwords $1$ using rockyou:
 Hashcat example cracking Wordpress passwords using rockyou:  
 `hashcat --force -m 400 -a 0 -o found1.txt --remove wphash.hash /usr/share/wordlists/rockyou.txt`
 
-Sample Hashes
-http://openwall.info/wiki/john/sample-hashes
-
-## HashCat One Rule to Rule them All  
+### HashCat One Rule to Rule them All  
 Not So Secure has built a custom rule that I have had luck with in the past:  
-https://www.notsosecure.com/one-rule-to-rule-them-all/  
+[Custom Rules](https://www.notsosecure.com/one-rule-to-rule-them-all/ )
 The rule can be downloaded from their Github site:  
-https://github.com/NotSoSecure/password_cracking_rules  
+[Github Link](https://github.com/NotSoSecure/password_cracking_rules)
 
 I typically drop OneRuleToRuleThemAll.rule into the rules subfolder and run it like this from my windows box (based on the notsosecure article):
 ```
 hashcat64.exe --force -m300 --status -w3 -o found.txt --remove --potfile-disable -r rules\OneRuleToRuleThemAll.rule hash.txt rockyou.txt
 ```
 
-## Using hashcat bruteforcing 
+### Using hashcat bruteforcing 
 ```
 predefined charsets
 ?l = abcdefghijklmnopqrstuvwxyz
@@ -57,7 +54,7 @@ predefined charsets
 Brute force all passwords length 1-8 with possible characters A-Z a-z 0-9   
 `hashcat64 -m 500 hashes.txt -a  3  ?1?1?1?1?1?1?1?1 --increment -1 ?l?d?u`  
 
-## Cracking Linux Hashes - /etc/shadow file  
+### Cracking Linux Hashes - /etc/shadow file  
 
 | ID | Description                                      | Type |
 |----|--------------------------------------------------|------|
@@ -66,14 +63,14 @@ Brute force all passwords length 1-8 with possible characters A-Z a-z 0-9
 |400 | sha256crypt $5$, SHA256(Unix)                    | Operating-Systems|
 |1800 | sha512crypt $6$, SHA512(Unix)                    | Operating-Systems|
 
-## Cracking Windows Hashes  
+### Cracking Windows Hashes  
 
 | ID | Description                                      | Type |
 |----|--------------------------------------------------|------|
 |3000 | LM                                               | Operating-Systems|
 |1000 | NTLM                                             | Operating-Systems|
 
-## Cracking Common Application Hashes  
+### Cracking Common Application Hashes  
 
 | ID | Description                                      | Type |
 |----|--------------------------------------------------|------|
@@ -85,7 +82,7 @@ Brute force all passwords length 1-8 with possible characters A-Z a-z 0-9
 | 1400 | SHA-256                                          | Raw Hash|
 | 1700 | SHA-512                                          | Raw Hash|
 
-## Cracking Common File Password Protections
+### Cracking Common File Password Protections
 | ID | Description                                      | Type |
 |----|--------------------------------------------------|------|
 |  11600 | 7-Zip                                            | Archives|
@@ -112,7 +109,7 @@ Brute force all passwords length 1-8 with possible characters A-Z a-z 0-9
 |  16200 | Apple Secure Notes                               | Documents|
 
 
-## Cracking Commmon Database Hash Formats
+### Cracking Common Database Hash Formats
 |     ID | Description                                      | Type | Example Hash |
 |--------|--------------------------------------------------|------|--------------|
 |     12 | PostgreSQL                                       | Database Server |  a6343a68d964ca596d9752250d54bb8a:postgres |
@@ -126,7 +123,7 @@ Brute force all passwords length 1-8 with possible characters A-Z a-z 0-9
 |  12300 | Oracle T: Type (Oracle 12+)                      | Database Server | 78281A9C0CF626BD05EFC4F41B515B61D6C4D95A250CD4A605CA0EF97168D670EBCB5673B6F5A2FB9CC4E0C0101E659C0C4E3B9B3BEDA846CD15508E88685A2334141655046766111066420254008225 |
 |   8000 | Sybase ASE                                       | Database Server | 0xc00778168388631428230545ed2c976790af96768afa0806fe6c0da3b28f3e132137eac56f9bad027ea2 |
 
-## Cracking NTLM hashes 
+### Cracking NTLM hashes 
 
 After grabbing or dumping the NTDS.dit and SYSTEM registry hive or dumping LSASS memory from a Windows box, you will often end up with NTLM hashes.  
 
@@ -148,7 +145,7 @@ Speed: 7000 MH/s
 Recovery Rate: 12.47%
 Elapsed Time: 2 Hours 35 Minutes
 
-## Cracking Hashes from Kerboroasting - KRB5TGS
+### Cracking Hashes from Kerboroasting - KRB5TGS
 
 A service principal name (SPN) is a unique identifier of a service instance. SPNs are used by Kerberos authentication to associate a service instance with a service logon account. This allows a client application to request that the service authenticate an account even if the client does not have the account name.
 KRB5TGS - Kerberoasting Service Accounts that use SPN Once you have identified a Kerberoastable service account (Bloodhound? Powershell Empire? - likely a MS SQL Server Service Account), any AD user can request a krb5tgs hash from it which can be used to crack the password.
@@ -171,18 +168,18 @@ Speed: 250 MH/s
 Elapsed Time: 9 Minutes
 
 
-## Cracking NTLMv2 Hashes from a Packet Capture
+### Cracking NTLMv2 Hashes from a Packet Capture
 You may be asked to recover a password from an SMB authentication (NTLMv2) from a Packet Capture.
 The following is a 9-step process for formatting the hash correctly to do this.
-https://research.801labs.org/cracking-an-ntlmv2-hash/
+[9-step Process](https://research.801labs.org/cracking-an-ntlmv2-hash/)
 
-## To crack linux hashes you must first unshadow them
+### To crack linux hashes you must first unshadow them
 
 `unshadow passwd-file.txt shadow-file.txt`  
 
 `unshadow passwd-file.txt shadow-file.txt > unshadowed.txt`  
 
-## Crack a zip password
+### Crack a zip password
 `zip2john Zipfile.zip | cut -d ':' -f 2 > hashes.txt`  
 `hashcat -a 0 -m 13600 hashes.txt /usr/share/wordlists/rockyou.txt`  
 
@@ -191,22 +188,22 @@ Hashcat appears to have issues with some zip hash formats generated from zip2joh
 
 John seems to accept a wider range of zip formats for cracking.
 
-## PRINCE Password Generation
+### PRINCE Password Generation
 PRINCE (PRobability INfinite Chained Elements) is a hashcat utility for randomly generating probable passwords:
 ```
 pp64.bin --pw-min=8 < dict.txt | head -20 shuf dict.txt | pp64.bin --pw-min=8 | head -20
 ```
 Reference:  
-https://github.com/hashcat/princeprocessor
+[Prince Reference](https://github.com/hashcat/princeprocessor)
 
-## Purple Rain
+### Purple Rain
 Purple Rain attack uses a combination of Prince, a dictionary and random Mutation rules to dynamicaly create infinite combinations of passwords.
 
 ```
 shuf dict.txt | pp64.bin --pw-min=8 | hashcat -a 0 -m #type -w 4 -O hashes.txt -g 300000
 ```
 Reference:  
-https://www.netmux.com/blog/purple-rain-attack
+[Rain Reference](https://www.netmux.com/blog/purple-rain-attack)
 
 
 

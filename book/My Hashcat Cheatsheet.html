@@ -173,35 +173,35 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="hashcat-cheatsheet"><a class="header" href="#hashcat-cheatsheet">Hashcat-Cheatsheet</a></h1>
-<p>Hashcat Cheatsheet for OSCP
-https://hashcat.net/wiki/doku.php?id=hashcat</p>
-<h2 id="identify-hashes"><a class="header" href="#identify-hashes">Identify Hashes</a></h2>
+                        <h2 id="hashcat-cheatsheet"><a class="header" href="#hashcat-cheatsheet">Hashcat-Cheatsheet</a></h2>
+<ul>
+<li><a href="https://hashcat.net/wiki/doku.php?id=hashcat">Hashcat wiki</a></li>
+<li><a href="https://hashcat.net/wiki/doku.php?id=example_hashes">Hashcat examples</a></li>
+<li><a href="http://openwall.info/wiki/john/sample-hashes">Sample Hashes</a></li>
+</ul>
+<h3 id="identify-hashes"><a class="header" href="#identify-hashes">Identify Hashes</a></h3>
 <p><code>hash-identifier</code></p>
-<p>Example Hashes: https://hashcat.net/wiki/doku.php?id=example_hashes</p>
-<h2 id="max-power"><a class="header" href="#max-power">MAX POWER!</a></h2>
+<h3 id="max-power"><a class="header" href="#max-power">MAX POWER!</a></h3>
 <p>I have found that I can squeeze some more power out of my hash cracking by adding these parameters:</p>
 <pre><code>--force -O -w 4 --opencl-device-types 1,2
 </code></pre>
 <p>These will force Hashcat to use the CUDA GPU interface which is buggy but provides more performance (–force) , will Optimize for 32 characters or less passwords (-O) and will set the workload to "Insane" (-w 4) which is supposed to make your computer effectively unusable during the cracking process.
 Finally "--opencl-device-types 1,2 " will force HashCat to use BOTH the GPU and the CPU to handle the cracking.</p>
-<h2 id="using-hashcat-and-a-dictionary"><a class="header" href="#using-hashcat-and-a-dictionary">Using hashcat and a dictionary</a></h2>
+<h3 id="using-hashcat-and-a-dictionary"><a class="header" href="#using-hashcat-and-a-dictionary">Using hashcat and a dictionary</a></h3>
 <p>Create a .hash file with all the hashes you want to crack puthasheshere.hash: $1$O3JMY.Tw$AdLnLjQ/5jXF9.MTp3gHv/</p>
 <p>Hashcat example cracking Linux md5crypt passwords $1$ using rockyou:</p>
 <p><code>hashcat --force -m 500 -a 0 -o found1.txt --remove puthasheshere.hash /usr/share/wordlists/rockyou.txt</code></p>
 <p>Hashcat example cracking Wordpress passwords using rockyou:<br />
 <code>hashcat --force -m 400 -a 0 -o found1.txt --remove wphash.hash /usr/share/wordlists/rockyou.txt</code></p>
-<p>Sample Hashes
-http://openwall.info/wiki/john/sample-hashes</p>
-<h2 id="hashcat-one-rule-to-rule-them-all"><a class="header" href="#hashcat-one-rule-to-rule-them-all">HashCat One Rule to Rule them All</a></h2>
+<h3 id="hashcat-one-rule-to-rule-them-all"><a class="header" href="#hashcat-one-rule-to-rule-them-all">HashCat One Rule to Rule them All</a></h3>
 <p>Not So Secure has built a custom rule that I have had luck with in the past:<br />
-https://www.notsosecure.com/one-rule-to-rule-them-all/<br />
+<a href="https://www.notsosecure.com/one-rule-to-rule-them-all/">Custom Rules</a>
 The rule can be downloaded from their Github site:<br />
-https://github.com/NotSoSecure/password_cracking_rules</p>
+<a href="https://github.com/NotSoSecure/password_cracking_rules">Github Link</a></p>
 <p>I typically drop OneRuleToRuleThemAll.rule into the rules subfolder and run it like this from my windows box (based on the notsosecure article):</p>
 <pre><code>hashcat64.exe --force -m300 --status -w3 -o found.txt --remove --potfile-disable -r rules\OneRuleToRuleThemAll.rule hash.txt rockyou.txt
 </code></pre>
-<h2 id="using-hashcat-bruteforcing"><a class="header" href="#using-hashcat-bruteforcing">Using hashcat bruteforcing</a></h2>
+<h3 id="using-hashcat-bruteforcing"><a class="header" href="#using-hashcat-bruteforcing">Using hashcat bruteforcing</a></h3>
 <pre><code>predefined charsets
 ?l = abcdefghijklmnopqrstuvwxyz
 ?u = ABCDEFGHIJKLMNOPQRSTUVWXYZ
@@ -214,7 +214,7 @@ https://github.com/NotSoSecure/password_cracking_rules</p>
 ?ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789</p>
 <p>Brute force all passwords length 1-8 with possible characters A-Z a-z 0-9<br />
 <code>hashcat64 -m 500 hashes.txt -a  3  ?1?1?1?1?1?1?1?1 --increment -1 ?l?d?u</code></p>
-<h2 id="cracking-linux-hashes---etcshadow-file"><a class="header" href="#cracking-linux-hashes---etcshadow-file">Cracking Linux Hashes - /etc/shadow file</a></h2>
+<h3 id="cracking-linux-hashes---etcshadow-file"><a class="header" href="#cracking-linux-hashes---etcshadow-file">Cracking Linux Hashes - /etc/shadow file</a></h3>
 <div class="table-wrapper"><table><thead><tr><th>ID</th><th>Description</th><th>Type</th></tr></thead><tbody>
 <tr><td>500</td><td>md5crypt $1$, MD5(Unix)</td><td>Operating-Systems</td></tr>
 <tr><td>200</td><td>bcrypt $2*$, Blowfish(Unix)</td><td>Operating-Systems</td></tr>
@@ -222,13 +222,13 @@ https://github.com/NotSoSecure/password_cracking_rules</p>
 <tr><td>1800</td><td>sha512crypt $6$, SHA512(Unix)</td><td>Operating-Systems</td></tr>
 </tbody></table>
 </div>
-<h2 id="cracking-windows-hashes"><a class="header" href="#cracking-windows-hashes">Cracking Windows Hashes</a></h2>
+<h3 id="cracking-windows-hashes"><a class="header" href="#cracking-windows-hashes">Cracking Windows Hashes</a></h3>
 <div class="table-wrapper"><table><thead><tr><th>ID</th><th>Description</th><th>Type</th></tr></thead><tbody>
 <tr><td>3000</td><td>LM</td><td>Operating-Systems</td></tr>
 <tr><td>1000</td><td>NTLM</td><td>Operating-Systems</td></tr>
 </tbody></table>
 </div>
-<h2 id="cracking-common-application-hashes"><a class="header" href="#cracking-common-application-hashes">Cracking Common Application Hashes</a></h2>
+<h3 id="cracking-common-application-hashes"><a class="header" href="#cracking-common-application-hashes">Cracking Common Application Hashes</a></h3>
 <div class="table-wrapper"><table><thead><tr><th>ID</th><th>Description</th><th>Type</th></tr></thead><tbody>
 <tr><td>900</td><td>MD4</td><td>Raw Hash</td></tr>
 <tr><td>0</td><td>MD5</td><td>Raw Hash</td></tr>
@@ -239,7 +239,7 @@ https://github.com/NotSoSecure/password_cracking_rules</p>
 <tr><td>1700</td><td>SHA-512</td><td>Raw Hash</td></tr>
 </tbody></table>
 </div>
-<h2 id="cracking-common-file-password-protections"><a class="header" href="#cracking-common-file-password-protections">Cracking Common File Password Protections</a></h2>
+<h3 id="cracking-common-file-password-protections"><a class="header" href="#cracking-common-file-password-protections">Cracking Common File Password Protections</a></h3>
 <div class="table-wrapper"><table><thead><tr><th>ID</th><th>Description</th><th>Type</th></tr></thead><tbody>
 <tr><td>11600</td><td>7-Zip</td><td>Archives</td></tr>
 <tr><td>12500</td><td>RAR3-hp</td><td>Archives</td></tr>
@@ -265,7 +265,7 @@ https://github.com/NotSoSecure/password_cracking_rules</p>
 <tr><td>16200</td><td>Apple Secure Notes</td><td>Documents</td></tr>
 </tbody></table>
 </div>
-<h2 id="cracking-commmon-database-hash-formats"><a class="header" href="#cracking-commmon-database-hash-formats">Cracking Commmon Database Hash Formats</a></h2>
+<h3 id="cracking-common-database-hash-formats"><a class="header" href="#cracking-common-database-hash-formats">Cracking Common Database Hash Formats</a></h3>
 <div class="table-wrapper"><table><thead><tr><th>ID</th><th>Description</th><th>Type</th><th>Example Hash</th></tr></thead><tbody>
 <tr><td>12</td><td>PostgreSQL</td><td>Database Server</td><td>a6343a68d964ca596d9752250d54bb8a:postgres</td></tr>
 <tr><td>131</td><td>MSSQL (2000)</td><td>Database Server</td><td>0x01002702560500000000000000000000000000000000000000008db43dd9b1972a636ad0c7d4b8c515cb8ce46578</td></tr>
@@ -279,7 +279,7 @@ https://github.com/NotSoSecure/password_cracking_rules</p>
 <tr><td>8000</td><td>Sybase ASE</td><td>Database Server</td><td>0xc00778168388631428230545ed2c976790af96768afa0806fe6c0da3b28f3e132137eac56f9bad027ea2</td></tr>
 </tbody></table>
 </div>
-<h2 id="cracking-ntlm-hashes"><a class="header" href="#cracking-ntlm-hashes">Cracking NTLM hashes</a></h2>
+<h3 id="cracking-ntlm-hashes"><a class="header" href="#cracking-ntlm-hashes">Cracking NTLM hashes</a></h3>
 <p>After grabbing or dumping the NTDS.dit and SYSTEM registry hive or dumping LSASS memory from a Windows box, you will often end up with NTLM hashes.</p>
 <div class="table-wrapper"><table><thead><tr><th>Path</th><th>Description</th></tr></thead><tbody>
 <tr><td>C:\Windows\NTDS\ntds.dit</td><td>Active Directory database</td></tr>
@@ -296,7 +296,7 @@ https://github.com/NotSoSecure/password_cracking_rules</p>
 Speed: 7000 MH/s
 Recovery Rate: 12.47%
 Elapsed Time: 2 Hours 35 Minutes</p>
-<h2 id="cracking-hashes-from-kerboroasting---krb5tgs"><a class="header" href="#cracking-hashes-from-kerboroasting---krb5tgs">Cracking Hashes from Kerboroasting - KRB5TGS</a></h2>
+<h3 id="cracking-hashes-from-kerboroasting---krb5tgs"><a class="header" href="#cracking-hashes-from-kerboroasting---krb5tgs">Cracking Hashes from Kerboroasting - KRB5TGS</a></h3>
 <p>A service principal name (SPN) is a unique identifier of a service instance. SPNs are used by Kerberos authentication to associate a service instance with a service logon account. This allows a client application to request that the service authenticate an account even if the client does not have the account name.
 KRB5TGS - Kerberoasting Service Accounts that use SPN Once you have identified a Kerberoastable service account (Bloodhound? Powershell Empire? - likely a MS SQL Server Service Account), any AD user can request a krb5tgs hash from it which can be used to crack the password.</p>
 <p>Based on my benchmarking, KRB5TGS cracking is 28 times slower than NTLM.</p>
@@ -313,31 +313,31 @@ KRB5TGS - Kerberoasting Service Accounts that use SPN Once you have identified a
 <p><em>Benchmark using a Nvidia 2060 GTX:</em>
 Speed: 250 MH/s
 Elapsed Time: 9 Minutes</p>
-<h2 id="cracking-ntlmv2-hashes-from-a-packet-capture"><a class="header" href="#cracking-ntlmv2-hashes-from-a-packet-capture">Cracking NTLMv2 Hashes from a Packet Capture</a></h2>
+<h3 id="cracking-ntlmv2-hashes-from-a-packet-capture"><a class="header" href="#cracking-ntlmv2-hashes-from-a-packet-capture">Cracking NTLMv2 Hashes from a Packet Capture</a></h3>
 <p>You may be asked to recover a password from an SMB authentication (NTLMv2) from a Packet Capture.
 The following is a 9-step process for formatting the hash correctly to do this.
-https://research.801labs.org/cracking-an-ntlmv2-hash/</p>
-<h2 id="to-crack-linux-hashes-you-must-first-unshadow-them"><a class="header" href="#to-crack-linux-hashes-you-must-first-unshadow-them">To crack linux hashes you must first unshadow them</a></h2>
+<a href="https://research.801labs.org/cracking-an-ntlmv2-hash/">9-step Process</a></p>
+<h3 id="to-crack-linux-hashes-you-must-first-unshadow-them"><a class="header" href="#to-crack-linux-hashes-you-must-first-unshadow-them">To crack linux hashes you must first unshadow them</a></h3>
 <p><code>unshadow passwd-file.txt shadow-file.txt</code></p>
 <p><code>unshadow passwd-file.txt shadow-file.txt &gt; unshadowed.txt</code></p>
-<h2 id="crack-a-zip-password"><a class="header" href="#crack-a-zip-password">Crack a zip password</a></h2>
+<h3 id="crack-a-zip-password"><a class="header" href="#crack-a-zip-password">Crack a zip password</a></h3>
 <p><code>zip2john Zipfile.zip | cut -d ':' -f 2 &gt; hashes.txt</code><br />
 <code>hashcat -a 0 -m 13600 hashes.txt /usr/share/wordlists/rockyou.txt</code></p>
 <p>Hashcat appears to have issues with some zip hash formats generated from zip2john.  You can fix this by editing the zip hash contents to align with the example zip hash format found on the hash cat example page:
 <code>$zip2$*0*3*0*b5d2b7bf57ad5e86a55c400509c672bd*d218*0**ca3d736d03a34165cfa9*$/zip2$</code></p>
 <p>John seems to accept a wider range of zip formats for cracking.</p>
-<h2 id="prince-password-generation"><a class="header" href="#prince-password-generation">PRINCE Password Generation</a></h2>
+<h3 id="prince-password-generation"><a class="header" href="#prince-password-generation">PRINCE Password Generation</a></h3>
 <p>PRINCE (PRobability INfinite Chained Elements) is a hashcat utility for randomly generating probable passwords:</p>
 <pre><code>pp64.bin --pw-min=8 &lt; dict.txt | head -20 shuf dict.txt | pp64.bin --pw-min=8 | head -20
 </code></pre>
 <p>Reference:<br />
-https://github.com/hashcat/princeprocessor</p>
-<h2 id="purple-rain"><a class="header" href="#purple-rain">Purple Rain</a></h2>
+<a href="https://github.com/hashcat/princeprocessor">Prince Reference</a></p>
+<h3 id="purple-rain"><a class="header" href="#purple-rain">Purple Rain</a></h3>
 <p>Purple Rain attack uses a combination of Prince, a dictionary and random Mutation rules to dynamicaly create infinite combinations of passwords.</p>
 <pre><code>shuf dict.txt | pp64.bin --pw-min=8 | hashcat -a 0 -m #type -w 4 -O hashes.txt -g 300000
 </code></pre>
 <p>Reference:<br />
-https://www.netmux.com/blog/purple-rain-attack</p>
+<a href="https://www.netmux.com/blog/purple-rain-attack">Rain Reference</a></p>
 
                     </main>
 

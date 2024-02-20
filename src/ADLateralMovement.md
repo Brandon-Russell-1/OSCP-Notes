@@ -1,13 +1,13 @@
-# Lateral Movement
+## Lateral Movement
 
 ### Links
 
 - [Pass the Hash](https://www.hackingarticles.in/lateral-movement-pass-the-hash-attack/)
 - [AD Cheat Sheet](https://casvancooten.com/posts/2020/11/windows-active-directory-exploitation-cheat-sheet-and-command-reference/#lateral-movement)
-- 
+
 Hey, Why are you here? Do you have HASH or PASSWORD? Users Hash and Kerberos Ticket. Why crack Hashes and Passwords when you can pass them?
 
-## PsExec
+### PsExec
 
 ```
 
@@ -74,7 +74,7 @@ ls \\web04\backup
 
 ```
 
-## DCOM
+### DCOM
 
 ```
 
@@ -92,7 +92,7 @@ hostname
 
 ```
 
-## WMI and WinRM
+### WMI and WinRM
 
 ```
 

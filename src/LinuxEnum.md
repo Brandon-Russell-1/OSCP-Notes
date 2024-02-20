@@ -1,8 +1,10 @@
-# Enumeration
+## Linux Enumeration
 
 I only transfer linpeas, if I am not able to find anything manually
 
+### Links
 - [LinPeas.sh](https://github.com/carlospolop/PEASS-ng/tree/master/linPEAS)
+- [LinEnum](https://github.com/rebootuser/LinEnum)
 ### Quick Wins
 
 ```

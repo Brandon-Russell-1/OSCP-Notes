@@ -1,5 +1,9 @@
+## Quick Notes
 
-## Random things 
+## Links
+
+- [CyberChef](https://gchq.github.io/CyberChef/)
+### Random things 
 
 ### Remote Desktop Specific
 

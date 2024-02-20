@@ -1,11 +1,11 @@
-# Persistence
+## Persistence
 
 With krbtgt, We can create a Golden ticket.
 
 ### Links
 
 - [LSA Dump](https://github.com/gentilkiwi/mimikatz/wiki/module-~-lsadump)
-- 
+
 
 ### Golden Ticket Attack
 
@@ -51,7 +51,7 @@ We can request a replication update with a DC and obtain the pass hashes of ever
 
 ### Other Notes
 
-## Silver Tickets
+### Silver Tickets
 ```
 iwr -UseDefaultCredentials http://web04
 privilege::debug

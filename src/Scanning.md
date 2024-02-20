@@ -1,5 +1,5 @@
-
-## Nmap Scans
+## Scanning
+### Nmap Scans
 ```
 nmap -A -p- -T4 -O $ip
 
@@ -15,7 +15,7 @@ nmap -sT -p- --min-rate 5000 --max-retries 1 <IP> # TCP Ports
 nmap -sU -p- --min-rate 5000 --max-retries 1 <IP> # UDP Ports
 ```
 
-## RustScan & Autorecon & nmapAutomator
+### RustScan & Autorecon & nmapAutomator
 ```
 RustScan:  docker run -it --rm --name rustscan rustscan/rustscan:2.0.0 -a <IP> range 0-65535 -- -A
 
@@ -28,14 +28,14 @@ env "PATH=$PATH" autorecon $ip
 ./nmapAutomator.sh -H $ip -t Recon
 ``` 
 
-## Powershell Port Scan
+### Powershell Port Scan
 
 ```
 Test-NetConnection -Port 445 192.168.50.151
 1..1024 | % {echo ((New-Object Net.Sockets.TcpClient).Connect("192.168.50.151", $_)) "TCP port $_ is open"} 2>$null
 ```
 
-## Bash Port Scan
+### Bash Port Scan
 
 ```
 
@@ -43,7 +43,7 @@ for i in $(seq 1 254); do nc -zv -w 1 172.16.210.$i 445; done
 
 ```
 
-## Python Port Scan
+### Python Port Scan
 
 ```
 
@@ -96,7 +96,7 @@ except socket.error:
 ```
 
 
-## Directory Busting
+### Directory Busting
 ```
 dirb http:///<IP>/ # If port -> 443, Do HTTPS
 
@@ -116,12 +116,12 @@ dirsearch -u url -w wordlist
 
 ```
 
-## Vulnerability Scanner - Nikto
+### Vulnerability Scanner - Nikto
 ```
 nikto -host http://<IP>/ # If port -> 443, Do HTTPS
 ```
 
-## WP Scan
+### WP Scan
 
 ```
 Enumerating Users
@@ -146,5 +146,7 @@ API Token
 wpscan --url [target-url] --api-token [YourWPScanAPIToken]
 
 ```
+
+### Nmap Cheat Sheet
 
 ![nMap Cheat Sheet](nmapcheatsheet.png)

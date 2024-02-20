@@ -1,4 +1,6 @@
 
+## CrackMapExec Cheat Sheet
+
 ```
 # General help
 crackmapexec --help

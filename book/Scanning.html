@@ -173,7 +173,8 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h2 id="nmap-scans"><a class="header" href="#nmap-scans">Nmap Scans</a></h2>
+                        <h2 id="scanning"><a class="header" href="#scanning">Scanning</a></h2>
+<h3 id="nmap-scans"><a class="header" href="#nmap-scans">Nmap Scans</a></h3>
 <pre><code>nmap -A -p- -T4 -O $ip
 
 --script vuln, http-enum, http-headers
@@ -187,7 +188,7 @@ nmap &lt;IP&gt;/24 # Subnet
 nmap -sT -p- --min-rate 5000 --max-retries 1 &lt;IP&gt; # TCP Ports 
 nmap -sU -p- --min-rate 5000 --max-retries 1 &lt;IP&gt; # UDP Ports
 </code></pre>
-<h2 id="rustscan--autorecon--nmapautomator"><a class="header" href="#rustscan--autorecon--nmapautomator">RustScan &amp; Autorecon &amp; nmapAutomator</a></h2>
+<h3 id="rustscan--autorecon--nmapautomator"><a class="header" href="#rustscan--autorecon--nmapautomator">RustScan &amp; Autorecon &amp; nmapAutomator</a></h3>
 <pre><code>RustScan:  docker run -it --rm --name rustscan rustscan/rustscan:2.0.0 -a &lt;IP&gt; range 0-65535 -- -A
 
 Autorecon: autorecon &lt;IP&gt; 
@@ -198,16 +199,16 @@ env "PATH=$PATH" autorecon $ip
 
 ./nmapAutomator.sh -H $ip -t Recon
 </code></pre>
-<h2 id="powershell-port-scan"><a class="header" href="#powershell-port-scan">Powershell Port Scan</a></h2>
+<h3 id="powershell-port-scan"><a class="header" href="#powershell-port-scan">Powershell Port Scan</a></h3>
 <pre><code>Test-NetConnection -Port 445 192.168.50.151
 1..1024 | % {echo ((New-Object Net.Sockets.TcpClient).Connect("192.168.50.151", $_)) "TCP port $_ is open"} 2&gt;$null
 </code></pre>
-<h2 id="bash-port-scan"><a class="header" href="#bash-port-scan">Bash Port Scan</a></h2>
+<h3 id="bash-port-scan"><a class="header" href="#bash-port-scan">Bash Port Scan</a></h3>
 <pre><code>
 for i in $(seq 1 254); do nc -zv -w 1 172.16.210.$i 445; done
 
 </code></pre>
-<h2 id="python-port-scan"><a class="header" href="#python-port-scan">Python Port Scan</a></h2>
+<h3 id="python-port-scan"><a class="header" href="#python-port-scan">Python Port Scan</a></h3>
 <pre><code>
 import pyfiglet
 import sys
@@ -256,7 +257,7 @@ except socket.error:
 
 
 </code></pre>
-<h2 id="directory-busting"><a class="header" href="#directory-busting">Directory Busting</a></h2>
+<h3 id="directory-busting"><a class="header" href="#directory-busting">Directory Busting</a></h3>
 <pre><code>dirb http:///&lt;IP&gt;/ # If port -&gt; 443, Do HTTPS
 
 gobuster dir -x php,txt,xml,asp,aspx --url http://&lt;IP&gt;/ -w /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-big.txt -b 404 -f 
@@ -274,10 +275,10 @@ dirbuster -u http://10.10.105.213/
 dirsearch -u url -w wordlist
 
 </code></pre>
-<h2 id="vulnerability-scanner---nikto"><a class="header" href="#vulnerability-scanner---nikto">Vulnerability Scanner - Nikto</a></h2>
+<h3 id="vulnerability-scanner---nikto"><a class="header" href="#vulnerability-scanner---nikto">Vulnerability Scanner - Nikto</a></h3>
 <pre><code>nikto -host http://&lt;IP&gt;/ # If port -&gt; 443, Do HTTPS
 </code></pre>
-<h2 id="wp-scan"><a class="header" href="#wp-scan">WP Scan</a></h2>
+<h3 id="wp-scan"><a class="header" href="#wp-scan">WP Scan</a></h3>
 <pre><code>Enumerating Users
 wpscan --url [target-url] --enumerate u
 
@@ -300,6 +301,7 @@ API Token
 wpscan --url [target-url] --api-token [YourWPScanAPIToken]
 
 </code></pre>
+<h3 id="nmap-cheat-sheet"><a class="header" href="#nmap-cheat-sheet">Nmap Cheat Sheet</a></h3>
 <p><img src="nmapcheatsheet.png" alt="nMap Cheat Sheet" /></p>
 
                     </main>

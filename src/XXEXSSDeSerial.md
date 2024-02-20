@@ -1,4 +1,5 @@
-## Links
+## XXE & XSS & Insecure Deserialization
+### Links
 
 - [PayLoad All The Things XXE](https://swisskyrepo.github.io/PayloadsAllTheThings/XXE%20Injection/)
 - [PayLoad All The Things XSS](https://swisskyrepo.github.io/PayloadsAllTheThings/XSS%20Injection/)
@@ -32,7 +33,7 @@ change body of file to what it wants to see the 200
 
 ```
 
-## XXS Injection
+### XXS Injection
 ```
 This PHP function is responsible for parsing various HTTP request headers, including the UserAgent, which is saved in the useragent record value. Next, each time a WordPress administrator loads the Visitor plugin, the function will execute the following portion of code from start.php:
 
@@ -45,7 +46,7 @@ $i=count(VST_get_records($date_start, $date_finish)); foreach(VST_get_records($d
 ![XSS Flow Chart](XSSFlowChart.png)
 
 
-## Insecure Deserialization
+### Insecure Deserialization
 
 ```
 

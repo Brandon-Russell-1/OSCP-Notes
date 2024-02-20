@@ -1,4 +1,4 @@
-# Pivoting
+## Pivoting
 
 A very Interesting and important concept - (Chisel + Proxychain)
 
@@ -109,7 +109,7 @@ smbclient -L //172.16.229.217/ -U hr_admin --password=Welcome1234
 ```
 
 
-## Windows SSH
+### Windows SSH
 
 
 ```
@@ -127,7 +127,7 @@ proxychains psql -h 10.4.50.215 -U postgres
 \l
 ```
 
-## Socat
+### Socat
 
 ```
 
@@ -156,7 +156,7 @@ ssh database_admin@192.168.232.63 -p2222
 
 ```
 
-## SSH Local Port Forwarding
+### SSH Local Port Forwarding
 
 ```
 
@@ -184,7 +184,7 @@ get Provisioning.ps1
 ```
 
 
-## SSH Dynamic Port Forwarding
+### SSH Dynamic Port Forwarding
 
 ```
 
@@ -208,7 +208,7 @@ By default, Proxychains is configured with very high time-out values. This can m
 ```
 
 
-## SSH Remote Port Forwarding
+### SSH Remote Port Forwarding
 
 ```
 
@@ -234,7 +234,7 @@ quit
 ```
 
 
-## SSH Remote Dynamic Port Forwarding
+### SSH Remote Dynamic Port Forwarding
 
 ```
 
@@ -261,14 +261,14 @@ ssh -R 1080 kali@192.168.45.196
 ```
 
 
-
+#### Visual Examples of SSH Tunneling
 
 ![SSH Dynamic Reverse Port Forward Example](SSHDynamicReversePortForward.png)
 
 
 ![SSH Port Forward Example](SSHPortForward.png)
 
-## Plink
+### Plink
 
 ```
 
@@ -293,7 +293,7 @@ xfreerdp /u:rdp_admin /p:P@ssw0rd! /v:127.0.0.1:9833
 
 ```
 
-## Netsh
+### Netsh
 
 ```
 
@@ -322,7 +322,7 @@ netsh interface portproxy del v4tov4 listenport=2222 listenaddress=192.168.208.6
 
 ```
 
-## Bore
+### Bore
 
 ```
 rathole
@@ -395,7 +395,7 @@ local_addr = "127.0.0.1:8000" # The address of the service that needs to be forw
 
 
 ```
-## DNS
+### DNS
 
 ```
 

