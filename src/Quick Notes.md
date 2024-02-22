@@ -2,7 +2,12 @@
 
 ## Links
 
+- [Payload All The Things](https://swisskyrepo.github.io/PayloadsAllTheThings/)
+- [Internal All The Things](https://swisskyrepo.github.io/InternalAllTheThings/)
 - [CyberChef](https://gchq.github.io/CyberChef/)
+- [Total OSCP Guide](https://sushant747.gitbooks.io/total-oscp-guide/content/)
+- [Markdown Reference](https://wordpress.com/support/markdown-quick-reference/)
+- [Report Maker](https://github.com/noraj/OSCP-Exam-Report-Template-Markdown/tree/master)
 ### Random things 
 
 ### Remote Desktop Specific

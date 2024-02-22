@@ -114,6 +114,8 @@ dirbuster -u http://10.10.105.213/
 
 dirsearch -u url -w wordlist
 
+dirsearch -u http://192.168.213.98 -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt
+
 ```
 
 ### Vulnerability Scanner - Nikto
