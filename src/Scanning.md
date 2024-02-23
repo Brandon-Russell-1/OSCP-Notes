@@ -1,6 +1,8 @@
 ## Scanning
 ### Nmap Scans
 ```
+export ip=192.168.201.222 
+
 nmap -A -p- -T4 -O $ip
 
 --script vuln, http-enum, http-headers
