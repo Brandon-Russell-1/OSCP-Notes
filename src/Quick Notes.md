@@ -44,6 +44,17 @@ To find things:
 
 locate something
 find / -name exact_name>/dev/null
+find /home -name *.jpg
+
+-O1 – (Default) filter based on file name first
+-O2 – File name first, then file-type
+-O3 – Allow find to automatically re-order the search based on efficient use of resources and likelihood of success
+-maxdepth X – Search this directory along with all sub-directories to a level of X
+-iname – Search while ignoring text case.
+-not – Only produce results that don’t match the test case
+-type f – Look for files
+-type d – Look for directories
+
 
 To search for text within files:
 grep mail /etc/passwd
@@ -57,6 +68,12 @@ Get-ChildItem -Path C:\ -Include *password* -File -Recurse -ErrorAction Silently
 
 FINDSTR /i /r /c:"hello.*goodbye" /c:"goodbye.*hello" Demo.txt
 
+FIND [SWITCH] "String" [Pathname/s]
+
+1. /v – This switch will show any lines that don’t contain the string of words you specified.
+2. /c – This switch tells the find tool to count how many lines contain your search terms.
+3. /n – This switch shows the numbers that correspond with the lines.
+4. /i – This switch tells find to ignore the case of text you are searching for.
 ```
 
 
