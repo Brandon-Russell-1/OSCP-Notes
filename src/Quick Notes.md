@@ -107,6 +107,8 @@ print(cmd)
 ### Show Tun0 IP Toolbar
 
 ```
+sudo apt install xfce4-genmon-plugin
+
 Generic Monitor -> Properties
 
 /opt/showtun0ip.sh

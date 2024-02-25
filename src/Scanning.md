@@ -15,6 +15,9 @@ nmap -p22,80,443 <IP> # Specific Ports
 nmap <IP>/24 # Subnet
 nmap -sT -p- --min-rate 5000 --max-retries 1 <IP> # TCP Ports 
 nmap -sU -p- --min-rate 5000 --max-retries 1 <IP> # UDP Ports
+
+TFTP
+nmap -sU -p 69 --script tftp-enum.nse --script-args tftp-enum.filelist=customlist.txt <host>
 ```
 
 ### RustScan & Autorecon & nmapAutomator
