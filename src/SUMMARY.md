@@ -15,6 +15,7 @@
 		- [Bruteforce](Bruteforce.md)
 	- [Buffer Overflow](Buffer%20Overflow.md)
 	- [File Uploads](File%20Uploads.md)
+	- [Additional File Upload](AddnlFileUpload.md)
 		- [HTML](htmlfileupload.md)
 		- [Macro](MyMacros.md)
 		- [OLE](OLEFileUpload.md)

