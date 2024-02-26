@@ -146,7 +146,7 @@
 
 9. Different port: ftp <IP> -P 3084
 
-10. Bruteforce: hydra [-L <users.txt> or -l <user_name>] [-P <pass.txt> or -p ] -f [-S port] ftp://<IP>
+10. Bruteforce: hydra [-L <users.txt> or -l <user_name>] [-P <pass.txt> or -p ] -f  ftp://<IP>:<PORT>
 
 11. If it's a Microsoft server -> Try asp, aspx payloads. Try staged/stageless, x32/x64 payloads.
 
