@@ -153,6 +153,10 @@
 12. Check if we can overwrite stuff and upload files to make it work. Look at the permissions.
 
 13. Look for hidden files, go back to a directory if you find anything, and look for creds in DB Files.
+
+14. Don't forget about TFTP on UDP Port 69
+	1. nmap -Pn -sU -p69 --script tftp-enum 192.168.10.250
+	2. https://github.com/EnableSecurity/tftptheft
 ```
 
 ### <ins>53 - DNS</ins>

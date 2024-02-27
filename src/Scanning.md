@@ -17,6 +17,7 @@ nmap -sT -p- --min-rate 5000 --max-retries 1 <IP> # TCP Ports
 nmap -sU -p- --min-rate 5000 --max-retries 1 <IP> # UDP Ports
 
 TFTP
+nmap -Pn -sU -p69 --script tftp-enum 192.168.10.250
 nmap -sU -p 69 --script tftp-enum.nse --script-args tftp-enum.filelist=customlist.txt <host>
 ```
 
