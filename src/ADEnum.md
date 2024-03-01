@@ -277,5 +277,6 @@ cypherCopy code
 
 `MATCH (n) WHERE NOT (n)-[:MemberOf]->() RETURN n.name, labels(n)`
 
-
+Additio
+SharpHound Cheat Sheet
 ![SharpHound Cheat Sheet](SharpHoundInfo.png)

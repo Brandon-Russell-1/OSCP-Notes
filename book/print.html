@@ -5811,7 +5811,9 @@ net user robert Password123! /domain
 <p>Orphaned objects (users, computers) can sometimes retain privileges and be overlooked. This query helps spot such objects.</p>
 <p>cypherCopy code</p>
 <p><code>MATCH (n) WHERE NOT (n)-[:MemberOf]-&gt;() RETURN n.name, labels(n)</code></p>
-<p><img src="SharpHoundInfo.png" alt="SharpHound Cheat Sheet" /></p>
+<p>Additio
+SharpHound Cheat Sheet
+<img src="SharpHoundInfo.png" alt="SharpHound Cheat Sheet" /></p>
 <div style="break-before: page; page-break-before: always;"></div><h2 id="active-directory-authentication"><a class="header" href="#active-directory-authentication">Active Directory Authentication</a></h2>
 <h3 id="mimikatz"><a class="header" href="#mimikatz">Mimikatz</a></h3>
 <pre><code>Cached Creds Storage -&gt; Retrieve stored cache pass.
