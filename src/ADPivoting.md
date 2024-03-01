@@ -61,6 +61,9 @@ try everything just with proxychains command once you get access to another netw
 # For reverse shell
 .\chisel_1.9.1_windows_amd64.exe client 192.168.45.164:8001 0.0.0.0:9999:192.168.45.164:9999
 
+# Add to Proxychains.conf file
+
+socks5 127.0.0.1 1080
 
 #Random Variations
 ./chisel client 192.168.45.225:8001 R:socks
