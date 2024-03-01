@@ -394,6 +394,7 @@ net user robert Password123! /domain
 <p>Orphaned objects (users, computers) can sometimes retain privileges and be overlooked. This query helps spot such objects.</p>
 <p>cypherCopy code</p>
 <p><code>MATCH (n) WHERE NOT (n)-[:MemberOf]-&gt;() RETURN n.name, labels(n)</code></p>
+<p>![[Pasted image 20240229210421.png]]</p>
 
                     </main>
 
