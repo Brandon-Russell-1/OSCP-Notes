@@ -278,4 +278,4 @@ cypherCopy code
 `MATCH (n) WHERE NOT (n)-[:MemberOf]->() RETURN n.name, labels(n)`
 
 
-![[Pasted image 20240229210421.png]]
+![SharpHound Cheat Sheet](SharpHoundInfo.png)
