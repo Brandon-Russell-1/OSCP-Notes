@@ -98,6 +98,10 @@ ifconfig
 sudo ip route add 172.16.105.0/24 dev ligolo
 
 tunnel_start
+
+
+ip route del 122.252.228.38/32
+
 ```
 
 ## SShuttle

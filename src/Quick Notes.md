@@ -37,6 +37,35 @@ To kill a port process on Kali:
 sudo fuser -k 81/udp
 ```
 
+### Port Listening
+
+```
+UNIX Domain Socket and How to listen it? 
+
+ Use one of the option
+
+1 - nc -lU <socket path>
+
+nc: We all know this..
+
+-l: This option tells netcat to operate in listening mode, which means it will listen for incoming connections.
+
+-U: This option specifies that the listener should use Unix domain sockets. Unix domain sockets are a type of inter-process communication mechanism on Unix-like operating systems. They are used for communication between processes on the same host.
+
+<socket path>: This is the path to the Unix domain socket that socat will listen on, for example "/tmp/s"
+
+2 - socat - UNIX-LISTEN:<socket path>
+
+socat: We all know this.
+
+UNIX: Indicates that the endpoint will be a Unix domain socket.
+
+LISTEN: Specifies that socat should listen for incoming connections on the socket.
+
+<socket path>: As explianed before.
+
+
+```
 ### Find Things
 ```
 
