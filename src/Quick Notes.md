@@ -150,3 +150,32 @@ echo "$ADDR" | sed 's/$/ /g'
 
 
 ```
+
+
+## ProxyChains
+
+```
+
+Nomrally used with chisel, so standard:
+
+socks5 127.0.0.1 1080
+
+Also, squid proxy for example with username + password after ip and port:
+
+http 192.168.219.224 3128 ext_acc DoNotShare!SkyLarkLegacyInternal2008
+```
+
+
+## Reading Files
+
+```
+Linux just use cat, mousepad, nano, vim
+
+Also, if you need to add a line to a file, but don't have nano editor you can:
+
+echo "Something to append" >> filename
+
+Windows use more or less... or type <filename> | more
+
+
+```
