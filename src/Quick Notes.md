@@ -15,6 +15,8 @@
 ```
 xfreerdp /cert-ignore /compression /auto-reconnect /u:dmzadmin /p:SlimGodhoodMope /v:192.168.188.191 /w:1600 /h:800 
 
+or 
+
 rdesktop -z -P -x m -u dmzadmin -p SlimGodhoodMope 192.168.188.191 -r 
 
 ```
