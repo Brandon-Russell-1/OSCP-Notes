@@ -6,7 +6,7 @@ Currently, I'm preparing for the OSCP exam. While I utilize Obsidian for note-ta
 
 Feel free to checkout my LinkedIn and Website:
 
-https://www.linkedin.com/in/brandon-r-russell
+[Brandon's LinkedIn](https://www.linkedin.com/in/brandon-r-russell)
 
-https://brandonrussell.io/home
+[Brandon's Website](https://brandonrussell.io/home)
 
