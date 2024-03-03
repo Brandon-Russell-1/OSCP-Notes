@@ -17,6 +17,6 @@ Feel free to checkout my LinkedIn and Website:
 
 </p>
 
-![Introduction](AnotherIntroImage.png)
+
 
 ![Introduction](IntroImage.png)
