@@ -13,4 +13,8 @@ Feel free to checkout my LinkedIn and Website:
 
 * [Brandon's Website](https://brandonrussell.io/home)
 
+
+
 </p>
+
+![Introduction](IntroImage.png)
