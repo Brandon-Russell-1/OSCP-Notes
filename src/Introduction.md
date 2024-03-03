@@ -4,9 +4,13 @@ Currently, I'm preparing for the OSCP exam. While I utilize Obsidian for note-ta
 
 
 
+
 Feel free to checkout my LinkedIn and Website:
 
-[Brandon's LinkedIn](https://www.linkedin.com/in/brandon-r-russell)
+<p style="text-align: center;">
 
-[Brandon's Website](https://brandonrussell.io/home)
+* [Brandon's LinkedIn](https://www.linkedin.com/in/brandon-r-russell)
 
+* [Brandon's Website](https://brandonrussell.io/home)
+
+</p>
