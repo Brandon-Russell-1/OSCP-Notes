@@ -183,3 +183,30 @@ Windows use more or less... or type <filename> | more
 
 
 ```
+
+## Need a GUI File Explorer + Admin
+
+```
+sudo thunar
+```
+
+## Report Building
+```
+
+https://github.com/noraj/OSCP-Exam-Report-Template-Markdown
+
+This builds the template:
+ruby osert.rb init
+
+You can cope this over to Obsidian, will make it easy to build out report.
+
+Keep in mind, there might be file permission issues, so make sure chmod on this file after you copy it.
+
+When done, you will need to copy this and all images back into the Report Building folder.
+
+Do this to build the repot
+
+ruby osert.rb generate -i <filename>.md 
+
+
+```
