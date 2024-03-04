@@ -9,4 +9,4 @@ Checkout my LinkedIn and Website:
 * [LinkedIn](https://www.linkedin.com/in/brandon-r-russell)
 * [Website](https://brandonrussell.io/)
 
-![OSCPNotes](OSCP/OSCP-Notes/src/IntroImage.png)
+![OSCPNotes](IntroImage.png)
