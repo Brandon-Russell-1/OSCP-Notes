@@ -10,6 +10,22 @@
 - [Report Maker](https://github.com/noraj/OSCP-Exam-Report-Template-Markdown/tree/master)
 ### Random things 
 
+## Variables
+
+```
+export IP=""
+
+export PORT="" #web server port I'm actively enumerating
+
+export PORTS="". #all of the available ports
+
+export LHOST=""
+
+export LPORT="" #to catch reverse shells
+
+export URL="" # for when you need to scan an fqdn rather than an IP like on htb.
+```
+
 ### Remote Desktop Specific
 
 ```
