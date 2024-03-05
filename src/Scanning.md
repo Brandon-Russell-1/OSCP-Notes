@@ -124,9 +124,13 @@ dirsearch -u http://192.168.213.98 -w /usr/share/wordlists/dirbuster/directory-l
 
 ```
 
-### Vulnerability Scanner - Nikto
+### Vulnerability Scanner 
 ```
 nikto -host http://<IP>/ # If port -> 443, Do HTTPS
+
+
+
+enum4linux $ip
 ```
 
 ### WP Scan
