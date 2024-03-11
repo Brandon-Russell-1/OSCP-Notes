@@ -10,6 +10,10 @@
 ```
 set PATH=C:\Windows;C:\Windows\system32;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;%PATH%
 
+or 
+
+set PATH=%SystemRoot%\system32;%SystemRoot%;
+
 Get-ExecutionPolicy -List
 Set-ExecutionPolicy Unrestricted
 ```

