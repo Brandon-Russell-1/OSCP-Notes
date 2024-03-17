@@ -89,6 +89,8 @@ grep -Hs iptables /etc/* # Firewall rules if lucky
 locate flag.txt
 which flag.txt
 find / -name flag.txt >2/dev/null
+
+
 ```
 
 
