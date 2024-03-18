@@ -6,6 +6,12 @@ I only transfer linpeas, if I am not able to find anything manually
 - [LinPeas.sh](https://github.com/carlospolop/PEASS-ng/tree/master/linPEAS)
 - [LinEnum](https://github.com/rebootuser/LinEnum)
 
+### Do this
+
+```
+alias ll='clear ; ls -lsaht --color=auto'
+```
+
 ### Writable Paths
 
 ```
@@ -31,6 +37,9 @@ while read line; do echo $line; done < FILE
 
 ```
 export PATH=/bin:/usr/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/sbin:$PATH
+
+also an option:
+PATH=/bin:/usr/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/sbin:/usr/games:/tmp
 ```
 ### Quick Wins
 

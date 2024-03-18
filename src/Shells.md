@@ -29,6 +29,11 @@ export PATH=/bin:/usr/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/sbin:/usr/ga
 export TERM=xterm-256color
 python3 -c 'import pty; pty.spawn("/bin/sh")'
 
+Also do this:
+
+alias ll='clear ; ls -lsaht --color=auto'
+
+
 
 ---Old
 echo $TERM && tput lines && tput cols
