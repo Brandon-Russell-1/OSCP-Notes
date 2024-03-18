@@ -18,22 +18,28 @@ echo "AddType application/x-httpd-php .dork" > .htaccess
 
 Some people have luck using this to provide a cleaner shell, etc...doesn't seem to always work. At least use rlwrap with nc, if nothing else.
 
+Type sh
 Then do this:
 
 ctrl+z
+# for zsh
+stty raw -echo; fg; reset
+stty columns 200 rows 200
+export PATH=/bin:/usr/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/sbin:/usr/games:/tmp
+export TERM=xterm-256color
+python3 -c 'import pty; pty.spawn("/bin/sh")'
+
+
+---Old
 echo $TERM && tput lines && tput cols
 
 # for bash
 stty raw -echo
 fg
-
-# for zsh
-stty raw -echo; fg
-
 reset
 export SHELL=bash
-export TERM=xterm-256color
-stty rows <num> columns <cols>
+
+
 
 ```
 ### <ins>WEB SHELLS</ins>
