@@ -90,6 +90,8 @@ locate flag.txt
 which flag.txt
 find / -name flag.txt >2/dev/null
 
+find / -type f -readable  2>/dev/null | egrep -v '^(/proc|/sys|/snap|/boot|/var|/run|/dev|/opt|/etc|/usr/lib|/usr/s?bin|/usr/share/)'
+
 
 ```
 

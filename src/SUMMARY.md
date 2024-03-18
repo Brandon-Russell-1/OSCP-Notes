@@ -29,6 +29,8 @@
 	- [Github](Github.md)
 	- [SQL](MySQL.md)
 		- [PSQL](PSQL.md)
+		- [MySQL](MyMySql.md)
+		- [MSSQL](MSSQL.md)
 	- [Windows Libraries and APIs](WindowLibraries.md)
 	- [XXE_XSS_Deserialization](XXEXSSDeSerial.md)
 	- [Directory Traversal](DirectoryTraveral.md)

