@@ -10,3 +10,5 @@ Checkout my LinkedIn and Website:
 * [Website](https://brandonrussell.io/)
 
 ![OSCPNotes](IntroImage.png)
+
+-Brandon

