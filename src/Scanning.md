@@ -122,6 +122,10 @@ dirsearch -u url -w wordlist
 
 dirsearch -u http://192.168.213.98 -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt
 
+
+wfuzz -c -z file,/usr/share/seclists/Discovery/Web-Content/directory-list-2.3-medium.txt --hc 404 http://$ip/FUZZ
+
+
 ```
 
 ### Vulnerability Scanner 
