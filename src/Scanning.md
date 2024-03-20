@@ -104,6 +104,16 @@ except socket.error:
 
 ### Directory Busting
 ```
+Usually the goto:
+
+dirsearch -u $ip -w /usr/share/wordlists/dirbuster/directory-list-lowercase-2.3-medium.txt
+
+Don't forget subdomains:
+
+gobuster dns -d someDomain.com -w /opt/SecLists/Discovery/DNS/subdomains-top1million-110000.txt -t 30
+
+Few other options:
+
 dirb http:///<IP>/ # If port -> 443, Do HTTPS
 
 gobuster dir -x php,txt,xml,asp,aspx --url http://<IP>/ -w /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-big.txt -b 404 -f 
