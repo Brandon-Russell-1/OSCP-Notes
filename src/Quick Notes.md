@@ -10,6 +10,17 @@
 - [Report Maker](https://github.com/noraj/OSCP-Exam-Report-Template-Markdown/tree/master)
 ### Random things 
 
+## Saving things into files quickly
+```
+For example, if you have a username/hash dump, save into a file:
+
+Administrator:500:aad3b435b51404eeaad3b435b51404ee:12579b1666d4ac10f0f59f300776495f:::
+
+cat secrets | cut -d ":" -f 1 | tee users
+cat secrets | cut -d ":" -f 4 | tee passwords
+
+```
+
 ## Variables
 
 ```

