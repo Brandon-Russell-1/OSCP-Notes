@@ -10,6 +10,15 @@
 - [Report Maker](https://github.com/noraj/OSCP-Exam-Report-Template-Markdown/tree/master)
 ### Random things 
 
+## /etc/hosts
+
+```
+Get into the habit of saving IP into /etc/hosts, if it's a DC, also do this:
+
+10.129.26.67 dc.flight.htb flight.htb dc
+
+
+```
 ## Saving things into files quickly
 ```
 For example, if you have a username/hash dump, save into a file:
@@ -18,6 +27,11 @@ Administrator:500:aad3b435b51404eeaad3b435b51404ee:12579b1666d4ac10f0f59f3007764
 
 cat secrets | cut -d ":" -f 1 | tee users
 cat secrets | cut -d ":" -f 4 | tee passwords
+
+
+or
+
+lookupsid.py flight.htb/svc_apache:'S@Ss!K@*t13'@flight.htb | grep SidTypeUser | cut -d' ' -f 2 | cut -d'\' -f 2 | tee users
 
 ```
 

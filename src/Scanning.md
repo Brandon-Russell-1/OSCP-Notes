@@ -112,6 +112,8 @@ Don't forget subdomains:
 
 gobuster dns -d marshalled.pg -w /usr/share/wordlists/seclists/Discovery/DNS/subdomains-top1million-110000.txt -t 30 
 
+wfuzz -u http://10.10.11.187 -H "Host: FUZZ.flight.htb" -w /usr/share/seclists/Discovery/DNS/subdomains-top1million-5000.txt --hh 7069
+
 Few other options:
 
 dirb http:///<IP>/ # If port -> 443, Do HTTPS

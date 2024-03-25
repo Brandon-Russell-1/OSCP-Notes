@@ -217,6 +217,9 @@ crackmapexec smb 192.168.215.104 -u 'user' -p 'PASS' --users
 # Perform RID Bruteforce to get users
 crackmapexec smb 192.168.215.104 -u 'user' -p 'PASS' --rid-brute
 
+	- Can also do this:
+	- lookupsid.py flight.htb/svc_apache:'S@Ss!K@*t13'@flight.htb
+
 # Enumerate domain groups
 crackmapexec smb 192.168.215.104 -u 'user' -p 'PASS' --groups
 
