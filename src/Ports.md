@@ -566,3 +566,69 @@ GitHub
 python vncpasswd.py -d -f ../../htb/poison/secret
 
 ```
+
+### <ins>3128 - Squid</ins>
+[HackTricks Link](https://book.hacktricks.xyz/network-services-pentesting/3128-pentesting-squid)
+
+```
+Use these two scripts to build a list of ports, then scan with the squid proxy
+```
+
+```
+# The file where we want to store the list of ports
+# Create the file if it doesn't exist
+ports_file="ports_to_check.txt"
+#if [[ ! -f $ports_file ]] ; then touch $ports_file ; fi
+
+# The number of Nmap top ports to output
+num_ports=100
+
+# Generate the list of top ports
+# Nmap lists port ranges with a hyphen (-)
+# We use `sed` to replace the hyphens with `..`
+# `..` indicates will help with generating port ranges below
+top_ports=$(nmap -sT --top-ports $num_ports -v -oG - 2>/dev/null | grep TCP | cut -d ';' -f 2 | cut -d ')' -f 1 | tr ',', "\n" | sed 's/\-/../g')
+
+# Clear out the ports file list
+echo > $ports_file
+
+# For each port in the list of ports do ...
+    # If the port has a hyphen `-` ...
+        # Create a list of ports using {$port}
+        # For example {49152..49157}
+        # Then add them to our ports list file
+    # Otherwise ...
+        # Just take a single port and add to the file
+for port in $(echo $top_ports) ; 
+do 
+    if echo $port | grep '\.\.' > /dev/null; then 
+        for port_in_range in {$port} ; 
+        do 
+        	echo $port_in_range >> $ports_file ; 
+        done ; 
+    else 
+        echo $port >> $ports_file ; 
+    fi
+done
+
+```
+
+```
+# Define a base URL, which is the proxy address minus the proxy port
+base_url='http://192.168.236.189'
+# Define the proxy URL, which is the base URL plus the proxy port
+proxy_url="$base_url:3128"
+
+for port in $(cat ports_to_check.txt) ; do \
+    # Create a test URL string, which is the base URL plus the test port
+    test_url="$base_url:$port"
+    # If we don't find the string `ERROR` the port may be open
+    if ! curl -skL --proxy $proxy_url $test_url | grep ERROR > /dev/null ; then \
+        echo "$test_url may be open behind the proxy" ; \
+    fi ; \
+done 
+
+```
+
+Or just use Spose
+[Spose](https://github.com/aancw/spose)

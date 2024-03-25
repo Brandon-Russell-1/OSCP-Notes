@@ -447,4 +447,3 @@ nt authority\system
 C:\Windows\system32> 
 ```
 
-Success! We now have system access on the target system.

