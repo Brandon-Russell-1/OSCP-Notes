@@ -228,3 +228,16 @@ or
 
 
 
+### Reverse Engineering Files
+
+```
+You can use Ghidra or dnSpy
+https://github.com/dnSpy/dnSpy
+
+## Get File info
+file UserInfo.exe
+
+
+## Load dnSpy on Win box
+```
+![dnSpy](OSCP/OSCP-Notes/src/dnSpy.png)

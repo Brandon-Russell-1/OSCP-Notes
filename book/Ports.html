@@ -267,11 +267,13 @@
 
 3. Shares: smbclient -L \\\\&lt;IP&gt;\\
 
-4. Changing Shares: smbclient -L \\\\&lt;IP&gt;\\C$
+4. Connect: smbclient -N //support.htb/support-tools
 
-5. Username/Domain/No Pass: smbclient \\\\$ip\\Public -U sequel/root
+5. Changing Shares: smbclient -L \\\\&lt;IP&gt;\\C$
 
-6. Username/Password: smbclient //flight.htb/users -U svc_apache 'S@Ss!K@*t13'
+6. Username/Domain/No Pass: smbclient \\\\$ip\\Public -U sequel/root
+
+7. Username/Password: smbclient //flight.htb/users -U svc_apache 'S@Ss!K@*t13'
 
 8. Username/password/Domain: smbclient -L \\\\&lt;IP&gt;\\C$ -U &lt;Domain&gt;/&lt;username&gt;%&lt;password&gt;
 
