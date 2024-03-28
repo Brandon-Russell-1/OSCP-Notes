@@ -269,7 +269,9 @@ LISTEN: Specifies that socat should listen for incoming connections on the socke
 
 </code></pre>
 <h3 id="find-things"><a class="header" href="#find-things">Find Things</a></h3>
-<pre><code># Getting passwords from browser memory
+<pre><code>dir -recurse *.php | select-string -pattern "database"
+
+# Getting passwords from browser memory
 procdump.exe -ma firefox_pid
 strings.exe firefox.dmp | findstr /i "Passwd="
 

