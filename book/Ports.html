@@ -509,7 +509,9 @@ rpcclient -U "" -N &lt;IP&gt;
 
 3. Try without a password: rpcclient -U "" &lt;IP&gt;
 
-4. Dump: impacket-rpcdump -p 135 &lt;IP&gt;
+4. With creds: rpcclient -U 'support' $ip
+
+5. Dump: impacket-rpcdump -p 135 &lt;IP&gt;
 
 </code></pre>
 <h3 id="59855986---evil-winrm"><a class="header" href="#59855986---evil-winrm"><ins>5985/5986 - Evil-winrm</ins></a></h3>

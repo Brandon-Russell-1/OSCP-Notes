@@ -366,7 +366,9 @@ rpcclient -U "" -N <IP>
 
 3. Try without a password: rpcclient -U "" <IP>
 
-4. Dump: impacket-rpcdump -p 135 <IP>
+4. With creds: rpcclient -U 'support' $ip
+
+5. Dump: impacket-rpcdump -p 135 <IP>
 
 ```
 

