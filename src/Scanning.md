@@ -140,6 +140,43 @@ wfuzz -c -z file,/usr/share/seclists/Discovery/Web-Content/directory-list-2.3-me
 
 ```
 
+### Custom Python Web Directory Search Tool
+https://0xdf.gitlab.io/2021/11/27/htb-intelligence.html
+```python
+This was from the intelligence htb box, maybe modify if you see something similiar in the future:
+
+#!/usr/bin/env python3
+
+import datetime
+import io
+import PyPDF2
+import requests
+
+
+t = datetime.datetime(2020, 1, 1)
+end = datetime.datetime(2021, 7, 4)
+keywords = ['user', 'password', 'account', 'intelligence', 'htb', 'login', 'service', 'new']
+users = set()
+
+while True:
+    url = t.strftime("http://intelligence.htb/documents/%Y-%m-%d-upload.pdf")
+    resp = requests.get(url)
+    if resp.status_code == 200:
+        with io.BytesIO(resp.content) as data:
+            pdf = PyPDF2.PdfFileReader(data)
+            users.add(pdf.getDocumentInfo()['/Creator'])
+            for page in range(pdf.getNumPages()):
+                text = pdf.getPage(page).extractText()
+                if any([k in text.lower() for k in keywords]):
+                    print(f'==={url}===\n{text}')
+    t = t + datetime.timedelta(days=1)
+    if t >= end:
+        break
+
+with open('users', 'w') as f:
+    f.write('\n'.join(users)) 
+```
+
 ### Vulnerability Scanner 
 ```
 nikto -host http://<IP>/ # If port -> 443, Do HTTPS

