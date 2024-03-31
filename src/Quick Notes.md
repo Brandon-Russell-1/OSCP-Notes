@@ -21,6 +21,8 @@ Remember if you come across random files you can use 'exiftool' on them, might g
 ```
 Get into the habit of saving IP into /etc/hosts, if it's a DC, also do this:
 
+echo "10.129.229.27 intentions.htb" | sudo tee -a /etc/hosts
+
 10.129.26.67 dc.flight.htb flight.htb dc
 
 
