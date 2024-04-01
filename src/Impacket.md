@@ -27,6 +27,12 @@ connection:
 
 ```
 
+### Change Password
+
+```
+smbpasswd -U Caroline.Robinson -r $ip
+```
+
 ### Windows Secrets
 
 ```

