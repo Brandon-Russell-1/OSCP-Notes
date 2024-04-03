@@ -177,15 +177,16 @@
 
 9. Different port: ftp <IP> -P 3084
 
-10. Bruteforce: hydra [-L <users.txt> or -l <user_name>] [-P <pass.txt> or -p ] -f  ftp://<IP>:<PORT>
+10. Bruteforce: hydra -l elly -e nsr ftp://$ip 
+11. Bruteforce: hydra [-L <users.txt> or -l <user_name>] [-P <pass.txt> or -p ] -f  ftp://<IP>:<PORT>
 
-11. If it's a Microsoft server -> Try asp, aspx payloads. Try staged/stageless, x32/x64 payloads.
+12. If it's a Microsoft server -> Try asp, aspx payloads. Try staged/stageless, x32/x64 payloads.
 
-12. Check if we can overwrite stuff and upload files to make it work. Look at the permissions.
+13. Check if we can overwrite stuff and upload files to make it work. Look at the permissions.
 
-13. Look for hidden files, go back to a directory if you find anything, and look for creds in DB Files.
+14. Look for hidden files, go back to a directory if you find anything, and look for creds in DB Files.
 
-14. Don't forget about TFTP on UDP Port 69
+15. Don't forget about TFTP on UDP Port 69
 	1. nmap -Pn -sU -p69 --script tftp-enum 192.168.10.250
 	2. https://github.com/EnableSecurity/tftptheft
 ```
@@ -227,7 +228,9 @@
 
 7. Bruteforcing SSH: hydra -L users.txt -P /usr/share/wordlists/rockyou.txt <IP> ssh -t 4 -V
 
-8. After initial access, find ssh keys in linux: find / -name ssh 2>/dev/null
+8. Bruteforcing 2: hydra -L users -e nsr -t 4 $ip ssh
+
+9. After initial access, find ssh keys in linux: find / -name ssh 2>/dev/null
 ```
 
 ### <ins>389/636/3268 - LDAP</ins>

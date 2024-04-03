@@ -7,14 +7,14 @@ nmap -A -p- -T4 -O $ip
 
 --script vuln, http-enum, http-headers
 
-nmap -T4 -p- -A <IP> # T0 -> slowest but covert, T4 -> aggressive but noisy.
-nmap -sU --top-ports 100 -vvv <IP> # UDP Ports
+nmap -T4 -p- -A $ip$ # T0 -> slowest but covert, T4 -> aggressive but noisy.
+nmap -sU --top-ports 100 -vvv $ip # UDP Ports
 nmap --top-ports 100 -F # Top 100 Ports 
-nmap -p1-1023 <IP> # Port Range 
-nmap -p22,80,443 <IP> # Specific Ports 
-nmap <IP>/24 # Subnet
-nmap -sT -p- --min-rate 5000 --max-retries 1 <IP> # TCP Ports 
-nmap -sU -p- --min-rate 5000 --max-retries 1 <IP> # UDP Ports
+nmap -p1-1023 $ip # Port Range 
+nmap -p22,80,443 $ip # Specific Ports 
+nmap $ip/24 # Subnet
+nmap -sT -p- --min-rate 5000 --max-retries 1 $ip # TCP Ports 
+nmap -sU -p- --min-rate 5000 --max-retries 1 $ip # UDP Ports
 
 TFTP
 nmap -Pn -sU -p69 --script tftp-enum 192.168.10.250
@@ -23,9 +23,9 @@ nmap -sU -p 69 --script tftp-enum.nse --script-args tftp-enum.filelist=customlis
 
 ### RustScan & Autorecon & nmapAutomator
 ```
-RustScan:  docker run -it --rm --name rustscan rustscan/rustscan:2.0.0 -a <IP> range 0-65535 -- -A
+RustScan:  docker run -it --rm --name rustscan rustscan/rustscan:2.0.0 -a $ip range 0-65535 -- -A
 
-Autorecon: autorecon <IP> 
+Autorecon: autorecon $ip 
 
 or if root I think supposed to do this:
 
@@ -116,15 +116,15 @@ wfuzz -u http://10.10.11.187 -H "Host: FUZZ.flight.htb" -w /usr/share/seclists/D
 
 Few other options:
 
-dirb http:///<IP>/ # If port -> 443, Do HTTPS
+dirb http:///$ip/ # If port -> 443, Do HTTPS
 
-gobuster dir -x php,txt,xml,asp,aspx --url http://<IP>/ -w /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-big.txt -b 404 -f 
+gobuster dir -x php,txt,xml,asp,aspx --url http://$ip/ -w /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-big.txt -b 404 -f 
 
-feroxbuster --url http://<IP>/ --filter-status 401,402,403,404 -x txt,cgi,sh,pl,asp,aspx,php --depth 2 --output ferox.result -k --
+feroxbuster --url http://$ip/ --filter-status 401,402,403,404 -x txt,cgi,sh,pl,asp,aspx,php --depth 2 --output ferox.result -k --
 
 wordlist=/usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -f
 
-ffuf -c -u http://<IP>/FUZZ -w /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-medium.txt
+ffuf -c -u http://$ip/FUZZ -w /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-medium.txt
 
 python /opt/Sublist3r/sublist3r.py -d devvortex.htb
 
@@ -179,7 +179,7 @@ with open('users', 'w') as f:
 
 ### Vulnerability Scanner 
 ```
-nikto -host http://<IP>/ # If port -> 443, Do HTTPS
+nikto -host http://$ip/ # If port -> 443, Do HTTPS
 
 
 

