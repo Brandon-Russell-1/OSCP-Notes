@@ -185,6 +185,7 @@ https://research.801labs.org/cracking-an-ntlmv2-hash/
 ## Crack a zip password
 `zip2john Zipfile.zip | cut -d ':' -f 2 > hashes.txt`  
 `hashcat -a 0 -m 13600 hashes.txt /usr/share/wordlists/rockyou.txt`  
+`hashcat -a 0 -m 17210 hashes.txt /usr/share/wordlists/rockyou.txt`
 
 Hashcat appears to have issues with some zip hash formats generated from zip2john.  You can fix this by editing the zip hash contents to align with the example zip hash format found on the hash cat example page:
 `$zip2$*0*3*0*b5d2b7bf57ad5e86a55c400509c672bd*d218*0**ca3d736d03a34165cfa9*$/zip2$`  
