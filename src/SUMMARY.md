@@ -8,6 +8,7 @@
 		- [Additional File Transfer](AddnlFileTrasnfer.md)
 	- [Ports](Ports.md)
 		- [SSH Keys](SSHKeys.md)
+		- [SSH Cheat Sheet](sshcheatsheet.md)
 	- [Shells](Shells.md)
 	- [Web Shells](Web%20Shells.md)
 - [Gaining Access]()

