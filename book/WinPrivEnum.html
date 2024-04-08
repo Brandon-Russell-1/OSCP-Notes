@@ -180,6 +180,18 @@
 <li><a href="https://www.kali.org/tools/windows-privesc-check/">Windows Privesc Checker</a></li>
 <li><a href="https://github.com/SecWiki/windows-kernel-exploits">Windows Kernel Exploits</a></li>
 </ul>
+<h3 id="search"><a class="header" href="#search">Search</a></h3>
+<pre><code>Get-ChildItem -Path C:\ -Include *.kdbx -File -Recurse -ErrorAction
+SilentlyContinue
+
+Get-ChildItem -Path C:\xampp -Include *.txt,*.ini -File -Recurse -
+ErrorAction SilentlyContinue
+
+Get-ChildItem -Path C:\Users\dave\ -Include
+*.txt,*.pdf,*.xls,*.xlsx,*.doc,*.docx -File -Recurse -ErrorAction SilentlyContinue
+
+
+</code></pre>
 <h3 id="path-fix"><a class="header" href="#path-fix">Path fix</a></h3>
 <pre><code>set PATH=C:\Windows;C:\Windows\system32;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;%PATH%
 

@@ -778,6 +778,18 @@ done
 </code></pre>
 <p>Or just use Spose
 <a href="https://github.com/aancw/spose">Spose</a></p>
+<h3 id="873---rsync"><a class="header" href="#873---rsync"><ins>873 - rsync</ins></a></h3>
+<p>https://youssef-ichioui.medium.com/abusing-rsync-misconfiguration-to-get-persistent-access-via-ssh-2507d4a1690b</p>
+<pre><code>Connect and repeat back what it gives you:
+nc -vn $ip 873
+@RSYNC: 31.0
+
+Try to connect and download files:
+rsync -av rsync://$ip/httpd ./mytemp 
+
+
+
+</code></pre>
 
                     </main>
 

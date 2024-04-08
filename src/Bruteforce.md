@@ -55,6 +55,13 @@ unshadow passwd-file.txt shadow-file.txt > unshadowed.txt
 
 john --rules --wordlist=/usr/share/wordlists/rockyou.txt unshadowed.txt
 PDF or ZIP
+
+
+unshadow passwd shadow > unshadow
+john --wordlist=/usr/share/wordlists/rockyou.txt --format=crypt unshadow
+
+
+
 ```
 ### Cracking the hash of PDF
 ```
@@ -263,4 +270,78 @@ echo ; cat hashes.txt ; echo ; cut -d ":" -f 2 hashes.txt
 
 hashcat -m2100 '$DCC2$10240#spot#3407de6ff2f044ab21711a394d85f3b8' /usr/share/wordlists/rockyou.txt --force --potfile-disable
 
+```
+
+
+### Python MD5 Custom Script
+https://blog.yunolay.com/?p=229
+```
+	This was from VulnLab Sync box, required a custom script based on the way the passwords were hashed with salt and username:
+
+
+
+import hashlib
+import threading
+from queue import Queue
+
+secure = "6c4972f3717a5e881e282ad3105de01e"
+
+# Username
+admin_username = "admin"
+triss_username = "triss"
+
+# Stored hash
+admin_hash = "7658a2741c9df3a97c819584db6e6b3c"
+triss_hash = "a0de4d7f81676c3ea9eabcadfd2536f6"
+
+def check_password(password):
+    triss_hash_str = f"{secure}|{triss_username}|{password}"
+    admin_hash_str = f"{secure}|{admin_username}|{password}"
+
+    triss_hash_obj = hashlib.md5(triss_hash_str.encode("ISO-8859-1")).hexdigest()
+    admin_hash_obj = hashlib.md5(admin_hash_str.encode("ISO-8859-1")).hexdigest()
+
+    print("[-] Trying triss password: " + password + " with hash str: " + triss_hash_str)
+
+    if triss_hash_obj == triss_hash:
+        print(f"Found password for {triss_username}: {password}")
+        continue_search = input("Continue searching? (y/n): ")
+        if continue_search.lower() != "y":
+            return True
+
+    print("[-] Trying admin password: " + password + " with hash str: " + admin_hash_str)
+
+    if admin_hash_obj == admin_hash:
+        print(f"Found password for admin: {password}")
+        continue_search = input("Continue searching? (y/n): ")
+        if continue_search.lower() != "y":
+            return True
+
+with open("/usr/share/wordlists/rockyou.txt", "r", encoding="ISO-8859-1") as f:
+    for line in f:
+        password = line.rstrip('\n')
+        password_queue = Queue()
+        if check_password(password):
+            break
+
+def worker():
+    while not password_queue.empty():
+        password = password_queue.get()
+        if check_password(password):
+            break
+        password_queue.task_done()
+
+# Number of threads
+num_threads = 50
+
+# Create and start worker threads
+threads = []
+for i in range(num_threads):
+    thread = threading.Thread(target=worker)
+    thread.start()
+    threads.append(thread)
+
+# Wait for all threads to finish
+for thread in threads:
+    thread.join()
 ```

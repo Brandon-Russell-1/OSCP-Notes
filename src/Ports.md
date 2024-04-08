@@ -664,3 +664,17 @@ Or just use Spose
 [Spose](https://github.com/aancw/spose)
 
 
+### <ins>873 - rsync</ins>
+https://youssef-ichioui.medium.com/abusing-rsync-misconfiguration-to-get-persistent-access-via-ssh-2507d4a1690b
+
+```
+Connect and repeat back what it gives you:
+nc -vn $ip 873
+@RSYNC: 31.0
+
+Try to connect and download files:
+rsync -av rsync://$ip/httpd ./mytemp 
+
+
+
+```
