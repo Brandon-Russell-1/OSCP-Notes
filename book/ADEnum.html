@@ -184,6 +184,15 @@
 <li><a href="https://wadcoms.github.io/#">WADComs</a></li>
 <li><a href="https://lolbas-project.github.io/">LOLBAS</a></li>
 </ul>
+<h3 id="quick-note"><a class="header" href="#quick-note">Quick Note</a></h3>
+<pre><code>If you're on Win10 v1809 (October 2018 update) or newer, you can open an admin powershell window and run the following:
+
+Add-WindowsCapability -Online -Name "Rsat.ActiveDirectory.DS-LDS.Tools~~~~0.0.1.0"
+
+This will install the AD RSAT tools, as well as the AD module for Powershell. To see all of the RSAT modules that are available to install:
+
+Get-WindowsCapability -Online -Name "RSAT*" | select Name
+</code></pre>
 <h3 id="manual-enumeration"><a class="header" href="#manual-enumeration">Manual Enumeration</a></h3>
 <pre><code>Without PowerView:
 net user # All local accounts

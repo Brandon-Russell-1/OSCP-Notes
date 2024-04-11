@@ -8,6 +8,17 @@
 - [BloodHound Custom Queries](https://github.com/hausec/Bloodhound-Custom-Queries)
 - [WADComs](https://wadcoms.github.io/#)
 - [LOLBAS](https://lolbas-project.github.io/)
+
+### Quick Note
+```
+If you're on Win10 v1809 (October 2018 update) or newer, you can open an admin powershell window and run the following:
+
+Add-WindowsCapability -Online -Name "Rsat.ActiveDirectory.DS-LDS.Tools~~~~0.0.1.0"
+
+This will install the AD RSAT tools, as well as the AD module for Powershell. To see all of the RSAT modules that are available to install:
+
+Get-WindowsCapability -Online -Name "RSAT*" | select Name
+```
 ### Manual Enumeration
 
 ```
