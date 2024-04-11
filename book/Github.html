@@ -178,8 +178,25 @@
 <ul>
 <li><a href="https://github.com/arthaud/git-dumper">Github Dump Tool</a></li>
 <li><a href="https://www.howtogeek.com/devops/how-to-view-commit-history-with-git-log/">Github Commit History</a></li>
+<li><a href="https://github.com/trufflesecurity/trufflehog">TruffleHog</a></li>
+<li><a href="https://www.gitkraken.com/download">GitKraken</a></li>
+<li><a href="https://swisskyrepo.github.io/PayloadsAllTheThings/Insecure%20Source%20Code%20Management/#gogitdumper">Insecure Source Code Management Payload All The Things</a></li>
 </ul>
 <p>GIT Commit Dump - whenever you see some github files on the Victim machine, Exfiltrate it and refer to the following resources</p>
+<h3 id="git-dump"><a class="header" href="#git-dump">Git Dump</a></h3>
+<pre><code>For example:
+git-dumper http://192.168.232.144/.git/ TheGit
+
+
+Then run gitkraken gui on it to see file change history
+
+or maybe run TruffleHog on it:
+
+trufflehog git https://github.com/trufflesecurity/test_keys --only-verified
+
+
+
+</code></pre>
 
                     </main>
 

