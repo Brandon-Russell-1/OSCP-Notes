@@ -278,20 +278,34 @@ ldapsearch -H ldap://<IP> -v -x -D <USER>@HUTCH.OFFSEC -w <PASS>-b "DC=hutch,DC=
 ```
 
 ### <ins>161 - SNMP</ins>
+[HackTricks SNMP](https://book.hacktricks.xyz/network-services-pentesting/pentesting-snmp#enumerating-snmp)
 
 ```
 
-1. Nmap: sudo nmap -sU --open -p 161 10.11.1.1-254 (find ip with SMTP open)
+1. sudo nmap --script snmp-* -sU -p161 $IP
 
-2. onesixtyone bruteforce tool: for ip in $(seq 1 254); do echo 10.11.1.$ip; done > ips then, onesixtyone -c community -i ips
+2. sudo nmap -sU -p 161 --script snmp-brute $IP --script-args snmp-brute.communitiesdb=/usr/share/seclists/Discovery/SNMP/common-snmp-community-strings-onesixtyone.txt
 
-3. Enumerating Entire MIB Tree: snmpwalk -c public -v1 -t 10 <IP>
+3. Nmap: sudo nmap -sU --open -p 161 10.11.1.1-254 (find ip with SMTP open)
 
-4. Enumerating Windows Users: snmpwalk -c public -v1 <IP> 1.3.6.1.4.1.77.1.2.25
+4. onesixtyone bruteforce tool: for ip in $(seq 1 254); do echo 10.11.1.$ip; done > ips then, onesixtyone -c community -i ips
 
-5. Enumerating Running Windows Processes: snmpwalk -c public -v1 <IP> 1.3.6.1.2.1.25.4.2.1.2
+5. Enumerating Entire MIB Tree: snmpwalk -c public -v1 -t 10 <IP>
 
-6. Enumerating Open TCP Ports: snmpwalk -c public -v1 <IP> 1.3.6.1.2.1.6.13.1.3
+6. Enumerating Windows Users: snmpwalk -c public -v1 <IP> 1.3.6.1.4.1.77.1.2.25
+
+7. Enumerating Running Windows Processes: snmpwalk -c public -v1 <IP> 1.3.6.1.2.1.25.4.2.1.2
+
+8. Enumerating Open TCP Ports: snmpwalk -c public -v1 <IP> 1.3.6.1.2.1.6.13.1.3
+
+
+------------------------------------------------------------
+There's also a way to reset user passwords:
+
+1) apt-get install snmp-mibs-downloader
+2) snmpwalk -v2c -c public $ip NET-SNMP-EXTEND-MIB::nsExtendObjects
+3) 
+
 
 ```
 
