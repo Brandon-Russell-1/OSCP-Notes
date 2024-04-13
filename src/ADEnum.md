@@ -188,6 +188,10 @@ bloodhound-python -u enox -p california -ns $ip -d heist.offsec -c all
 #### Custom Queries
 
 ```
+MATCH (m:Computer) RETURN m
+MATCH (m:User) RETURN m
+MATCH p = (c:Computer)-[:HasSession]->(m:User) RETURN p
+
 Replace the `customqueries.json` with one of the below files to update the custom queries within Bloodhound. Remember to restart Bloodhound after changing the JSON file.
 
 **Locate custom queries file**

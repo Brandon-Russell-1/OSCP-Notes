@@ -10,6 +10,17 @@
 - [Report Maker](https://github.com/noraj/OSCP-Exam-Report-Template-Markdown/tree/master)
 ### Random things 
 
+### OSCP Proof
+
+```
+# Don't forget:
+
+whoami && ipconfig && type proof.txt
+
+whoami && ifconfig && cat proof.txt
+
+```
+
 ### Don't forget to search files
 ```
 Remember if you come across random files you can use 'exiftool' on them, might get some usernames.
