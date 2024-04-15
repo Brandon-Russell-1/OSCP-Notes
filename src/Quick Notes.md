@@ -19,6 +19,15 @@ whoami && ipconfig && type proof.txt
 
 whoami && ifconfig && cat proof.txt
 
+Couple of times I have had whoami stop working...weird. On Windows you can do:
+1. SET U 
+2. or 
+3. echo %USERDOMAIN%\%USERNAME%
+4. On Linux:
+5. id
+
+
+
 ```
 
 ### Don't forget to search files
