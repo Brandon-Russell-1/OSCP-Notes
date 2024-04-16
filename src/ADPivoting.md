@@ -104,6 +104,11 @@ tunnel_start --tun ligolo1 #If more than one tunnel
 
 ip route del 122.252.228.38/32
 
+
+Setup a listener if needed for a reverse shell through a pivot:
+
+listener_add --addr 0.0.0.0:1234 --to 127.0.0.1:4321 --tcp
+
 ```
 
 ## SShuttle
