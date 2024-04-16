@@ -272,6 +272,8 @@ proxychains ./ssh_remote_dynamic_client -i 10.4.229.64 -p 9062
 ssh -R 1080 kali@192.168.45.196
 
 
+ssh Administrator@192.168.239.147 -D9090 -R:7777:localhost:7777 -R:8888:localhost:8888
+
 ```
 
 

