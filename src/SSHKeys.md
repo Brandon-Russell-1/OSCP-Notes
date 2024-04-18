@@ -45,3 +45,15 @@ and then just to clean up all keys with: ssh-add -D
 
 as a quick and dirty solution.
 ```
+
+
+### Other Notes
+
+```
+
+ssh -o StrictHostKeyChecking=no cassie@192.168.45.167
+
+ssh-keyscan -H 192.168.45.167 >> ~/.ssh/known_hosts
+
+These are different ways to try and add your kali machine to the known_hosts file, if needed.
+```
