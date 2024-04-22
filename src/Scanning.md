@@ -104,6 +104,9 @@ except socket.error:
 
 ### Directory Busting
 ```
+* Don't forget that if you find an interesting folder...you might need to run dirsearch on that one again to find more internal folders...*
+
+
 Usually the goto:
 
 dirsearch -u $ip -w /usr/share/wordlists/dirbuster/directory-list-lowercase-2.3-medium.txt
