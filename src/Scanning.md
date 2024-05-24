@@ -226,4 +226,4 @@ wpscan --url [target-url] --api-token [YourWPScanAPIToken]
 
 ### Nmap Cheat Sheet
 
-![nMap Cheat Sheet](nmapcheatsheet.png)
+![nMap Cheat Sheet](OSCP/OSCP-Notes/src/nmapcheatsheet.png)

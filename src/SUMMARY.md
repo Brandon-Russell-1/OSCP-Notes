@@ -19,7 +19,7 @@
 		- [Hashcat Cheat Sheet](My%20Hashcat%20Cheatsheet.md)
 		- [Hydra Cheat Sheet](My%20Hydra%20Cheatsheet.md)
 		- [Bruteforce](Bruteforce.md)
-	- [Buffer Overflow](Buffer%20Overflow.md)
+	- [Buffer Overflow](OSCP/OSCP-Notes/src/Buffer%20Overflow.md)
 	- [CMSs](CMSs.md)
 	- [File Uploads](File%20Uploads.md)
 	- [Additional File Upload](AddnlFileUpload.md)
