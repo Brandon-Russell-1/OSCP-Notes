@@ -143,6 +143,8 @@ LISTEN: Specifies that socat should listen for incoming connections on the socke
 ```
 ### Find Things
 ```
+find / -name "user.txt" -exec cat {} \; 2>/dev/null
+
 dir -recurse *.php | select-string -pattern "database"
 
 # Getting passwords from browser memory
